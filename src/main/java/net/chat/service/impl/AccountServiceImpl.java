@@ -17,8 +17,10 @@ import net.chat.service.AccountService;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -87,30 +89,14 @@ public class AccountServiceImpl implements AccountService {
 		accountDao.delete(accountId);
 	}
 
-	public void ListAllAcount() {
-		accountDao.findAll(new Pageable() {
-
-			public int getPageNumber() {
-				// TODO Auto-generated method stub
-				return 0;
-			}
-
-			public int getPageSize() {
-				// TODO Auto-generated method stub
-				return 0;
-			}
-
-			public int getOffset() {
-				// TODO Auto-generated method stub
-				return 0;
-			}
-
-			public Sort getSort() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-
-		});
+	public void ListAllAcount(int pageNo, int pageSize) {
+		if (pageSize == 0)
+			pageSize = 20;
+		if (pageNo == 0)
+			pageNo = 0;
+		Pageable pageable = new PageRequest(pageNo - 1, pageSize, new Sort(
+				new Order("Order")));
+		accountDao.findAll(pageable);
 
 	}
 
