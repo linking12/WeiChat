@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/context
+    					http://www.springframework.org/schema/context/spring-context.xsd
+    					http://www.springframework.org/schema/aop
+    					http://www.springframework.org/schema/aop/spring-aop.xsd
+						http://www.springframework.org/schema/security
+						http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<context:annotation-config />
+	<context:component-scan base-package="net.chat.security" />
+	<global-method-security pre-post-annotations="enabled" />
+	<!-- 该路径下的资源不用过滤 -->
+	<http pattern="/js/**" security="none" />
+	<http use-expressions="true" auto-config="true">
+		<form-login />
+		<logout />
+		<!-- 实现免登陆验证 -->
+		<remember-me />
+		<session-management invalid-session-url="/timeout.jsp">
+			<concurrency-control max-sessions="10"
+				error-if-maximum-exceeded="true" />
+		</session-management>
+		<custom-filter ref="filter" before="FILTER_SECURITY_INTERCEPTOR" />
+	</http>
+	<!-- 配置过滤器 -->
+	<beans:bean id="filter" class="net.chat.security.SecurityFilter">
+		<!-- 用户拥有的权限 -->
+		<beans:property name="authenticationManager" ref="authenticationManager" />
+		<!-- 用户是否拥有所请求资源的权限 -->
+		<beans:property name="accessDecisionManager" ref="ssAccessDecisionManager" />
+		<!-- 资源与权限对应关系 -->
+		<beans:property name="securityMetadataSource" ref="securityMetadataSource" />
+	</beans:bean>
+	<!-- 实现了UserDetailsService的Bean -->
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider user-service-ref="userDetailService" />
+	</authentication-manager>
+
+</beans:beans>
