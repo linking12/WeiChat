@@ -47,6 +47,20 @@ public class WxMsgType implements Serializable {
 	@Column(name = "istatus")
 	private int istatus;
 
+	public WxMsgType() {
+
+	}
+
+	public WxMsgType(Long accountId, String msgType, String action,
+			Long sourceId, String name) {
+		this.accountId = accountId;
+		this.msgType = msgType;
+		this.action = action;
+		this.sourceId = sourceId;
+		this.name = name;
+
+	}
+
 	/**
 	 * @return the id
 	 */
