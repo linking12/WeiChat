@@ -104,4 +104,58 @@ public class AccountServiceImpl implements AccountService {
 		return accountDao.findOne(accountId);
 	}
 
+	public void configAccount(ConfigPropertity configPertity) {
+
+		WxMsgType messageType = messageTypeDao.findOne(configPertity
+				.getMessageTypeId());
+		if (messageType.getAccountId().equals(configPertity.getAccountId())) {
+			messageType.setAction(configPertity.getAction());
+			messageType.setSourceId(configPertity.getSourceId());
+		}
+
+	}
+
+	public class ConfigPropertity {
+		private String action;
+
+		private Long sourceId;
+
+		private Long messageTypeId;
+
+		private Long accountId;
+
+		public String getAction() {
+			return action;
+		}
+
+		public void setAction(String action) {
+			this.action = action;
+		}
+
+		public Long getSourceId() {
+			return sourceId;
+		}
+
+		public void setSourceId(Long sourceId) {
+			this.sourceId = sourceId;
+		}
+
+		public Long getMessageTypeId() {
+			return messageTypeId;
+		}
+
+		public void setMessageTypeId(Long messageTypeId) {
+			this.messageTypeId = messageTypeId;
+		}
+
+		public Long getAccountId() {
+			return accountId;
+		}
+
+		public void setAccountId(Long accountId) {
+			this.accountId = accountId;
+		}
+
+	}
+
 }
