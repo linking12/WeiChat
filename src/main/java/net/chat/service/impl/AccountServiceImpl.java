@@ -101,8 +101,7 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	public WxAccount findAcountById(Long accountId) {
-		// TODO Auto-generated method stub
-		return null;
+		return accountDao.findOne(accountId);
 	}
 
 }
