@@ -10,7 +10,7 @@ public interface AccountService {
 
 	public void deleteAccount(Long accountId);
 
-	public void ListAllAcount();
+	public void ListAllAcount(int pageNo, int pageSize);
 
 	public WxAccount findAcountById(Long accountId);
 
