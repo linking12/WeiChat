@@ -3,6 +3,11 @@ package net.chat.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
 import net.chat.dao.WxAccountDao;
 import net.chat.dao.WxAccountGameDao;
 import net.chat.dao.WxGameDao;
@@ -21,6 +26,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -89,14 +95,14 @@ public class AccountServiceImpl implements AccountService {
 		accountDao.delete(accountId);
 	}
 
-	public void ListAllAcount(int pageNo, int pageSize) {
+	public List<WxAccount> listAllAcount(int pageNo, int pageSize) {
 		if (pageSize == 0)
 			pageSize = 20;
 		if (pageNo == 0)
 			pageNo = 0;
 		Pageable pageable = new PageRequest(pageNo - 1, pageSize, new Sort(
 				new Order("Order")));
-		accountDao.findAll(pageable);
+		return accountDao.findAll(pageable).getContent();
 
 	}
 
@@ -113,6 +119,25 @@ public class AccountServiceImpl implements AccountService {
 			messageType.setSourceId(configPertity.getSourceId());
 		}
 
+	}
+
+	public List<WxMsgType> queryAllMessageTypeInAccount(Long accountId,
+			int pageNo, int pageSize) {
+		if (pageSize == 0)
+			pageSize = 20;
+		if (pageNo == 0)
+			pageNo = 0;
+		Pageable pageable = new PageRequest(pageNo - 1, pageSize, new Sort(
+				new Order("id")));
+		final Long _accountId = accountId;
+		Specification<WxMsgType> spec = new Specification<WxMsgType>() {
+			public Predicate toPredicate(Root<WxMsgType> root,
+					CriteriaQuery<?> query, CriteriaBuilder cb) {
+				return cb.equal(root.<Long> get("accountId"), _accountId);
+			}
+
+		};
+		return messageTypeDao.findAll(spec, pageable).getContent();
 	}
 
 	public class ConfigPropertity {
@@ -157,5 +182,4 @@ public class AccountServiceImpl implements AccountService {
 		}
 
 	}
-
 }
