@@ -22,6 +22,7 @@ import net.chat.service.AccountService;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -95,14 +96,14 @@ public class AccountServiceImpl implements AccountService {
 		accountDao.delete(accountId);
 	}
 
-	public List<WxAccount> listAllAcount(int pageNo, int pageSize) {
+	public Page<WxAccount> listAllAcount(int pageNo, int pageSize) {
 		if (pageSize == 0)
 			pageSize = 20;
 		if (pageNo == 0)
 			pageNo = 0;
 		Pageable pageable = new PageRequest(pageNo - 1, pageSize, new Sort(
 				new Order("Order")));
-		return accountDao.findAll(pageable).getContent();
+		return accountDao.findAll(pageable);
 
 	}
 
@@ -121,7 +122,7 @@ public class AccountServiceImpl implements AccountService {
 
 	}
 
-	public List<WxMsgType> queryAllMessageTypeInAccount(Long accountId,
+	public Page<WxMsgType> queryAllMessageTypeInAccount(Long accountId,
 			int pageNo, int pageSize) {
 		if (pageSize == 0)
 			pageSize = 20;
@@ -137,7 +138,7 @@ public class AccountServiceImpl implements AccountService {
 			}
 
 		};
-		return messageTypeDao.findAll(spec, pageable).getContent();
+		return messageTypeDao.findAll(spec, pageable);
 	}
 
 	public class ConfigPropertity {
