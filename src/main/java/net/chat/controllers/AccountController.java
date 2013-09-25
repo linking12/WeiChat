@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import net.chat.Constants.PageConstants;
+import net.chat.constants.PageConstants;
 import net.chat.dao.WxAccountDao;
 import net.chat.domain.WxAccount;
 import net.chat.formbean.RegisterForm;

@@ -2,7 +2,7 @@ package net.chat.controllers;
 
 import javax.validation.Valid;
 
-import net.chat.Constants.PageConstants;
+import net.chat.constants.PageConstants;
 import net.chat.formbean.LoginForm;
 
 import org.springframework.stereotype.Controller;

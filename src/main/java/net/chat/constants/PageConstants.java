@@ -1,4 +1,4 @@
-package net.chat.Constants;
+package net.chat.constants;
 
 public final class PageConstants {
 
