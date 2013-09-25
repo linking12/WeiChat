@@ -24,13 +24,13 @@ public class LoginController {
 		return PageConstants.PAGE_LOGIN;
 	}
 
-	@RequestMapping("/submit")
+	@RequestMapping("/login/submit")
 	public String submit(@Valid LoginForm bean, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			model.addAttribute("loginForm",bean);
 			return PageConstants.PAGE_LOGIN;
 		}
-		return PageConstants.PAGE_LOGIN_1;
+		return "redirect:/account/list";
 	}
 
 	//

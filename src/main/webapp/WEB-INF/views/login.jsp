@@ -7,7 +7,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#submitbtn").click(function() {
-			$('#loginForm').attr('action', '${ctx}/submit');
+			$('#loginForm').attr('action', '${ctx}/login/submit');
 			$('#loginForm').submit();
 		});
 	});
@@ -22,7 +22,7 @@
 				<tr>
 					<td><img src="${images}/logo.png" width="125" height="32" /></td>
 					<td><div align="right" class="di">
-							<a href="zhuce.jsp" class="b">立即注册</a>
+							<a href="${ctx }/register" class="b">立即注册</a>
 						</div></td>
 				</tr>
 			</table>
