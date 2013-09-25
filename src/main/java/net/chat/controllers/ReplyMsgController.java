@@ -2,7 +2,7 @@ package net.chat.controllers;
 
 import java.util.List;
 
-import net.chat.Constants.PageConstants;
+import net.chat.constants.PageConstants;
 import net.chat.dao.WxAccountDao;
 import net.chat.dao.WxGameDao;
 import net.chat.dao.WxMessageDao;
