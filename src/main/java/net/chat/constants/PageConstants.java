@@ -34,5 +34,23 @@ public final class PageConstants {
 	 */
 	public static final String PAGE_RELPY_MSG="msg/replyMsg";
 	
+	/**
+	 * 信息内容管理
+	 */
+	public static final String PAGE_MESSAGE_LIST="msg/messageList";
 	
+	/**
+	 * 信息内容管理--文本
+	 */
+	public static final String PAGE_MESSAGE_TEXT="msg/textDetail";
+	
+	/**
+	 * 信息内容管理--图片
+	 */
+	public static final String PAGE_MESSAGE_IMG="msg/imgDetail";
+	
+	/**
+	 * 信息内容管理--音乐
+	 */
+	public static final String PAGE_MESSAGE_MUSIC="msg/musicDetail";
 }

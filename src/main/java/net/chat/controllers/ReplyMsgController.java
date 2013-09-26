@@ -51,6 +51,8 @@ public class ReplyMsgController {
 		
 		ReplyMsgForm form=new ReplyMsgForm();
 		form.setAccountId("1");
+		form.setMsgTypes(msgTypes);
+		model.addAttribute("replyMsgForm", form);
 		return PageConstants.PAGE_RELPY_MSG;
 	}
 
