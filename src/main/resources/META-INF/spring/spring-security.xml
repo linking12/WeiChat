@@ -22,7 +22,7 @@
 		<logout />
 		<!-- 实现免登陆验证 -->
 		<remember-me />
-		<session-management invalid-session-url="/timeout.jsp">
+		<session-management invalid-session-url="/login">
 			<concurrency-control max-sessions="10"
 				error-if-maximum-exceeded="true" />
 		</session-management>

@@ -22,7 +22,7 @@
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>classpath:/META-INF/database.properties </value>
+				<value>classpath:/META-INF/database.properties</value>
 			</list>
 		</property>
 		<property name="ignoreUnresolvablePlaceholders" value="true" />
@@ -59,7 +59,7 @@
 	<bean id="myEmf"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="packagesToScan" value="net.security.model" />
+		<property name="packagesToScan" value="net.chat.domain" />
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 				<property name="showSql" value="${hibernate.show_sql}" />
@@ -69,8 +69,7 @@
 		</property>
 	</bean>
 
-	<jpa:repositories base-package="net.security.dao"
-		repository-impl-postfix="Impl" />
+	<jpa:repositories base-package="net.chat.dao" />
 
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="myEmf" />
