@@ -3,15 +3,13 @@ package net.chat.security;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
 import net.chat.domain.Resources;
 import net.chat.service.SecurityService;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
@@ -44,19 +42,12 @@ public class SecurityMetadataSource implements
 			List<Resources> resources = this.secutiryService.getAllResource();
 			for (Resources resource : resources) {
 				Collection<ConfigAttribute> configAttributes = new ArrayList<ConfigAttribute>();
-				// ��Ȩ�����װΪSpring��security Object
-				ConfigAttribute configAttribute = new SecurityConfig(
-						resource.getName());
+				ConfigAttribute configAttribute = new SecurityConfig("ROLE_"
+						+ resource.getName());
 				configAttributes.add(configAttribute);
 				resourceMap.put(resource.getUrl(), configAttributes);
 			}
 		}
-
-		Set<Entry<String, Collection<ConfigAttribute>>> resourceSet = resourceMap
-				.entrySet();
-		@SuppressWarnings("unused")
-		Iterator<Entry<String, Collection<ConfigAttribute>>> iterator = resourceSet
-				.iterator();
 
 	}
 
@@ -64,11 +55,9 @@ public class SecurityMetadataSource implements
 			throws IllegalArgumentException {
 
 		String requestUrl = ((FilterInvocation) object).getRequestUrl();
-		System.out.println("requestUrl is " + requestUrl);
-		if (resourceMap == null) {
+		if (resourceMap == null)
 			loadResourceDefine();
-		}
-		return resourceMap.get(requestUrl);
+		return resourceMap.get("/"+StringUtils.substringBetween(requestUrl, "/",
+				"/"));
 	}
-
 }

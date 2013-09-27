@@ -48,7 +48,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 		for (Roles role : roles) {
 			Set<Resources> tempRes = role.getResourcesList();
 			for (Resources res : tempRes) {
-				authSet.add(new SimpleGrantedAuthority(res.getName()));
+				authSet.add(new SimpleGrantedAuthority("ROLE_"+res.getName()));
 			}
 		}
 		return authSet;

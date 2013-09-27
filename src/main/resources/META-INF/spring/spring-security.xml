@@ -22,12 +22,12 @@
 
 	<http use-expressions='true' entry-point-ref="authenticationEntryPoint"
 		access-denied-page="/access-denied.jsp">
-		<intercept-url pattern="/account" access="ROLE_account" />
-		<intercept-url pattern="/game" access="ROLE_AAA" />
-		<intercept-url pattern="/message" access="ROLE_game" />
-		<intercept-url pattern="/user" access="ROLE_user" />
-		<intercept-url pattern="/replymsg" access="ROLE_replymsg" />
-		<session-management invalid-session-url="/timeout.jsp">
+		<intercept-url pattern="/account" access="hasRole('ROLE_account')" />
+		<intercept-url pattern="/game" access="hasRole('ROLE_game')" />
+		<intercept-url pattern="/message" access="hasRole('ROLE_game')" />
+		<intercept-url pattern="/user" access="hasRole('ROLE_user')" />
+		<intercept-url pattern="/replymsg" access="hasRole('ROLE_replymsg')" />
+		<session-management invalid-session-url="/login.jsp">
 			<concurrency-control max-sessions="10"
 				error-if-maximum-exceeded="true" />
 		</session-management>
