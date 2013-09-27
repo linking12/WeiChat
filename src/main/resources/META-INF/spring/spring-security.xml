@@ -15,21 +15,55 @@
 	<context:annotation-config />
 	<context:component-scan base-package="net.chat.security" />
 	<global-method-security pre-post-annotations="enabled" />
-	<!-- 该路径下的资源不用过滤 -->
-	<http pattern="/js/**" security="none" />
-	<http use-expressions="true" auto-config="true">
-		<form-login />
-		<logout />
-		<!-- 实现免登陆验证 -->
-		<remember-me />
-		<session-management invalid-session-url="/login">
+
+	<http pattern="/resource/**" security="none" />
+	<http pattern="/login.jsp" security="none" />
+	<http pattern="/access-denied.jsp" security="none" />
+
+	<http use-expressions='true' entry-point-ref="authenticationEntryPoint"
+		access-denied-page="/access-denied.jsp">
+		<intercept-url pattern="/account" access="ROLE_account" />
+		<intercept-url pattern="/game" access="ROLE_AAA" />
+		<intercept-url pattern="/message" access="ROLE_game" />
+		<intercept-url pattern="/user" access="ROLE_user" />
+		<intercept-url pattern="/replymsg" access="ROLE_replymsg" />
+		<session-management invalid-session-url="/timeout.jsp">
 			<concurrency-control max-sessions="10"
 				error-if-maximum-exceeded="true" />
 		</session-management>
-		<custom-filter ref="filter" before="FILTER_SECURITY_INTERCEPTOR" />
+		<!-- 认证和授权 -->
+		<custom-filter ref="authenticationFilter" position="FORM_LOGIN_FILTER" />
+		<custom-filter ref="authorizationFilter" before="FILTER_SECURITY_INTERCEPTOR" />
+		<!-- 登出管理 -->
+		<logout invalidate-session="true" logout-url="/j_spring_security_logout" />
 	</http>
-	<!-- 配置过滤器 -->
-	<beans:bean id="filter" class="net.chat.security.SecurityFilter">
+	<!-- 未登录的切入点 -->
+	<beans:bean id="authenticationEntryPoint"
+		class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+		<beans:property name="loginFormUrl" value="/login.jsp"></beans:property>
+	</beans:bean>
+
+	<!-- 登录过滤器 -->
+	<beans:bean id="authenticationFilter" class="net.chat.security.AuthenticationFilter">
+		<beans:property name="authenticationManager" ref="authenticationManager" />
+		<beans:property name="filterProcessesUrl" value="/j_spring_security_check" />
+		<beans:property name="authenticationSuccessHandler">
+			<beans:bean
+				class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
+				<beans:property name="defaultTargetUrl" value="/account/list" />
+			</beans:bean>
+		</beans:property>
+		<beans:property name="authenticationFailureHandler">
+			<beans:bean
+				class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+				<beans:property name="defaultFailureUrl" value="/login.jsp" />
+			</beans:bean>
+		</beans:property>
+	</beans:bean>
+
+
+	<!-- 认证过滤器 -->
+	<beans:bean id="authorizationFilter" class="net.chat.security.AuthorizationFilter">
 		<!-- 用户拥有的权限 -->
 		<beans:property name="authenticationManager" ref="authenticationManager" />
 		<!-- 用户是否拥有所请求资源的权限 -->
@@ -37,6 +71,7 @@
 		<!-- 资源与权限对应关系 -->
 		<beans:property name="securityMetadataSource" ref="securityMetadataSource" />
 	</beans:bean>
+	
 	<!-- 实现了UserDetailsService的Bean -->
 	<authentication-manager alias="authenticationManager">
 		<authentication-provider user-service-ref="userDetailService" />

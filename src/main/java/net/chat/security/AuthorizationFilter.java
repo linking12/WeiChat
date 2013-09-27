@@ -14,11 +14,9 @@ import org.springframework.security.access.intercept.InterceptorStatusToken;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 
-public class SecurityFilter extends AbstractSecurityInterceptor implements
+public class AuthorizationFilter extends AbstractSecurityInterceptor implements
 		Filter {
 
-	// 与applicationContext-security.xml里的myFilter的属性securityMetadataSource对应，
-	// 其他的两个组件，已经在AbstractSecurityInterceptor定义
 	private FilterInvocationSecurityMetadataSource securityMetadataSource;
 
 	@Override
@@ -34,13 +32,6 @@ public class SecurityFilter extends AbstractSecurityInterceptor implements
 
 	private void invoke(FilterInvocation fi) throws IOException,
 			ServletException {
-		// object为FilterInvocation对象
-		// super.beforeInvocation(fi);源码
-		// 1.获取请求资源的权限
-		// 执行Collection<ConfigAttribute> attributes =
-		// SecurityMetadataSource.getAttributes(object);
-		// 2.是否拥有权限
-		// this.accessDecisionManager.decide(authenticated, object, attributes);
 		InterceptorStatusToken token = super.beforeInvocation(fi);
 		try {
 			fi.getChain().doFilter(fi.getRequest(), fi.getResponse());
@@ -69,7 +60,6 @@ public class SecurityFilter extends AbstractSecurityInterceptor implements
 
 	@Override
 	public Class<? extends Object> getSecureObjectClass() {
-		// 下面的MyAccessDecisionManager的supports方面必须放回true,否则会提醒类型错误
 		return FilterInvocation.class;
 	}
 

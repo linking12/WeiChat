@@ -2,6 +2,7 @@ package net.chat.domain;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -32,9 +33,9 @@ public class Roles implements Serializable {
 	@ManyToMany(mappedBy = "roleList")
 	private List<User> userList;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "T_ROLE_RESOURCES", joinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "resource_id", referencedColumnName = "id", nullable = false, updatable = false) })
-	private List<Resources> resourcesList;
+	private Set<Resources> resourcesList;
 
 	public Long getRoleId() {
 		return roleId;
@@ -68,16 +69,17 @@ public class Roles implements Serializable {
 		this.userList = userList;
 	}
 
-	public List<Resources> getResourcesList() {
+	public Set<Resources> getResourcesList() {
 		return resourcesList;
 	}
 
-	public void setResourcesList(List<Resources> resourcesList) {
+	public void setResourcesList(Set<Resources> resourcesList) {
 		this.resourcesList = resourcesList;
 	}
 
 	@Override
 	public String toString() {
-		return "Roles [id=" + roleId + ", enable=" + enable + ", name=" + name + "]";
+		return "Roles [id=" + roleId + ", enable=" + enable + ", name=" + name
+				+ "]";
 	}
 }

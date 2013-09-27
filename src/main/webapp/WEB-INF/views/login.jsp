@@ -40,24 +40,26 @@
 								cellpadding="0" cellspacing="0" background="${images}/kun.jpg">
 								<tr>
 									<td>
-
+									    <form action="${ctx}/login" autocomplete="on" method="POST">
 										<table width="90%" border="0" align="center" cellpadding="0"
-											cellspacing="0">
-											<form:form id="loginForm" method="post"
-												modelAttribute="loginForm">
+											cellspacing="0">											
 												<tr>
 													<td width="10%"><img src="${images}/user.png"
 														width="39" height="38" /></td>
-													<td width="90%"><form:input path="userName"
-															class="full" /></td>
+													<td width="90%">
+													      <label for="username" class="full" data-icon="u"> 用户名 </label>
+								                          <input id="username" name="username" required="required" type="text" placeholder="用户名 或者 mymail@mail.com" />
+												    </td>
 												</tr>
 											
 
 												<tr>
 													<td width="10%"><img src="${images}/password.png"
 														width="39" height="38" /></td>
-													<td width="90%"><form:password path="password"
-															class="full" /></td>
+													<td width="90%">
+													  <label for="password" class="full" data-icon="p">密码 </label>
+													  <input id="password" name="password" required="required" type="password" placeholder="eg. X8df!90EO" />
+													</td>
 												</tr>
 
 
@@ -83,15 +85,10 @@
 												</tr>
 												
 												<tr><td height="30" colspan="2">
-												<form:errors path="userName" cssClass="error" />
-												<form:errors path="password" class="full" cssClass="error"/>
 												</td>
-													
-													
-												</tr>
-											</form:form>
-
-										</table>
+												</tr>									
+										    </table>
+										 </form>
 									</td>
 								</tr>
 							</table></td>

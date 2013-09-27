@@ -32,7 +32,7 @@ public class User implements Serializable {
 	@Column(name = "account", length = 100, unique = true)
 	private String account;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "T_USER_ROLE", joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false, updatable = false) })
 	private List<Roles> roleList;
 

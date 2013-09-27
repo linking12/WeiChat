@@ -28,11 +28,12 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
-		Assert.isNull(username, "UserName is Null" + username);
+		// Assert.isNull(username, "UserName is Null" + username);
 		User user = secutiryService.findUserByName(username);
-		if (user == null) {
+
+		if (user == null)
 			throw new UsernameNotFoundException(username);
-		}
+
 		Collection<GrantedAuthority> grantedAuths = obtionGrantedAuthorities(user);
 
 		UserDetails userdetail = new UserDetailsDecorator(user.getUserId(),
@@ -40,12 +41,12 @@ public class UserDetailServiceImpl implements UserDetailsService {
 		return userdetail;
 	}
 
-	// 取得用户的权限
 	private Set<GrantedAuthority> obtionGrantedAuthorities(User user) {
 		Set<GrantedAuthority> authSet = new HashSet<GrantedAuthority>();
+
 		List<Roles> roles = user.getRoleList();
 		for (Roles role : roles) {
-			List<Resources> tempRes = role.getResourcesList();
+			Set<Resources> tempRes = role.getResourcesList();
 			for (Resources res : tempRes) {
 				authSet.add(new SimpleGrantedAuthority(res.getName()));
 			}

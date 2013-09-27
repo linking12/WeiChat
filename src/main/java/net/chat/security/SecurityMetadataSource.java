@@ -23,7 +23,6 @@ import org.springframework.stereotype.Service;
 public class SecurityMetadataSource implements
 		FilterInvocationSecurityMetadataSource {
 
-	// 1 加载资源与权限的对应关系
 	@Autowired
 	private SecurityService secutiryService;
 
@@ -39,14 +38,13 @@ public class SecurityMetadataSource implements
 		return true;
 	}
 
-	// 加载所有资源与权限的关系
 	private void loadResourceDefine() {
 		if (resourceMap == null) {
 			resourceMap = new HashMap<String, Collection<ConfigAttribute>>();
 			List<Resources> resources = this.secutiryService.getAllResource();
 			for (Resources resource : resources) {
 				Collection<ConfigAttribute> configAttributes = new ArrayList<ConfigAttribute>();
-				// 以权限名封装为Spring的security Object
+				// 锟斤拷权锟斤拷锟斤拷锟阶拔猄pring锟斤拷security Object
 				ConfigAttribute configAttribute = new SecurityConfig(
 						resource.getName());
 				configAttributes.add(configAttribute);
@@ -62,7 +60,6 @@ public class SecurityMetadataSource implements
 
 	}
 
-	// 返回所请求资源所需要的权限
 	public Collection<ConfigAttribute> getAttributes(Object object)
 			throws IllegalArgumentException {
 
