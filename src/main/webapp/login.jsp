@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="common.jsp"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ page import="org.springframework.security.web.WebAttributes" %>
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
+<c:set var="js" value="${ctx}/js"/>
+<c:set var="css" value="${ctx}/css"/>
+<c:set var="images" value="${ctx}/images"/>
+<link href="${css }/css.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="${js}/jquery/1.6/jquery.js"></script>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf8" />
 <title>用户登录</title>
@@ -40,15 +49,15 @@
 								cellpadding="0" cellspacing="0" background="${images}/kun.jpg">
 								<tr>
 									<td>
-									    <form action="${ctx}/login" autocomplete="on" method="POST">
+									     ${SPRING_SECURITY_LAST_EXCEPTION.message}
+									    <form action="j_spring_security_check" autocomplete="on" method="POST">
 										<table width="90%" border="0" align="center" cellpadding="0"
 											cellspacing="0">											
 												<tr>
 													<td width="10%"><img src="${images}/user.png"
 														width="39" height="38" /></td>
 													<td width="90%">
-													      <label for="username" class="full" data-icon="u"> 用户名 </label>
-								                          <input id="username" name="username" required="required" type="text" placeholder="用户名 或者 mymail@mail.com" />
+								                          <input id="username" name="username" class="full" required="required" type="text" placeholder="用户名 或者 mymail@mail.com" />
 												    </td>
 												</tr>
 											
@@ -57,8 +66,7 @@
 													<td width="10%"><img src="${images}/password.png"
 														width="39" height="38" /></td>
 													<td width="90%">
-													  <label for="password" class="full" data-icon="p">密码 </label>
-													  <input id="password" name="password" required="required" type="password" placeholder="eg. X8df!90EO" />
+													  <input id="password" name="password" class="full"  required="required" type="password" placeholder="eg. X8df!90EO" />
 													</td>
 												</tr>
 
