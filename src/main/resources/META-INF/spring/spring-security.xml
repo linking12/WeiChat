@@ -31,10 +31,8 @@
 			<concurrency-control max-sessions="10"
 				error-if-maximum-exceeded="true" />
 		</session-management>
-		<!-- 认证和授权 -->
 		<custom-filter ref="authenticationFilter" position="FORM_LOGIN_FILTER" />
 		<custom-filter ref="authorizationFilter" before="FILTER_SECURITY_INTERCEPTOR" />
-		<!-- 登出管理 -->
 		<logout invalidate-session="true" logout-url="/j_spring_security_logout" />
 	</http>
 	<!-- 未登录的切入点 -->
@@ -64,15 +62,11 @@
 
 	<!-- 认证过滤器 -->
 	<beans:bean id="authorizationFilter" class="net.chat.security.AuthorizationFilter">
-		<!-- 用户拥有的权限 -->
 		<beans:property name="authenticationManager" ref="authenticationManager" />
-		<!-- 用户是否拥有所请求资源的权限 -->
 		<beans:property name="accessDecisionManager" ref="ssAccessDecisionManager" />
-		<!-- 资源与权限对应关系 -->
 		<beans:property name="securityMetadataSource" ref="securityMetadataSource" />
 	</beans:bean>
 	
-	<!-- 实现了UserDetailsService的Bean -->
 	<authentication-manager alias="authenticationManager">
 		<authentication-provider user-service-ref="userDetailService" />
 	</authentication-manager>
