@@ -198,7 +198,7 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>weiChat</finalName>
+		<finalName>WeiChat</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
