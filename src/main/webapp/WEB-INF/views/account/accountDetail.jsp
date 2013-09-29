@@ -69,15 +69,15 @@
 													<table width="100%" border="0" cellspacing="0"
 														cellpadding="0">
 														<tr>
-															<td height="40" >
+															<td height="40">
 																<div align="center" class="biao1">
 																	<a href="${ctx }/account/list" class="d">全部帐号</a>
 																</div>
 															</td>
 														</tr>
 														<tr>
-															<td height="40" bgcolor="#ff9001"><div align="center" >
-																	${title }</div></td>
+															<td height="40" bgcolor="#ff9001"><div
+																	align="center">${title }</div></td>
 														</tr>
 													</table>
 												</td>
@@ -92,18 +92,16 @@
 																		cellspacing="0" cellpadding="0">
 																		<tr>
 																			<td width="10%" height="40" class="biao">公众帐号名</td>
-																			<td width="32%"><label for="textfield"></label>
+																			<td width="32%"><label for="textfield"></label><form:hidden path="id"/>
 																				<form:input path="name" /> 必须</td>
 																			<td width="6%" class="biao">URL</td>
 																			<td width="52%"><form:input path="url"
-																					value="/wxserv/wrzuLvMbWHpKJkzPkwAg.jsp"
 																					style="width: 300px;" readOnly="true" /></td>
 																		</tr>
 																		<tr>
 																			<td height="40" class="biao">Token</td>
 																			<td><span class="zeng"> <form:input
-																						path="seq" value="pipMFulZjNfBUigAjfwQ"
-																						style="width: 160px;" readOnly="true" /></td>
+																						path="seq" style="width: 160px;" readOnly="true" /></td>
 																			<td class="biao">&nbsp;</td>
 																			<td>&nbsp;</td>
 																		</tr>
@@ -144,8 +142,9 @@
 																	</table></td>
 															</tr>
 															<tr>
-																<td height="50"><input type="image" name="submit" id="submitbtn"
-																	src="${images }/qunfa.png" width="76" height="40" /></td>
+																<td height="50"><input type="image" name="submit"
+																	id="submitbtn" src="${images }/qunfa.png" width="76"
+																	height="40" /></td><td height="50"><form:errors path="name" cssClass="error" /></td>
 															</tr>
 														</form:form>
 													</table></td>

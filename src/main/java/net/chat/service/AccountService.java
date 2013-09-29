@@ -1,5 +1,7 @@
 package net.chat.service;
 
+import java.util.List;
+
 import net.chat.domain.WxAccount;
 import net.chat.domain.WxMsgType;
 
@@ -8,14 +10,14 @@ import org.springframework.data.domain.Page;
 public interface AccountService {
 
 	/**
-	 * ±£´æ¹«¹²ÕË»§ÐÅÏ¢
+	 * ï¿½ï¿½ï¿½æ¹«ï¿½ï¿½ï¿½Ë»ï¿½ï¿½ï¿½Ï¢
 	 * 
 	 * @param account
 	 */
 	public void saveAccount(WxAccount account);
 
 	/**
-	 * ±à¼­¹«¹²ÕË»§ÐÅÏ¢
+	 * ï¿½à¼­ï¿½ï¿½ï¿½ï¿½ï¿½Ë»ï¿½ï¿½ï¿½Ï¢
 	 * 
 	 * @param account
 	 */
@@ -23,7 +25,7 @@ public interface AccountService {
 	public void editAccount(WxAccount account);
 
 	/**
-	 * É¾³ý¹«¹²ÕË»§£¬Ò²¿ÉÍ£ÓÃ¹«¹²ÕË»§
+	 * É¾ï¿½ï¿½ï¿½Ë»ï¿½ï¿½ï¿½Ò²ï¿½ï¿½Í£ï¿½Ã¹ï¿½ï¿½ï¿½ï¿½Ë»ï¿½
 	 * 
 	 * @TODO
 	 * 
@@ -33,7 +35,7 @@ public interface AccountService {
 	public void deleteAccount(Long accountId);
 
 	/**
-	 * ÁÐ³öËùÓÐ¹«¹²ÕË»§
+	 * ï¿½Ð³ï¿½ï¿½ï¿½ï¿½Ð¹ï¿½ï¿½ï¿½ï¿½Ë»ï¿½
 	 * 
 	 * @param pageNo
 	 * @param pageSize
@@ -43,7 +45,7 @@ public interface AccountService {
 	public Page<WxAccount> listAllAcount(int pageNo, int pageSize);
 
 	/**
-	 * ¸ù¾Ý¹«¹²ÕË»§ID»ñÈ¡¹«¹²ÕË»§ÐÅÏ¢
+	 * ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½ï¿½Ë»ï¿½IDï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ë»ï¿½ï¿½ï¿½Ï¢
 	 * 
 	 * @param accountId
 	 * @return
@@ -52,7 +54,7 @@ public interface AccountService {
 	public WxAccount findAcountById(Long accountId);
 
 	/**
-	 * ²éÑ¯¹«¹²ÕË»§µÄµÄÐÅÏ¢
+	 * ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½Ë»ï¿½ï¿½Äµï¿½ï¿½ï¿½Ï¢
 	 * 
 	 * @param accountId
 	 * @param pageNo
@@ -63,4 +65,7 @@ public interface AccountService {
 	public Page<WxMsgType> queryAllMessageTypeInAccount(Long accountId,
 			int pageNo, int pageSize);
 
+	public List<WxAccount> listAllAcount();
+	
+	public void updateAccount(Long id,String name,String note);
 }

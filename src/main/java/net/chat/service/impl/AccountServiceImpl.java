@@ -51,36 +51,30 @@ public class AccountServiceImpl implements AccountService {
 	private WxMsgTypeDao messageTypeDao;
 
 	public void saveAccount(WxAccount account) {
-		if (account.getId() == null) {
-			accountDao.save(account);
-			Long accountId = account.getId();
-			WxMessage message = new WxMessage();
-			message.setAccountId(accountId);
-			message.setMsgType("text");
-			message.setMsgName("»¶Ó­´Ê");
-			message.setContent("Ð»Ð»¹Ø×¢´ËÕËºÅ£¡");
-			// »ñÈ¡ÁÄÌì»úÆ÷ÈË
-			WxGame defaultGame = gameDao.findByUrlAndGameType("autoreply.jsp",
-					"program");
-			WxAccountGame accountGame = new WxAccountGame();
-			accountGame.setGameId(defaultGame.getId());
-			accountGame.setAccountId(accountId);
-			accountGameDao.save(accountGame);
-			List<WxMsgType> messageTypeList = new ArrayList<WxMsgType>(10);
-			messageTypeList.add(new WxMsgType(accountId, "text", "program",
-					message.getId(), "ÎÄ±¾"));
-			messageTypeList.add(new WxMsgType(accountId, "image", "direct",
-					message.getId(), "Í¼Æ¬"));
-			messageTypeList.add(new WxMsgType(accountId, "voice", "direct",
-					message.getId(), "ÉùÒô"));
-			messageTypeList.add(new WxMsgType(accountId, "subscribe", "direct",
-					message.getId(), "¹Ø×¢"));
-			messageTypeList.add(new WxMsgType(accountId, "video", "direct",
-					message.getId(), "ÊÓÆµ"));
-			messageTypeList.add(new WxMsgType(accountId, "unsubscribe",
-					"direct", message.getId(), "È¡Ïû¹Ø×¢"));
-			messageTypeDao.save(messageTypeList);
-		}
+		accountDao.save(account);
+//		if (account.getId() == null) {
+//			accountDao.save(account);
+//			Long accountId = account.getId();
+//			WxMessage message = new WxMessage();
+//			message.setAccountId(accountId);
+//			message.setMsgType("text");
+//			message.setMsgName("ï¿½ï¿½Ó­ï¿½ï¿½");
+//			message.setContent("Ð»Ð»ï¿½ï¿½×¢ï¿½ï¿½ï¿½ËºÅ£ï¿½");
+//			// ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//			WxGame defaultGame = gameDao.findByUrlAndGameType("autoreply.jsp", "program");
+//			WxAccountGame accountGame = new WxAccountGame();
+//			accountGame.setGameId(defaultGame.getId());
+//			accountGame.setAccountId(accountId);
+//			accountGameDao.save(accountGame);
+//			List<WxMsgType> messageTypeList = new ArrayList<WxMsgType>(10);
+//			messageTypeList.add(new WxMsgType(accountId, "text", "program", message.getId(), "ï¿½Ä±ï¿½"));
+//			messageTypeList.add(new WxMsgType(accountId, "image", "direct", message.getId(), "Í¼Æ¬"));
+//			messageTypeList.add(new WxMsgType(accountId, "voice", "direct", message.getId(), "ï¿½ï¿½ï¿½ï¿½"));
+//			messageTypeList.add(new WxMsgType(accountId, "subscribe", "direct", message.getId(), "ï¿½ï¿½×¢"));
+//			messageTypeList.add(new WxMsgType(accountId, "video", "direct", message.getId(), "ï¿½ï¿½Æµ"));
+//			messageTypeList.add(new WxMsgType(accountId, "unsubscribe", "direct", message.getId(), "È¡ï¿½ï¿½ï¿½×¢"));
+//			messageTypeDao.save(messageTypeList);
+//		}
 
 	}
 
@@ -101,8 +95,7 @@ public class AccountServiceImpl implements AccountService {
 			pageSize = 20;
 		if (pageNo == 0)
 			pageNo = 0;
-		Pageable pageable = new PageRequest(pageNo - 1, pageSize, new Sort(
-				new Order("Order")));
+		Pageable pageable = new PageRequest(pageNo - 1, pageSize, new Sort(new Order("Order")));
 		return accountDao.findAll(pageable);
 
 	}
@@ -113,8 +106,7 @@ public class AccountServiceImpl implements AccountService {
 
 	public void configAccount(ConfigPropertity configPertity) {
 
-		WxMsgType messageType = messageTypeDao.findOne(configPertity
-				.getMessageTypeId());
+		WxMsgType messageType = messageTypeDao.findOne(configPertity.getMessageTypeId());
 		if (messageType.getAccountId().equals(configPertity.getAccountId())) {
 			messageType.setAction(configPertity.getAction());
 			messageType.setSourceId(configPertity.getSourceId());
@@ -122,18 +114,15 @@ public class AccountServiceImpl implements AccountService {
 
 	}
 
-	public Page<WxMsgType> queryAllMessageTypeInAccount(Long accountId,
-			int pageNo, int pageSize) {
+	public Page<WxMsgType> queryAllMessageTypeInAccount(Long accountId, int pageNo, int pageSize) {
 		if (pageSize == 0)
 			pageSize = 20;
 		if (pageNo == 0)
 			pageNo = 0;
-		Pageable pageable = new PageRequest(pageNo - 1, pageSize, new Sort(
-				new Order("id")));
+		Pageable pageable = new PageRequest(pageNo - 1, pageSize, new Sort(new Order("id")));
 		final Long _accountId = accountId;
 		Specification<WxMsgType> spec = new Specification<WxMsgType>() {
-			public Predicate toPredicate(Root<WxMsgType> root,
-					CriteriaQuery<?> query, CriteriaBuilder cb) {
+			public Predicate toPredicate(Root<WxMsgType> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 				return cb.equal(root.<Long> get("accountId"), _accountId);
 			}
 
@@ -181,6 +170,18 @@ public class AccountServiceImpl implements AccountService {
 		public void setAccountId(Long accountId) {
 			this.accountId = accountId;
 		}
+
+	}
+
+	@Override
+	public List<WxAccount> listAllAcount() {
+
+		return accountDao.findAll();
+	}
+
+	@Override
+	public void updateAccount(Long id, String name, String note) {
+		accountDao.updateAccount(id, name, note);
 
 	}
 }

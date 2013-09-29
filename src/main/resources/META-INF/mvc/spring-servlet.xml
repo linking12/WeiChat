@@ -26,6 +26,8 @@
 			<bean class="net.chat.validate.ValidateFormatAnnotationFactory" />
 		</property>
 	</bean>
+	<mvc:view-controller path="/login"  view-name="redirect:/j_spring_security_check"/>
+	<mvc:view-controller path="/"  view-name="redirect:/j_spring_security_check"/>
 	<mvc:resources mapping="/css/**" location="/WEB-INF/resources/css/"/> 
 	<mvc:resources mapping="/images/**" location="/WEB-INF/resources/images/"/> 
 	<mvc:resources mapping="/js/**" location="/WEB-INF/resources/js/"/> 

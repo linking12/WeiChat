@@ -5,12 +5,7 @@ public final class PageConstants {
 	/**
 	 * 登录页面
 	 */
-	public static final String PAGE_LOGIN = "login";
-
-	/**
-	 * 登录页面后
-	 */
-	public static final String PAGE_LOGIN_1 = "index";
+	public static final String PAGE_LOGIN = "redirect:/login";
 
 	/**
 	 * 用户注册页面

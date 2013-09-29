@@ -90,7 +90,8 @@
                       <table width="100%" border="0" cellspacing="0" cellpadding="0">
                         <tr>
                           <td width="6%"><label>
-                            <input type="radio" name="radiobutton" value="radiobutton" />
+                          <form:checkbox path="status" value="1"/>
+                          
                           </label></td>
                           <td width="61%"><span class="zeng">我了解.....</span> </td>
                           <td width="33%"><div align="right"><input type="image" name="submit" id="submitbtn" src="${images}/bt1_n.jpg" width="76" height="40" /></div></td>
@@ -113,6 +114,7 @@
                   	 <tr hight="20"><td><form:errors path="userName" cssClass="error" /></td></tr>
                   	 <tr hight="20"><td><form:errors path="password" cssClass="error" /></td></tr>
                   	 <tr hight="20"><td><form:errors path="password1" cssClass="error" /></td></tr>
+                  	 <tr hight="20"><td><form:errors path="status" cssClass="error" /></td></tr>
                      <tr hight="20"><td><span class="error">${errorMsg}</span></td></tr>
                 </form:form>
                 </table></td>

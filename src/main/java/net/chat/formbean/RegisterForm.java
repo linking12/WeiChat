@@ -11,6 +11,8 @@ public class RegisterForm {
 	private String password;
 	@NotEmpty(message = "密码1不能为空！")
 	private String password1;
+	@NotEmpty(message = "请同意条款")
+	private String[] status;
 
 	public String getPhone() {
 		return phone;
@@ -42,6 +44,14 @@ public class RegisterForm {
 
 	public void setPassword1(String password1) {
 		this.password1 = password1;
+	}
+
+	public String[] getStatus() {
+		return status;
+	}
+
+	public void setStatus(String[] status) {
+		this.status = status;
 	}
 
 }

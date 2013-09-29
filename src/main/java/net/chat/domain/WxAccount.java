@@ -12,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
  * @author bo
  * 
@@ -29,7 +31,7 @@ public class WxAccount implements Serializable {
 	@Column(name = "id")
 	@GeneratedValue
 	private Long id;
-
+	@NotEmpty(message = "公众帐号名必须输入")
 	@Column(name = "name")
 	private String name;
 
