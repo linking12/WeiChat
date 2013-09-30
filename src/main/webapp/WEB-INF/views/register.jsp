@@ -7,6 +7,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#submitbtn").click(function() {
+			alert("tt");
 			$('#registerForm').attr('action', '${ctx}/register/submit');
 			$('#registerForm').submit();
 		});
@@ -25,8 +26,7 @@
   </tr>
   <tr>
     <td><table width="960" border="0" align="center" cellpadding="0" cellspacing="0">
-    	<form:form id="registerForm" method="post" modelAttribute="registerForm">
-   
+    <form:form id="registerForm" method="post" modelAttribute="registerForm">
       <tr>
         <td height="20">&nbsp;</td>
       </tr>
@@ -58,7 +58,12 @@
                   <tr>
                     <td><div align="right" class="biao">用户名</div></td>
                     <td>:</td>
-                    <td><form:input path="userName" class="full" /></td>
+                    <td><form:input path="name" class="full" /></td>
+                  </tr>
+                  <tr>
+                    <td><div align="right" class="biao">昵称</div></td>
+                    <td>:</td>
+                    <td><form:input path="nickName" class="full" /></td>
                   </tr>
                   <tr>
                     <td height="10"><div align="right"></div></td>
@@ -68,7 +73,7 @@
                   <tr>
                     <td><div align="right" class="biao">密码</div></td>
                     <td>:</td>
-                    <td><form:password path="password" class="full" /></td>
+                    <td><form:password path="spassword1" class="full" /></td>
                   </tr>
                   <tr>
                     <td height="10"><div align="right"></div></td>
@@ -78,7 +83,7 @@
                   <tr>
                     <td><div align="right" class="biao">确认密码</div></td>
                     <td>:</td>
-                    <td><form:password path="password1" class="full" /></td>
+                    <td><form:password path="spassword2" class="full" /></td>
                   </tr>
                   <tr>
                     <td height="10">&nbsp;</td>
@@ -110,9 +115,10 @@
                   </tr>
                    <tr hight="20"><td>&nbsp;</td></tr>
                   	 <tr hight="20"><td><form:errors path="phone" cssClass="error" /></td></tr>
-                  	 <tr hight="20"><td><form:errors path="userName" cssClass="error" /></td></tr>
-                  	 <tr hight="20"><td><form:errors path="password" cssClass="error" /></td></tr>
-                  	 <tr hight="20"><td><form:errors path="password1" cssClass="error" /></td></tr>
+                  	 <tr hight="20"><td><form:errors path="name" cssClass="error" /></td></tr>
+                  	  <tr hight="20"><td><form:errors path="nickName" cssClass="error" /></td></tr>
+                  	 <tr hight="20"><td><form:errors path="spassword1" cssClass="error" /></td></tr>
+                  	 <tr hight="20"><td><form:errors path="spassword2" cssClass="error" /></td></tr>
                      <tr hight="20"><td><span class="error">${errorMsg}</span></td></tr>
                 </form:form>
                 </table></td>
