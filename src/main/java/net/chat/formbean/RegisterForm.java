@@ -2,6 +2,7 @@ package net.chat.formbean;
 
 import java.util.Date;
 
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -11,12 +12,14 @@ public class RegisterForm {
 	private Long userId;
 
 	@NotEmpty(message = "手机号码不能为空！")
+	@Pattern(regexp = "^1[358]\\d{9}$", message = "手机号为11位数字，前2位是13开头 或15 开头 或18 开头")
 	private String phone;
 
 	@NotEmpty(message = "昵称不能为空")
 	private String nickName;
 
 	@NotEmpty(message = "姓名不能为空")
+	@Pattern(regexp = "^[A-Za-z0-9]+$", message = "登录名必须是英文或者数字")
 	private String name;
 
 	private String sex;

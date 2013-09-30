@@ -7,7 +7,6 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#submitbtn").click(function() {
-			alert("tt");
 			$('#registerForm').attr('action', '${ctx}/register/submit');
 			$('#registerForm').submit();
 		});

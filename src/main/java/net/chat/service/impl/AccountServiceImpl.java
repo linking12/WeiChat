@@ -57,9 +57,9 @@ public class AccountServiceImpl implements AccountService {
 			WxMessage message = new WxMessage();
 			message.setAccountId(accountId);
 			message.setMsgType("text");
-			message.setMsgName("»¶Ó­´Ê");
-			message.setContent("Ğ»Ğ»¹Ø×¢´ËÕËºÅ£¡");
-			// »ñÈ¡ÁÄÌì»úÆ÷ÈË
+			message.setMsgName("æ¬¢è¿è¯");
+			message.setContent("è°¢è°¢å…³æ³¨æ­¤è´¦å·ï¼");
+			// è·å–èŠå¤©æœºå™¨äºº
 			WxGame defaultGame = gameDao.findByUrlAndGameType("autoreply.jsp",
 					"program");
 			WxAccountGame accountGame = new WxAccountGame();
@@ -68,17 +68,17 @@ public class AccountServiceImpl implements AccountService {
 			accountGameDao.save(accountGame);
 			List<WxMsgType> messageTypeList = new ArrayList<WxMsgType>(10);
 			messageTypeList.add(new WxMsgType(accountId, "text", "program",
-					message.getId(), "ÎÄ±¾"));
+					message.getId(), "æ–‡æœ¬"));
 			messageTypeList.add(new WxMsgType(accountId, "image", "direct",
-					message.getId(), "Í¼Æ¬"));
+					message.getId(), "å›¾ç‰‡"));
 			messageTypeList.add(new WxMsgType(accountId, "voice", "direct",
-					message.getId(), "ÉùÒô"));
+					message.getId(), "å£°éŸ³"));
 			messageTypeList.add(new WxMsgType(accountId, "subscribe", "direct",
-					message.getId(), "¹Ø×¢"));
+					message.getId(), "å…³æ³¨"));
 			messageTypeList.add(new WxMsgType(accountId, "video", "direct",
-					message.getId(), "ÊÓÆµ"));
+					message.getId(), "è§†é¢‘"));
 			messageTypeList.add(new WxMsgType(accountId, "unsubscribe",
-					"direct", message.getId(), "È¡Ïû¹Ø×¢"));
+					"direct", message.getId(), "å–æ¶ˆå…³æ³¨"));
 			messageTypeDao.save(messageTypeList);
 		}
 
