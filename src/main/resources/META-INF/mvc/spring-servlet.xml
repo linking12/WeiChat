@@ -31,5 +31,7 @@
 	<mvc:resources mapping="/css/**" location="/WEB-INF/resources/css/"/> 
 	<mvc:resources mapping="/images/**" location="/WEB-INF/resources/images/"/> 
 	<mvc:resources mapping="/js/**" location="/WEB-INF/resources/js/"/> 
+	<mvc:resources mapping="/index/css/**" location="/WEB-INF/resources/index/css/"/> 
+	<mvc:resources mapping="/index/images/**" location="/WEB-INF/resources/index/images/"/> 
 	<mvc:annotation-driven />
 </beans> 

@@ -1,5 +1,7 @@
 package net.chat.service.impl;
 
+import java.util.List;
+
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -7,7 +9,6 @@ import javax.persistence.criteria.Root;
 
 import net.chat.dao.WxMessageDao;
 import net.chat.domain.WxMessage;
-import net.chat.domain.WxMsgType;
 import net.chat.service.MessageService;
 
 import org.springframework.beans.BeanUtils;
@@ -18,27 +19,26 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
 
+@Service("messageSerivce")
 public class MessageServiceImpl implements MessageService {
 
 	@Autowired
 	private WxMessageDao messageDao;
 
-	public Page<WxMessage> listALlMessageByAccountId(Long accountId,
-			int pageNo, int pageSize) {
+	public Page<WxMessage> listALlMessageByAccountId(Long accountId, int pageNo, int pageSize) {
 		pageSize = 20;
 		if (pageNo == 0)
 			pageNo = 0;
-		Pageable pageable = new PageRequest(pageNo - 1, pageSize, new Sort(
-				new Order("id")));
+		Pageable pageable = new PageRequest(pageNo - 1, pageSize, new Sort(new Order("id")));
 		Page<WxMessage> pageMessages = null;
 		if (accountId == null)
 			pageMessages = messageDao.findAll(pageable);
 		else {
 			final Long _accountId = accountId;
 			Specification<WxMessage> spec = new Specification<WxMessage>() {
-				public Predicate toPredicate(Root<WxMessage> root,
-						CriteriaQuery<?> query, CriteriaBuilder cb) {
+				public Predicate toPredicate(Root<WxMessage> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 					return cb.equal(root.<Long> get("accountId"), _accountId);
 				}
 
@@ -70,6 +70,16 @@ public class MessageServiceImpl implements MessageService {
 
 	public WxMessage findyMessageByMessageId(Long messageId) {
 		return messageDao.findOne(messageId);
+	}
+
+	public List<WxMessage> findMessageByAccountId(final Long accountId) {
+		Specification<WxMessage> spec = new Specification<WxMessage>() {
+			public Predicate toPredicate(Root<WxMessage> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+				return cb.equal(root.<Long> get("accountId"), accountId);
+			}
+
+		};
+		return messageDao.findAll(spec);
 	}
 
 }

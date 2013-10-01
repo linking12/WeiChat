@@ -3,26 +3,24 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<c:set var="ctx" value="${pageContext.request.contextPath}"/>
-<c:set var="js" value="${ctx}/index/js"/>
-<c:set var="css" value="${ctx}/index/css"/>
-<c:set var="images" value="${ctx}/index/images"/>
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
+<c:set var="js" value="${ctx}/index/js" />
+<c:set var="css" value="${ctx}/index/css" />
+<c:set var="images" value="${ctx}/index/images" />
 <link href="${css }/css.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="${js}/jquery/1.6/jquery.js"></script>
-
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
-<title>无标题文档</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<title>微信公共平台</title>
 <link href="css.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
 <!--
 body {
-	background-image: url(images/bei.jpg);
+	background-image: url(${images}/bei.jpg);
 }
 -->
 </style>
 <script type="text/JavaScript">
-<!--
 	function MM_swapImgRestore() { //v3.0
 		var i, x, a = document.MM_sr;
 		for (i = 0; a && i < a.length && (x = a[i]) && x.oSrc; i++)
@@ -73,40 +71,38 @@ body {
 				x.src = a[i + 2];
 			}
 	}
-//-->
 </script>
 </head>
-
 <body
-	onload="MM_preloadImages('images/an_1_1.png','images/an_2_1.png','images/an_3_1.png','images/an_4_1.png','images/an_5_1.png')">
+	onload="MM_preloadImages('${images}/an_1_1.png','${images}/an_2_1.png','${images}/an_3_1.png','${images}/an_4_1.png','${images}/an_5_1.png')">
 	<table width="967" border="0" align="center" cellpadding="0"
 		cellspacing="0">
 		<tr>
-			<td><img src="images/lo.png" width="955" height="208" /></td>
+			<td><img src="${images}/lo.png" width="955" height="208" /></td>
 		</tr>
 		<tr>
 			<td><table width="100%" border="0" cellspacing="0"
 					cellpadding="0">
 					<tr>
 						<td><a href="#" onmouseout="MM_swapImgRestore()"
-							onmouseover="MM_swapImage('Image2','','images/an_1_1.png',1)"><img
-								src="images/an_1.png" name="Image2" width="194" height="84"
+							onmouseover="MM_swapImage('Image2','','${images}/an_1_1.png',1)"><img
+								src="${images}/an_1.png" name="Image2" width="194" height="84"
 								border="0" id="Image2" /></a></td>
 						<td><a href="#" onmouseout="MM_swapImgRestore()"
-							onmouseover="MM_swapImage('Image3','','images/an_2_1.png',1)"><img
-								src="images/an_2.png" name="Image3" width="194" height="84"
+							onmouseover="MM_swapImage('Image3','','${images}/an_2_1.png',1)"><img
+								src="${images}/an_2.png" name="Image3" width="194" height="84"
 								border="0" id="Image3" /></a></td>
 						<td><a href="#" onmouseout="MM_swapImgRestore()"
-							onmouseover="MM_swapImage('Image4','','images/an_3_1.png',1)"><img
-								src="images/an_3.png" name="Image4" width="194" height="84"
+							onmouseover="MM_swapImage('Image4','','${images}/an_3_1.png',1)"><img
+								src="${images}/an_3.png" name="Image4" width="194" height="84"
 								border="0" id="Image4" /></a></td>
 						<td><a href="#" onmouseout="MM_swapImgRestore()"
-							onmouseover="MM_swapImage('Image5','','images/an_4_1.png',1)"><img
-								src="images/an_4.png" name="Image5" width="194" height="84"
+							onmouseover="MM_swapImage('Image5','','${images}/an_4_1.png',1)"><img
+								src="${images}/an_4.png" name="Image5" width="194" height="84"
 								border="0" id="Image5" /></a></td>
 						<td><a href="#" onmouseout="MM_swapImgRestore()"
-							onmouseover="MM_swapImage('Image6','','images/an_5_1.png',1)"><img
-								src="images/an_5.png" name="Image6" width="194" height="84"
+							onmouseover="MM_swapImage('Image6','','${images}/an_5_1.png',1)"><img
+								src="${images}/an_5.png" name="Image6" width="194" height="84"
 								border="0" id="Image6" /></a></td>
 					</tr>
 				</table></td>
@@ -136,13 +132,13 @@ body {
 					cellpadding="0">
 					<tr>
 						<td><div align="center">
-								<img src="images/ic_1.png" width="310" height="310" />
+								<img src="${images}/ic_1.png" width="310" height="310" />
 							</div></td>
 						<td><div align="center">
-								<img src="images/ic_2.png" width="310" height="310" />
+								<img src="${images}/ic_2.png" width="310" height="310" />
 							</div></td>
 						<td><div align="center">
-								<img src="images/ic_3.png" width="310" height="310" />
+								<img src="${images}/ic_3.png" width="310" height="310" />
 							</div></td>
 					</tr>
 					<tr>
@@ -152,13 +148,13 @@ body {
 					</tr>
 					<tr>
 						<td><div align="center">
-								<img src="images/ic_4.png" width="310" height="310" />
+								<img src="${images}/ic_4.png" width="310" height="310" />
 							</div></td>
 						<td><div align="center">
-								<img src="images/ic_5.png" width="310" height="310" />
+								<img src="${images}/ic_5.png" width="310" height="310" />
 							</div></td>
 						<td><div align="center">
-								<img src="images/ic_6.png" width="310" height="310" />
+								<img src="${images}/ic_6.png" width="310" height="310" />
 							</div></td>
 					</tr>
 					<tr>
@@ -168,10 +164,10 @@ body {
 					</tr>
 					<tr>
 						<td><div align="center">
-								<img src="images/ic_7.png" width="310" height="310" />
+								<img src="${images}/ic_7.png" width="310" height="310" />
 							</div></td>
 						<td><div align="center">
-								<img src="images/ic_8.png" width="310" height="310" />
+								<img src="${images}/ic_8.png" width="310" height="310" />
 							</div></td>
 						<td>&nbsp;</td>
 					</tr>
@@ -185,13 +181,13 @@ body {
 					cellpadding="0">
 					<tr>
 						<td><div align="center">
-								<img src="images/ic_9.png" width="310" height="310" />
+								<img src="${images}/ic_9.png" width="310" height="310" />
 							</div></td>
 						<td><div align="center">
-								<img src="images/ic_10.png" width="310" height="310" />
+								<img src="${images}/ic_10.png" width="310" height="310" />
 							</div></td>
 						<td><div align="center">
-								<img src="images/ic_11.png" width="310" height="310" />
+								<img src="${images}/ic_11.png" width="310" height="310" />
 							</div></td>
 					</tr>
 					<tr>
@@ -201,13 +197,13 @@ body {
 					</tr>
 					<tr>
 						<td><div align="center">
-								<img src="images/ic_12.png" width="310" height="310" />
+								<img src="${images}/ic_12.png" width="310" height="310" />
 							</div></td>
 						<td><div align="center">
-								<img src="images/ic_13.png" width="310" height="310" />
+								<img src="${images}/ic_13.png" width="310" height="310" />
 							</div></td>
 						<td><div align="center">
-								<img src="images/ic_14.png" width="310" height="310" />
+								<img src="${images}/ic_14.png" width="310" height="310" />
 							</div></td>
 					</tr>
 
@@ -221,13 +217,13 @@ body {
 					cellpadding="0">
 					<tr>
 						<td><div align="center">
-								<img src="images/ic_15.png" width="310" height="310" />
+								<img src="${images}/ic_15.png" width="310" height="310" />
 							</div></td>
 						<td><div align="center">
-								<img src="images/ic_16.png" width="310" height="310" />
+								<img src="${images}/ic_16.png" width="310" height="310" />
 							</div></td>
 						<td><div align="center">
-								<img src="images/ic_17.png" width="310" height="310" />
+								<img src="${images}/ic_17.png" width="310" height="310" />
 							</div></td>
 					</tr>
 					<tr>
@@ -237,13 +233,13 @@ body {
 					</tr>
 					<tr>
 						<td><div align="center">
-								<img src="images/ic_18.png" width="310" height="310" />
+								<img src="${images}/ic_18.png" width="310" height="310" />
 							</div></td>
 						<td><div align="center">
-								<img src="images/ic_19.png" width="310" height="310" />
+								<img src="${images}/ic_19.png" width="310" height="310" />
 							</div></td>
 						<td><div align="center">
-								<img src="images/ic_20.png" width="310" height="310" />
+								<img src="${images}/ic_20.png" width="310" height="310" />
 							</div></td>
 					</tr>
 					<tr>
@@ -253,7 +249,7 @@ body {
 					</tr>
 					<tr>
 						<td><div align="center">
-								<img src="images/ic_21.png" width="310" height="310" />
+								<img src="${images}/ic_21.png" width="310" height="310" />
 							</div></td>
 						<td>&nbsp;</td>
 						<td>&nbsp;</td>
@@ -273,14 +269,14 @@ body {
 						<td><table width="90%" border="0" cellspacing="0"
 								cellpadding="0">
 								<tr>
-									<td width="2%"><img src="images/qq.png" width="15"
+									<td width="2%"><img src="${images}/qq.png" width="15"
 										height="16" /></td>
 									<td width="6%" class="biao1">天乐</td>
 									<td width="26%" class="biao3">1234677</td>
-									<td><img src="images/qq.png" width="15" height="16" /></td>
+									<td><img src="${images}/qq.png" width="15" height="16" /></td>
 									<td class="biao1">天乐</td>
 									<td class="biao3">1234677</td>
-									<td><img src="images/qq.png" width="15" height="16" /></td>
+									<td><img src="${images}/qq.png" width="15" height="16" /></td>
 									<td class="biao1">天乐</td>
 									<td class="biao3">1234677</td>
 								</tr>

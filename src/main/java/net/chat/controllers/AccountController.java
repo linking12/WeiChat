@@ -1,12 +1,9 @@
 package net.chat.controllers;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import net.chat.constants.PageConstants;
 import net.chat.domain.WxAccount;
-import net.chat.formbean.RegisterForm;
 import net.chat.service.AccountService;
 
 import org.apache.commons.lang3.RandomStringUtils;
@@ -21,11 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/account")
 public class AccountController {
-
-	// @ModelAttribute("registerForm")
-	// public RegisterForm createFormBean() {
-	// return new RegisterForm();
-	// }
 
 	@Autowired
 	private AccountService accountService;

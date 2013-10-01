@@ -19,6 +19,6 @@ public interface WxGameDao extends JpaRepository<WxGame, Long>,
 
 	@Query("from WxGame game where game.url=:url and game.gtype=:gameType")
 	WxGame findByUrlAndGameType(@Param("url") String url,
-			@Param("url") String gameType);
+			@Param("gameType") String gameType);
 
 }

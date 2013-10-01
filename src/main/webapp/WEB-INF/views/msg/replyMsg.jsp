@@ -11,28 +11,35 @@
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
-
+		$("#savebtn").click(function() {
+			$('#form1').attr('action', '${ctx}/replymsg/save');
+			$('#form1').submit();
+		});
 	});
 
-	function ajaxMsgType() {
-		var accountid = $("#accountid").val();
-		var str = "";
-		if ("" != accountid) {
-			$.post("${ctx}/replymsg/msgtype", {
-				"accountid" : accountid
+	function changeAccountId() {
+		var accountid = $("#accountId").val();
+		$('#form1').attr('action',
+				'${ctx}/replymsg/init?accountid=' + accountid);
+		$('#form1').submit();
+	}
 
-			}, function(lst) {
-				$(lst).each(function(i, data) {
-					str += "<tr><td>" + data.name + "</td>";
-					str += "<td></td>";
-					str += "<td></td></tr>";
+	function changeMsgType(obj) {
+		var msgType = obj.value;
+		var sourceid = obj.id.replace("msgTypesaction", "msgTypessourceId");
 
-				});
-				$("#table1").html(str);
+		if ("program" == msgType) {
+			$("#" + sourceid).empty();
+			$("#programsel option").each(function() {
+				$("#" + sourceid).append($(this).clone());
 			});
+		} else if ("direct" == msgType) {
+			$("#" + sourceid).empty();
+			$("#directsel option").each(function() {
+				$("#" + sourceid).append($(this).clone());
 
+			});
 		}
-
 	}
 </script>
 </head>
@@ -105,7 +112,8 @@
 																		cellspacing="0" cellpadding="0">
 																		<tr>
 																			<td><form:select path="accountId"
-																					items="${accounts}" itemValue="id" itemLabel="name"></form:select></td>
+																					onchange="changeAccountId()" items="${accounts}"
+																					itemValue="id" itemLabel="name"></form:select></td>
 																		</tr>
 																	</table></td>
 															</tr>
@@ -120,6 +128,18 @@
 																			<td width="18%" class="biao">用户发送类型</td>
 																			<td width="43%" class="biao">自动回复类型</td>
 																			<td width="28%" class="biao">信息内容或处理程序</td>
+																			<td style="display: none"><select
+																				id="programsel">
+																					<c:forEach items="${games}" var="game">
+																						<option value="${game.id }">${game.name }</option>
+																					</c:forEach>
+																			</select> <select id="directsel">
+																					<c:forEach items="${messages}" var="message">
+																						<option value="${message.id }">${message.msgName }</option>
+																					</c:forEach>
+																			</select></td>
+
+
 																		</tr>
 																	</table></td>
 															</tr>
@@ -131,9 +151,16 @@
 																			align="center" cellpadding="0" cellspacing="0">
 																			<tr>
 																			<tr>
-																				<td width="18%">${msgType.name }</td>
+																				<td width="18%">${msgType.name }<form:hidden path="msgTypes[${status.index}].id"/>
+																				<form:hidden path="msgTypes[${status.index}].accountId"/>
+																				<form:hidden path="msgTypes[${status.index}].msgType"/>																				
+																				<form:hidden path="msgTypes[${status.index}].name"/>
+																				<form:hidden path="msgTypes[${status.index}].istatus"/>
+																				</td>
 																				<td width="43%"><form:select
-																						path="msgTypes[${status.index}].action">
+																						path="msgTypes[${status.index}].action"
+																						id="msgTypesaction${status.index}"
+																						onchange="changeMsgType(this)">
 																						<form:option value="program">直接回复</form:option>
 																						<form:option value="direct">自定义处理</form:option>
 																					</form:select></td>
@@ -141,10 +168,12 @@
 																						test="${msgType.action=='program' }">
 																						<form:select
 																							path="msgTypes[${status.index}].sourceId"
+																							id="msgTypessourceId${status.index}"
 																							items="${games}" itemValue="id" itemLabel="name"></form:select>
 																					</c:if> <c:if test="${msgType.action=='direct' }">
 																						<form:select
 																							path="msgTypes[${status.index}].sourceId"
+																							id="msgTypessourceId${status.index}"
 																							items="${messages}" itemValue="id"
 																							itemLabel="msgName"></form:select>
 																					</c:if></td>
@@ -168,8 +197,8 @@
 															</tr>
 															<tr>
 																<td><div align="center">
-																<form:button name="savebtn" id="savebtn">修改配置</form:button>
-																	
+																		<form:button name="savebtn" id="savebtn">修改配置</form:button>
+
 																	</div></td>
 															</tr>
 															<tr>

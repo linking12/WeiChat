@@ -2,20 +2,15 @@ package net.chat.controllers;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import net.chat.constants.PageConstants;
 import net.chat.dao.WxAccountDao;
 import net.chat.dao.WxMessageDao;
 import net.chat.domain.WxAccount;
 import net.chat.domain.WxMessage;
-import net.chat.formbean.RegisterForm;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller

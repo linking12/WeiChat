@@ -3,70 +3,108 @@ package net.chat.controllers;
 import java.util.List;
 
 import net.chat.constants.PageConstants;
-import net.chat.dao.WxAccountDao;
-import net.chat.dao.WxGameDao;
-import net.chat.dao.WxMessageDao;
-import net.chat.dao.WxMsgTypeDao;
 import net.chat.domain.WxAccount;
 import net.chat.domain.WxGame;
 import net.chat.domain.WxMessage;
 import net.chat.domain.WxMsgType;
 import net.chat.formbean.ReplyMsgForm;
+import net.chat.service.AccountService;
+import net.chat.service.GameService;
+import net.chat.service.MessageService;
+import net.chat.service.MsgTypeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/replymsg")
 public class ReplyMsgController {
 	@Autowired
-	private WxAccountDao accountDao;
+	private AccountService accountService;
 
 	@Autowired
-	private WxMsgTypeDao msgTypeDao;
+	private MsgTypeService msgTypeService;
 
 	@Autowired
-	private WxMessageDao messageDao;
+	private MessageService messageService;
 
 	@Autowired
-	private WxGameDao gameDao;
+	private GameService gameService;
 
 	@RequestMapping("/init")
-	public String init(Model model) {
-		List<WxAccount> accounts = accountDao.findAll();
+	public String init(
+			@RequestParam(value = "accountId", required = false) Long accountId,
+			Model model) {
+		Page<WxAccount> Pageaccounts = accountService.listAllAcount(0, 0);
+		List<WxAccount> accounts = Pageaccounts.getContent();
 		model.addAttribute("accounts", accounts);
+		ReplyMsgForm form = new ReplyMsgForm();
+		if (!CollectionUtils.isEmpty(accounts)) {
+			if (!isExistingAccount(accountId, accounts)) {
+				accountId = accounts.get(0).getId();
+			}
+			form.setAccountId(accountId);
+			if (null != accountId) {
+				List<WxMessage> messages = messageService
+						.findMessageByAccountId(accountId);
+				model.addAttribute("messages", messages);
 
-		List<WxMsgType> msgTypes = msgTypeDao.findAll();
-		model.addAttribute("msgTypes", msgTypes);
+				List<WxGame> games = gameService.finaAll();
+				model.addAttribute("games", games);
 
-		List<WxMessage> messages = messageDao.findAll();
-		model.addAttribute("messages", messages);
+				List<WxMsgType> msgTypes = msgTypeService
+						.findMsgTypeByAccountId(accountId);
+				model.addAttribute("msgTypes", msgTypes);
 
-		List<WxGame> games = gameDao.findAll();
-		model.addAttribute("games", games);
+				form.setMsgTypes(msgTypes);
+			}
 
-		
-		ReplyMsgForm form=new ReplyMsgForm();
-		form.setAccountId("1");
-		form.setMsgTypes(msgTypes);
-		model.addAttribute("replyMsgForm", form);
+			model.addAttribute("replyMsgForm", form);
+		}
 		return PageConstants.PAGE_RELPY_MSG;
 	}
 
 	@RequestMapping("/save")
-	public String save(Model model) {
+	public String save(ReplyMsgForm bean, Model model) {
+		Long accountId = bean.getAccountId();
+		List<WxMsgType> msgTypes = msgTypeService
+				.findMsgTypeByAccountId(accountId);
 
-		return PageConstants.PAGE_RELPY_MSG;
+		List<WxMsgType> pmsg = bean.getMsgTypes();
+		this.mergeViewData(msgTypes, pmsg);
+		msgTypeService.save(msgTypes);
+		return "redirect:/replymsg/init?accountid=" + accountId;
 	}
-	
-	@RequestMapping("/msgtype")
-	@ResponseBody
-	public List<WxMsgType> msgType(Model model) {
 
-		List<WxMsgType> msgTypes = msgTypeDao.findAll();
-		return msgTypes;
+	private void mergeViewData(List<WxMsgType> source, List<WxMsgType> viewdata) {
+		for (WxMsgType msg : source) {
+			l: for (WxMsgType view : viewdata) {
+				if (msg.getId() == view.getId()) {
+					msg.setAction(view.getAction());
+					msg.setSourceId(view.getSourceId());
+					break l;
+				}
+			}
+
+		}
 	}
+
+	private boolean isExistingAccount(Long accountId, List<WxAccount> accounts) {
+		if (null == accountId) {
+			return false;
+		} else {
+			for (WxAccount acc : accounts) {
+				if (acc.getId() == accountId) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
 }

@@ -42,4 +42,9 @@ public class RegisterController {
 		return PageConstants.PAGE_INDEX;
 	}
 
+	@RequestMapping("/index")
+	public String index() {
+		return PageConstants.PAGE_INDEX;
+	}
+
 }

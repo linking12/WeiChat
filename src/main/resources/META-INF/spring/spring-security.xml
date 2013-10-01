@@ -48,7 +48,7 @@
 		<beans:property name="authenticationSuccessHandler">
 			<beans:bean
 				class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
-				<beans:property name="defaultTargetUrl" value="/account/list" />
+				<beans:property name="defaultTargetUrl" value="/index" />
 			</beans:bean>
 		</beans:property>
 		<beans:property name="authenticationFailureHandler">
