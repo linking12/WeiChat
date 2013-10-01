@@ -6,7 +6,6 @@ import javax.validation.Valid;
 
 import net.chat.constants.PageConstants;
 import net.chat.domain.WxAccount;
-import net.chat.formbean.RegisterForm;
 import net.chat.service.AccountService;
 
 import org.apache.commons.lang3.RandomStringUtils;

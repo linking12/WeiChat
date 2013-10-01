@@ -19,6 +19,6 @@ public interface BaseService<T> {
 
 	T findOne(T t);
 
-	List<T> query(T t);
+	List<T> finaAll();
 
 }

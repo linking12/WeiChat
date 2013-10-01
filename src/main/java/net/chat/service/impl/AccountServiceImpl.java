@@ -32,7 +32,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service("accountSerivce")
-@Transactional
 public class AccountServiceImpl implements AccountService {
 
 	@Autowired
@@ -50,31 +49,34 @@ public class AccountServiceImpl implements AccountService {
 	@Autowired
 	private WxMsgTypeDao messageTypeDao;
 
+	@Transactional
 	public void saveAccount(WxAccount account) {
-		accountDao.save(account);
-//		if (account.getId() == null) {
-//			accountDao.save(account);
-//			Long accountId = account.getId();
-//			WxMessage message = new WxMessage();
-//			message.setAccountId(accountId);
-//			message.setMsgType("text");
-//			message.setMsgName("��ӭ��");
-//			message.setContent("лл��ע���˺ţ�");
-//			// ��ȡ���������
-//			WxGame defaultGame = gameDao.findByUrlAndGameType("autoreply.jsp", "program");
-//			WxAccountGame accountGame = new WxAccountGame();
-//			accountGame.setGameId(defaultGame.getId());
-//			accountGame.setAccountId(accountId);
-//			accountGameDao.save(accountGame);
-//			List<WxMsgType> messageTypeList = new ArrayList<WxMsgType>(10);
-//			messageTypeList.add(new WxMsgType(accountId, "text", "program", message.getId(), "�ı�"));
-//			messageTypeList.add(new WxMsgType(accountId, "image", "direct", message.getId(), "ͼƬ"));
-//			messageTypeList.add(new WxMsgType(accountId, "voice", "direct", message.getId(), "����"));
-//			messageTypeList.add(new WxMsgType(accountId, "subscribe", "direct", message.getId(), "��ע"));
-//			messageTypeList.add(new WxMsgType(accountId, "video", "direct", message.getId(), "��Ƶ"));
-//			messageTypeList.add(new WxMsgType(accountId, "unsubscribe", "direct", message.getId(), "ȡ���ע"));
-//			messageTypeDao.save(messageTypeList);
-//		}
+		account = accountDao.save(account);
+		if (null != account.getId()) {
+
+			Long accountId = account.getId();
+			WxMessage message = new WxMessage();
+			message.setAccountId(accountId);
+			message.setMsgType("text");
+			message.setMsgName("欢迎词");
+			message.setContent("谢谢关注此账号！");
+			message = messageDao.save(message);
+
+			WxGame defaultGame = gameDao.findByUrlAndGameType("autoreply.jsp", "program");
+			WxAccountGame accountGame = new WxAccountGame();
+			accountGame.setGameId(defaultGame.getId());
+			accountGame.setAccountId(accountId);
+			accountGameDao.save(accountGame);
+
+			List<WxMsgType> messageTypeList = new ArrayList<WxMsgType>(10);
+			messageTypeList.add(new WxMsgType(accountId, "text", "program", message.getId(), "文本"));
+			messageTypeList.add(new WxMsgType(accountId, "image", "direct", message.getId(), "图片"));
+			messageTypeList.add(new WxMsgType(accountId, "voice", "direct", message.getId(), "语音"));
+			messageTypeList.add(new WxMsgType(accountId, "subscribe", "direct", message.getId(), "关注"));
+			messageTypeList.add(new WxMsgType(accountId, "video", "direct", message.getId(), "视频"));
+			messageTypeList.add(new WxMsgType(accountId, "unsubscribe", "direct", message.getId(), "取消关注"));
+			messageTypeDao.save(messageTypeList);
+		}
 
 	}
 
@@ -86,7 +88,10 @@ public class AccountServiceImpl implements AccountService {
 			this.saveAccount(account);
 	}
 
+	@Transactional
 	public void deleteAccount(Long accountId) {
+		messageTypeDao.deleteByAccountId(accountId);
+		messageDao.deleteByAccountId(accountId);
 		accountDao.delete(accountId);
 	}
 

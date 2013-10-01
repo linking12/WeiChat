@@ -45,16 +45,17 @@ public class UserSerivceImpl implements UserSerivce {
 		return dao.findOne(t.getUserId());
 	}
 
-	@Override
-	public List<User> query(User t) {
-
-		return null;
-	}
-
+	
 	@Override
 	public User findByName(String name) {
 
 		return dao.findByName(name);
+	}
+
+	@Override
+	public List<User> finaAll() {
+		
+		return dao.findAll();
 	}
 
 }

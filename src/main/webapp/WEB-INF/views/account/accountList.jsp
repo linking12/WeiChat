@@ -109,7 +109,7 @@
 																			<td width="40%">http://yidia.cn/service${account.url }</td>
 																			<td width="23%" class="zeng">${account.seq }</td>
 																			<td width="7%" align="center" class="zeng"><a
-																				href="#">配置</a></td>
+																				href="${ctx }/replymsg/init?accountId=${account.id }">配置</a></td>
 																			<td width="4%" align="center" class="zeng"><a
 																				href="${ctx }/account/edit/${account.id }">修改</a></td>
 																			<td width="5%" align="center" class="zeng"><a

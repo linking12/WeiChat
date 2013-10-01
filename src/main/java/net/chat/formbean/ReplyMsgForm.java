@@ -6,15 +6,16 @@ import net.chat.domain.WxMsgType;
 
 public class ReplyMsgForm {
 
-	private String accountId;
+	private Long accountId;
 	
 	private List<WxMsgType> msgTypes;
 
-	public String getAccountId() {
+	
+	public Long getAccountId() {
 		return accountId;
 	}
 
-	public void setAccountId(String accountId) {
+	public void setAccountId(Long accountId) {
 		this.accountId = accountId;
 	}
 
