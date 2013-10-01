@@ -135,10 +135,14 @@ body {
 								<img src="${images}/ic_1.png" width="310" height="310" />
 							</div></td>
 						<td><div align="center">
-								<img src="${images}/ic_2.png" width="310" height="310" />
+						            <a href="${ctx}/message/init">
+						               <img src="${images}/ic_2.png" width="310" height="310" />
+							        </a>
 							</div></td>
 						<td><div align="center">
-								<img src="${images}/ic_3.png" width="310" height="310" />
+						         <a href="${ctx}/replymsg/init">
+								     <img src="${images}/ic_3.png" width="310" height="310" />
+								 </a>
 							</div></td>
 					</tr>
 					<tr>
@@ -148,7 +152,9 @@ body {
 					</tr>
 					<tr>
 						<td><div align="center">
+						       <a href="${ctx}/message/init">
 								<img src="${images}/ic_4.png" width="310" height="310" />
+							   </a>
 							</div></td>
 						<td><div align="center">
 								<img src="${images}/ic_5.png" width="310" height="310" />

@@ -103,9 +103,9 @@ public class AccountServiceImpl implements AccountService {
 		if (pageSize == 0)
 			pageSize = 20;
 		if (pageNo == 0)
-			pageNo = 0;
+			pageNo = 1;
 		Pageable pageable = new PageRequest(pageNo - 1, pageSize, new Sort(
-				new Order("Order")));
+				new Order("id")));
 		return accountDao.findAll(pageable);
 
 	}
