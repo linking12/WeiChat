@@ -12,9 +12,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  * @author bo
  * 
  */
-public interface WxAccountDao extends JpaRepository<WxAccount, Long>, JpaSpecificationExecutor<WxAccount> {
-
-	// @Query("from Draw c where c.drawName=:drawName")
-	// Draw findByName(@Param("drawName") String drawName);
+public interface WxAccountDao extends JpaRepository<WxAccount, Long>,
+		JpaSpecificationExecutor<WxAccount> {
 
 }

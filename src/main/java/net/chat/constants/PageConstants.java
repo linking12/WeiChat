@@ -5,17 +5,18 @@ public final class PageConstants {
 	/**
 	 * 登录页面
 	 */
-	public static final String PAGE_LOGIN = "login";
-
-	/**
-	 * 登录页面后
-	 */
-	public static final String PAGE_LOGIN_1 = "index";
+	public static final String PAGE_LOGIN = "redirect:/login";
 
 	/**
 	 * 用户注册页面
 	 */
 	public static final String PAGE_REGISTER = "register";
+
+	/**
+	 * 首页
+	 */
+
+	public static final String PAGE_INDEX = "index";
 
 	/**
 	 * 帐号列表
@@ -81,7 +82,7 @@ public final class PageConstants {
 	 * 应用管理-刮刮乐
 	 */
 	public static final String PAGE_GAME_LOTTERY_DETAIL = "game/lotteryDetail";
-	
+
 	/**
 	 * 注册用户管理
 	 */

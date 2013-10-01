@@ -111,9 +111,9 @@
 																			<td width="7%" align="center" class="zeng"><a
 																				href="#">配置</a></td>
 																			<td width="4%" align="center" class="zeng"><a
-																				href="${ctx }/account/edit">修改</a></td>
+																				href="${ctx }/account/edit/${account.id }">修改</a></td>
 																			<td width="5%" align="center" class="zeng"><a
-																				href="${ctx }/account/delete">删除</a></td>
+																				href="${ctx }/account/delete/${account.id }">删除</a></td>
 																		</tr>
 																	</c:forEach>
 
