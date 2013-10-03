@@ -1,5 +1,6 @@
 package net.chat.controllers;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,15 +17,24 @@ import net.chat.service.AccountService;
 import net.chat.service.ContentService;
 import net.chat.service.MessageService;
 
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Controller
 @RequestMapping("/message")
@@ -37,6 +47,9 @@ public class MessageController {
 
 	@Autowired
 	private ContentService contentService;
+
+	@Value("${upload.file.path}")
+	private String uploadpath;
 
 	@RequestMapping("/init")
 	public String init(@RequestParam(value = "accountId", required = false) Long accountId, Model model) {
@@ -102,10 +115,10 @@ public class MessageController {
 		List<WxAccount> accounts = new ArrayList<WxAccount>();
 		accounts.add(accountService.findAcountById(msg.getAccountId()));
 		model.addAttribute("accounts", accounts);
-		PictureForm mf = new PictureForm();
-		BeanUtils.copyProperties(content, mf);
-		mf.setAccountId(msg.getAccountId());
-		model.addAttribute("musicForm", mf);
+		PictureForm pf = new PictureForm();
+		BeanUtils.copyProperties(content, pf);
+		pf.setAccountId(msg.getAccountId());
+		model.addAttribute("pictureForm", pf);
 		return PageConstants.PAGE_MESSAGE_IMG;
 	}
 
@@ -139,8 +152,35 @@ public class MessageController {
 	}
 
 	@RequestMapping("/sumitimg")
-	public String submiImg(Model model) {
-		return PageConstants.PAGE_MESSAGE_LIST;
+	public String submiImg(@Valid PictureForm pictureForm, BindingResult result, Model model) {
+		if (result.hasErrors()) {
+			List<WxAccount> accounts = accountService.findAll();
+			model.addAttribute("accounts", accounts);
+			model.addAttribute("pictureForm", pictureForm);
+			return PageConstants.PAGE_MESSAGE_IMG;
+		}
+		WxMessage msg = new WxMessage();
+
+		msg.setMsgName(pictureForm.getTitle());
+		msg.setMsgType("multimedia");
+		msg.setContent(pictureForm.getDescription());
+		msg.setAccountId(pictureForm.getAccountId());
+
+		WxContent content = new WxContent();
+
+		BeanUtils.copyProperties(pictureForm, content);
+		if (null != pictureForm.getMessageId()) {
+			msg.setId(pictureForm.getMessageId());
+			WxContent scontent = contentService.findByMessageId(pictureForm.getMessageId());
+			content.setId(scontent.getId());
+		}
+
+		msg = messageService.saveMessage(msg);
+		content.setMessageId(msg.getId());
+		content.setMsgType("multimedia");
+		contentService.save(content);
+		return "redirect:/message/init?accountId=" + msg.getAccountId();
+
 	}
 
 	@RequestMapping("/sumitmusic")
@@ -181,6 +221,31 @@ public class MessageController {
 		return "redirect:/message/init";
 	}
 
+
+	@RequestMapping("/upload")
+	@ResponseBody
+	public String upload(@RequestParam(value = "accountId", required = false) Long accountId, MultipartHttpServletRequest request, Model model) {
+		boolean isMultipart = ServletFileUpload.isMultipartContent(request);
+		String fname = StringUtils.EMPTY;
+		if (isMultipart) {
+			try {
+				String filename = request.getFileNames().next();
+				MultipartFile file = request.getFile(filename);
+				File newFile = new File(uploadpath + File.separator + RandomStringUtils.randomAlphabetic(15) + "." + StringUtils.substringAfterLast(file.getOriginalFilename(), "."));
+
+				FileUtils.writeStringToFile(newFile, null);
+				newFile.createNewFile();
+				file.transferTo(newFile);
+				File backFile = new File(this.getClass().getResource("/").getFile()  + File.separator + "upload");
+				FileUtils.copyFileToDirectory(newFile, backFile);
+				fname = newFile.getName();
+			} catch (Exception e) {
+
+			}
+		}
+		return "" + fname;
+	}
+
 	private boolean isExistingAccount(Long accountId, List<WxAccount> accounts) {
 		if (null == accountId) {
 			return false;
@@ -192,6 +257,11 @@ public class MessageController {
 			}
 		}
 		return false;
+	}
+
+	@ModelAttribute("uploadpath")
+	public String setUploadPath() {
+		return uploadpath;
 	}
 
 }
