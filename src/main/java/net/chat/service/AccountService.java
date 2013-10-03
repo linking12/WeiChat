@@ -1,5 +1,7 @@
 package net.chat.service;
 
+import java.util.List;
+
 import net.chat.domain.WxAccount;
 import net.chat.domain.WxMsgType;
 
@@ -20,4 +22,5 @@ public interface AccountService {
 	public Page<WxMsgType> queryAllMessageTypeInAccount(Long accountId,
 			int pageNo, int pageSize);
 
+	public List<WxAccount> findAll();
 }

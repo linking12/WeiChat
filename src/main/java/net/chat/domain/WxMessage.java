@@ -12,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
  * @author bo
  * 
@@ -34,9 +36,11 @@ public class WxMessage implements Serializable {
 	private String msgType;
 
 	@Column(name = "content")
+	@NotEmpty(message = "内容必须输入！")
 	private String content;
 
 	@Column(name = "msgname")
+	@NotEmpty(message = "标题必须输入！")
 	private String msgName;
 
 	@Column(name = "createtime")

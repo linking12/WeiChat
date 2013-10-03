@@ -17,7 +17,9 @@
 		<property name="prefix" value="/WEB-INF/views/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
-	
+	 <!-- 支持上传文件 -->  
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean> 
+    
 	<!-- Only needed because we install custom converters to support the examples 
 		in the org.springframewok.samples.mvc.convert package -->
 	<bean id="conversionService"
@@ -34,4 +36,5 @@
 	<mvc:resources mapping="/index/css/**" location="/WEB-INF/resources/index/css/"/> 
 	<mvc:resources mapping="/index/images/**" location="/WEB-INF/resources/index/images/"/> 
 	<mvc:annotation-driven />
+	 
 </beans> 

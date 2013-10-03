@@ -7,6 +7,9 @@ import net.chat.domain.WxContent;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 /**
  * @author bo
@@ -14,7 +17,9 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  */
 public interface WxContentDao extends JpaRepository<WxContent, Long>, JpaSpecificationExecutor<WxContent> {
 
-	// @Query("from Draw c where c.drawName=:drawName")
-	// Draw findByName(@Param("drawName") String drawName);
+	@Modifying
+	@Query("delete WxContent  where messageId = :messageId")
+	void deleteByMessageId(@Param("messageId") Long messageId);
+	
 
 }

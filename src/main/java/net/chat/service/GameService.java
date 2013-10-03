@@ -13,13 +13,16 @@ import net.chat.domain.WxGame;
  */
 public interface GameService {
 
-	public WxGame save(WxGame t);
+	WxGame save(WxGame t);
 
-	public WxGame edit(WxGame t);
+	WxGame edit(WxGame t);
 
-	public void delete(WxGame t);
+	void delete(WxGame t);
 
-	public WxGame findOne(WxGame t);
+	WxGame findOne(WxGame t);
 
-	public List<WxGame> finaAll();
+	List<WxGame> finaAll();
+	
+	List<WxGame> findGameByAccountId(Long accountId);
+
 }

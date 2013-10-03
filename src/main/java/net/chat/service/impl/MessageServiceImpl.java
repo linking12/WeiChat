@@ -1,5 +1,6 @@
 package net.chat.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -9,9 +10,9 @@ import javax.persistence.criteria.Root;
 
 import net.chat.dao.WxMessageDao;
 import net.chat.domain.WxMessage;
+import net.chat.service.ContentService;
 import net.chat.service.MessageService;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,12 +21,16 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service("messageSerivce")
 public class MessageServiceImpl implements MessageService {
 
 	@Autowired
 	private WxMessageDao messageDao;
+
+	@Autowired
+	private ContentService contentService;
 
 	public Page<WxMessage> listALlMessageByAccountId(Long accountId, int pageNo, int pageSize) {
 		pageSize = 20;
@@ -49,23 +54,21 @@ public class MessageServiceImpl implements MessageService {
 
 	}
 
-	public void saveMessage(WxMessage message) {
-		if (message.getId() == null)
-			messageDao.save(message);
+	public WxMessage saveMessage(WxMessage message) {
+		message.setCreateTime(new Date());
+		return messageDao.save(message);
 
 	}
 
 	public void editMessage(WxMessage message) {
-		if (message.getId() != null) {
-			WxMessage _message = messageDao.findOne(message.getId());
-			BeanUtils.copyProperties(message, _message);
-		}
 
+		messageDao.editWxMessage(message.getId(), message.getMsgName(), message.getContent());
 	}
 
+	@Transactional
 	public void delteMessage(Long messageId) {
 		messageDao.delete(messageId);
-
+		contentService.deleteByMessageId(messageId);
 	}
 
 	public WxMessage findyMessageByMessageId(Long messageId) {

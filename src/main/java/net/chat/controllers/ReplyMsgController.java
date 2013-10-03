@@ -54,7 +54,7 @@ public class ReplyMsgController {
 						.findMessageByAccountId(accountId);
 				model.addAttribute("messages", messages);
 
-				List<WxGame> games = gameService.finaAll();
+				List<WxGame> games = gameService.findGameByAccountId(accountId);
 				model.addAttribute("games", games);
 
 				List<WxMsgType> msgTypes = msgTypeService

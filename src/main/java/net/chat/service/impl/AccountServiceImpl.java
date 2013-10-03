@@ -1,6 +1,7 @@
 package net.chat.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -20,7 +21,6 @@ import net.chat.domain.WxMessage;
 import net.chat.domain.WxMsgType;
 import net.chat.service.AccountService;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -51,45 +51,36 @@ public class AccountServiceImpl implements AccountService {
 
 	@Transactional
 	public void saveAccount(WxAccount account) {
-		if (account.getId() == null) {
-			accountDao.save(account);
-			Long accountId = account.getId();
-			WxMessage message = new WxMessage();
-			message.setAccountId(accountId);
-			message.setMsgType("text");
-			message.setMsgName("欢迎词");
-			message.setContent("谢谢关注此账号！");
-			// 获取聊天机器人
-			WxGame defaultGame = gameDao.findByUrlAndGameType("autoreply.jsp",
-					"program");
-			WxAccountGame accountGame = new WxAccountGame();
-			accountGame.setGameId(defaultGame.getId());
-			accountGame.setAccountId(accountId);
-			accountGameDao.save(accountGame);
-			List<WxMsgType> messageTypeList = new ArrayList<WxMsgType>(10);
-			messageTypeList.add(new WxMsgType(accountId, "text", "program",
-					message.getId(), "文本"));
-			messageTypeList.add(new WxMsgType(accountId, "image", "direct",
-					message.getId(), "图片"));
-			messageTypeList.add(new WxMsgType(accountId, "voice", "direct",
-					message.getId(), "声音"));
-			messageTypeList.add(new WxMsgType(accountId, "subscribe", "direct",
-					message.getId(), "关注"));
-			messageTypeList.add(new WxMsgType(accountId, "video", "direct",
-					message.getId(), "视频"));
-			messageTypeList.add(new WxMsgType(accountId, "unsubscribe",
-					"direct", message.getId(), "取消关注"));
-			messageTypeDao.save(messageTypeList);
-		}
+
+		account = accountDao.save(account);
+		Long accountId = account.getId();
+		WxMessage message = new WxMessage();
+		message.setAccountId(accountId);
+		message.setMsgType("text");
+		message.setMsgName("欢迎词");
+		message.setContent("谢谢关注此账号！");
+		message.setCreateTime(new Date());
+		message = messageDao.save(message);
+		// 获取聊天机器人
+		WxGame defaultGame = gameDao.findByUrlAndGameType("autoreply.jsp", "program");
+		WxAccountGame accountGame = new WxAccountGame();
+		accountGame.setGameId(defaultGame.getId());
+		accountGame.setAccountId(accountId);
+		accountGameDao.save(accountGame);
+
+		List<WxMsgType> messageTypeList = new ArrayList<WxMsgType>(10);
+		messageTypeList.add(new WxMsgType(accountId, "text", "program", message.getId(), "文本"));
+		messageTypeList.add(new WxMsgType(accountId, "image", "direct", message.getId(), "图片"));
+		messageTypeList.add(new WxMsgType(accountId, "voice", "direct", message.getId(), "声音"));
+		messageTypeList.add(new WxMsgType(accountId, "subscribe", "direct", message.getId(), "关注"));
+		messageTypeList.add(new WxMsgType(accountId, "video", "direct", message.getId(), "视频"));
+		messageTypeList.add(new WxMsgType(accountId, "unsubscribe", "direct", message.getId(), "取消关注"));
+		messageTypeDao.save(messageTypeList);
 
 	}
-
+	@Transactional
 	public void editAccount(WxAccount account) {
-		if (account.getId() != null) {
-			WxAccount accountEntity = accountDao.findOne(account.getId());
-			BeanUtils.copyProperties(account, accountEntity);
-		} else
-			this.saveAccount(account);
+		accountDao.editAccount(account.getId(), account.getName(), account.getNote());
 	}
 
 	@Transactional
@@ -104,8 +95,7 @@ public class AccountServiceImpl implements AccountService {
 			pageSize = 20;
 		if (pageNo == 0)
 			pageNo = 1;
-		Pageable pageable = new PageRequest(pageNo - 1, pageSize, new Sort(
-				new Order("id")));
+		Pageable pageable = new PageRequest(pageNo - 1, pageSize, new Sort(new Order("id")));
 		return accountDao.findAll(pageable);
 
 	}
@@ -116,8 +106,7 @@ public class AccountServiceImpl implements AccountService {
 
 	public void configAccount(ConfigPropertity configPertity) {
 
-		WxMsgType messageType = messageTypeDao.findOne(configPertity
-				.getMessageTypeId());
+		WxMsgType messageType = messageTypeDao.findOne(configPertity.getMessageTypeId());
 		if (messageType.getAccountId().equals(configPertity.getAccountId())) {
 			messageType.setAction(configPertity.getAction());
 			messageType.setSourceId(configPertity.getSourceId());
@@ -125,18 +114,15 @@ public class AccountServiceImpl implements AccountService {
 
 	}
 
-	public Page<WxMsgType> queryAllMessageTypeInAccount(Long accountId,
-			int pageNo, int pageSize) {
+	public Page<WxMsgType> queryAllMessageTypeInAccount(Long accountId, int pageNo, int pageSize) {
 		if (pageSize == 0)
 			pageSize = 20;
 		if (pageNo == 0)
 			pageNo = 0;
-		Pageable pageable = new PageRequest(pageNo - 1, pageSize, new Sort(
-				new Order("id")));
+		Pageable pageable = new PageRequest(pageNo - 1, pageSize, new Sort(new Order("id")));
 		final Long _accountId = accountId;
 		Specification<WxMsgType> spec = new Specification<WxMsgType>() {
-			public Predicate toPredicate(Root<WxMsgType> root,
-					CriteriaQuery<?> query, CriteriaBuilder cb) {
+			public Predicate toPredicate(Root<WxMsgType> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 				return cb.equal(root.<Long> get("accountId"), _accountId);
 			}
 
@@ -185,6 +171,12 @@ public class AccountServiceImpl implements AccountService {
 			this.accountId = accountId;
 		}
 
+	}
+
+	@Override
+	public List<WxAccount> findAll() {
+
+		return accountDao.findAll();
 	}
 
 }

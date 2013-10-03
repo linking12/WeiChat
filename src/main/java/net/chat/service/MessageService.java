@@ -11,7 +11,7 @@ public interface MessageService {
 	public Page<WxMessage> listALlMessageByAccountId(Long accountId,
 			int pageNo, int pageSize);
 
-	public void saveMessage(WxMessage message);
+	public WxMessage saveMessage(WxMessage message);
 
 	public void editMessage(WxMessage message);
 
