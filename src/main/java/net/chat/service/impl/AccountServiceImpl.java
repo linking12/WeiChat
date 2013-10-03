@@ -1,6 +1,5 @@
 package net.chat.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -9,16 +8,12 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import net.chat.dao.WxAccountDao;
-import net.chat.dao.WxAccountGameDao;
-import net.chat.dao.WxGameDao;
 import net.chat.dao.WxMessageDao;
 import net.chat.dao.WxMsgTypeDao;
 import net.chat.domain.WxAccount;
-import net.chat.domain.WxAccountGame;
-import net.chat.domain.WxGame;
-import net.chat.domain.WxMessage;
 import net.chat.domain.WxMsgType;
 import net.chat.service.AccountService;
+import net.chat.utils.AppContext;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,49 +36,19 @@ public class AccountServiceImpl implements AccountService {
 	private WxMessageDao messageDao;
 
 	@Autowired
-	private WxGameDao gameDao;
-
-	@Autowired
-	private WxAccountGameDao accountGameDao;
-
-	@Autowired
 	private WxMsgTypeDao messageTypeDao;
 
 	@Transactional
 	public void saveAccount(WxAccount account) {
 		if (account.getId() == null) {
+			Long userId = AppContext.getUserId();
+			account.setCustomerId(userId);
 			accountDao.save(account);
-			Long accountId = account.getId();
-			WxMessage message = new WxMessage();
-			message.setAccountId(accountId);
-			message.setMsgType("text");
-			message.setMsgName("欢迎词");
-			message.setContent("谢谢关注此账号！");
-			// 获取聊天机器人
-			WxGame defaultGame = gameDao.findByUrlAndGameType("autoreply.jsp",
-					"program");
-			WxAccountGame accountGame = new WxAccountGame();
-			accountGame.setGameId(defaultGame.getId());
-			accountGame.setAccountId(accountId);
-			accountGameDao.save(accountGame);
-			List<WxMsgType> messageTypeList = new ArrayList<WxMsgType>(10);
-			messageTypeList.add(new WxMsgType(accountId, "text", "program",
-					message.getId(), "文本"));
-			messageTypeList.add(new WxMsgType(accountId, "image", "direct",
-					message.getId(), "图片"));
-			messageTypeList.add(new WxMsgType(accountId, "voice", "direct",
-					message.getId(), "声音"));
-			messageTypeList.add(new WxMsgType(accountId, "subscribe", "direct",
-					message.getId(), "关注"));
-			messageTypeList.add(new WxMsgType(accountId, "video", "direct",
-					message.getId(), "视频"));
-			messageTypeList.add(new WxMsgType(accountId, "unsubscribe",
-					"direct", message.getId(), "取消关注"));
-			messageTypeDao.save(messageTypeList);
 		}
 
 	}
 
+	@Transactional
 	public void editAccount(WxAccount account) {
 		if (account.getId() != null) {
 			WxAccount accountEntity = accountDao.findOne(account.getId());
@@ -97,6 +62,10 @@ public class AccountServiceImpl implements AccountService {
 		messageTypeDao.deleteByAccountId(accountId);
 		messageDao.deleteByAccountId(accountId);
 		accountDao.delete(accountId);
+	}
+
+	public List<WxAccount> findAccountByUserId(Long userId) {
+		return accountDao.findAccountByUserId(userId);
 	}
 
 	public Page<WxAccount> listAllAcount(int pageNo, int pageSize) {
