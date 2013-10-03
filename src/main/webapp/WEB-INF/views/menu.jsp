@@ -64,23 +64,23 @@
 <table width="967" border="0" align="center" cellpadding="0"
 		cellspacing="0">
 	<tr>
-		<td><a href="${ctx }/account/list" onmouseout="MM_swapImgRestore()"
+		<td><a href="${ctx }/index" onmouseout="MM_swapImgRestore()"
 			onmouseover="MM_swapImage('Image2','','${images}/an_1_1.png',1)"><img
 				src="${images}/an_1.png" name="Image2" width="194" height="84"
 				border="0" id="Image2" /></a></td>
-		<td><a href="${ctx }/user/init" onmouseout="MM_swapImgRestore()"
+		<td><a href="${ctx }/account/list" onmouseout="MM_swapImgRestore()"
 			onmouseover="MM_swapImage('Image3','','${images}/an_2_1.png',1)"><img
 				src="${images}/an_2.png" name="Image3" width="194" height="84"
 				border="0" id="Image3" /></a></td>
-		<td><a href="${ctx }/message/init" onmouseout="MM_swapImgRestore()"
+		<td><a href="${ctx }/account/list" onmouseout="MM_swapImgRestore()"
 			onmouseover="MM_swapImage('Image4','','${images}/an_3_1.png',1)"><img
 				src="${images}/an_3.png" name="Image4" width="194" height="84"
 				border="0" id="Image4" /></a></td>
-		<td><a href="${ctx }/game/init" onmouseout="MM_swapImgRestore()"
+		<td><a href="${ctx }/account/list" onmouseout="MM_swapImgRestore()"
 			onmouseover="MM_swapImage('Image5','','${images}/an_4_1.png',1)"><img
 				src="${images}/an_4.png" name="Image5" width="194" height="84"
 				border="0" id="Image5" /></a></td>
-		<td><a href="${ctx }/replymsg/init" onmouseout="MM_swapImgRestore()"
+		<td><a href="${ctx }/j_spring_security_logout" onmouseout="MM_swapImgRestore()"
 			onmouseover="MM_swapImage('Image6','','${images}/an_5_1.png',1)"><img
 				src="${images}/an_5.png" name="Image6" width="194" height="84"
 				border="0" id="Image6" /></a></td>
