@@ -111,7 +111,7 @@
                     <td height="20">&nbsp;</td>
                   </tr>
                   <tr>
-                    <td><span class="biao">已有用户</span> <a href="${ctx }/login" class="a">登录</a></td>
+                    <td><span class="biao">已有用户</span> <a href="${ctx }/login.jsp" class="a">登录</a></td>
                   </tr>
                    <tr hight="20"><td>&nbsp;</td></tr>
                   	 <tr hight="20"><td><form:errors path="phone" cssClass="error" /></td></tr>
