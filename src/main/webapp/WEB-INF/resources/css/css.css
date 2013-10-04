@@ -215,3 +215,29 @@ body {
 .pagination-right {
 	text-align: right;
 }
+
+.btn-primary {
+	color: #ffffff;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+	background-color: #29bd35;
+	background-image: -moz-linear-gradient(top, #2cbd24, #24bd4f);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#2cbd24),
+		to(#24bd4f));
+	background-image: -webkit-linear-gradient(top, #2cbd24, #24bd4f);
+	background-image: -o-linear-gradient(top, #2cbd24, #24bd4f);
+	background-image: linear-gradient(to bottom, #2cbd24, #24bd4f);
+	background-repeat: repeat-x;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff2cbd24',
+		endColorstr='#ff24bd4f', GradientType=0);
+	border-color: #24bd4f #24bd4f #187d34;
+	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	*background-color: #24bd4f;
+	filter: progid:DXImageTransform.Microsoft.gradient(enabled=    false);
+}
+
+.btn-primary:hover,.btn-primary:active,.btn-primary.active,.btn-primary.disabled,.btn-primary[disabled]
+	{
+	color: #ffffff;
+	background-color: #24bd4f;
+	*background-color: #20a846;
+}

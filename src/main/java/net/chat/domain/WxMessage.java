@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -47,7 +48,7 @@ public class WxMessage implements Serializable {
 	@Column(name = "createtime")
 	private Date createTime;
 
-	@NotEmpty(message = "公众帐号名必须输入")
+	@NotNull(message = "公众帐号名必须输入")
 	@Column(name = "accountid")
 	private Long accountId;
 

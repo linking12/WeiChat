@@ -5,14 +5,13 @@ package net.chat.service.impl;
 
 import java.util.List;
 
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import net.chat.dao.WxGameDao;
 import net.chat.domain.WxGame;
 import net.chat.service.GameService;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Administrator
@@ -24,19 +23,16 @@ public class GameServiceImpl implements GameService {
 	@Autowired
 	private WxGameDao gameDao;
 
-	@Transactional
 	public WxGame save(WxGame game) {
 		return gameDao.save(game);
 	}
 
-	@Transactional
 	public WxGame edit(WxGame t) {
 		WxGame gameEntity = gameDao.findOne(t.getId());
 		BeanUtils.copyProperties(t, gameEntity);
 		return t;
 	}
 
-	@Transactional
 	public void delete(WxGame t) {
 		gameDao.delete(t);
 	}
@@ -47,6 +43,13 @@ public class GameServiceImpl implements GameService {
 
 	public List<WxGame> finaAll() {
 		return gameDao.findAll();
+	}
+
+	public List<WxGame> findGameByAccountId(Long accountId) {
+
+		List<WxGame> games = gameDao.findGameByAccountId(accountId);
+
+		return games;
 	}
 
 }

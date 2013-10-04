@@ -8,4 +8,6 @@
 <c:set var="css" value="${ctx}/css"/>
 <c:set var="images" value="${ctx}/images"/>
 <link href="${css }/css.css" rel="stylesheet" type="text/css" />
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script type="text/javascript" src="${js}/jquery/1.6/jquery.js"></script>
+<script type="text/javascript" src="${js}/jquery/weichat.js"></script>

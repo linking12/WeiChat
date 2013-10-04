@@ -90,10 +90,11 @@ body {
 														</tr>
 													</table></td>
 											</tr>
-											<tr>
-												<td height="58"><table width="100%" border="0"
-														align="center" cellpadding="0" cellspacing="0">
-														<c:forEach items="${accounts}" var="account">
+											<c:forEach items="${accounts}" var="account">
+												<tr>
+													<td height="58">
+														<table width="98%" border="0" align="center"
+															cellpadding="0" cellspacing="0">
 															<tr>
 																<td width="21%">${account.name }</td>
 																<td width="40%">${account.url}</td>
@@ -105,14 +106,15 @@ body {
 																<td width="5%" align="center" class="zeng"><a
 																	href="${ctx }/account/delete/${account.id }">删除</a></td>
 															</tr>
-														</c:forEach>
-													</table></td>
-											</tr>
-											<tr>
-												<td><div align="center">
-														<img src="${images}/xian.jpg" width="727" height="1" />
-													</div></td>
-											</tr>
+														</table>
+													</td>
+												</tr>
+												<tr>
+													<td><div align="center">
+															<img src="${images}/xian.jpg" width="800" height="1" />
+														</div></td>
+												</tr>
+											</c:forEach>
 										</table>
 									</td>
 								</tr>

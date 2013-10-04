@@ -19,6 +19,10 @@ public interface WxMessageDao extends JpaRepository<WxMessage, Long>, JpaSpecifi
 
 	@Modifying
 	@Query("delete WxMessage  where accountId = :accountId")
-	void deleteByAccountId(@Param("accountId") Long accountId );
+	void deleteByAccountId(@Param("accountId") Long accountId);
+
+	@Modifying
+	@Query("update WxMessage  set msgName=:msgName , content=:content where id = :id")
+	void editWxMessage(@Param("id") Long id, @Param("msgName") String msgName, @Param("content") String content);
 
 }

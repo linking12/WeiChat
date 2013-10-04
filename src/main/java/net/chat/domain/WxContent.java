@@ -37,137 +37,92 @@ public class WxContent implements Serializable {
 
 	@Column(name = "picurl")
 	private String picUrl;
-
+	
+	@Column(name = "url")
+	private String url;
+	
 	@Column(name = "messageid")
 	private Long messageId;
 
 	@Column(name = "musicurl")
 	private String musicUrl;
 
-	@Column(name = "content")
-	private String content;
+	@Column(name = "hqmusicurl")
+	private String hqmusicUrl;
 
 	@Column(name = "msgtype")
 	private String msgType;
 
-	/**
-	 * @return the id
-	 */
 	public Long getId() {
 		return id;
 	}
 
-	/**
-	 * @param id
-	 *            the id to set
-	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	/**
-	 * @return the title
-	 */
 	public String getTitle() {
 		return title;
 	}
 
-	/**
-	 * @param title
-	 *            the title to set
-	 */
 	public void setTitle(String title) {
 		this.title = title;
 	}
 
-	/**
-	 * @return the description
-	 */
 	public String getDescription() {
 		return description;
 	}
 
-	/**
-	 * @param description
-	 *            the description to set
-	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
-	/**
-	 * @return the picUrl
-	 */
 	public String getPicUrl() {
 		return picUrl;
 	}
 
-	/**
-	 * @param picUrl
-	 *            the picUrl to set
-	 */
 	public void setPicUrl(String picUrl) {
 		this.picUrl = picUrl;
 	}
 
-	/**
-	 * @return the messageId
-	 */
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
 	public Long getMessageId() {
 		return messageId;
 	}
 
-	/**
-	 * @param messageId
-	 *            the messageId to set
-	 */
 	public void setMessageId(Long messageId) {
 		this.messageId = messageId;
 	}
 
-	/**
-	 * @return the musicUrl
-	 */
 	public String getMusicUrl() {
 		return musicUrl;
 	}
 
-	/**
-	 * @param musicUrl
-	 *            the musicUrl to set
-	 */
 	public void setMusicUrl(String musicUrl) {
 		this.musicUrl = musicUrl;
 	}
 
-	/**
-	 * @return the content
-	 */
-	public String getContent() {
-		return content;
+	public String getHqmusicUrl() {
+		return hqmusicUrl;
 	}
 
-	/**
-	 * @param content
-	 *            the content to set
-	 */
-	public void setContent(String content) {
-		this.content = content;
+	public void setHqmusicUrl(String hqmusicUrl) {
+		this.hqmusicUrl = hqmusicUrl;
 	}
 
-	/**
-	 * @return the msgType
-	 */
 	public String getMsgType() {
 		return msgType;
 	}
 
-	/**
-	 * @param msgType
-	 *            the msgType to set
-	 */
 	public void setMsgType(String msgType) {
 		this.msgType = msgType;
 	}
-
+	
 }

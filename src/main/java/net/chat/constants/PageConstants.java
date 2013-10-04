@@ -44,19 +44,20 @@ public final class PageConstants {
 	public static final String PAGE_MESSAGE_TEXT = "msg/textDetail";
 
 	/**
-	 * 信息内容管理--图片
+	 * 信息内容管理--多媒体，包括音乐，视频
 	 */
-	public static final String PAGE_MESSAGE_IMG = "msg/imgDetail";
-
-	/**
-	 * 信息内容管理--音乐
-	 */
-	public static final String PAGE_MESSAGE_MUSIC = "msg/musicDetail";
+	public static final String PAGE_MESSAGE_MULTIMEDIA = "msg/multimediaDetail";
 
 	/**
 	 * 应用管理-列表
 	 */
 	public static final String PAGE_GAME_LIST = "game/gameList";
+
+	/**
+	 * 多媒体应用
+	 */
+
+	public static final String PAGE_CONTENT_DETAIL = "content/contentDetail";
 
 	/**
 	 * 应用管理-投票

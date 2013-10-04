@@ -18,7 +18,7 @@ public interface MessageService {
 	public void delteMessage(Long messageId);
 
 	public WxMessage findyMessageByMessageId(Long messageId);
-	
+
 	List<WxMessage> findMessageByAccountId(Long accountId);
 
 }

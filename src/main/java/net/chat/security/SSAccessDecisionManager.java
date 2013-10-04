@@ -34,7 +34,7 @@ public class SSAccessDecisionManager implements AccessDecisionManager {
 				}
 			}
 		}
-		throw new AccessDeniedException("no permission");
+//		throw new AccessDeniedException("no permission");
 	}
 
 	public boolean supports(ConfigAttribute attribute) {
