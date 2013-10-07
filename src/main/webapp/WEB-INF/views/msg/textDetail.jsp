@@ -146,7 +146,6 @@ body {
 														id="submitbtn" src="${images }/tijiao.png" width="76"
 														height="40" /></td>
 													<td height="50"><form:errors path="msgType"
-															cssClass="error" /> <form:errors path="msgType"
 															cssClass="error" /> <form:errors path="msgName"
 															cssClass="error" /> <form:errors path="accountId"
 															cssClass="error" /> <form:errors path="content"

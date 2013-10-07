@@ -10,56 +10,30 @@
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
 	<context:component-scan base-package="net.chat.controllers" />
-	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
-		in the /WEB-INF/views directory -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
-	<!-- 支持上传文件 -->
-	<bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
 
-	<!-- Only needed because we install custom converters to support the examples 
-		in the org.springframewok.samples.mvc.convert package -->
-	<bean id="conversionService"
-		class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
-		<property name="formatters">
-			<bean class="net.chat.validate.ValidateFormatAnnotationFactory" />
-		</property>
-	</bean>
 	<mvc:view-controller path="/login"
 		view-name="redirect:/j_spring_security_check" />
 	<mvc:view-controller path="/"
 		view-name="redirect:/j_spring_security_check" />
+
+	<mvc:annotation-driven />
+
 	<mvc:resources mapping="/css/**" location="/WEB-INF/resources/css/" />
 	<mvc:resources mapping="/images/**" location="/WEB-INF/resources/images/" />
-	<mvc:resources mapping="/js/**" location="/WEB-INF/resources/js/" />
 	<mvc:resources mapping="/index/css/**" location="/WEB-INF/resources/index/css/" />
 	<mvc:resources mapping="/index/images/**" location="/WEB-INF/resources/index/images/" />
-	<mvc:annotation-driven />
-	<bean
-		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
-	<bean
-		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
-		<property name="messageConverters">
-			<list>
-				<ref bean="mappingJacksonHttpMessageConverter" />
-			</list>
+	<mvc:resources mapping="/js/**" location="/WEB-INF/resources/js/" />
 
-		</property>
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="104857600" />
+		<property name="maxInMemorySize" value="4096" />
 	</bean>
-	<bean id="mappingJacksonHttpMessageConverter"
-		class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
-		<property name="supportedMediaTypes">
-			<list>
-				<value>text/html;charset=UTF-8</value>
-			</list>
-		</property>
-	</bean>
-	<context:property-placeholder
-		location="classpath*:/META-INF/spring/uploadfile.properties"
-		ignore-unresolvable="true" />
+
 
 </beans> 

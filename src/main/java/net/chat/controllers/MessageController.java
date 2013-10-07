@@ -147,10 +147,29 @@ public class MessageController {
 	}
 
 	@RequestMapping("/submit")
-	public String submit(@Valid WxMessage message,
-			@Valid List<Long> selectContentIds, BindingResult result,
+	public String submit(@Valid WxMessage message, BindingResult result,
 			Model model) {
 
+		if (result.hasErrors()) {
+			model.addAttribute("messageForm", message);
+			return PageConstants.PAGE_REGISTER;
+		}
+		if (null == message.getId() || 0 == message.getId()) {
+			messageService.saveMessage(message);
+
+		} else {
+			messageService.editMessage(message);
+
+		}
+		return "redirect:/message/init?accountId=" + message.getAccountId();
+	}
+
+	@RequestMapping("/submitMultimedia")
+	public String submitMultimedia(@Valid MultimediaMessageForm messageForm,
+			 BindingResult result,
+			Model model) {
+		WxMessage message = messageForm.getMessage();
+		List<Long> selectContentIds = messageForm.getSelectContents();
 		if (result.hasErrors()) {
 			model.addAttribute("messageForm", message);
 			return PageConstants.PAGE_REGISTER;
@@ -162,6 +181,7 @@ public class MessageController {
 			Iterator<WxContent> it = selectContents.iterator();
 			while (it.hasNext()) {
 				WxContent selectContent = it.next();
+				selectContent.setId(null);
 				selectContent.setMessageId(message.getId());
 			}
 			contentService.saveContents(selectContents);
@@ -174,6 +194,7 @@ public class MessageController {
 			Iterator<WxContent> it = selectContents.iterator();
 			while (it.hasNext()) {
 				WxContent selectContent = it.next();
+				selectContent.setId(null);
 				selectContent.setMessageId(message.getId());
 			}
 			contentService.saveContents(selectContents);

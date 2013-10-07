@@ -13,10 +13,17 @@ body {
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#submitbtn").click(function() {
-			$('#messageForm').attr('action', '${ctx}/message/submit');
+			$('#messageForm').attr('action', '${ctx}/message/submitMultimedia');
 			$('#messageForm').submit();
 		});
 	});
+	function changeMessageType() {
+		var msgType = $("#msgType").val();
+		if (msgType != '' && msgType != 'text')
+			window.location.href = "${ctx}/message/addMultimedia/" + msgType;
+		else
+			window.location.href = "${ctx}/message/addtext";
+	}
 </script>
 </head>
 <body>
@@ -87,7 +94,7 @@ body {
 															</tr>
 															<tr>
 																<td width="20%" height="40" class="biao">自动回复信息类型</td>
-																<td><form:select path="message.msgType"
+																<td><form:select path="message.msgType" onchange="javascript:changeMessageType()"
 																		id="msgType" style="width: 150px;">
 																		<c:forEach items="${messageTypes}" var="messageType">
 																			<form:option value="${messageType.msgType}">${messageType.name}</form:option>
@@ -130,7 +137,7 @@ body {
 																						cellpadding="0" cellspacing="0">
 																						<tr>
 																							<td width="5%"><form:checkbox
-																									path="selectContents" value="1" /></td>
+																									path="selectContents" value="${content.id}" /></td>
 																							<td width="10%">多媒体</td>
 																							<td width="10%">${content.title}</td>
 																							<td width="10%">${content.description}</td>
@@ -160,10 +167,45 @@ body {
 														</table></td>
 												</tr>
 												<tr>
+													<td>
+														<table width="729" border="0" cellpadding="0"
+															cellspacing="0" background="${images}/dd.png">
+															<tr>
+																<td height="320" valign="top"><table width="100%"
+																		border="0" cellspacing="0" cellpadding="0">
+																		<tr>
+																			<td height="40"><table width="100%" border="0"
+																					cellspacing="0" cellpadding="0">
+																					<tr>
+																						<td width="3%">&nbsp;</td>
+																						<td width="97%" class="biao">备注</td>
+																					</tr>
+																				</table></td>
+																		</tr>
+																		<tr>
+																			<td height="260"><table width="90%" border="0"
+																					align="center" cellpadding="0" cellspacing="0"
+																					bordercolor="#999999" bgcolor="#FFFFFF">
+																					<tr>
+																						<td height="200" valign="top"><form:textarea
+																								path="message.content" cols="90" rows="14" /></td>
+																					</tr>
+																				</table></td>
+																		</tr>
+																	</table></td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+												<tr>
 													<td height="50"><input type="image" name="submit"
 														id="submitbtn" src="${images }/tijiao.png" width="76"
 														height="40" /></td>
-													<td height="50"></td>
+													<td height="50"><form:errors path="message.msgType"
+															cssClass="error" /> <form:errors path="message.msgName"
+															cssClass="error" /> <form:errors path="message.accountId"
+															cssClass="error" /> <form:errors path="message.content"
+															cssClass="error" /></td>
 												</tr>
 											</form:form>
 										</table>
