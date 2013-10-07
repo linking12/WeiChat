@@ -19,7 +19,6 @@ import net.chat.utils.AppContext;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,9 +40,6 @@ public class MessageController {
 
 	@Autowired
 	private ContentService contentService;
-
-	@Value("${upload.file.path}")
-	private String uploadpath;
 
 	@RequestMapping("/init")
 	public String init(
