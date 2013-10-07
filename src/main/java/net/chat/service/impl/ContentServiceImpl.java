@@ -72,12 +72,13 @@ public class ContentServiceImpl implements ContentService {
 	}
 
 	public void deleteByMessageId(Long messageId) {
-		dao.deleteByMessageId(messageId);
+		List<WxContent> contents = dao.deleteByMessageId(messageId);
+		dao.delete(contents);
 
 	}
 
-	public List<WxContent> findAllMultimedia() {
-		return dao.listAllMultimediaContent();
+	public List<WxContent> findAllMultimedia(String msgType) {
+		return dao.listAllMultimediaContent(msgType);
 	}
 
 	public Iterable<WxContent> findByContentIds(List<Long> contentIds) {

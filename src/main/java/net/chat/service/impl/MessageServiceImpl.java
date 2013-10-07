@@ -19,6 +19,7 @@ import net.chat.domain.WxMessage;
 import net.chat.domain.WxMsgType;
 import net.chat.service.MessageService;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -104,8 +105,8 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	public void editMessage(WxMessage message) {
-		messageDao.editWxMessage(message.getId(), message.getMsgName(),
-				message.getContent());
+		WxMessage messageEntity = messageDao.findOne(message.getId());
+		BeanUtils.copyProperties(message, messageEntity);
 	}
 
 	@Transactional

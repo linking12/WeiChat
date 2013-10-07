@@ -9,7 +9,6 @@ import net.chat.domain.WxContent;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -20,11 +19,10 @@ import org.springframework.data.repository.query.Param;
 public interface WxContentDao extends JpaRepository<WxContent, Long>,
 		JpaSpecificationExecutor<WxContent> {
 
-	@Modifying
-	@Query("delete WxContent  where messageId = :messageId")
-	void deleteByMessageId(@Param("messageId") Long messageId);
+	@Query("from WxContent  where messageId = :messageId")
+	List<WxContent> deleteByMessageId(@Param("messageId") Long messageId);
 
-	@Query("from WxContent  where  messageId = null")
-	List<WxContent> listAllMultimediaContent();
+	@Query("from WxContent  where  messageId = null and msgType = :msgType")
+	List<WxContent> listAllMultimediaContent(@Param("msgType") String msgType);
 
 }

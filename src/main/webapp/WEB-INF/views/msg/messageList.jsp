@@ -120,12 +120,34 @@ body {
 															cellpadding="0" cellspacing="0">
 															<tr>
 																<td width="18%">${message.msgName }</td>
-																<td width="36%">${message.msgType }</td>
+																<td width="36%"><c:choose>
+																		<c:when test="${message.msgType == 'text'}">
+																		文本
+																	    </c:when>
+																		<c:otherwise>
+																			<c:if test="${message.msgType == 'image'}">
+                  														   图文
+																		</c:if>
+																			<c:if test="${message.msgType == 'voice'}">
+                  														   音乐
+																		</c:if>
+																			<c:if test="${message.msgType == 'video' }">
+																		   视频
+																		</c:if>
+																		</c:otherwise>
+																	</c:choose></td>
 																<td width="31%" class="zeng">${message.createTime }</td>
-																<td width="9%" align="center" class="zeng"><a
-																	href="#">删除</a></td>
+																<td width="9%" align="center" class="zeng"><c:choose>
+																		<c:when test="${message.msgType == 'text'}">
+																			<a href="${ctx}/message/edittext/${message.id}">修改</a>
+																		</c:when>
+																		<c:otherwise>
+																			<a
+																				href="${ctx}/message/editMultimedia/${message.id}">修改</a>
+																		</c:otherwise>
+																	</c:choose></td>
 																<td width="6%" align="center" class="zeng"><a
-																	href="#">修改</a></td>
+																	href="${ctx}/message/delete/${message.id}">删除</a></td>
 															</tr>
 														</table>
 													</td>

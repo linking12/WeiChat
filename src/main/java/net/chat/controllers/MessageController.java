@@ -1,6 +1,5 @@
 package net.chat.controllers;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -18,10 +17,7 @@ import net.chat.service.ContentService;
 import net.chat.service.MessageService;
 import net.chat.utils.AppContext;
 
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -29,13 +25,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Controller
 @RequestMapping("/message")
@@ -108,7 +100,7 @@ public class MessageController {
 		model.addAttribute("accounts", accounts);
 		model.addAttribute("messageTypes",
 				MessageTypeConstants.getMessageTypeList());
-		List<WxContent> wxContents = contentService.findAllMultimedia();
+		List<WxContent> wxContents = contentService.findAllMultimedia(msgType);
 		model.addAttribute("wxContents", wxContents);
 		return PageConstants.PAGE_MESSAGE_MULTIMEDIA;
 
@@ -117,22 +109,24 @@ public class MessageController {
 	@RequestMapping("/edittext/{id}")
 	public String editText(@PathVariable("id") Long id, Model model) {
 		WxMessage msg = messageService.findyMessageByMessageId(id);
-		model.addAttribute("wxMessage", msg);
-		List<WxAccount> accounts = new ArrayList<WxAccount>();
-		accounts.add(accountService.findAcountById(msg.getAccountId()));
+		model.addAttribute("messageForm", msg);
+		Long userId = AppContext.getUserId();
+		List<WxAccount> accounts = accountService.findAccountByUserId(userId);
 		model.addAttribute("accounts", accounts);
+		model.addAttribute("messageTypes",
+				MessageTypeConstants.getMessageTypeList());
 		return PageConstants.PAGE_MESSAGE_TEXT;
 	}
 
 	@RequestMapping("/editMultimedia/{id}")
 	public String editMultimedia(@PathVariable("id") Long id, Model model) {
 		WxMessage message = messageService.findyMessageByMessageId(id);
-		List<WxContent> selectContents = contentService.findByMessageId(id);
+		List<WxContent> wxContentsSelected = contentService.findByMessageId(id);
+		List<Long> selectIdContents = new ArrayList<Long>();
+		for (WxContent wxcontentselectd : wxContentsSelected)
+			selectIdContents.add(wxcontentselectd.getBaseContentId());
 		MultimediaMessageForm messageForm = new MultimediaMessageForm();
-		List<Long> selectContentIds = new ArrayList<Long>();
-		for (WxContent selectContent : selectContents)
-			selectContentIds.add(selectContent.getId());
-		messageForm.setSelectContents(selectContentIds);
+		messageForm.setSelectContents(selectIdContents);
 		messageForm.setMessage(message);
 		model.addAttribute("messageForm", messageForm);
 		Long userId = AppContext.getUserId();
@@ -140,7 +134,8 @@ public class MessageController {
 		model.addAttribute("accounts", accounts);
 		model.addAttribute("messageTypes",
 				MessageTypeConstants.getMessageTypeList());
-		List<WxContent> wxContents = contentService.findAllMultimedia();
+		List<WxContent> wxContents = contentService.findAllMultimedia(message
+				.getMsgType());
 		model.addAttribute("wxContents", wxContents);
 		return PageConstants.PAGE_MESSAGE_MULTIMEDIA;
 
@@ -166,8 +161,7 @@ public class MessageController {
 
 	@RequestMapping("/submitMultimedia")
 	public String submitMultimedia(@Valid MultimediaMessageForm messageForm,
-			 BindingResult result,
-			Model model) {
+			BindingResult result, Model model) {
 		WxMessage message = messageForm.getMessage();
 		List<Long> selectContentIds = messageForm.getSelectContents();
 		if (result.hasErrors()) {
@@ -176,30 +170,25 @@ public class MessageController {
 		}
 		if (null == message.getId() || 0 == message.getId()) {
 			messageService.saveMessage(message);
-			Iterable<WxContent> selectContents = contentService
-					.findByContentIds(selectContentIds);
-			Iterator<WxContent> it = selectContents.iterator();
-			while (it.hasNext()) {
-				WxContent selectContent = it.next();
-				selectContent.setId(null);
-				selectContent.setMessageId(message.getId());
-			}
-			contentService.saveContents(selectContents);
 
 		} else {
 			messageService.editMessage(message);
-			contentService.deleteByMessageId(message.getId());
-			Iterable<WxContent> selectContents = contentService
-					.findByContentIds(selectContentIds);
-			Iterator<WxContent> it = selectContents.iterator();
-			while (it.hasNext()) {
-				WxContent selectContent = it.next();
-				selectContent.setId(null);
-				selectContent.setMessageId(message.getId());
-			}
-			contentService.saveContents(selectContents);
-
 		}
+		List<WxContent> newContents = new ArrayList<WxContent>();
+		Iterable<WxContent> selectContents = contentService
+				.findByContentIds(selectContentIds);
+		Iterator<WxContent> it = selectContents.iterator();
+		while (it.hasNext()) {
+			WxContent selectContent = it.next();
+			WxContent newContent = new WxContent();
+			BeanUtils.copyProperties(selectContent, newContent);
+			newContent.setBaseContentId(selectContent.getId());
+			newContent.setId(null);
+			newContent.setMessageId(message.getId());
+			newContents.add(newContent);
+		}
+		contentService.deleteByMessageId(message.getId());
+		contentService.saveContents(newContents);
 		return "redirect:/message/init?accountId=" + message.getAccountId();
 	}
 
@@ -209,43 +198,4 @@ public class MessageController {
 
 		return "redirect:/message/init";
 	}
-
-	@RequestMapping("/upload")
-	@ResponseBody
-	public String upload(
-			@RequestParam(value = "accountId", required = false) Long accountId,
-			MultipartHttpServletRequest request, Model model) {
-		boolean isMultipart = ServletFileUpload.isMultipartContent(request);
-		String fname = StringUtils.EMPTY;
-		if (isMultipart) {
-			try {
-				String filename = request.getFileNames().next();
-				MultipartFile file = request.getFile(filename);
-				File newFile = new File(uploadpath
-						+ File.separator
-						+ RandomStringUtils.randomAlphabetic(15)
-						+ "."
-						+ StringUtils.substringAfterLast(
-								file.getOriginalFilename(), "."));
-
-				FileUtils.writeStringToFile(newFile, null);
-				newFile.createNewFile();
-				file.transferTo(newFile);
-				File backFile = new File(this.getClass().getResource("/")
-						.getFile()
-						+ File.separator + "upload");
-				FileUtils.copyFileToDirectory(newFile, backFile);
-				fname = newFile.getName();
-			} catch (Exception e) {
-
-			}
-		}
-		return "" + fname;
-	}
-
-	@ModelAttribute("uploadpath")
-	public String setUploadPath() {
-		return uploadpath;
-	}
-
 }

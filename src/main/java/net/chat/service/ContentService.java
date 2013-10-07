@@ -29,6 +29,6 @@ public interface ContentService {
 
 	List<WxContent> findByMessageId(final Long messageId);
 
-	List<WxContent> findAllMultimedia();
+	List<WxContent> findAllMultimedia(String msgType);
 
 }

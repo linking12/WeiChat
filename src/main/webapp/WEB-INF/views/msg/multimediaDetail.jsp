@@ -90,7 +90,6 @@ body {
 																			<form:option value="${account.id }">${account.name}</form:option>
 																		</c:forEach>
 																	</form:select></td>
-
 															</tr>
 															<tr>
 																<td width="20%" height="40" class="biao">自动回复信息类型</td>
@@ -104,7 +103,8 @@ body {
 															<tr>
 																<td width="20%" height="40" class="biao">标题</td>
 																<td><form:input path="message.msgName"
-																		style="width: 300px;" /> 必须</td>
+																		style="width: 300px;" /> 必须
+																	<form:hidden path="message.id"/> </td>
 															</tr>
 															<tr>
 																<td width="20%" height="40" class="biao" valign="middle">自动回复多媒体</td>

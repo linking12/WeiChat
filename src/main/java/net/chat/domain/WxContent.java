@@ -37,10 +37,10 @@ public class WxContent implements Serializable {
 
 	@Column(name = "picurl")
 	private String picUrl;
-	
+
 	@Column(name = "url")
 	private String url;
-	
+
 	@Column(name = "messageid")
 	private Long messageId;
 
@@ -52,6 +52,9 @@ public class WxContent implements Serializable {
 
 	@Column(name = "msgtype")
 	private String msgType;
+
+	@Column(name = "baseContentId")
+	private Long baseContentId;
 
 	public Long getId() {
 		return id;
@@ -124,5 +127,13 @@ public class WxContent implements Serializable {
 	public void setMsgType(String msgType) {
 		this.msgType = msgType;
 	}
-	
+
+	public Long getBaseContentId() {
+		return baseContentId;
+	}
+
+	public void setBaseContentId(Long baseContentId) {
+		this.baseContentId = baseContentId;
+	}
+
 }
