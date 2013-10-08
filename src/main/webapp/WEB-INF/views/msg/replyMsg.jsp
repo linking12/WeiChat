@@ -131,7 +131,7 @@
 																			<td style="display: none"><select
 																				id="programsel">
 																					<c:forEach items="${games}" var="game">
-																						<option value="${game.id }">${game.url }</option>
+																						<option value="${game.id }">${game.name }</option>
 																					</c:forEach>
 																			</select> <select id="directsel">
 																					<c:forEach items="${messages}" var="message">
@@ -169,7 +169,7 @@
 																						<form:select
 																							path="msgTypes[${status.index}].sourceId"
 																							id="msgTypessourceId${status.index}"
-																							items="${games}" itemValue="id" itemLabel="url"></form:select>
+																							items="${games}" itemValue="id" itemLabel="name"></form:select>
 																					</c:if> <c:if test="${msgType.action=='direct' }">
 																						<form:select
 																							path="msgTypes[${status.index}].sourceId"
