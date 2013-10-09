@@ -21,7 +21,7 @@ public interface MsgTypeService  {
 	
 	WxMsgType edit(WxMsgType t) ;
 	
-	void delete(WxMsgType t);
+	void delete(Long id);
 	
 	WxMsgType findOne(WxMsgType t);
 	

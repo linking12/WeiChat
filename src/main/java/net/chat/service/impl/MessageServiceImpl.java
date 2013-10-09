@@ -1,5 +1,6 @@
 package net.chat.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -119,15 +120,18 @@ public class MessageServiceImpl implements MessageService {
 		return messageDao.findOne(messageId);
 	}
 
-	public List<WxMessage> findMessageByAccountId(final Long accountId) {
-		Specification<WxMessage> spec = new Specification<WxMessage>() {
-			public Predicate toPredicate(Root<WxMessage> root,
-					CriteriaQuery<?> query, CriteriaBuilder cb) {
-				return cb.equal(root.<Long> get("accountId"), accountId);
-			}
+	public List<WxMessage> findMessageByAccountId(Long accountId) {
+		List<WxMessage>  messages=new ArrayList<WxMessage>();
+		List<WxMessage> textMessage=messageDao.findTextMessageByAccountId(accountId);
+		List<WxMessage> multMessage=messageDao.findMultMessageByAccountId(accountId);
+		messages.addAll(textMessage);
+		messages.addAll(multMessage);
+		return messages;
+	}
 
-		};
-		return messageDao.findAll(spec);
+	public List<WxMessage> findTextMessageByAccountId(Long accountId) {
+
+		return messageDao.findTextMessageByAccountId(accountId);
 	}
 
 }

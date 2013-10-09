@@ -20,5 +20,6 @@ public interface MessageService {
 	public WxMessage findyMessageByMessageId(Long messageId);
 
 	List<WxMessage> findMessageByAccountId(Long accountId);
-
+	
+	List<WxMessage> findTextMessageByAccountId(Long accountId);
 }

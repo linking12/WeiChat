@@ -60,7 +60,7 @@ body {
 							        </a>
 							</div></td>
 						<td><div align="center">
-						         <a href="${ctx}/replymsg/init">
+						         <a href="${ctx}/cmd/init">
 								     <img src="${images}/ic_3.png" width="310" height="310" />
 								 </a>
 							</div></td>
@@ -77,8 +77,11 @@ body {
 							   </a>
 							</div></td>
 						<td><div align="center">
-								<img src="${images}/ic_5.png" width="310" height="310" />
-							</div></td>
+								 <a href="${ctx}/replymsg/init">
+									<img src="${images}/ic_5.png" width="310" height="310" />
+								 </a>
+							 </div>
+						 </td>
 						<td><div align="center">
 								<img src="${images}/ic_6.png" width="310" height="310" />
 							</div></td>

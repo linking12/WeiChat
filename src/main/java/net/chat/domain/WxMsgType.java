@@ -45,14 +45,13 @@ public class WxMsgType implements Serializable {
 	private String name;
 
 	@Column(name = "istatus")
-	private int istatus;
+	private Integer istatus;
 
 	public WxMsgType() {
 
 	}
 
-	public WxMsgType(Long accountId, String msgType, String action,
-			Long sourceId, String name) {
+	public WxMsgType(Long accountId, String msgType, String action, Long sourceId, String name) {
 		this.accountId = accountId;
 		this.msgType = msgType;
 		this.action = action;
@@ -154,7 +153,7 @@ public class WxMsgType implements Serializable {
 	/**
 	 * @return the istatus
 	 */
-	public int getIstatus() {
+	public Integer getIstatus() {
 		return istatus;
 	}
 
@@ -162,7 +161,9 @@ public class WxMsgType implements Serializable {
 	 * @param istatus
 	 *            the istatus to set
 	 */
-	public void setIstatus(int istatus) {
+	public void setIstatus(Integer istatus) {
+		if (null == istatus)
+			istatus = 0;
 		this.istatus = istatus;
 	}
 

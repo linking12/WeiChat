@@ -1,5 +1,10 @@
 package net.chat.constants;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import net.chat.formbean.SimpleBean;
+
 public final class PageConstants {
 
 	/**
@@ -29,9 +34,14 @@ public final class PageConstants {
 	public static final String PAGE_ACCOUNT_DETAIL = "account/accountDetail";
 
 	/**
-	 * 自动信息回复
+	 * 自动信息回复-列表
 	 */
-	public static final String PAGE_RELPY_MSG = "msg/replyMsg";
+	public static final String PAGE_RELPY_MSG = "autoreply/list";
+	
+	/**
+	 * 自动信息回复-详情
+	 */
+	public static final String PAGE_RELPY_MSG_DETAIL = "autoreply/detail";
 
 	/**
 	 * 信息内容管理-列表
@@ -88,4 +98,49 @@ public final class PageConstants {
 	 * 注册用户管理
 	 */
 	public static final String PAGE_REGISTER_USER = "user/registerUser";
+
+	/**
+	 * 智能客服回复-列表
+	 */
+	public static final String PAGE_KEYWORD_LIST = "cmd/list";
+
+	/**
+	 * 智能客服-详细
+	 */
+	public static final String PAGE_KEYWORD_DETAIL = "cmd/detail";
+	
+	/**
+	 * 
+	 * 智能客服-匹配类型
+	 */
+	public static List<SimpleBean> buildCtypeList() {
+		List<SimpleBean> ctypeList = new ArrayList<SimpleBean>(5);
+		ctypeList.add(new SimpleBean("whole", "完全匹配"));
+		ctypeList.add(new SimpleBean("startwith", "以这个词开头"));
+		return ctypeList;
+	}
+	/**
+	 * 自动回复类型
+	 */
+	public static List<SimpleBean> buildActionTypesList() {
+		List<SimpleBean> lst = new ArrayList<SimpleBean>(5);
+		lst.add(new SimpleBean("program", "自定义处理"));
+		lst.add(new SimpleBean("direct", "直接回复"));
+		return lst;
+	}
+	
+	/**
+	 * 用户发送类型类型
+	 */
+	public static List<SimpleBean> buildSendTypesList() {
+		List<SimpleBean> lst = new ArrayList<SimpleBean>(5);
+		lst.add(new SimpleBean("text", "文本"));
+		lst.add(new SimpleBean("image", "图片"));
+		lst.add(new SimpleBean("voice", "语音"));
+		lst.add(new SimpleBean("subscribe", "订购"));
+		lst.add(new SimpleBean("video", "视频"));
+		lst.add(new SimpleBean("unsubscribe", "退订"));
+		return lst;
+	}
+	
 }

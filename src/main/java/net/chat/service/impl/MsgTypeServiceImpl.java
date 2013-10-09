@@ -40,8 +40,8 @@ public class MsgTypeServiceImpl implements MsgTypeService {
 	}
 
 	@Override
-	public void delete(WxMsgType t) {
-		msgTypeDao.delete(t);
+	public void delete(Long id) {
+		msgTypeDao.delete(id);
 
 	}
 
@@ -50,8 +50,6 @@ public class MsgTypeServiceImpl implements MsgTypeService {
 		// TODO Auto-generated method stub
 		return msgTypeDao.findOne(t.getId());
 	}
-
-
 
 	@Override
 	public List<WxMsgType> finaAll() {

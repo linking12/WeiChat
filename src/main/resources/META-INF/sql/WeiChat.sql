@@ -35,6 +35,6 @@ INSERT INTO `T_ROLE_RESOURCES` VALUES ('2', '1'),  ('2', '3'),  ('2', '5');
 INSERT INTO `T_USER` VALUES ('1', 'admin', '1', '899899');
 INSERT INTO `T_USER_ROLE` VALUES ('1', '1');
 delete from `wx_game`;
-INSERT INTO `wx_game` VALUES ('1', 'program', '聊天机器人', '一上一下', 'autoreply.jsp'), ('2', 'html5', '刮刮乐', '刮刮乐', 'game_ggl.jsp');
+INSERT INTO `wx_game` VALUES (1,'聊天机器人','autoreply.jsp','一上一下','program'),(2,'刮刮乐','game_ggl.jsp','刮刮乐','html5游戏');
 COMMIT;
 

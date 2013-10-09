@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
  * @author bo
  * 
@@ -28,7 +30,7 @@ public class WxCmd implements Serializable {
 	@Column(name = "id")
 	@GeneratedValue
 	private Long id;
-
+	@NotEmpty(message = "关键字必须输入")
 	@Column(name = "cmd")
 	private String cmd;
 
