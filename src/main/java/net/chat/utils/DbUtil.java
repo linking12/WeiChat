@@ -11,14 +11,16 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ResourceBundle;
 import java.util.Vector;
+
+import javax.servlet.ServletContext;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.dbcp.ConnectionFactory;
-import org.apache.commons.dbcp.DataSourceConnectionFactory;
+import org.springframework.web.context.ServletContextAware;
+import org.springframework.web.context.WebApplicationContext;
 
-public class DbUtil {
+public class DbUtil implements ServletContextAware {
 
 	/**
 	 * Logger for this class
@@ -122,7 +124,7 @@ public class DbUtil {
 
 			for (int i = 0; i < 10; i++) {
 
-				this.connection = DbUtil.getConnection(base);// dataSource.getConnection();
+				this.connection = getConnection(base);// dataSource.getConnection();
 				// com.nm.tools.DataBase.getConnection("9588");//
 				if (this.connection == null || this.connection.isClosed()) {
 
@@ -564,82 +566,23 @@ public class DbUtil {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			
 
 		}
 
 	}
 
-	public static Connection getConnection(String sAlias) throws SQLException {
-		if (sAlias == null)
-			return null;
-		Connection con = null;
-		ConnectionFactory cf = getCF(sAlias);
-		if (cf != null) {
-			con = cf.createConnection();
-			if (con == null || con.isClosed()) {
-
-			}
-		}
-		return con;
+	public Connection getConnection(String sAlias) throws SQLException {
+		WebApplicationContext webApplicationContext = (WebApplicationContext) servletContext
+				.getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
+		BasicDataSource dataSource = webApplicationContext
+				.getBean(BasicDataSource.class);
+		return dataSource.getConnection();
 	}
 
-	private static ConnectionFactory getCF(String sAlias) {
-		ConnectionFactory ret = null;
-		synchronized ("com.nm.tools.DataBase") {
-			if (dbHt.get(sAlias) == null) {
-				String sDriverName = getString(sAlias + ".driverClassName", null);
-				String sUrl = getString(sAlias + ".url", null);
-				String sUser = getString(sAlias + ".username", null);
-				String sPass = getString(sAlias + ".password", null);
-				String vdsql = getString(sAlias + ".sql", "");
-				int iInitSize = iConvert(getString(sAlias + ".initsize", "10"),
-						10);
-				int iMaxIdle = iConvert(getString(sAlias + ".maxidle", "2"), 2);
-				int iMaxWait = iConvert(getString(sAlias + ".maxwait", "6000"),
-						6000);
-				BasicDataSource bds = new BasicDataSource();
-				bds.setDriverClassName(sDriverName);
-				bds.setUrl(sUrl);
-				bds.setUsername(sUser);
-				bds.setPassword(sPass);
-				bds.setInitialSize(iInitSize);
-				bds.setMaxIdle(iMaxIdle);
+	private ServletContext servletContext;
 
-				bds.setValidationQuery(vdsql);
-				bds.setTestOnBorrow(true);
-
-				basic.put(sAlias, bds);
-				// bds.setValidationQuery("select 1+1");
-				ret = new DataSourceConnectionFactory(bds);
-				dbHt.put(sAlias, ret);
-			} else {
-				ret = (ConnectionFactory) dbHt.get(sAlias);
-
-			}
-		}
-		return ret;
+	public void setServletContext(ServletContext servletContext) {
+		servletContext = servletContext;
 	}
-
-	public static int iConvert(String s, int id) {
-		int lRet = id;
-		try {
-			lRet = Integer.parseInt(s, 10);
-		} catch (Exception e) {
-		}
-		;
-		return lRet;
-	}
-
-	private static String getString(String sKey, String sDef) {
-
-		String sRet = sDef;
-		try {
-			ResourceBundle rb = ResourceBundle.getBundle("DataBaseConf");
-			sRet = rb.getString(sKey);
-		} catch (Exception e) {
-			sRet = sDef;
-		}
-		return sRet;
-	}
-
 }

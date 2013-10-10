@@ -87,19 +87,21 @@ public class ContentController {
 		}
 		String contentRealPath = System.getProperty("ssweb.root");
 		if (content.getMsgType().equals("image")) {
-			content.setPicUrl(StringUtils
-					.replace(imageUrl, contentRealPath, ""));
+			content.setPicUrl("http://www.yidia.cn/" + req.getContentLength()
+					+ "/" + StringUtils.replace(imageUrl, contentRealPath, ""));
 		}
 		if (content.getMsgType().equals("voice")) {
-			content.setMusicUrl(StringUtils.replace(musicUrl, contentRealPath,
-					""));
-			content.setHqmusicUrl(StringUtils.replace(hqMusicUrl,
-					contentRealPath, ""));
+			content.setMusicUrl("http://www.yidia.cn/" + req.getContentLength()
+					+ "/" + StringUtils.replace(musicUrl, contentRealPath, ""));
+			content.setHqmusicUrl("http://www.yidia.cn/"
+					+ req.getContentLength() + "/"
+					+ StringUtils.replace(hqMusicUrl, contentRealPath, ""));
 		} else if (content.getMsgType().equals("video")) {
-			content.setMusicUrl(StringUtils.replace(vidioUrl, contentRealPath,
-					""));
-			content.setHqmusicUrl(StringUtils.replace(hqVidioUrl,
-					contentRealPath, ""));
+			content.setMusicUrl("http://www.yidia.cn/" + req.getContentLength()
+					+ "/" + StringUtils.replace(vidioUrl, contentRealPath, ""));
+			content.setHqmusicUrl("http://www.yidia.cn/"
+					+ req.getContentLength() + "/"
+					+ StringUtils.replace(hqVidioUrl, contentRealPath, ""));
 		}
 		contentService.save(content);
 		return "1";
