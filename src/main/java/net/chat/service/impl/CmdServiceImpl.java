@@ -21,36 +21,35 @@ public class CmdServiceImpl implements CmdService {
 	@Autowired
 	private WxCmdDao wxCmdDao;
 
-	@Override
 	public WxCmd save(WxCmd cmd) {
 
 		return wxCmdDao.save(cmd);
 	}
 
-	@Override
 	public void delete(Long cmdId) {
 		wxCmdDao.delete(cmdId);
 	}
 
-	@Override
-	public Page<WxCmd> findCmdByAccountId(Long accountId, String condition, int pageNo) {
+	public Page<WxCmd> findCmdByAccountId(Long accountId, String condition,
+			int pageNo) {
 		int pageSize = 5;
 		if (pageNo == 0)
 			pageNo = 1;
-		Pageable pageable = new PageRequest(pageNo - 1, pageSize, new Sort(new Order("id")));
+		Pageable pageable = new PageRequest(pageNo - 1, pageSize, new Sort(
+				new Order("id")));
 
-		return wxCmdDao.findCmdByUserId(accountId, StringUtils.isBlank(condition) ? "" : condition, pageable);
+		return wxCmdDao.findCmdByUserId(accountId,
+				StringUtils.isBlank(condition) ? "" : condition, pageable);
 	}
 
-	@Override
 	public List<WxCmd> findCmdByAccountId(Long accountId, String condition) {
-	
-		return wxCmdDao.findCmdByAccountId(accountId,StringUtils.isBlank(condition)?"":condition);
+
+		return wxCmdDao.findCmdByAccountId(accountId,
+				StringUtils.isBlank(condition) ? "" : condition);
 	}
 
-	@Override
 	public WxCmd findOne(Long id) {
-	
+
 		return wxCmdDao.findOne(id);
 	}
 }
