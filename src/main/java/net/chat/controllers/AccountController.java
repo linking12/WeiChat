@@ -31,20 +31,18 @@ public class AccountController {
 
 	@RequestMapping("/add")
 	public String add(Model model) {
-		model.addAttribute("title", "添加帐号");
 		WxAccount account = new WxAccount();
 		account.setSeq(RandomStringUtils.randomAlphabetic(20));
 		account.setUrl("/wxserv/" + RandomStringUtils.randomAlphabetic(20)
 				+ ".jsp");
-		model.addAttribute("accountForm", account);
+		model.addAttribute("wxAccount", account);
 		return PageConstants.PAGE_ACCOUNT_DETAIL;
 	}
 
 	@RequestMapping("/edit/{accountId}")
 	public String edit(@PathVariable("accountId") Long accountId, Model model) {
-		model.addAttribute("title", "修改帐号");
 		WxAccount account = accountService.findAcountById(accountId);
-		model.addAttribute("accountForm", account);
+		model.addAttribute("wxAccount", account);
 		return PageConstants.PAGE_ACCOUNT_DETAIL;
 	}
 
@@ -58,8 +56,8 @@ public class AccountController {
 	public String submit(@Valid WxAccount account, BindingResult result,
 			Model model) {
 		if (result.hasErrors()) {
-			model.addAttribute("accountForm", account);
-			return PageConstants.PAGE_REGISTER;
+			model.addAttribute("wxAccount", account);
+			return PageConstants.PAGE_ACCOUNT_DETAIL;
 		}
 		if (null == account.getId() || 0 == account.getId()) {
 			accountService.saveAccount(account);

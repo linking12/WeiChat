@@ -28,26 +28,6 @@ body {
 			<td><%@include file="menu.jsp"%></td>
 		</tr>
 		<tr>
-			<td height="30">&nbsp;</td>
-		</tr>
-		<tr>
-			<td><table width="100%" border="0" cellspacing="0"
-					cellpadding="0">
-					<tr>
-						<td height="30" class="biao3">fexue2000</td>
-					</tr>
-					<tr>
-						<td height="20" class="biao1">您当前的用户级别：普通用户</td>
-					</tr>
-					<tr>
-						<td height="20" class="biao1">会员期限：永久免费</td>
-					</tr>
-				</table></td>
-		</tr>
-		<tr>
-			<td height="50">&nbsp;</td>
-		</tr>
-		<tr>
 			<td><table width="100%" border="0" cellspacing="0"
 					cellpadding="0">
 					<tr>

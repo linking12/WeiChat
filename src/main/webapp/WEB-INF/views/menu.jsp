@@ -85,8 +85,26 @@
 				src="${images}/an_5.png" name="Image6" width="194" height="84"
 				border="0" id="Image6" /></a></td>
 	</tr>
+	<tr><td height="10"></td></tr>
+	<tr>
+		<td colspan="5">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td height="30" class="biao3" >fexue2000</td>
+					</tr>
+					<tr>
+						<td height="20" class="biao1" >您当前的用户级别：普通用户</td>
+					</tr>
+					<tr>
+						<td height="20" class="biao1" >会员期限：永久免费</td>
+					</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td height="10">&nbsp;</td>
+	</tr>
 </table>
-
 </body>
 
 <!-- 

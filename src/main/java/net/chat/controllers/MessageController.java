@@ -42,50 +42,40 @@ public class MessageController {
 	private ContentService contentService;
 
 	@RequestMapping("/init")
-	public String init(
-			@RequestParam(value = "accountId", required = false) Long accountId,
-			@RequestParam(value = "page", defaultValue = "1") int page,
-			Model model) {
+	public String init(@RequestParam(value = "accountId", required = false) Long accountId, @RequestParam(value = "page", defaultValue = "1") int page, Model model) {
 		Long userId = AppContext.getUserId();
 		List<WxAccount> accounts = accountService.findAccountByUserId(userId);
 		Page<WxMessage> messages = null;
 		if (CollectionUtils.isEmpty(accounts)) {
 			return "redirect:/account/add";
-		} else {
-			WxAccount accountform = new WxAccount();
-			accountform.setId(accountId);
-			model.addAttribute("accountForm", accountform);
-
-			if (accountId != null)
-				messages = messageService.listALlMessageByAccountId(accountId,
-						page, 0);
-			else
-				messages = messageService.listALlMessageByAccountId(accounts
-						.get(0).getId(), page, 0);
 		}
+		if (null == accountId) {
+			accountId = accounts.get(0).getId();
+		}
+		messages = messageService.listALlMessageByAccountId(accountId, page, 0);
+		model.addAttribute("accountId", accountId);
 		model.addAttribute("accounts", accounts);
 		model.addAttribute("messages", messages);
 		return PageConstants.PAGE_MESSAGE_LIST;
 	}
 
-	@RequestMapping("/addtext")
-	public String addText(Model model) {
+	@RequestMapping("/addtext/{accountId}")
+	public String addText(@PathVariable("accountId")Long accountId,Model model) {
 		WxMessage message = new WxMessage();
 		message.setMsgType("text");
 		message.setMsgName("首次关注");
 		message.setContent("亲，您已成功关注！");
-		model.addAttribute("messageForm", message);
+		message.setAccountId(accountId);
+		model.addAttribute("wxMessage", message);
 		Long userId = AppContext.getUserId();
 		List<WxAccount> accounts = accountService.findAccountByUserId(userId);
 		model.addAttribute("accounts", accounts);
-		model.addAttribute("messageTypes",
-				MessageTypeConstants.getMessageTypeList());
+		model.addAttribute("messageTypes", MessageTypeConstants.getMessageTypeList());
 		return PageConstants.PAGE_MESSAGE_TEXT;
 	}
 
 	@RequestMapping("/addMultimedia/{msgType}")
-	public String addMultimedia(@PathVariable("msgType") String msgType,
-			Model model) {
+	public String addMultimedia(@PathVariable("msgType") String msgType, Model model) {
 		WxMessage message = new WxMessage();
 		message.setMsgType(msgType);
 		MultimediaMessageForm messageForm = new MultimediaMessageForm();
@@ -94,8 +84,7 @@ public class MessageController {
 		Long userId = AppContext.getUserId();
 		List<WxAccount> accounts = accountService.findAccountByUserId(userId);
 		model.addAttribute("accounts", accounts);
-		model.addAttribute("messageTypes",
-				MessageTypeConstants.getMessageTypeList());
+		model.addAttribute("messageTypes", MessageTypeConstants.getMessageTypeList());
 		List<WxContent> wxContents = contentService.findAllMultimedia(msgType);
 		model.addAttribute("wxContents", wxContents);
 		return PageConstants.PAGE_MESSAGE_MULTIMEDIA;
@@ -105,12 +94,11 @@ public class MessageController {
 	@RequestMapping("/edittext/{id}")
 	public String editText(@PathVariable("id") Long id, Model model) {
 		WxMessage msg = messageService.findyMessageByMessageId(id);
-		model.addAttribute("messageForm", msg);
+		model.addAttribute("wxMessage", msg);
 		Long userId = AppContext.getUserId();
 		List<WxAccount> accounts = accountService.findAccountByUserId(userId);
 		model.addAttribute("accounts", accounts);
-		model.addAttribute("messageTypes",
-				MessageTypeConstants.getMessageTypeList());
+		model.addAttribute("messageTypes", MessageTypeConstants.getMessageTypeList());
 		return PageConstants.PAGE_MESSAGE_TEXT;
 	}
 
@@ -128,36 +116,34 @@ public class MessageController {
 		Long userId = AppContext.getUserId();
 		List<WxAccount> accounts = accountService.findAccountByUserId(userId);
 		model.addAttribute("accounts", accounts);
-		model.addAttribute("messageTypes",
-				MessageTypeConstants.getMessageTypeList());
-		List<WxContent> wxContents = contentService.findAllMultimedia(message
-				.getMsgType());
+		model.addAttribute("messageTypes", MessageTypeConstants.getMessageTypeList());
+		List<WxContent> wxContents = contentService.findAllMultimedia(message.getMsgType());
 		model.addAttribute("wxContents", wxContents);
 		return PageConstants.PAGE_MESSAGE_MULTIMEDIA;
 
 	}
 
 	@RequestMapping("/submit")
-	public String submit(@Valid WxMessage message, BindingResult result,
-			Model model) {
+	public String submit(@Valid WxMessage message, BindingResult result, Model model) {
 
 		if (result.hasErrors()) {
-			model.addAttribute("messageForm", message);
-			return PageConstants.PAGE_REGISTER;
+			Long userId = AppContext.getUserId();
+			List<WxAccount> accounts = accountService.findAccountByUserId(userId);
+			model.addAttribute("accounts", accounts);
+			model.addAttribute("messageTypes", MessageTypeConstants.getMessageTypeList());
+			model.addAttribute("wxMessage", message);
+			return PageConstants.PAGE_MESSAGE_TEXT;
 		}
 		if (null == message.getId() || 0 == message.getId()) {
 			messageService.saveMessage(message);
-
 		} else {
 			messageService.editMessage(message);
-
 		}
 		return "redirect:/message/init?accountId=" + message.getAccountId();
 	}
 
 	@RequestMapping("/submitMultimedia")
-	public String submitMultimedia(@Valid MultimediaMessageForm messageForm,
-			BindingResult result, Model model) {
+	public String submitMultimedia(@Valid MultimediaMessageForm messageForm, BindingResult result, Model model) {
 		WxMessage message = messageForm.getMessage();
 		List<Long> selectContentIds = messageForm.getSelectContents();
 		if (result.hasErrors()) {
@@ -171,8 +157,7 @@ public class MessageController {
 			messageService.editMessage(message);
 		}
 		List<WxContent> newContents = new ArrayList<WxContent>();
-		Iterable<WxContent> selectContents = contentService
-				.findByContentIds(selectContentIds);
+		Iterable<WxContent> selectContents = contentService.findByContentIds(selectContentIds);
 		Iterator<WxContent> it = selectContents.iterator();
 		while (it.hasNext()) {
 			WxContent selectContent = it.next();
@@ -191,7 +176,6 @@ public class MessageController {
 	@RequestMapping("/delete/{id}")
 	public String delete(@PathVariable("id") Long id, Model model) {
 		messageService.delteMessage(id);
-
 		return "redirect:/message/init";
 	}
 }

@@ -46,9 +46,6 @@
 				<td><%@include file="../menu.jsp"%></td>
 			</tr>
 			<tr>
-				<td height="10">&nbsp;</td>
-			</tr>
-			<tr>
 				<td>
 					<table width="942" border="0" align="center" cellpadding="0" cellspacing="0">
 						<tr>
@@ -161,7 +158,6 @@
 						<tr>
 							<td><img src="${images}/xia_zu.png" width="942" height="14" /></td>
 						</tr>
-				
 						<%@include file="../bottom.jsp"%>
 					</table>
 				</td>

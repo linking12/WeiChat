@@ -45,7 +45,7 @@ public class WxMsgType implements Serializable {
 	private String name;
 
 	@Column(name = "istatus")
-	private Integer istatus;
+	private Integer istatus=0;
 
 	public WxMsgType() {
 

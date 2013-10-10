@@ -63,7 +63,6 @@
 				<td height="50" align="center">
 					<form:button id="submitbtn" class="btn-primary" >提交</form:button>
 				</td>
-				<td height=""></td>
 			</tr>
 		</table>
 	</form:form>

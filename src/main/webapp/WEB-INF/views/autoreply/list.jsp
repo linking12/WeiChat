@@ -60,7 +60,6 @@
 				<td><%@include file="../menu.jsp"%></td>
 			</tr>
 			<tr>
-				<td height="10">&nbsp;</td>
 				<td style="display: none">
 					<select	id="programsel">
 						<c:forEach items="${games}" var="game">
@@ -185,7 +184,6 @@
 						<tr>
 							<td><img src="${images}/xia_zu.png" width="942" height="14" /></td>
 						</tr>
-						
 						<%@include file="../bottom.jsp"%>
 					</table>
 				</td>
