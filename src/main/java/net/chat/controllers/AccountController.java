@@ -33,8 +33,7 @@ public class AccountController {
 	public String add(Model model) {
 		WxAccount account = new WxAccount();
 		account.setSeq(RandomStringUtils.randomAlphabetic(20));
-		account.setUrl("/wxserv/" + RandomStringUtils.randomAlphabetic(20)
-				+ ".jsp");
+		account.setUrl("/WeiChat/" + RandomStringUtils.randomAlphabetic(20));
 		model.addAttribute("wxAccount", account);
 		return PageConstants.PAGE_ACCOUNT_DETAIL;
 	}
