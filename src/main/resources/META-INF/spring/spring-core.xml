@@ -13,5 +13,4 @@
     http://www.springframework.org/schema/aop/spring-aop.xsd">
 	<context:annotation-config />
 	<context:component-scan base-package="net.chat.service.impl" />
-	<context:property-placeholder location="classpath*:/META-INF/spring/uploadfile.properties" ignore-unresolvable="true" />  
 </beans>

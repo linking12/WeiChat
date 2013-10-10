@@ -21,7 +21,6 @@ public class CmdServiceImpl implements CmdService {
 	@Autowired
 	private WxCmdDao wxCmdDao;
 
-	@Override
 	public WxCmd save(WxCmd cmd) {
 
 		return wxCmdDao.save(cmd);

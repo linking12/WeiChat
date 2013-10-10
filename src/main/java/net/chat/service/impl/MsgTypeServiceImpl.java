@@ -15,7 +15,6 @@ public class MsgTypeServiceImpl implements MsgTypeService {
 	@Autowired
 	private WxMsgTypeDao msgTypeDao;
 
-	@Override
 	public List<WxMsgType> findMsgTypeByAccountId(Long accountId) {
 		// TODO Auto-generated method stub
 		return msgTypeDao.findMsgTypeByAccountId(accountId);

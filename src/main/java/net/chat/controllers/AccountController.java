@@ -52,8 +52,7 @@ public class AccountController {
 	}
 
 	@RequestMapping("/submit")
-	public String submit(@Valid WxAccount account, BindingResult result,
-			Model model) { 
+	public String submit(@Valid WxAccount account, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			model.addAttribute("wxAccount", account);
 			return PageConstants.PAGE_ACCOUNT_DETAIL;
