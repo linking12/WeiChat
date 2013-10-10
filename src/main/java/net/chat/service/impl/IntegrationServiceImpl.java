@@ -12,6 +12,7 @@ import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 
 import net.chat.integration.service.InitThread;
 import net.chat.integration.vo.WXMessage;
@@ -26,12 +27,15 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
+import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.stereotype.Service;
 
+@Service("integrationService")
+public class IntegrationServiceImpl implements IntegrationService,
+		BeanFactoryPostProcessor {
 
-public class IntegrationServiceImpl implements BeanPostProcessor,
-		IntegrationService {
+	private DataSource dataSource;
 
 	private String sql;
 	private String content;
@@ -295,14 +299,15 @@ public class IntegrationServiceImpl implements BeanPostProcessor,
 	}
 
 	public void init() {
-		Thread thread = new InitThread();
+
+		Thread thread = new InitThread(dataSource);
 		thread.start();
 
 	}
 
 	public void execut(String sql) {
 
-		DbUtil db = new DbUtil();
+		DbUtil db = new DbUtil(dataSource);
 
 		try {
 			db.excute(sql);
@@ -342,15 +347,12 @@ public class IntegrationServiceImpl implements BeanPostProcessor,
 
 	}
 
-	public Object postProcessBeforeInitialization(Object bean, String beanName)
-			throws BeansException {
-		return null;
-	}
-
-	public Object postProcessAfterInitialization(Object bean, String beanName)
-			throws BeansException {
+	public void postProcessBeanFactory(
+			ConfigurableListableBeanFactory beanFactory) throws BeansException {
+		DataSource obj = (DataSource) beanFactory.getBean("dataSource");
+		this.dataSource = obj;
 		init();
-		return null;
+
 	}
 
 }

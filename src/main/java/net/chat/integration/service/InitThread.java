@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import net.chat.integration.vo.WxCmd;
 import net.chat.integration.vo.WxContent;
 import net.chat.service.impl.IntegrationServiceImpl;
@@ -12,7 +14,10 @@ import net.chat.utils.DbUtil;
 public class InitThread extends Thread {
 	private boolean flag = true;
 
-	public InitThread() {
+	private DataSource dataSource;
+
+	public InitThread(DataSource dataSource) {
+		this.dataSource = dataSource;
 	}
 
 	public void run() {
@@ -36,7 +41,7 @@ public class InitThread extends Thread {
 
 	private void initconfig() {
 		ResultSet rs = null;
-		DbUtil db = new DbUtil();
+		DbUtil db = new DbUtil(dataSource);
 		String sql = "";
 		sql = "select a.url,m.msgtype,m.id,a.seq,m.sourceid,m.action from wx_account as a,wx_msgtype as m where a.istatus=0 and a.id=m.accountid;";
 
@@ -135,7 +140,7 @@ public class InitThread extends Thread {
 		String tt = "";
 		List<WxContent> contents = new ArrayList<WxContent>();
 		ResultSet rs = null;
-		DbUtil db = new DbUtil();
+		DbUtil db = new DbUtil(dataSource);
 		String sql = "select * from wx_content where messageid=" + msgid;
 		try {
 
@@ -166,7 +171,7 @@ public class InitThread extends Thread {
 	public String loadMusic(String msgid) {
 		String tt = "";
 		ResultSet rs = null;
-		DbUtil db = new DbUtil();
+		DbUtil db = new DbUtil(dataSource);
 		String sql = "select * from wx_content where messageid=" + msgid;
 		try {
 			rs = db.getResultSet(sql);

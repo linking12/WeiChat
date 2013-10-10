@@ -13,14 +13,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
-import javax.servlet.ServletContext;
+import javax.sql.DataSource;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.dbcp.ConnectionFactory;
-import org.springframework.web.context.ServletContextAware;
-import org.springframework.web.context.WebApplicationContext;
 
-public class DbUtil implements ServletContextAware {
+public class DbUtil {
 
 	/**
 	 * Logger for this class
@@ -45,9 +43,12 @@ public class DbUtil implements ServletContextAware {
 	private int fetchSize = 500;
 
 	private boolean flag;
+
 	private PreparedStatement pst = null;
 
 	private String base;
+
+	private DataSource dataSource;
 
 	/**
 	 * @param base
@@ -61,9 +62,10 @@ public class DbUtil implements ServletContextAware {
 	/**
          * 
          */
-	public DbUtil() {
+	public DbUtil(DataSource dataSource) {
 		base = "jdbc";
 		batchParam = new ArrayList();
+		this.dataSource = dataSource;
 	}
 
 	public Connection getConnection() {
@@ -566,23 +568,13 @@ public class DbUtil implements ServletContextAware {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
 
 		}
 
 	}
 
 	public Connection getConnection(String sAlias) throws SQLException {
-		WebApplicationContext webApplicationContext = (WebApplicationContext) servletContext
-				.getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
-		BasicDataSource dataSource = webApplicationContext
-				.getBean(BasicDataSource.class);
 		return dataSource.getConnection();
 	}
 
-	private ServletContext servletContext;
-
-	public void setServletContext(ServletContext servletContext) {
-		servletContext = servletContext;
-	}
 }
