@@ -90,7 +90,7 @@
 		<td colspan="5">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 					<tr>
-						<td height="30" class="biao3" >fexue2000</td>
+						<td height="30" class="biao3" ><%=net.chat.utils.AppContext.getUsername()%></td>
 					</tr>
 					<tr>
 						<td height="20" class="biao1" >您当前的用户级别：普通用户</td>
