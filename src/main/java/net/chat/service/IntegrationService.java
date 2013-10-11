@@ -13,4 +13,7 @@ public interface IntegrationService {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse resp)
 			throws ServletException, IOException;
+
+	public void doProgram(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException;
 }
