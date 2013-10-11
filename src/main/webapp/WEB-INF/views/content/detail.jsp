@@ -187,7 +187,7 @@
 																<tr>
 																	<td width="20%" height="40" class="biao">图片<font color="red">*</font></td>
 																	<td>
-																		<input name="imageFile" id="imageFile" type="file" size="1" accept="image/*" value="123.jsp"/>
+																		<input name="imageFile" id="imageFile" type="file" size="1" accept="image/*" />
 																		&nbsp;<span id="errorimage" class="error" style="display:none">上传图片不能为空!</span>
 																	</td>
 																</tr>
@@ -238,7 +238,7 @@
 																	<td width="20%" height="40" class="biao">视频<font color="red">*</font></td>
 																	<td>
 																		<input name="videoFile" id="videoFile" type="file" size="1" accept="video/*"/>
-																		&nbsp;<span id="errorvideo" class="error" style="display:none">上传音乐不能为空!</span>
+																		&nbsp;<span id="errorvideo" class="error" style="display:none">上传视频不能为空!</span>
 																	</td>
 																</tr>
 															</table>
@@ -252,8 +252,7 @@
 															<table width="98%" border="0" align="center"cellpadding="0" cellspacing="0">
 																<tr>
 																	<td width="20%" height="40" class="biao">高清视频</td>
-																	<td>
-																		<input name="hqVideoFile" type="file" size="1" accept="video/*"/></td>
+																	<td><input name="hqVideoFile" type="file" size="1" accept="video/*"/></td>
 																</tr>
 															</table>
 														</td>

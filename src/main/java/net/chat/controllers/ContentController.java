@@ -5,10 +5,8 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import net.chat.constants.MessageTypeConstants;
 import net.chat.constants.PageConstants;
 import net.chat.domain.WxContent;
 import net.chat.formbean.SimpleBean;
@@ -60,7 +58,6 @@ public class ContentController {
 	public String edit(@PathVariable("id") Long id,Model model) {
 		WxContent wxContent=contentService.findOne(id);
 		model.addAttribute("wxContent",wxContent);
-		
 		model.addAttribute("contentTypes", PageConstants.buildContentTypesListByType(wxContent.getMsgType()));
 		
 		return PageConstants.PAGE_CONTENT_DETAIL_1;
@@ -73,7 +70,7 @@ public class ContentController {
 
 	@RequestMapping("/submit")
 	public String submit(@RequestParam(required = false) MultipartFile imageFile, @RequestParam(required = false) MultipartFile musicFile, @RequestParam(required = false) MultipartFile hqMusicFile,
-			@RequestParam(required = false) MultipartFile videoFile, @RequestParam(required = false) MultipartFile hqVideoFile, WxContent content, Model model, HttpServletRequest req)
+			@RequestParam(required = false) MultipartFile videoFile, @RequestParam(required = false) MultipartFile hqVideoFile, WxContent content, HttpServletRequest req)
 			throws IOException {
 		String realpath = req.getSession().getServletContext().getRealPath("/upload/");
 		String contentRealPath = System.getProperty("ssweb.root");
@@ -105,63 +102,25 @@ public class ContentController {
 	 return "redirect:/content/init";
 	}
 
-	@RequestMapping("/addContent")
-	public String addText(Model model) {
-		model.addAttribute("messageTypes", MessageTypeConstants.getMessageTypeMultimediaList());
-		model.addAttribute("contentForm", new WxContent());
+	@RequestMapping("/addContent/{msgType}")
+	public String addContent(@PathVariable("msgType") String msgType,Model model) {
+		model.addAttribute("contentTypes", PageConstants.buildContentTypesListByType(msgType));
+		model.addAttribute("msgType", msgType);
+		model.addAttribute("wxContent", new WxContent());
 		return PageConstants.PAGE_CONTENT_DETAIL;
 	}
 
 	@RequestMapping("/saveContent")
 	@ResponseBody
 	public String saveContent(@RequestParam(required = false) MultipartFile imageFile, @RequestParam(required = false) MultipartFile musicFile,
-			@RequestParam(required = false) MultipartFile hqMusicFile, @RequestParam(required = false) MultipartFile vidioFile, @RequestParam(required = false) MultipartFile hqVidioFile,
-			@Valid WxContent content, HttpServletRequest req, HttpServletResponse response) {
-		String realpath = req.getSession().getServletContext().getRealPath("/upload/");
-		String imageUrl = null;
-		String musicUrl = null;
-		String hqMusicUrl = null;
-		String vidioUrl = null;
-		String hqVidioUrl = null;
-
+			@RequestParam(required = false) MultipartFile hqMusicFile, @RequestParam(required = false) MultipartFile videoFile, @RequestParam(required = false) MultipartFile hqVideoFile,
+			@Valid WxContent content, HttpServletRequest req) {
 		try {
-			if (imageFile != null && !imageFile.isEmpty()) {
-				imageUrl = realpath + "/" + imageFile.getOriginalFilename();
-				FileUtils.copyInputStreamToFile(imageFile.getInputStream(), new File(imageUrl));
-
-			}
-			if (musicFile != null && !musicFile.isEmpty()) {
-				musicUrl = realpath + "/" + musicFile.getOriginalFilename();
-				FileUtils.copyInputStreamToFile(musicFile.getInputStream(), new File(musicUrl));
-			}
-			if (hqMusicFile != null && !hqMusicFile.isEmpty()) {
-				hqMusicUrl = realpath + "/" + hqMusicFile.getOriginalFilename();
-				FileUtils.copyInputStreamToFile(hqMusicFile.getInputStream(), new File(hqMusicUrl));
-			}
-			if (vidioFile != null && !vidioFile.isEmpty()) {
-				vidioUrl = realpath + "/" + vidioFile.getOriginalFilename();
-				FileUtils.copyInputStreamToFile(vidioFile.getInputStream(), new File(vidioUrl));
-			}
-			if (hqVidioFile != null && !hqVidioFile.isEmpty()) {
-				hqVidioUrl = realpath + "/" + hqVidioFile.getOriginalFilename();
-				FileUtils.copyInputStreamToFile(hqVidioFile.getInputStream(), new File(hqVidioUrl));
-			}
+			this.submit(imageFile, musicFile, hqMusicFile, videoFile, hqVideoFile, content, req);
 		} catch (IOException e) {
 			return "0";
 		}
-		String contentRealPath = System.getProperty("ssweb.root");
-		if (content.getMsgType().equals("image")) {
-			content.setPicUrl(StringUtils.replace(imageUrl, contentRealPath, ""));
-		}
-		if (content.getMsgType().equals("voice")) {
-			content.setMusicUrl(StringUtils.replace(musicUrl, contentRealPath, ""));
-			content.setHqmusicUrl(StringUtils.replace(hqMusicUrl, contentRealPath, ""));
-		} else if (content.getMsgType().equals("video")) {
-			content.setMusicUrl(StringUtils.replace(vidioUrl, contentRealPath, ""));
-			content.setHqmusicUrl(StringUtils.replace(hqVidioUrl, contentRealPath, ""));
-		}
-		contentService.save(content);
-		return "1";
+		return content.getMsgType();
 
 	}
 }
