@@ -75,7 +75,7 @@
 														<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
 															<tr>
 																<td width="21%">${account.name }</td>
-																<td width="40%">${account.url}</td>
+																<td width="40%">http://www.yidia.cn${ctx }${account.url}</td>
 																<td width="23%" class="zeng">${account.seq }</td>
 																<td width="7%" align="center" class="zeng"><a href="${ctx }/replymsg/init?accountId=${account.id }">配置</a></td>
 																<td width="4%" align="center" class="zeng"><a href="${ctx }/account/edit/${account.id }">修改</a></td>
