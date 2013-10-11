@@ -37,4 +37,17 @@ public class IntegrationWX {
 			logger.info("WeiXin post message into our platform failed", e);
 		}
 	}
+
+	@RequestMapping("/program/autoreply")
+	public void autoReply(HttpServletRequest request,
+			HttpServletResponse response) {
+		try {
+			integrationService.doProgram(request, response);
+		} catch (ServletException e) {
+			logger.info("WeiXin post message into our platform failed", e);
+
+		} catch (IOException e) {
+			logger.info("WeiXin post message into our platform failed", e);
+		}
+	}
 }

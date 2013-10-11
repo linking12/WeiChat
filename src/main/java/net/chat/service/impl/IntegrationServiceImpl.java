@@ -7,7 +7,9 @@ import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import net.chat.integration.service.InitThread;
+import net.chat.integration.service.RespBuilder;
 import net.chat.integration.vo.WXMessage;
 import net.chat.integration.vo.WxCmd;
 import net.chat.service.IntegrationService;
@@ -48,6 +51,61 @@ public class IntegrationServiceImpl implements IntegrationService,
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		action(request, response);
+	}
+
+	public void doProgram(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+
+		PrintWriter out = response.getWriter();
+		WXMessage msg = (WXMessage) request.getAttribute("WX_MESSAGE");
+		List<String> keyword = new ArrayList<String>();
+		boolean isReg = false;
+		String cnt = msg.getContent();
+		String sql = "";
+		String nickname = "";
+		DbUtil db = new DbUtil(dataSource);
+		if (cnt == null) {
+			cnt = "";
+		}
+		cnt = cnt.trim();
+		WxCmd cmd = IntegrationServiceImpl.autoreplay_cmd.get(msg.getReqUrl()
+				+ cnt);
+		IntegrationServiceImpl.logs(msg.getReqUrl() + cnt);
+		IntegrationServiceImpl.logs(cmd + "");
+		if (cnt.startsWith("激活") && cnt.length() > 2) {
+			int i = 0;
+			cnt = cnt.replaceAll(" ", "");
+			sql = "update wx_account set programid='" + msg.getTouser()
+					+ "' where name='" + cnt.substring(2) + "' and url='"
+					+ msg.getReqUrl() + "' ";
+			logs(sql);
+			try {
+				i = db.executeSql(sql);
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				db.connClose();
+			}
+			if (i > 0) {
+				out.println(RespBuilder.builderTextForReq(msg, cnt.substring(2)
+						+ "激活成功！"));
+			} else {
+				out.println(RespBuilder.builderTextForReq(msg, cnt.substring(2)
+						+ "激活失败！"));
+			}
+
+		} else if (msg != null && cmd != null) {
+			String content = IntegrationServiceImpl.souces.get(cmd
+					.getMessageid());
+			IntegrationServiceImpl.logs("msg id" + cmd.getMessageid());
+			content = RespBuilder.builderResp(msg, content);
+			IntegrationServiceImpl.logs(content);
+			out.println(content);
+
+		} else {
+			IntegrationServiceImpl.logs(cnt + "  is not set cmd ");
+		}
+
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse resp)
