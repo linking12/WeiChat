@@ -52,7 +52,7 @@ body {
 					</tr>
 					<tr>
 						<td><div align="center">
-						       <a href="${ctx}/message/init">
+						       <a href="${ctx}/content/init">
 								<img src="${images}/ic_4.png" width="310" height="310" />
 							   </a>
 							</div></td>

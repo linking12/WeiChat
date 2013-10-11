@@ -12,6 +12,7 @@ import net.chat.domain.WxAccount;
 import net.chat.domain.WxContent;
 import net.chat.domain.WxMessage;
 import net.chat.formbean.MultimediaMessageForm;
+import net.chat.formbean.SimpleBean;
 import net.chat.service.AccountService;
 import net.chat.service.ContentService;
 import net.chat.service.MessageService;
@@ -87,6 +88,9 @@ public class MessageController {
 		model.addAttribute("messageTypes", MessageTypeConstants.getMessageTypeList());
 		List<WxContent> wxContents = contentService.findAllMultimedia(msgType);
 		model.addAttribute("wxContents", wxContents);
+		
+		List<SimpleBean> contentTypes = PageConstants.buildContentTypesList();
+		model.addAttribute("contentTypes", contentTypes);
 		return PageConstants.PAGE_MESSAGE_MULTIMEDIA;
 
 	}

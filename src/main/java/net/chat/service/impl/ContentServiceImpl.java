@@ -14,7 +14,13 @@ import net.chat.dao.WxContentDao;
 import net.chat.domain.WxContent;
 import net.chat.service.ContentService;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -56,8 +62,7 @@ public class ContentServiceImpl implements ContentService {
 	 */
 	public List<WxContent> findByMessageId(final Long messageId) {
 		Specification<WxContent> spec = new Specification<WxContent>() {
-			public Predicate toPredicate(Root<WxContent> root,
-					CriteriaQuery<?> query, CriteriaBuilder cb) {
+			public Predicate toPredicate(Root<WxContent> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 				return cb.equal(root.<Long> get("messageId"), messageId);
 			}
 
@@ -92,5 +97,26 @@ public class ContentServiceImpl implements ContentService {
 	public void delete(List<Long> ids) {
 		for (Long id : ids)
 			dao.delete(id);
+	}
+
+	public List<WxContent> findAllBaseMultimedia(String msgType) {
+		if (StringUtils.isEmpty(msgType))
+			return dao.listAllMultimediaContent();
+		else
+			return dao.listAllMultimediaContent(msgType);
+	}
+
+	public Page<WxContent> findAllBaseMultimedia(final String msgType, int pageNo) {
+		Pageable pageable = new PageRequest(pageNo - 1, 5, new Sort(new Order("id")));
+		if (StringUtils.isEmpty(msgType)) {
+			return dao.findAll(pageable);
+		} else {
+			Specification<WxContent> spec = new Specification<WxContent>() {
+				public Predicate toPredicate(Root<WxContent> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+					return cb.equal(root.<Long> get("msgType"), msgType);
+				}
+			};
+			return dao.findAll(spec, pageable);
+		}
 	}
 }

@@ -21,7 +21,7 @@ import org.springframework.data.repository.query.Param;
 public interface WxCmdDao extends JpaRepository<WxCmd, Long>, JpaSpecificationExecutor<WxCmd> {
 
 	@Query("from WxCmd where accountId = :accountId and cmd like %:cmd%")
-	Page<WxCmd> findCmdByUserId(@Param("accountId") Long accountId, @Param("cmd") String cmd, Pageable pageable);
+	Page<WxCmd> findCmdByAccountId(@Param("accountId") Long accountId, @Param("cmd") String cmd, Pageable pageable);
 
 	@Query("from WxCmd where accountId = :accountId and cmd like %:cmd%")
 	List<WxCmd> findCmdByAccountId(@Param("accountId") Long accountId ,@Param("cmd") String cmd );

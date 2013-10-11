@@ -22,8 +22,12 @@ body {
 		if (msgType != '' && msgType != 'text')
 			window.location.href = "${ctx}/message/addMultimedia/" + msgType;
 		else
-			window.location.href = "${ctx}/message/addtext";
+			window.location.href = "${ctx}/message/addtext/"+$("#accountId").val();
 	}
+	function addContent(){
+		tanchuceng(600, 500, '上传多媒体','${ctx }/content/addContent/'+$("#msgType").val());
+	}
+	
 </script>
 </head>
 <body>
@@ -101,14 +105,16 @@ body {
 																	</form:select></td>
 															</tr>
 															<tr>
-																<td width="20%" height="40" class="biao">标题</td>
+																<td width="20%" height="40" class="biao">标题&nbsp;<font color="red">*</font></td>
 																<td><form:input path="message.msgName"
-																		style="width: 300px;" /> 必须
+																		style="width: 300px;" />
 																	<form:hidden path="message.id"/> </td>
 															</tr>
 															<tr>
-																<td width="20%" height="40" class="biao" valign="middle">自动回复多媒体</td>
-																<td>
+																<td width="20%" class="biao" colspan="2">自动回复多媒体:</td>																
+															</tr>
+															<tr>																
+																<td colspan="2">
 																	<table width="100%" border="0" align="center"
 																		cellpadding="0" cellspacing="0"
 																		style="margin-top: 20px">
@@ -117,14 +123,12 @@ body {
 																				<table width="98%" border="0" align="center"
 																					cellpadding="0" cellspacing="0">
 																					<tr>
-																						<td width="5%" class="biao">选择</td>
+																						<td width="10%" class="biao">选择</td>
 																						<td width="10%" class="biao">类型</td>
-																						<td width="10%" class="biao">标题</td>
-																						<td width="10%" class="biao">描述</td>
-																						<td width="20%" class="biao">图片URL</td>
-																						<td width="20%" class="biao">引用URL</td>
-																						<td width="20%" class="biao">多媒体URL</td>
-
+																						<td width="20%" class="biao">标题</td>																						
+																						<td width="20%" class="biao">URL</td>
+																						<td width="20%" class="biao">高清URL</td>
+																						<td width="20%" class="biao"></td>
 																					</tr>
 																				</table>
 																			</td>
@@ -136,14 +140,27 @@ body {
 																					<table width="98%" border="0" align="center"
 																						cellpadding="0" cellspacing="0">
 																						<tr>
-																							<td width="5%"><form:checkbox
+																							<td width="10%"><form:checkbox
 																									path="selectContents" value="${content.id}" /></td>
-																							<td width="10%">多媒体</td>
-																							<td width="10%">${content.title}</td>
-																							<td width="10%">${content.description}</td>
-																							<td width="20%">${content.picUrl}</td>
-																							<td width="20%">${content.url}</td>
-																							<td width="20%">${content.musicUrl}</td>
+																							
+																							<td width="10%">
+																								<select disabled>
+																									<c:forEach items="${contentTypes }" var="contentType">
+																										 <c:if test="${contentType.key==content.msgType }">
+																										 	<option value="${contentType.key}">${contentType.value}</option>
+																										 </c:if>
+																									</c:forEach>
+																								</select>
+																							</td>
+																							<td width="20%">${content.title}</td>
+																							<td width="20%" >
+																								<c:choose>
+																									<c:when test="${content.msgType=='image' }">${content.picUrl }</c:when>
+																									<c:otherwise>${content.musicUrl }</c:otherwise>
+																								</c:choose>
+																							</td>
+																							<td width="20%" >${content.hqmusicUrl}</td>
+																							<td width="20%" align="center"><a href="#" title="${content.url}" style="text-decoration: none;color:blue">原文链接</a></td>
 
 																						</tr>
 																					</table>
@@ -151,7 +168,7 @@ body {
 																			</tr>
 																			<tr>
 																				<td><div align="center">
-																						<img src="${images}/xian.jpg" width="650"
+																						<img src="${images}/xian.jpg" width="800"
 																							height="1" />
 																					</div></td>
 																			</tr>
@@ -159,7 +176,7 @@ body {
 																		<tr>
 																			<td height="50" align="right"><input
 																				type="button" value="新增" class="btn-primary"
-																				onclick="tanchuceng(900, 600, '上传多媒体','${ctx }/content/addContent?isIndex=y&fileName=coverFile');" /></td>
+																				onclick="addContent()" /></td>
 																		</tr>
 																	</table>
 																</td>

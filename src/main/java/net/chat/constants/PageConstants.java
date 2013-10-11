@@ -68,6 +68,18 @@ public final class PageConstants {
 	 */
 
 	public static final String PAGE_CONTENT_DETAIL = "content/contentDetail";
+	
+	/**
+	 * 素材管理-列表
+	 */
+
+	public static final String PAGE_CONTENT_LIST = "content/list";
+	
+	/**
+	 * 素材管理-详细信息
+	 */
+
+	public static final String PAGE_CONTENT_DETAIL_1 = "content/detail";
 
 	/**
 	 * 应用管理-投票
@@ -133,13 +145,38 @@ public final class PageConstants {
 	 * 用户发送类型类型
 	 */
 	public static List<SimpleBean> buildSendTypesList() {
-		List<SimpleBean> lst = new ArrayList<SimpleBean>(5);
+		List<SimpleBean> lst = new ArrayList<SimpleBean>(6);
 		lst.add(new SimpleBean("text", "文本"));
 		lst.add(new SimpleBean("image", "图片"));
 		lst.add(new SimpleBean("voice", "语音"));
 		lst.add(new SimpleBean("subscribe", "订购"));
 		lst.add(new SimpleBean("video", "视频"));
 		lst.add(new SimpleBean("unsubscribe", "退订"));
+		return lst;
+	}
+	
+	/**
+	 * 用户发送类型类型
+	 */
+	public static List<SimpleBean> buildContentTypesList() {
+		List<SimpleBean> lst = new ArrayList<SimpleBean>(3);
+		lst.add(new SimpleBean("image", "图片"));
+		lst.add(new SimpleBean("voice", "音频"));
+		lst.add(new SimpleBean("video", "视频"));
+		return lst;
+	}
+	
+	/**
+	 * 用户发送类型类型
+	 */
+	public static List<SimpleBean> buildContentTypesListByType(String msgType) {
+		List<SimpleBean> lst = new ArrayList<SimpleBean>(1);
+		if("image".equals(msgType))
+		lst.add(new SimpleBean("image", "图片"));
+		if("voice".equals(msgType))
+		lst.add(new SimpleBean("voice", "音频"));
+		if("video".equals(msgType))
+		lst.add(new SimpleBean("video", "视频"));
 		return lst;
 	}
 	

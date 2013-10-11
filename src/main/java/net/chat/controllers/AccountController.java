@@ -33,7 +33,7 @@ public class AccountController {
 	public String add(Model model) {
 		WxAccount account = new WxAccount();
 		account.setSeq(RandomStringUtils.randomAlphabetic(20));
-		account.setUrl("/WeiChat/" + RandomStringUtils.randomAlphabetic(20));
+		account.setUrl("/WeiChat/API/" + RandomStringUtils.randomAlphabetic(20));
 		model.addAttribute("wxAccount", account);
 		return PageConstants.PAGE_ACCOUNT_DETAIL;
 	}
@@ -52,8 +52,7 @@ public class AccountController {
 	}
 
 	@RequestMapping("/submit")
-	public String submit(@Valid WxAccount account, BindingResult result,
-			Model model) {
+	public String submit(@Valid WxAccount account, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			model.addAttribute("wxAccount", account);
 			return PageConstants.PAGE_ACCOUNT_DETAIL;

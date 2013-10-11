@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/API")
 public class IntegrationWX {
 
 	protected final Log logger = LogFactory.getLog(getClass());
@@ -24,7 +23,7 @@ public class IntegrationWX {
 	@Autowired
 	private IntegrationService integrationService;
 
-	@RequestMapping("/message")
+	@RequestMapping("/API")
 	@ResponseBody
 	public void saveContent(HttpServletRequest request,
 			HttpServletResponse response) {

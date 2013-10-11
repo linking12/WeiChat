@@ -46,12 +46,13 @@
 	}
 	
 	function doadd(){
-		tanchuceng(900, 600, '自动回复配置','${ctx }/replymsg/add/'+$("#accountId").val());
+		$('#form1').attr('action', '${ctx }/replymsg/add/'+$("#accountId").val());
+		$('#form1').submit();
 	}
 	</script>
 </head>
 <body >
-		<form:form id="form1" method="post" modelAttribute="replyMsgForm">
+	<form:form id="form1" method="post" modelAttribute="replyMsgForm">
 		<table width="967" border="0" align="center" cellpadding="0" cellspacing="0">
 			<tr>
 				<td><img src="${images}/lo.png" width="955" height="208" /></td>
@@ -98,6 +99,11 @@
 														<div align="center" class="biao1">自动回复配置</div>
 													</td>
 												</tr>
+												<tr>
+													<td height="40">
+														<div align="center" class="c"><a href="javascript:doadd()" class="d">添加回复配置</a></div>
+													</td>
+												</tr>
 											</table>
 										</td>
 										<td width="1" bgcolor="#999999"><img src="${images}/su.png" width="1" height="257" /></td>
@@ -108,13 +114,11 @@
 														<table width="100%" border="0"cellspacing="0" cellpadding="0">
 															<tr>
 																<td width="20%" height="40" class="biao">公众帐号名</td>
-																<td width="20%">
+																<td width="80%">
 																	<form:select id="accountId" style="width: 150px;" onchange="changeAccountId()" path="accountId" items="${accounts}" itemValue="id" itemLabel="name"/>
 																	
 																</td>
-																<td>
-																	<div align="left"><input type="button" name="addbtn" id="addbtn" class="btn-primary" onclick="doadd()" value="新增"/></div>
-																</td>
+																
 															</tr>
 															
 														</table>
