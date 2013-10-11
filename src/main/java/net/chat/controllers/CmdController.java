@@ -25,7 +25,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/cmd")
@@ -118,12 +117,22 @@ public class CmdController {
 	}
 
 	@RequestMapping("/submit")
-	@ResponseBody
-	public String submit(@Valid WxCmd cmd, BindingResult result) {
+	public String submit(@Valid WxCmd cmd, BindingResult result,Model model) {
 		if (result.hasErrors()) {
-			return "0";
+			Long userId = AppContext.getUserId();
+			List<WxAccount> accounts = accountService.findAccountByUserId(userId);
+			model.addAttribute("accounts", accounts);
+			
+			List<WxMessage> messages = messageService.findTextMessageByAccountId(cmd.getAccountId());
+			model.addAttribute("messages", messages);
+			
+			List<SimpleBean> ctypeList = PageConstants.buildCtypeList();
+			model.addAttribute("ctypeList", ctypeList);
+			
+			model.addAttribute("wxCmd",cmd);
+			return PageConstants.PAGE_KEYWORD_DETAIL;
 		}
 		cmd = cmdService.save(cmd);
-		return "1";
+		return "redirect:/cmd/init?accountId="+cmd.getAccountId();
 	}
 }

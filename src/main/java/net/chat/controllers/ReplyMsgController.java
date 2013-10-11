@@ -26,7 +26,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/replymsg")
@@ -125,15 +124,30 @@ public class ReplyMsgController {
 	}
 
 	@RequestMapping("/submit")
-	@ResponseBody
-	public Long submit(@Valid WxMsgType wxMsgType, BindingResult result) {
+	public String submit(@Valid WxMsgType wxMsgType, BindingResult result,Model model) {
 		if (result.hasErrors()) {
-			return 0l;
+			Long userId = AppContext.getUserId();
+			List<WxAccount> accounts = accountService.findAccountByUserId(userId);
+			model.addAttribute("accounts", accounts);
+			model.addAttribute("wxMsgType", wxMsgType);
+			List<WxMessage> messages = messageService.findMessageByAccountId(wxMsgType.getAccountId());
+			model.addAttribute("messages", messages);
+
+			List<WxGame> games = gameService.findGameByAccountId(wxMsgType.getAccountId());
+			model.addAttribute("games", games);
+
+			List<SimpleBean> actionTypes = PageConstants.buildActionTypesList();
+			model.addAttribute("actionTypes", actionTypes);
+
+			List<SimpleBean> sendTypes = PageConstants.buildSendTypesList();
+			model.addAttribute("sendTypes", sendTypes);
+
+			return PageConstants.PAGE_RELPY_MSG_DETAIL;
 		}
 		wxMsgType.setIstatus(0);
 		wxMsgType.setName(this.getMsgTypeName(wxMsgType.getMsgType()));
 		wxMsgType = msgTypeService.save(wxMsgType);
-		return wxMsgType.getAccountId();
+		return "redirect:/replymsg/init?accountId=" +wxMsgType.getAccountId();
 	}
 
 	private String getMsgTypeName(String msgType) {

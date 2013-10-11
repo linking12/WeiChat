@@ -5,6 +5,8 @@ package net.chat.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import net.chat.domain.WxContent;
 
 /**
@@ -31,4 +33,7 @@ public interface ContentService {
 
 	List<WxContent> findAllMultimedia(String msgType);
 
+	List<WxContent> findAllBaseMultimedia(String msgType);
+	
+	Page<WxContent> findAllBaseMultimedia(String msgType,int pageNo);
 }

@@ -38,7 +38,7 @@ public class CmdServiceImpl implements CmdService {
 			pageNo = 1;
 		Pageable pageable = new PageRequest(pageNo - 1, pageSize, new Sort(new Order("id")));
 
-		return wxCmdDao.findCmdByUserId(accountId, StringUtils.isBlank(condition) ? "" : condition, pageable);
+		return wxCmdDao.findCmdByAccountId(accountId, StringUtils.isBlank(condition) ? "" : condition, pageable);
 	}
 
 	@Override

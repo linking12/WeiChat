@@ -9,7 +9,8 @@
 	<title>微信公共平台</title>
 	<script type="text/javascript">
 		function doadd(){
-			tanchuceng(400, 300, '','${ctx }/cmd/add?accountId='+$("#accountId").val());
+			$('#form1').attr('action', '${ctx }/cmd/add?accountId='+$("#accountId").val());
+			$('#form1').submit();
 		}
 	
 		function dodelete(id){
@@ -18,7 +19,8 @@
 		}
 		
 		function doedit(id){
-			tanchuceng(400, 300, '','${ctx }/cmd/edit/'+id);
+			$('#form1').attr('action', '${ctx }/cmd/edit/'+id);
+			$('#form1').submit();
 		}
 	
 		function doquery(){
@@ -70,6 +72,13 @@
 														<div align="center" class="biao1">智能客服</div>
 													</td>
 												</tr>
+												<tr>
+													<td height="40">
+														<div align="center" class="c">
+															<a href="javascript:doadd()" class="d">添加匹配</a>
+														</div>
+													</td>
+												</tr>
 											</table>
 										</td>
 										<td width="1" bgcolor="#999999"><img src="${images}/su.png" width="1" height="257" /></td>
@@ -93,7 +102,7 @@
 																<td><input type="text" id="condition" size="40" value="${condition }"></td>
 																<td align="left">
 																	<input type="button" value="查询"  class="btn-primary" onclick="doquery()" />&nbsp;
-																	<input type="button" value="新增"  class="btn-primary" onclick="doadd()" />
+																	
 																</td>
 															</tr>
 														</table>
