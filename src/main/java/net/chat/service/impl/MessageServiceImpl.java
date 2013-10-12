@@ -81,7 +81,7 @@ public class MessageServiceImpl implements MessageService {
 
 		Long accountId = message.getAccountId();
 		// 获取聊天机器人
-		WxGame defaultGame = gameDao.findByUrlAndGameType("autoreply.jsp",
+		WxGame defaultGame = gameDao.findByUrlAndGameType("autoreply",
 				"program");
 		WxAccountGame accountGame = new WxAccountGame();
 		accountGame.setGameId(defaultGame.getId());

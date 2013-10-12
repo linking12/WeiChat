@@ -110,8 +110,7 @@ public class RespBuilder {
 			content = content
 					+ ("<Description><![CDATA[" + wx.getDescription() + "]]></Description>");
 			content = content
-					+ ("<PicUrl><![CDATA[http://yidia.cn/weixin/imgupload/"
-							+ wx.getPicUrl() + "]]></PicUrl>");
+					+ ("<PicUrl><![CDATA[" + wx.getPicUrl() + "]]></PicUrl>");
 			content = content + ("<Url><![CDATA[" + wx.getUrl() + "]]></Url>");
 			content = content + (" </item>");
 		}

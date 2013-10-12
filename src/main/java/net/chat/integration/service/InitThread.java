@@ -118,10 +118,11 @@ public class InitThread extends Thread {
 				if ("text".equals(rs.getString("msgtype"))) {
 					IntegrationServiceImpl.souces.put(rs.getString("id"),
 							RespBuilder.buildText(rs.getString("content")));
-				} else if ("music".equals(rs.getString("msgtype"))) {
+				} else if ("voice".equals(rs.getString("msgtype"))
+						|| "video".equals(rs.getString("msgtype"))) {
 					IntegrationServiceImpl.souces.put(rs.getString("id"),
 							loadMusic(rs.getString("id")));
-				} else if ("multimedia".equals(rs.getString("msgtype"))) {
+				} else if ("image".equals(rs.getString("msgtype"))) {
 					IntegrationServiceImpl.souces.put(rs.getString("id"),
 							loadMulti(rs.getString("id")));
 				}

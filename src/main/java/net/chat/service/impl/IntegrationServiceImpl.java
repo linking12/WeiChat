@@ -124,10 +124,10 @@ public class IntegrationServiceImpl implements IntegrationService,
 		String reqUrl = request.getRequestURI();
 		String contextPath = request.getContextPath();
 		reqUrl = StringUtils.substringAfter(reqUrl, contextPath);
-		String codeString = validate(request, reqUrl);
-		if (codeString == null) {
-			return;
-		}
+//		String codeString = validate(request, reqUrl);
+//		if (codeString == null) {
+//			return;
+//		}
 		SAXBuilder sb = new SAXBuilder();
 		Document doc = null;
 		try {

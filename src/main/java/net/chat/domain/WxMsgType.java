@@ -45,13 +45,14 @@ public class WxMsgType implements Serializable {
 	private String name;
 
 	@Column(name = "istatus")
-	private Integer istatus=0;
+	private Integer istatus = 0;
 
 	public WxMsgType() {
 
 	}
 
-	public WxMsgType(Long accountId, String msgType, String action, Long sourceId, String name) {
+	public WxMsgType(Long accountId, String msgType, String action,
+			Long sourceId, String name) {
 		this.accountId = accountId;
 		this.msgType = msgType;
 		this.action = action;

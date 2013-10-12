@@ -16,27 +16,37 @@ public class HttpClientTest {
 	 * @param args
 	 */
 	public static void main(String[] args) throws IOException {
+		// String content = "<xml>";
+		// content = content + " <ToUserName><![CDATA[toUser]]></ToUserName>";
+		// content = content
+		// + " <FromUserName><![CDATA[fromUser]]></FromUserName>";
+		// content = content + "<CreateTime>1348831860</CreateTime>";
+		// content = content + "<MsgType><![CDATA[text]]></MsgType>";
+		// content = content + "<Content><![CDATA[你好]]></Content>";
+		// content = content + "<MsgId>1234567890123456</MsgId>";
+		// content = content + "</xml>";
+
 		String content = "<xml>";
 		content = content + " <ToUserName><![CDATA[toUser]]></ToUserName>";
 		content = content
 				+ " <FromUserName><![CDATA[fromUser]]></FromUserName>";
-		content = content + "<CreateTime>1348831860</CreateTime>";
-		content = content + "<MsgType><![CDATA[text]]></MsgType>";
-		content = content + "<Content><![CDATA[你好]]></Content>";
-		content = content + "<MsgId>1234567890123456</MsgId>";
-		content = content + "</xml>";
+		content = content + " <CreateTime>1348831860</CreateTime>";
+		content = content + " <MsgType><![CDATA[image]]></MsgType>";
+		content = content + " <PicUrl><![CDATA[this is a url]]></PicUrl>";
+		content = content + " <MsgId>1234567890123456</MsgId>";
+		content = content + " </xml>";
 
 		@SuppressWarnings("deprecation")
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpPost httppost = new HttpPost(
-				"http://localhost:8080/WeiChat/API/gzkUwLDfXADySiiCUvZZ");
+				"http://localhost:8080/WeiChat/API/JzfNgyGmEQKvqnaCBLNt");
 		StringEntity myEntity = new StringEntity(content, "UTF-8");
 		httppost.addHeader("Content-Type", "text/xml");
 		httppost.setEntity(myEntity);
 		HttpResponse response = httpclient.execute(httppost);
 		HttpEntity resEntity = response.getEntity();
 		InputStreamReader reader = new InputStreamReader(
-				resEntity.getContent(), "ISO-8859-1");
+				resEntity.getContent(), "UTF-8");
 		char[] buff = new char[1024];
 		int length = 0;
 		while ((length = reader.read(buff)) != -1) {
