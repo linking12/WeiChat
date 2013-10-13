@@ -57,7 +57,7 @@ public class CmdController {
 			model.addAttribute("cmds", cmds);
 			model.addAttribute("condition", condition);
 
-			List<WxMessage> messages = messageService.findTextMessageByAccountId(accountId);
+			List<WxMessage> messages = messageService.findMessageByAccountId(accountId);
 			model.addAttribute("messages", messages);
 
 			List<SimpleBean> ctypeList = PageConstants.buildCtypeList();
@@ -76,7 +76,7 @@ public class CmdController {
 		List<WxAccount> accounts = new ArrayList<WxAccount>();
 		accounts.add(account);
 		model.addAttribute("accounts", accounts);
-		List<WxMessage> messages = messageService.findTextMessageByAccountId(accountId);
+		List<WxMessage> messages = messageService.findMessageByAccountId(accountId);
 		model.addAttribute("messages", messages);
 		model.addAttribute("wxCmd", cmd);
 
@@ -97,7 +97,7 @@ public class CmdController {
 			if (null == accountId) {
 				accountId = accounts.get(0).getId();
 			}
-			List<WxMessage> messages = messageService.findTextMessageByAccountId(accountId);
+			List<WxMessage> messages = messageService.findMessageByAccountId(accountId);
 			model.addAttribute("messages", messages);
 			WxCmd cmd = new WxCmd();
 			cmd.setAccountId(accountId);
@@ -123,7 +123,7 @@ public class CmdController {
 			List<WxAccount> accounts = accountService.findAccountByUserId(userId);
 			model.addAttribute("accounts", accounts);
 			
-			List<WxMessage> messages = messageService.findTextMessageByAccountId(cmd.getAccountId());
+			List<WxMessage> messages = messageService.findMessageByAccountId(cmd.getAccountId());
 			model.addAttribute("messages", messages);
 			
 			List<SimpleBean> ctypeList = PageConstants.buildCtypeList();

@@ -94,7 +94,7 @@ public class InitThread extends Thread {
 			db.connClose();
 		}
 		// /////////////////////////
-		sql = "select m.id,m.url from wx_game as m,wx_msgtype as c  where c.accountid in (select id from wx_account where istatus =0) and c.action='program'  and m.id=c.sourceid;";
+		sql = "select m.id,m.url from wx_game as m,wx_msgtype as c  where c.accountid in (select id from wx_account where istatus =0) and c.action='program';";
 
 		try {
 			rs = db.getResultSet(sql);

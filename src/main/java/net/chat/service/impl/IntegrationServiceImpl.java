@@ -123,11 +123,7 @@ public class IntegrationServiceImpl implements IntegrationService,
 			throws IOException {
 		String reqUrl = request.getRequestURI();
 		String contextPath = request.getContextPath();
-		reqUrl = StringUtils.substringAfter(reqUrl, contextPath);
-//		String codeString = validate(request, reqUrl);
-//		if (codeString == null) {
-//			return;
-//		}
+		reqUrl = StringUtils.substringAfter(reqUrl, contextPath);	
 		SAXBuilder sb = new SAXBuilder();
 		Document doc = null;
 		try {
@@ -297,7 +293,7 @@ public class IntegrationServiceImpl implements IntegrationService,
 					String pathString = IntegrationServiceImpl.games.get(msgid);
 					request.setAttribute("WX_MESSAGE", message);
 					try {
-						String p = "/program/" + pathString;
+						String p = "/program/" + "autoreply";
 						logs("program path =" + p);
 						request.getRequestDispatcher(p).include(request,
 								response);
@@ -313,47 +309,51 @@ public class IntegrationServiceImpl implements IntegrationService,
 	}
 
 	private String validate(HttpServletRequest request, String reqUrl) {
-		boolean flag = false;
-		String signature = request.getParameter("signature");
-		String timestamp = request.getParameter("timestamp");
-		String nonce = request.getParameter("nonce");
+
+		// boolean flag = false;
+		// String signature = request.getParameter("signature");
+		// String timestamp = request.getParameter("timestamp");
+		// String nonce = request.getParameter("nonce");
 		String echostring = request.getParameter("echostr");
-
-		String token = IntegrationServiceImpl.urlseqs.get(reqUrl);// "BZUVmaHfayRHDHJwXuYg";
-		IntegrationServiceImpl.logs("url=" + reqUrl);
-		IntegrationServiceImpl.logs("Token=" + token);
-		if (token != null) {
-			String[] strSet = new String[] { token, timestamp, nonce };
-			java.util.Arrays.sort(strSet);
-			String total = "";
-			for (String string : strSet) {
-				total = total + string;
-			}
-			// SHA-1加密实例
-			MessageDigest sha1 = null;
-			try {
-				sha1 = MessageDigest.getInstance("SHA-1");
-			} catch (NoSuchAlgorithmException e) {
-				e.printStackTrace();
-			}
-
-			sha1.update(total.getBytes());
-			byte[] codedBytes = sha1.digest();
-			String codedString = new BigInteger(1, codedBytes).toString(16);
-			if (signature != null && signature.equals(codedString)) {
-				flag = true;
-			}
-		} else {
-			flag = false;
-		}
-		if (flag) {
-			if (echostring == null) {
-				echostring = "ok";
-			}
-			return echostring;
-		} else {
-			return null;
-		}
+		System.out.println(echostring);
+		return echostring;
+		//
+		// String token = IntegrationServiceImpl.urlseqs.get(reqUrl);//
+		// "BZUVmaHfayRHDHJwXuYg";
+		// IntegrationServiceImpl.logs("url=" + reqUrl);
+		// IntegrationServiceImpl.logs("Token=" + token);
+		// if (token != null) {
+		// String[] strSet = new String[] { token, timestamp, nonce };
+		// java.util.Arrays.sort(strSet);
+		// String total = "";
+		// for (String string : strSet) {
+		// total = total + string;
+		// }
+		// // SHA-1加密实例
+		// MessageDigest sha1 = null;
+		// try {
+		// sha1 = MessageDigest.getInstance("SHA-1");
+		// } catch (NoSuchAlgorithmException e) {
+		// e.printStackTrace();
+		// }
+		//
+		// sha1.update(total.getBytes());
+		// byte[] codedBytes = sha1.digest();
+		// String codedString = new BigInteger(1, codedBytes).toString(16);
+		// if (signature != null && signature.equals(codedString)) {
+		// flag = true;
+		// }
+		// } else {
+		// flag = false;
+		// }
+		// if (flag) {
+		// if (echostring == null) {
+		// echostring = "ok";
+		// }
+		// return echostring;
+		// } else {
+		// return null;
+		// }
 	}
 
 	public void init() {
@@ -369,6 +369,7 @@ public class IntegrationServiceImpl implements IntegrationService,
 
 		try {
 			db.excute(sql);
+			db.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 			logs("exception sql:" + sql);

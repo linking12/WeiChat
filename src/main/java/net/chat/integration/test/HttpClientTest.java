@@ -16,25 +16,25 @@ public class HttpClientTest {
 	 * @param args
 	 */
 	public static void main(String[] args) throws IOException {
-		// String content = "<xml>";
-		// content = content + " <ToUserName><![CDATA[toUser]]></ToUserName>";
-		// content = content
-		// + " <FromUserName><![CDATA[fromUser]]></FromUserName>";
-		// content = content + "<CreateTime>1348831860</CreateTime>";
-		// content = content + "<MsgType><![CDATA[text]]></MsgType>";
-		// content = content + "<Content><![CDATA[你好]]></Content>";
-		// content = content + "<MsgId>1234567890123456</MsgId>";
-		// content = content + "</xml>";
+		 String content = "<xml>";
+		 content = content + " <ToUserName><![CDATA[toUser]]></ToUserName>";
+		 content = content
+		 + " <FromUserName><![CDATA[fromUser]]></FromUserName>";
+		 content = content + "<CreateTime>1348831860</CreateTime>";
+		 content = content + "<MsgType><![CDATA[text]]></MsgType>";
+		 content = content + "<Content><![CDATA[你好]]></Content>";
+		 content = content + "<MsgId>1234567890123456</MsgId>";
+		 content = content + "</xml>";
 
-		String content = "<xml>";
-		content = content + " <ToUserName><![CDATA[toUser]]></ToUserName>";
-		content = content
-				+ " <FromUserName><![CDATA[fromUser]]></FromUserName>";
-		content = content + " <CreateTime>1348831860</CreateTime>";
-		content = content + " <MsgType><![CDATA[image]]></MsgType>";
-		content = content + " <PicUrl><![CDATA[this is a url]]></PicUrl>";
-		content = content + " <MsgId>1234567890123456</MsgId>";
-		content = content + " </xml>";
+//		String content = "<xml>";
+//		content = content + " <ToUserName><![CDATA[toUser]]></ToUserName>";
+//		content = content
+//				+ " <FromUserName><![CDATA[fromUser]]></FromUserName>";
+//		content = content + " <CreateTime>1348831860</CreateTime>";
+//		content = content + " <MsgType><![CDATA[image]]></MsgType>";
+//		content = content + " <PicUrl><![CDATA[this is a url]]></PicUrl>";
+//		content = content + " <MsgId>1234567890123456</MsgId>";
+//		content = content + " </xml>";
 
 		@SuppressWarnings("deprecation")
 		HttpClient httpclient = new DefaultHttpClient();

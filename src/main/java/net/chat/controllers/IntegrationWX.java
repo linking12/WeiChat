@@ -24,18 +24,58 @@ public class IntegrationWX {
 	@Autowired
 	private IntegrationService integrationService;
 
-	@RequestMapping("/API/{seq}")
+	@RequestMapping("/api/{seq}")
 	@ResponseBody
 	public void saveContent(@PathVariable("seq") String id,
 			HttpServletRequest request, HttpServletResponse response) {
-		try {
-			integrationService.doPost(request, response);
-		} catch (ServletException e) {
-			logger.info("WeiXin post message into our platform failed", e);
+		if (request.getMethod().equals("GET")) {
+			try {
+				integrationService.doGet(request, response);
+			} catch (ServletException e) {
+				logger.info("WeiXin post message into our platform failed", e);
 
-		} catch (IOException e) {
-			logger.info("WeiXin post message into our platform failed", e);
+			} catch (IOException e) {
+				logger.info("WeiXin post message into our platform failed", e);
+			}
+
+		} else {
+			try {
+				integrationService.doPost(request, response);
+			} catch (ServletException e) {
+				logger.info("WeiXin post message into our platform failed", e);
+
+			} catch (IOException e) {
+				logger.info("WeiXin post message into our platform failed", e);
+			}
 		}
+
+	}
+
+	@RequestMapping("/API/{seq}")
+	@ResponseBody
+	public void saveContent1(@PathVariable("seq") String id,
+			HttpServletRequest request, HttpServletResponse response) {
+		if (request.getMethod().equals("GET")) {
+			try {
+				integrationService.doGet(request, response);
+			} catch (ServletException e) {
+				logger.info("WeiXin post message into our platform failed", e);
+
+			} catch (IOException e) {
+				logger.info("WeiXin post message into our platform failed", e);
+			}
+
+		} else {
+			try {
+				integrationService.doPost(request, response);
+			} catch (ServletException e) {
+				logger.info("WeiXin post message into our platform failed", e);
+
+			} catch (IOException e) {
+				logger.info("WeiXin post message into our platform failed", e);
+			}
+		}
+
 	}
 
 	@RequestMapping("/program/autoreply")

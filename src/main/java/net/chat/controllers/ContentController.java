@@ -90,20 +90,20 @@ public class ContentController {
 			FileUtils.copyInputStreamToFile(imageFile.getInputStream(),
 					new File(imageUrl));
 			content.setPicUrl("http://www.yidia.cn" + req.getContextPath()
-					+ StringUtils.replace(imageUrl, contentRealPath, ""));
+					+ "/" + StringUtils.replace(imageUrl, contentRealPath, ""));
 		} else if ("voice".equals(msgType)) {
 			String voiceUrl = realpath + "/" + musicFile.getOriginalFilename();
 			FileUtils.copyInputStreamToFile(musicFile.getInputStream(),
 					new File(voiceUrl));
 			content.setMusicUrl("http://www.yidia.cn" + req.getContextPath()
-					+ StringUtils.replace(voiceUrl, contentRealPath, ""));
+					+ "/" + StringUtils.replace(voiceUrl, contentRealPath, ""));
 			if (null != hqMusicFile && !hqMusicFile.isEmpty()) {
 				String hqvoiceUrl = realpath + "/"
 						+ hqMusicFile.getOriginalFilename();
 				FileUtils.copyInputStreamToFile(hqMusicFile.getInputStream(),
 						new File(hqvoiceUrl));
 				content.setHqmusicUrl("http://www.yidia.cn"
-						+ req.getContextPath()
+						+ req.getContextPath() + "/"
 						+ StringUtils.replace(hqvoiceUrl, contentRealPath, ""));
 			}
 		} else if ("video".equals(msgType)) {
@@ -111,14 +111,14 @@ public class ContentController {
 			FileUtils.copyInputStreamToFile(videoFile.getInputStream(),
 					new File(videoUrl));
 			content.setMusicUrl("http://www.yidia.cn" + req.getContextPath()
-					+ StringUtils.replace(videoUrl, contentRealPath, ""));
+					+ "/" + StringUtils.replace(videoUrl, contentRealPath, ""));
 			if (null != hqVideoFile && !hqVideoFile.isEmpty()) {
 				String hqvideoUrl = realpath + "/"
 						+ hqVideoFile.getOriginalFilename();
 				FileUtils.copyInputStreamToFile(hqVideoFile.getInputStream(),
 						new File(hqvideoUrl));
 				content.setHqmusicUrl("http://www.yidia.cn"
-						+ req.getContextPath()
+						+ req.getContextPath() + "/"
 						+ StringUtils.replace(hqvideoUrl, contentRealPath, ""));
 			}
 		}
