@@ -7,8 +7,8 @@
 <c:set var="css" value="${ctx}/css"/>
 <c:set var="images" value="${ctx}/images"/>
 <link href="${css }/css.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="${js}/jquery/1.6/jquery.js"></script>
-<script type="text/javascript" src="${js}/jquery/1.6/jquery.form.js"></script>
+<script type="text/javascript" src="${js}/jquery/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="${js}/jquery/jquery.form.js"></script>
 <script type="text/javascript" src="${js}/jquery/weichat.js"></script>
 <style type="text/css">
 	body {
@@ -41,8 +41,8 @@ function MM_swapImage() { //v3.0
 }
 //-->
 
-
-$(document).ready(function(){ 
+$(document).ready(function(){
+	MM_preloadImages('${images}/an_1_1.png','${images}/an_2_1.png','${images}/an_3_1.png','${images}/an_4_1.png','${images}/an_5_1.png');
     var menuYloc = $("#nav_tb").offset().top; 
     $(window).scroll(function (){ 
         var offsetTop =208 + $(window).scrollTop(); 

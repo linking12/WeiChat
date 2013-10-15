@@ -17,12 +17,7 @@
 	<form:form id="cmdform" method="post" modelAttribute="wxCmd">
 		<form:hidden path="id" />
 		<table width="967" border="0" align="center" cellpadding="0" cellspacing="0">
-			<tr>
-				<td><img src="${images}/lo.png" width="955" height="208" /></td>
-			</tr>
-			<tr>
-				<td><%@include file="../menu.jsp"%></td>
-			</tr>
+			<%@include file="../menu.jsp"%>
 			<tr>
 				<td>
 					<table width="942" border="0" align="center" cellpadding="0" cellspacing="0">

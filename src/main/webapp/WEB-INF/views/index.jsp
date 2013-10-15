@@ -7,12 +7,7 @@
 </head>
 <body>
 	<table width="967" border="0" align="center" cellpadding="0" cellspacing="0">
-		<tr>
-			<td><img src="${images}/lo.png" width="955" height="208" /></td>
-		</tr>
-		<tr>
-			<td><%@include file="menu.jsp"%></td>
-		</tr>
+		<%@include file="menu.jsp"%>
 		<tr>
 			<td>
 				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="img_tb">
@@ -59,7 +54,9 @@
 						 </td>
 						<td>
 							<div align="center">
-								<img src="${images}/ic_6.png" />
+								 <a href="${ctx}/custommenu/init">
+									<img src="${images}/ic_6.png" />
+								 </a>
 							</div>
 						</td>
 						<td><div align="center">
