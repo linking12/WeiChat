@@ -122,6 +122,17 @@ public final class PageConstants {
 	public static final String PAGE_KEYWORD_DETAIL = "cmd/detail";
 	
 	/**
+	 * 智能客服回复-列表
+	 */
+	public static final String PAGE_CUSTOMMENU_LIST = "custommenu/list";
+
+	/**
+	 * 智能客服-详细
+	 */
+	public static final String PAGE_CUSTOMMENU_DETAIL = "custommenu/detail";
+	
+	
+	/**
 	 * 
 	 * 智能客服-匹配类型
 	 */

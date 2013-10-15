@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="../common.jsp"%>
-<c:set var="images" value="${ctx}/index/images" />
+<%@ include file="../common.jsp"%>" />
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
 	<title>信息内容管理</title>

@@ -1,10 +1,7 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="../common.jsp"%>
-<c:set var="images" value="${ctx}/index/images" />
+<%@ include file="../common.jsp"%>" />
 <head>
-	<style type="text/css">
-		body {background-image: url("${images}/bei.jpg");}
-	</style>
+
 	<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
 	<title>微信公共平台</title>
 	<script type="text/javascript">

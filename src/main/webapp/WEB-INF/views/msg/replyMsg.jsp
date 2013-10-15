@@ -4,11 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf8" />
 <title>自动回复配置</title>
-<style type="text/css">
-.c div {
-	color: #ff9001;
-}
-</style>
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#savebtn").click(function() {
