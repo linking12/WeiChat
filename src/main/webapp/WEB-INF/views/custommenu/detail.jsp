@@ -1,18 +1,61 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../common.jsp"%>
 <head>
-
 	<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
 	<title>微信公共平台</title>
 	<script type="text/javascript">
-	function doadd(){
+	function goback(){
 		$('#form1').attr('action', '${ctx }/custommenu/init?accountId='+$("#accountId").val());
+		$('#form1').submit();
+	}
+	function changeAccount(){
+		$('#form1').attr('action', '${ctx }/custommenu/add/'+$("#accountId").val());
+		$('#form1').submit();
+	}
+	function changeEventType(){
+		var eventType=$("#eventType").val();
+		if("url"==eventType){
+			$("#turl").show();
+			$("#tmsg").hide();
+		}else{
+			$("#turl").hide();
+			$("#tmsg").show();
+		}
+	}
+	
+	$(function(){
+		changeEventType();
+	});
+	
+	function chenckparent(){
+		var flag=true;
+		var parentId=$("#parentId").val();
+		if(""!=parentId){
+			if(parentId==$("#id").val()){
+				$("#eparentId").text("不可以选择当前修改菜单为父菜单！");
+				$("#eparentId").show();
+				flag=false;
+			}else{
+				
+			}
+		}
+	}
+	
+	function dosubmit(){
+		var eventType=$("#eventType").val();
+		if("url"==eventType){			
+			$("#tmsg").remove();
+		}else{
+			$("#turl").remove();
+		}
+		$('#form1').attr('action', '${ctx }/custommenu/submit');
 		$('#form1').submit();
 	}
 	</script>
 </head>
 <body >
-	<form id="form1" method="POST">
+	<form:form id="form1" method="POST" modelAttribute="wxCustomMenu">
+		<form:hidden path="id"/>
 		<table width="967" border="0" align="center" cellpadding="0" cellspacing="0">
 			<%@include file="../menu.jsp"%>
 			<tr>
@@ -56,14 +99,10 @@
 													<td height="40">
 														<table width="100%" border="0"cellspacing="0" cellpadding="0">
 															<tr>
-																<td width="10%" height="40" class="biao">公众帐号名<font color="red">*</font></td>
+																<td  height="40" class="biao">公众帐号名<font color="red">*</font></td>
 																<td align="left">
-																	<select id="accountId" style="width: 150px;" onchange="changeAccount()" >
-																		<c:forEach items="${accounts}" var="account">
-																			<option value="${account.id }">${account.name}</option>
-																		</c:forEach>
-																	</select>
-																</td>
+																	<form:select style="width: 150px;" path="accountId" items="${accounts}" itemValue="id" itemLabel="name" onchange="changeAccount()"/>
+																</td>																
 															</tr>
 															<tr>
 																<td colspan="2"><div align="center"><img src="${images}/xian.jpg" width="800" height="1" /></div></td>
@@ -71,9 +110,63 @@
 															<tr>
 																<td height="40" class="biao">菜单名<font color="red">*</font></td>
 																<td>
-																	<input type="text">
+																	<form:input path="name"/>
 																</td>
 															</tr>
+															<tr>
+																<td colspan="2"><div align="center"><img src="${images}/xian.jpg" width="800" height="1" /></div></td>
+															</tr>
+															<tr>
+																<td height="40" class="biao">父菜单</td>
+																<td>
+																	<form:select style="width: 150px;" path="parentId" onchange="chenckparent()">
+																		<form:option value="">请选择</form:option>
+																		<form:options items="${parentMenus}" itemValue="id" itemLabel="name"/>
+																	</form:select>&nbsp;<span id="eparentId" style="display:none"></span>
+																</td>
+															</tr>
+															<tr>
+																<td colspan="2"><div align="center"><img src="${images}/xian.jpg" width="800" height="1" /></div></td>
+															</tr>
+															<tr>
+																<td height="40" class="biao">事件类型</td>
+																<td>
+																	<form:select style="width: 150px;" path="eventType" items="${eventTypes}" itemValue="key" itemLabel="value" onchange="changeEventType()"/>
+																</td>
+															</tr>
+															<tr>
+																<td colspan="2"><div align="center"><img src="${images}/xian.jpg" width="800" height="1" /></div></td>
+															</tr>
+															<tbody id="tmsg">
+															<tr>
+																<td height="40" class="biao">回复信息</td>
+																<td>
+																	<form:select style="width: 150px;" path="eventDesc" items="${msgs}" itemValue="id" itemLabel="msgName"/>
+																</td>
+															</tr>
+															<tr>
+																<td colspan="2"><div align="center"><img src="${images}/xian.jpg" width="800" height="1" /></div></td>
+															</tr>
+															</tbody>														
+															
+															<tbody id="turl">
+															<tr>
+																<td height="40" class="biao">超链接URL</td>
+																<td>
+																	<form:input path="eventDesc"/>
+																</td>
+															</tr>
+															
+															<tr>
+																<td colspan="2"><div align="center"><img src="${images}/xian.jpg" width="800" height="1" /></div></td>
+															</tr>
+															</tbody>
+															<tr>
+																<td height="50" >
+																	<input type="button" id="submitbtn" class="btn-primary" value="提交" onclick="dosubmit()"/>
+																</td>
+															</tr>
+															
 														</table>
 													</td>
 												</tr>
@@ -95,6 +188,6 @@
 				</td>
 			</tr>
 		</table>
-	</form>
+	</form:form>
 </body>
 </html>

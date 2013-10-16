@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../common.jsp"%>
 <head>
-
+	<script type="text/javascript" src="${js}/jquery/jquery.dropdown.js"></script>
+	<link href="${css }/custommenu.css" rel="stylesheet" type="text/css" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
 	<title>微信公共平台</title>
 	<script type="text/javascript">
@@ -9,6 +10,25 @@
 			$('#form1').attr('action', '${ctx }/custommenu/add/'+$("#accountId").val());
 			$('#form1').submit();
 		}
+		
+		function changeAccount(){
+			$('#form1').attr('action', '${ctx }/custommenu/init?accountId='+$("#accountId").val());
+			$('#form1').submit();
+		}
+		
+		function dodelete(id){
+			$('#form1').attr('action', '${ctx}/custommenu/delete/'+id);
+			$('#form1').submit();
+		}
+		
+		function doedit(id){
+			$('#form1').attr('action', '${ctx }/custommenu/edit/'+id);
+			$('#form1').submit();
+		}
+		
+		$(function(){
+			$("#accountId").val("${accountId}");
+		})
 	</script>
 </head>
 <body >
@@ -58,12 +78,12 @@
 															<tr>
 																<td width="20%" height="40" class="biao">公众帐号名</td>
 																<td>
-																	<select id="accountId" style="width: 150px;" onchange="changeAccount()" >
+																	<select id="accountId" style="width: 150px;" onchange="changeAccount()" onchange="changeAccount()">
 																		<c:forEach items="${accounts}" var="account">
 																			<option value="${account.id }">${account.name}</option>
 																		</c:forEach>
 																	</select>
-																</td>
+																</td>												
 															</tr>
 															
 														</table>
@@ -73,15 +93,93 @@
 													<td height="30" bgcolor="#d3d3d3">
 														<table width="98%" border="0" align="center"cellpadding="0" cellspacing="0">
 															<tr>
-																<td width="20%" class="biao">用户发送</td>
-																<td width="20%" class="biao">匹配类型</td>
-																<td width="40%" class="biao">回复内容</td>
+																<td width="20%" class="biao">菜单名称</td>
+																<td width="20%" class="biao">父菜单</td>
+																<td width="20%" class="biao">事件类型</td>
+																<td width="20%" class="biao">事件描述</td>
 																<td width="20%" class="biao">操作</td>
 															</tr>
 														</table>
 													</td>
 												</tr>
-												
+												<c:forEach items="${menus}" var="menu" varStatus="status">
+												<tr>
+													<td height="30" >
+														<table width="98%" border="0" align="center"cellpadding="0" cellspacing="0">
+															<tr>
+																<td width="20%" class="biao">${menu.name }</td>
+																<td width="20%" class="biao">
+																	 <select disabled style="width:100px">
+																	 	<option>请选择</option>
+																	   <c:forEach items="${parentMenus}" var="p">
+																	   	 <c:if test="${menu.parentId==p.id }">
+																	   	  <option selected>${p.name }</option>
+																	   	 </c:if>
+																	   </c:forEach>
+																	 </select>
+																</td>
+																<td width="20%" class="biao">
+																 <select disabled style="width:100px">
+																  <c:forEach items="${eventTypes}" var="e">
+																	   	 <c:if test="${menu.eventType==e.key }">
+																	   	  <option selected>${e.value }</option>
+																	   	 </c:if>
+																	   </c:forEach>
+																 </select>
+																</td>
+																<td width="20%" class="biao">
+																<c:choose>
+																<c:when test="${menu.eventType=='url' }">
+																  <c:if test="${menu.eventDesc!=''&& menu.eventDesc!= null }">
+																	<a title="${menu.eventDesc }" style="text-decoration: none;color:blue">查看</a>
+																	</c:if>
+																</c:when>
+																<c:otherwise>
+																 <select disabled style="width:100px">
+																  <c:forEach items="${msgs}" var="m">
+																	   	 <c:if test="${menu.eventDesc==m.id }">
+																	   	  <option selected>${m.msgName}</option>
+																	   	 </c:if>
+																	   </c:forEach>
+																 </select>
+																</c:otherwise>
+																</c:choose>
+																
+																</td>
+																<td width="20%" class="biao">
+																	<input type="button" value="修改" onclick="doedit(${menu.id })"  class="btn-primary"/>&nbsp;
+																	<input type="button" value="删除"  class="btn-primary" onclick="dodelete('${menu.id }')" />
+																</td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+												</c:forEach>
+												<tr height="30" ></tr>
+												<tr>
+													<td height="30" >
+														<table width="98%" border="0" align="center"cellpadding="0" cellspacing="0">
+															<tr>
+																<td width="20%" class="biao">菜单预览:</td>															
+															</tr>
+															<tr>
+																<td>
+																  <ul class="dropdown">
+																  <li style="height: 30px;"><a href="#">Really Tall Menu</a>
+																	  <ul class="sub_menu">
+													        			 <li><a href="#">Artificial Turf</a></li>
+													        			 <li><a href="#">Benches &amp; Bleachers</a></li>
+													        			 <li><a href="#">Communication Devices</a></li>
+													        			 <li><a href="#">Dugouts</a></li>
+													        			 <li><a href="#">Fencing &amp; Windscreen</a></li>
+													        		</ul>
+        															</li>
+																  </ul>
+																</td>
+															</tr>
+														</table>
+													</td>
+												</tr>
 											</table>
 										</td>
 									</tr>

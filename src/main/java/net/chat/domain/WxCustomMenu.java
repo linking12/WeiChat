@@ -9,6 +9,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ *CREATE TABLE `wx_custom_menu` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) DEFAULT NULL,
+  `eventType` varchar(45) DEFAULT NULL,
+  `eventDesc` varchar(500) DEFAULT NULL,
+  `parentId` bigint(20) DEFAULT NULL,
+  `accountId` bigint(20) DEFAULT NULL,
+  `createdt` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+)
+ */
 @Entity
 @Table(name = "WX_CUSTOM_MENU")
 public class WxCustomMenu implements Serializable {
@@ -20,16 +32,16 @@ public class WxCustomMenu implements Serializable {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue
-	private Long userId;
+	private Long id;
 
 	@Column(name = "name")
 	private String name;
 
-	@Column(name = "type")
-	private String type;
+	@Column(name = "eventType")
+	private String eventType;
 
-	@Column(name = "content")
-	private String content;
+	@Column(name = "eventDesc")
+	private String eventDesc;
 	
 	@Column(name = "parentId")
 	private Long parentId;
@@ -37,21 +49,21 @@ public class WxCustomMenu implements Serializable {
 	@Column(name = "accountId")
 	private Long accountId;
 	
-	@Column(name = "createdt",columnDefinition="datetime default getdate()")
+	@Column(name = "createdt")
 	private Date createDt;
 
 	/**
-	 * @return the userId
+	 * @return the id
 	 */
-	public Long getUserId() {
-		return userId;
+	public Long getId() {
+		return id;
 	}
 
 	/**
-	 * @param userId the userId to set
+	 * @param id the id to set
 	 */
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	/**
@@ -69,31 +81,31 @@ public class WxCustomMenu implements Serializable {
 	}
 
 	/**
-	 * @return the type
+	 * @return the eventType
 	 */
-	public String getType() {
-		return type;
+	public String getEventType() {
+		return eventType;
 	}
 
 	/**
-	 * @param type the type to set
+	 * @param eventType the eventType to set
 	 */
-	public void setType(String type) {
-		this.type = type;
+	public void setEventType(String eventType) {
+		this.eventType = eventType;
 	}
 
 	/**
-	 * @return the content
+	 * @return the eventDesc
 	 */
-	public String getContent() {
-		return content;
+	public String getEventDesc() {
+		return eventDesc;
 	}
 
 	/**
-	 * @param content the content to set
+	 * @param eventDesc the eventDesc to set
 	 */
-	public void setContent(String content) {
-		this.content = content;
+	public void setEventDesc(String eventDesc) {
+		this.eventDesc = eventDesc;
 	}
 
 	/**
@@ -111,6 +123,20 @@ public class WxCustomMenu implements Serializable {
 	}
 
 	/**
+	 * @return the accountId
+	 */
+	public Long getAccountId() {
+		return accountId;
+	}
+
+	/**
+	 * @param accountId the accountId to set
+	 */
+	public void setAccountId(Long accountId) {
+		this.accountId = accountId;
+	}
+
+	/**
 	 * @return the createDt
 	 */
 	public Date getCreateDt() {
@@ -124,19 +150,4 @@ public class WxCustomMenu implements Serializable {
 		this.createDt = createDt;
 	}
 
-	/**
-	 * @return the accountId
-	 */
-	public Long getAccountId() {
-		return accountId;
-	}
-
-	/**
-	 * @param accountId the accountId to set
-	 */
-	public void setAccountId(Long accountId) {
-		this.accountId = accountId;
-	}
-	
-	
 }
