@@ -49,7 +49,7 @@
             <font color="red">${SPRING_SECURITY_LAST_EXCEPTION.message}</font>
             <dl style="margin:20px 0 0 0">
             	<dt><span id="b_check">&nbsp;</span><input name="" type="checkbox" value="" style="display: none" id="checkbox" /></dt>
-                <dd><em>记住密码   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;忘记密码</em></dd>
+                <dd><em>记住密码   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</em></dd><!-- 忘记密码 -->
             </dl>
             <div class="log_btbox">
                 <input id="registerbtn" type="button" value="马上注册" class="reg_btn" />

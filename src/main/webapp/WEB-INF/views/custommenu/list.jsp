@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../common.jsp"%>
 <head>
-	<script type="text/javascript" src="${js}/jquery/jquery.dropdown.js"></script>
-	<link href="${css }/custommenu.css" rel="stylesheet" type="text/css" />
+
 	<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
 	<title>微信公共平台</title>
 	<script type="text/javascript">
@@ -164,17 +163,8 @@
 															</tr>
 															<tr>
 																<td>
-																  <ul class="dropdown">
-																  <li style="height: 30px;"><a href="#">Really Tall Menu</a>
-																	  <ul class="sub_menu">
-													        			 <li><a href="#">Artificial Turf</a></li>
-													        			 <li><a href="#">Benches &amp; Bleachers</a></li>
-													        			 <li><a href="#">Communication Devices</a></li>
-													        			 <li><a href="#">Dugouts</a></li>
-													        			 <li><a href="#">Fencing &amp; Windscreen</a></li>
-													        		</ul>
-        															</li>
-																  </ul>
+
+																  
 																</td>
 															</tr>
 														</table>

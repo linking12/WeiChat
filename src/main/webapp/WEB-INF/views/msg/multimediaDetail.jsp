@@ -205,9 +205,8 @@
 													</td>
 												</tr>
 												<tr>
-													<td height="50"><input type="image" name="submit"
-														id="submitbtn" src="${images }/tijiao.png" width="76"
-														height="40" /></td>
+													<td height="50">
+													<form:button id="submitbtn" class="btn-primary" >提交</form:button></td>											
 													<td height="50"><form:errors path="message.msgType"
 															cssClass="error" /> <form:errors path="message.msgName"
 															cssClass="error" /> <form:errors path="message.accountId"

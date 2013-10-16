@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="../common.jsp"%>" />
+<%@ include file="../common.jsp"%>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
 	<title>信息内容管理</title>
@@ -70,6 +70,11 @@
 		}
 		
 	</script>
+	<style type="text/css">
+	body {
+		background-image: url();
+	}
+</style>
 </head>
 <body>
 	<form:form id="contentForm" action="${ctx}/content/saveContent" method="post" modelAttribute="wxContent" enctype="multipart/form-data">

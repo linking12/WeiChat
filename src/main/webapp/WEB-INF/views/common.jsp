@@ -42,6 +42,7 @@ function MM_swapImage() { //v3.0
 //-->
 
 $(document).ready(function(){
+	try {
 	MM_preloadImages('${images}/an_1_1.png','${images}/an_2_1.png','${images}/an_3_1.png','${images}/an_4_1.png','${images}/an_5_1.png');
     var menuYloc = $("#nav_tb").offset().top; 
     $(window).scroll(function (){ 
@@ -53,7 +54,9 @@ $(document).ready(function(){
 				$("#nav_tb").css({top: 208+"px"});
 				}
 
-    }); 
+    }); } catch (e) {
+		
+	}
 }); 
 
 </script>
