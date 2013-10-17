@@ -1,162 +1,115 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="common.jsp"%>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
-	<title>微信公共平台</title>
-
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>亿点</title>
 </head>
 <body>
-	<table width="967" border="0" align="center" cellpadding="0" cellspacing="0">
-		<%@include file="menu.jsp"%>
-		<tr>
-			<td>
-				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="img_tb">
-					<tr>
-						<td>
-							<div align="center">
-								<img src="${images}/ic_1.png" />
-							</div>
-						</td>
-						<td>
-							<div align="center">
-					            <a href="${ctx}/message/init">
-					               <img src="${images}/ic_2.png" />
-						        </a>
-							</div>
-						</td>
-						<td>
-							<div align="center">
-								<a href="${ctx}/cmd/init">
-						      		<img src="${images}/ic_3.png" />
-								</a>
-							</div>
-						</td>
-						<td>
-							<div align="center">
-						       <a href="${ctx}/content/init">
-								<img src="${images}/ic_4.png" />
-							   </a>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td height="20"><div align="center"></div></td>
-						<td><div align="center"></div></td>
-						<td><div align="center"></div></td>
-					</tr>
-					<tr>						
-						<td>
-							<div align="center">
-							  <a href="${ctx}/replymsg/init">
-								<img src="${images}/ic_5.png" />
-							  </a>
-						    </div>
-						 </td>
-						<td>
-							<div align="center">
-								 <a href="${ctx}/custommenu/init">
-									<img src="${images}/ic_6.png" />
-								 </a>
-							</div>
-						</td>
-						<td><div align="center">
-								<img src="${images}/ic_7.png" />
-							</div></td>
-						<td><div align="center">
-								<img src="${images}/ic_8.png" />
-						</div></td>
-					</tr>
-					<tr>
-						<td height="20">&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-					</tr>					
-				</table></td>
-		</tr>
-		<tr>
-			<td height="50">&nbsp;</td>
-		</tr>
-		<tr>
-			<td><table width="100%" border="0" cellspacing="0"
-					cellpadding="0" class="img_tb">
-					<tr>
-						<td><div align="center">
-								<img src="${images}/ic_9.png" />
-							</div></td>
-						<td><div align="center">
-								<img src="${images}/ic_10.png" />
-							</div></td>
-						<td><div align="center">
-								<img src="${images}/ic_11.png" />
-							</div></td>
-						<td><div align="center">
-								<img src="${images}/ic_12.png" />
-							</div></td>
-					</tr>
-					<tr>
-						<td height="20"><div align="center"></div></td>
-						<td><div align="center"></div></td>
-						<td><div align="center"></div></td>
-					</tr>
-					<tr>
-						<td><div align="center">
-								<img src="${images}/ic_13.png" />
-							</div></td>
-						<td><div align="center">
-								<img src="${images}/ic_14.png" />
-							</div></td>
-					</tr>
-				</table></td>
-		</tr>
-		<tr>
-			<td height="50">&nbsp;</td>
-		</tr>
-		<tr>
-			<td><table width="100%" border="0" cellspacing="0"
-					cellpadding="0" class="img_tb">
-					<tr>
-						<td><div align="center">
-								<img src="${images}/ic_15.png" />
-							</div></td>
-						<td><div align="center">
-								<img src="${images}/ic_16.png" />
-							</div></td>
-						<td><div align="center">
-								<img src="${images}/ic_17.png" />
-							</div></td>
-						<td><div align="center">
-								<img src="${images}/ic_18.png" />
-							</div></td>
-					</tr>
-					<tr>
-						<td height="20"><div align="center"></div></td>
-						<td><div align="center"></div></td>
-						<td><div align="center"></div></td>
-					</tr>
-					<tr>
-						
-						<td><div align="center">
-								<img src="${images}/ic_19.png" />
-							</div></td>
-						<td><div align="center">
-								<img src="${images}/ic_20.png" />
-							</div></td>
-						<td><div align="center">
-								<img src="${images}/ic_21.png" />
-							</div></td>
-					</tr>
-					<tr>
-						<td height="20">&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-					</tr>		
-				</table></td>
-		</tr>
-
-		<%@include file="bottom.jsp"%>
-		<tr>
-			<td height="50">&nbsp;</td>
-		</tr>
-	</table>
+<div class="b_con">
+	<div class="by_box">
+    	<%@include file="menu.jsp"%>
+        <div class="link_box">
+        	<span>
+            	<em>新手任务</em>
+                <i></i>
+            </span>
+            <a href="${ctx}/message/init"><span>
+            	<em>首次关注</em>
+                <i class="ico2"></i>
+            </span></a>
+            <a href="${ctx}/cmd/init">
+            <span>
+            	<em>智能客服</em>
+                <i class="ico3"></i>
+            </span>
+            </a>
+             <a href="${ctx}/content/init">
+            <span style="margin:0;">
+            	<em>素材管理</em>
+                <i class="ico4"></i>
+            </span></a>
+             <a href="${ctx}/replymsg/init">
+            <span>
+            	<em>关键字回复</em>
+                <i class="ico5"></i>
+            </span>
+            </a>
+             <a href="${ctx}/custommenu/init">
+            <span>
+            	<em>自定义菜单</em>
+                <i class="ico6"></i>
+            </span>
+            </a>
+            <span>
+            	<em>内容编辑</em>
+                <i class="ico7"></i>
+            </span>
+            <span style="margin:0;">
+            	<em>LBS设置</em>
+                <i class="ico8"></i>
+            </span>
+        </div>
+        <div class="link_box1">
+        	<span>
+            	<em>优惠券</em>
+                <i></i>
+            </span>
+            <span>
+            	<em>刮刮卡</em>
+                <i class="ico2"></i>
+            </span>
+            <span>
+            	<em>幸运大转盘</em>
+                <i class="ico3"></i>
+            </span>
+            <span style="margin:0;">
+            	<em>一站到底</em>
+                <i class="ico4"></i>
+            </span>
+            <span>
+            	<em>幸运机</em>
+                <i class="ico5"></i>
+            </span>
+            <span>
+            	<em>微吧</em>
+                <i class="ico6"></i>
+            </span>
+        </div>
+        <div class="link_box2">
+        	<span>
+            	<em>微官网</em>
+                <i></i>
+            </span>
+            <span>
+            	<em>微会员卡</em>
+                <i class="ico2"></i>
+            </span>
+            <span>
+            	<em>微团购</em>
+                <i class="ico3"></i>
+            </span>
+            <span style="margin:0;">
+            	<em>微调研</em>
+                <i class="ico4"></i>
+            </span>
+            <span>
+            	<em>微投票</em>
+                <i class="ico5"></i>
+            </span>
+            <span>
+            	<em>门店设置</em>
+                <i class="ico6"></i>
+            </span>
+            <span>
+            	<em>在线订单管理</em>
+                <i class="ico7"></i>
+            </span>
+        </div>
+       	<%@include file="bottom.jsp"%>
+    </div>
+</div>
 </body>
 </html>

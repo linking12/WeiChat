@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<div class="bot">
+	<em>在线客服</em>
+    <span>天乐<i>&nbsp;&nbsp;1234677</i></span>
+    <span>天福<i>&nbsp;&nbsp;1234677</i></span>
+    <span>天财<i>&nbsp;&nbsp;1234677</i></span>
+</div>
+<!--  
 <tr height="30"></tr>
 <tr>
 	<td>
@@ -30,3 +37,4 @@
 <tr>
 	<td height="50">&nbsp;</td>
 </tr>
+-->

@@ -28,7 +28,7 @@
 					$("#checkbox").prop("checked",true);
 					$(this).addClass("cc_check")
 					}
-			})
+			});
 		});
 </script>
 </head>
@@ -40,23 +40,22 @@
         <div class="log_input_box">
         	<dl>
             	<dt><img src="${images}/name.png" /></dt>
-                <dd><input id="username" name="username" class="full" required="required" type="text" placeholder="用户名 或者 mymail@mail.com" /></dd>
+                <dd><input id="username" name="username"  required="required" type="text" placeholder="用户名 或者 mymail@mail.com" /></dd>
             </dl>
             <dl>
             	<dt><img src="${images}/pw.png" /></dt>
-                <dd><input id="password" name="password" class="full" required="required" type="password" placeholder="eg. X8df!90EO" /></dd>
+                <dd><input id="password" name="password"  required="required" type="password" placeholder="eg. X8df!90EO" /></dd>
             </dl>
             <font color="red">${SPRING_SECURITY_LAST_EXCEPTION.message}</font>
             <dl style="margin:20px 0 0 0">
             	<dt><span id="b_check">&nbsp;</span><input name="" type="checkbox" value="" style="display: none" id="checkbox" /></dt>
-                <dd><em>记住密码   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</em></dd><!-- 忘记密码 -->
+                <dd><em>记住密码   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</em></dd>
             </dl>
             <div class="log_btbox">
                 <input id="registerbtn" type="button" value="马上注册" class="reg_btn" />
                 <input id="submitbtn" type="submit" value="登录" class="log_bt" />
             </div>
         </div>
-        
     </div>
     <div class="lodo_div"></div>
 </div>

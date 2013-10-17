@@ -85,9 +85,11 @@
 <body >
 	<form:form id="form1" method="post" modelAttribute="wxContent" enctype="multipart/form-data">
 		<form:hidden path="id" />
+		<div class="b_con">
+	<div class="by_box">
+		<%@include file="../menu.jsp"%>
 		<table width="967" border="0" align="center" cellpadding="0" cellspacing="0">
-			<%@include file="../menu.jsp"%>
-
+			
 			<tr>
 				<td>
 					<table width="942" border="0" align="center" cellpadding="0" cellspacing="0">
@@ -110,14 +112,14 @@
 											<table width="100%" border="0" cellspacing="0" cellpadding="0">
 												<tr>
 													<td height="40">
-														<div align="center" class="c">
-															<a href="${ctx }/content/init" class="d">素材列表</a>
+														<div align="center">
+															<a href="${ctx }/content/init" class="biao1">素材列表</a>
 														</div>
 													</td>
 												</tr>
 												<tr>
 													<td height="40" bgcolor="#e87352">
-														<div align="center" class="biao1">添加素材</div>
+														<div align="center" class="biao">添加素材</div>
 													</td>
 												</tr>
 											</table>
@@ -288,11 +290,13 @@
 						<tr>
 							<td><img src="${images}/xia_zu.png" width="942" height="14" /></td>
 						</tr>
-						<%@include file="../bottom.jsp"%>
+						
 					</table>
 				</td>
 			</tr>
-		</table>
+		</table><%@include file="../bottom.jsp"%>
+	</div>
+</div>
 	</form:form>
 </body>
 </html>

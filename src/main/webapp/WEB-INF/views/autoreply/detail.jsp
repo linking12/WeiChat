@@ -32,8 +32,11 @@
 <body >
 	<form:form id="msgform" method="post" modelAttribute="wxMsgType">
 		<form:hidden path="id" />
+		<div class="b_con">
+	<div class="by_box">
+		<%@include file="../menu.jsp"%>
 		<table width="967" border="0" align="center" cellpadding="0" cellspacing="0">
-			<%@include file="../menu.jsp"%>
+		
 			<tr>
 				<td style="display: none">
 					<select	id="programsel">
@@ -71,12 +74,12 @@
 												<tr>
 													<td height="40">
 														
-														<div align="center" class="c"><a href="${ctx }/replymsg/init" class="d">自动回复配置</a></div>
+														<div align="center" ><a href="${ctx }/replymsg/init" class="biao1">配置列表</a></div>
 													</td>
 												</tr>
 												<tr>
 													<td height="40"  bgcolor="#e87352">
-														<div align="center" class="biao1">添加回复配置</div>
+														<div align="center" class="biao">添加配置</div>
 													</td>
 												</tr>
 											</table>
@@ -166,11 +169,13 @@
 						<tr>
 							<td><img src="${images}/xia_zu.png" width="942" height="14" /></td>
 						</tr>
-						<%@include file="../bottom.jsp"%>
+						
 					</table>
 				</td>
 			</tr>
-		</table>
+		</table><%@include file="../bottom.jsp"%>
+	</div>
+</div>
 	</form:form>
 </body>
 </html>

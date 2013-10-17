@@ -24,8 +24,11 @@
 </head>
 <body>
 	<form id="form1" method="post">
-		<table width="967" border="0" align="center" cellpadding="0" cellspacing="0">
+	<div class="b_con">
+	<div class="by_box">
 		<%@include file="../menu.jsp"%>
+		<table width="967" border="0" align="center" cellpadding="0" cellspacing="0">
+		
 		<!-- 正文开始 -->
 		<tr>
 			<td>
@@ -36,7 +39,7 @@
 								<tr>
 									<td width="2%">&nbsp;</td>
 									<td width="4%"><img src="${images}/oic_3.png" width="30" height="21" /></td>
-									<td width="94%" class="biao">我的账号</td>
+									<td width="94%" class="biao">我的信息</td>
 								</tr>
 							</table>
 						</td>
@@ -48,10 +51,10 @@
 									<td width="120" valign="top">
 										<table width="100%" border="0" cellspacing="0" cellpadding="0">
 											<tr>
-												<td height="40" bgcolor="#e87352"><div align="center" class="biao1">我的信息</div></td>
+												<td height="40" bgcolor="#e87352" ><div align="center" class="biao">我的信息</div></td>
 											</tr>
 											<tr>
-												<td height="40"><div align="center" class="c"><a class="d" href="javascript:addMessage()">添加信息</a></div></td>
+												<td height="40"><div align="center" ><a class="biao1" href="javascript:addMessage()">添加信息</a></div></td>
 											</tr>
 										</table>
 									</td>
@@ -133,11 +136,13 @@
 					<tr>
 						<td><img src="${images}/xia_zu.png" width="942" height="14" /></td>
 					</tr>
-					<%@include file="../bottom.jsp"%>
+				
 				</table>
 			</td>
 		</tr>		
-	</table>
+	</table><%@include file="../bottom.jsp"%>
+	</div>
+</div>
 	</form>
 </body>
 </html>

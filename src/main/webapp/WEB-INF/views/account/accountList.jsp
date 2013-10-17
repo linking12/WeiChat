@@ -5,8 +5,10 @@
 	<title>微信公共平台</title>
 </head>
 <body>
-	<table width="967" border="0" align="center" cellpadding="0" cellspacing="0">
+<div class="b_con">
+	<div class="by_box">
 		<%@include file="../menu.jsp"%>
+		<table width="967" border="0" align="center" cellpadding="0" cellspacing="0">
 		<!-- 正文开始 -->
 		<tr>
 			<td>
@@ -29,12 +31,12 @@
 									<td width="120" valign="top">
 										<table width="100%" border="0" cellspacing="0" cellpadding="0">
 											<tr>
-												<td height="40" bgcolor="#e87352"><div align="center" class="biao1">我的公众账号</div></td>
+												<td height="40" bgcolor="#e87352"><div align="center" class="biao">我的公众账号</div></td>
 											</tr>
 											<tr>
 												<td height="40">
-													<div align="center" class="c">
-														<a href="${ctx }/account/add" class="d">添加账号</a>
+													<div align="center">
+														<a href="${ctx }/account/add" class="biao1">添加账号</a>
 													</div>
 												</td>
 											</tr>
@@ -86,10 +88,12 @@
 					<tr>
 						<td><img src="${images}/xia_zu.png" width="942" height="14" /></td>
 					</tr>
-					<%@include file="../bottom.jsp"%>
 				</table>
 			</td>
 		</tr>
 	</table>
+	<%@include file="../bottom.jsp"%>
+	</div>
+</div>
 </body>
 </html>
