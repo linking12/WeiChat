@@ -1,15 +1,10 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../common.jsp"%>
-<c:set var="images" value="${ctx}/index/images" />
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf8" />
 <title>微信公共平台</title>
-<style type="text/css">
-body {
-	background-image: url("${images}/bei.jpg");
-}
-</style>
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#submitbtn").click(function() {
@@ -31,14 +26,11 @@ body {
 </script>
 </head>
 <body>
+	<div class="b_con">
+	<div class="by_box">
+		<%@include file="../menu.jsp"%>
 	<table width="967" border="0" align="center" cellpadding="0"
 		cellspacing="0">
-		<tr>
-			<td><img src="${images}/lo.png" width="955" height="208" /></td>
-		</tr>
-		<tr>
-			<td><%@include file="../menu.jsp"%></td>
-		</tr>
 		<tr>
 			<td height="10">&nbsp;</td>
 		</tr>
@@ -64,15 +56,15 @@ body {
 									<td width="120" valign="top"><table width="100%"
 											border="0" cellspacing="0" cellpadding="0">
 											<tr>
-												<td height="40" bgcolor="#e87352">
-													<div align="center" class="biao1">
-														<a href="${ctx }/message/init" class="d">我的公众信息</a>
+												<td height="40" >
+													<div align="center">
+														<a href="${ctx }/message/init" class="biao1">我的信息</a>
 													</div>
 												</td>
 											</tr>
 											<tr>
-												<td height="40"><div align="center" class="c">
-														<a href="${ctx }/message/addtext" class="d">首次关注</a>
+												<td height="40" bgcolor="#e87352"><div align="center" class="biao">
+														添加信息
 													</div></td>
 											</tr>
 										</table></td>
@@ -215,9 +207,8 @@ body {
 													</td>
 												</tr>
 												<tr>
-													<td height="50"><input type="image" name="submit"
-														id="submitbtn" src="${images }/tijiao.png" width="76"
-														height="40" /></td>
+													<td height="50">
+													<form:button id="submitbtn" class="btn-primary" >提交</form:button></td>											
 													<td height="50"><form:errors path="message.msgType"
 															cssClass="error" /> <form:errors path="message.msgName"
 															cssClass="error" /> <form:errors path="message.accountId"
@@ -235,35 +226,10 @@ body {
 					</tr>
 				</table></td>
 		</tr>
-		<!-- 正文结束 -->
-		<tr>
-			<td><table width="90%" border="0" cellspacing="0"
-					cellpadding="0">
-					<tr>
-						<td height="30"><p class="biao1">在线客服</p></td>
-					</tr>
-					<tr>
-						<td><table width="90%" border="0" cellspacing="0"
-								cellpadding="0">
-								<tr>
-									<td width="2%"><img src="${images}/qq.png" width="15"
-										height="16" /></td>
-									<td width="6%" class="biao1">天乐</td>
-									<td width="26%" class="biao3">1234677</td>
-									<td><img src="${images}/qq.png" width="15" height="16" /></td>
-									<td class="biao1">天乐</td>
-									<td class="biao3">1234677</td>
-									<td><img src="${images}/qq.png" width="15" height="16" /></td>
-									<td class="biao1">天乐</td>
-									<td class="biao3">1234677</td>
-								</tr>
-							</table></td>
-					</tr>
-				</table></td>
-		</tr>
-		<tr>
-			<td height="50">&nbsp;</td>
-		</tr>
+		
 	</table>
+	<%@include file="../bottom.jsp"%>
+	</div>
+</div>
 </body>
 </html>

@@ -15,9 +15,6 @@ public class RegisterForm {
 	@Pattern(regexp = "^1[358]\\d{9}$", message = "11位数字，前2位是13开头 或15 开头 或18 开头")
 	private String phone;
 
-	@NotEmpty(message = "昵称不能为空")
-	private String nickName;
-
 	@NotEmpty(message = "姓名不能为空")
 	@Pattern(regexp = "^[A-Za-z0-9]+$", message = "登录名必须是英文或者数字")
 	private String name;
@@ -69,14 +66,6 @@ public class RegisterForm {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
-	}
-
-	public String getNickName() {
-		return nickName;
-	}
-
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
 	}
 
 	public String getName() {

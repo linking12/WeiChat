@@ -18,7 +18,7 @@ function tanchuceng(width, height, tit, url) {
 	});
 	$(".winbj").fadeTo(0, 0.5);
 	var tanchuLeft = $(window).width() / 2 - width / 2;
-	var tanchuTop = $(window).height() / 2 - height / 2 + $(window).scrollTop()+5;
+	var tanchuTop = $(window).height() / 2 - height / 2 +5;
 	$(".tanChu").css({
 		width : width,
 		height : height,

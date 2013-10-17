@@ -90,4 +90,5 @@ public class IntegrationWX {
 			logger.info("WeiXin post message into our platform failed", e);
 		}
 	}
+
 }

@@ -122,6 +122,17 @@ public final class PageConstants {
 	public static final String PAGE_KEYWORD_DETAIL = "cmd/detail";
 	
 	/**
+	 * 智能客服回复-列表
+	 */
+	public static final String PAGE_CUSTOMMENU_LIST = "custommenu/list";
+
+	/**
+	 * 智能客服-详细
+	 */
+	public static final String PAGE_CUSTOMMENU_DETAIL = "custommenu/detail";
+	
+	
+	/**
 	 * 
 	 * 智能客服-匹配类型
 	 */
@@ -177,6 +188,16 @@ public final class PageConstants {
 		lst.add(new SimpleBean("voice", "音频"));
 		if("video".equals(msgType))
 		lst.add(new SimpleBean("video", "视频"));
+		return lst;
+	}
+	
+	/**
+	 * 自定义菜单事件类型
+	 */
+	public static List<SimpleBean> buildEventTypesList() {
+		List<SimpleBean> lst = new ArrayList<SimpleBean>(1);
+		lst.add(new SimpleBean("message", "回复消息"));
+		lst.add(new SimpleBean("url", "超链接"));
 		return lst;
 	}
 	

@@ -39,7 +39,7 @@ public class RegisterController {
 			model.addAttribute("registerForm", bean);
 			return PageConstants.PAGE_REGISTER;
 		}
-		return PageConstants.PAGE_INDEX;
+		return PageConstants.PAGE_LOGIN;
 	}
 
 	@RequestMapping("/index")
