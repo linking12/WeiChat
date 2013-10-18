@@ -35,17 +35,20 @@ public class ContentController {
 	@RequestMapping("/init")
 	public String init(
 			@RequestParam(value = "msgType", required = false) String msgType,
-			@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+			@RequestParam(value = "sortType", required = false) String sortType,
+			@RequestParam(value = "page", defaultValue = "1") int pageNo,
 			Model model) {
-
+		if(StringUtils.isNotBlank(sortType))
+			msgType=sortType;
 		List<SimpleBean> contentTypes = PageConstants.buildContentTypesList();
 		model.addAttribute("contentTypes", contentTypes);
 
 		Page<WxContent> contents = contentService.findAllBaseMultimedia(
 				msgType, pageNo);
 		model.addAttribute("contents", contents);
-
+		
 		model.addAttribute("msgType", msgType);
+		model.addAttribute("sortType", msgType);
 		model.addAttribute("contentTypes", contentTypes);
 		return PageConstants.PAGE_CONTENT_LIST;
 	}
