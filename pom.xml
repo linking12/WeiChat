@@ -216,6 +216,11 @@
 			<artifactId>commons-io</artifactId>
 			<version>2.0.1</version>
 		</dependency>
+		<dependency>
+  			<groupId>com.thoughtworks.xstream</groupId>
+ 			<artifactId>xstream</artifactId>
+ 			<version>1.4.4</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>WeiChat</finalName>
