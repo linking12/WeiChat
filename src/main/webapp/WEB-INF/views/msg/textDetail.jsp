@@ -8,6 +8,7 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$("#submitbtn").click(function() {
+				if(!validate()){return false;}
 				$('#messageForm').attr('action', '${ctx}/message/submit');
 				$('#messageForm').submit();
 			});
@@ -18,6 +19,26 @@
 				window.location.href = "${ctx}/message/addMultimedia/" + msgType;
 			else
 				window.location.href = "${ctx}/message/addtext";
+		}
+		function validate(){
+			var flag=true;
+			if(""==$("#accountId").val()){
+				$("#eaccount").show();
+				flag=false;
+			}else {$("#eaccount").hide();}
+			if(""==$("#msgType").val()){
+				$("#emsgtype").show();
+				flag=false;
+			}else {$("#emsgtype").hide();}
+			if(""==$("#msgName").val()){
+				$("#emsgname").show();
+				flag=false;
+			}else {$("#emsgname").hide();}
+			if(""==$("#content").val()){
+				$("#econtent").show();
+				flag=false;
+			}else {$("#econtent").hide();}
+			return flag;
 		}
 	</script>
 </head>
@@ -83,7 +104,7 @@
 																			<c:forEach items="${accounts}" var="account">
 																				<form:option value="${account.id }">${account.name}</form:option>
 																			</c:forEach>
-																		</form:select> &nbsp;<form:errors path="accountId" cssClass="error" />
+																		</form:select> &nbsp;<span id="eaccount" style="display:none" class="error">请选择公共帐号!</span>
 																	</td>
 																</tr>
 																<tr>
@@ -91,16 +112,16 @@
 																	<td>
 																		<form:select path="msgType" id="msgType" onchange="javascript:changeMessageType()"	style="width: 150px;">
 																			<c:forEach items="${messageTypes}" var="messageType">
-																				<form:option value="${messageType.msgType}">${messageType.name}</form:option>
+																				<form:option value="${messageType.key}">${messageType.value}</form:option>
 																			</c:forEach>
-																		</form:select> &nbsp;<form:errors path="msgType" cssClass="error" />
+																		</form:select> &nbsp;<span id="emsgtype" style="display:none"  class="error">请选择自动回复信息类型!</span>
 																	</td>
 																</tr>
 																<tr>
 																	<td width="20%" height="40" class="biao">标题 <font color="red">*</font></td>
 																	<td>
 																		<form:input path="msgName" style="width: 300px;" />&nbsp;
-																		<form:errors path="msgName" cssClass="error" />
+																		<span id="emsgname" style="display:none"  class="error">请输入标题!</span>
 																	</td>
 																</tr>
 															</table>
@@ -118,7 +139,7 @@
 																						<tr>
 																							<td width="3%">&nbsp;</td>
 																							<td width="10%" class="biao">备注 <font color="red">*</font></td>
-																							<td width="87%"><form:errors path="content" cssClass="error" /></td>
+																							<td width="87%"></td>
 																						</tr>
 																					</table>
 																				</td>
@@ -128,7 +149,9 @@
 																					<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0" bordercolor="#999999" bgcolor="#FFFFFF">
 																						<tr>
 																							<td height="200" valign="top">
-																								<form:textarea	path="content" cols="90" rows="14" /></td>
+																								<form:textarea	path="content" cols="90" rows="14" />
+																								<span id="econtent" style="display:none"  class="error">请输入备注</span>
+																								</td>
 																						</tr>
 																					</table>
 																				</td>

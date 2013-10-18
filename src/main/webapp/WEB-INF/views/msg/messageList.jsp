@@ -20,6 +20,20 @@
 			$('#form1').attr('action', '${ctx }/message/addtext/' + accountid);
 			$('#form1').submit();
 		}
+		
+		function dodelete(id){
+			$('#form1').attr('action', '${ctx}/message/delete/'+id);
+			$('#form1').submit();
+		}
+		
+		function doedit(type,id){
+			if("text"==type){
+				$('#form1').attr('action', '${ctx}/message/edittext/'+id);
+			}else {
+				$('#form1').attr('action', '${ctx}/message/editMultimedia/'+id);
+			}
+			$('#form1').submit();
+		}
 	</script>
 </head>
 <body>
@@ -102,17 +116,10 @@
 																</td>
 																<td width="31%" class="zeng">${message.createTime }</td>
 																<td width="9%" align="center" class="zeng">
-																	<c:choose>
-																		<c:when test="${message.msgType == 'text'}">
-																			<a href="${ctx}/message/edittext/${message.id}">修改</a>
-																		</c:when>
-																		<c:otherwise>
-																			<a href="${ctx}/message/editMultimedia/${message.id}">修改</a>
-																		</c:otherwise>
-																	</c:choose>
+																	<input type="button" class="btn-primary" value="修改" onclick="doedit('${message.msgType}',${message.id})">							
 																</td>
-																<td width="6%" align="center" class="zeng">
-																	<a href="${ctx}/message/delete/${message.id}">删除</a>
+																<td width="6%" align="center" >
+																	<input type="button" class="btn-primary" value="删除" onclick="dodelete(${message.id})">																
 																</td>
 															</tr>
 														</table>

@@ -184,10 +184,12 @@ public final class PageConstants {
 		List<SimpleBean> lst = new ArrayList<SimpleBean>(1);
 		if("image".equals(msgType))
 		lst.add(new SimpleBean("image", "图片"));
-		if("voice".equals(msgType))
+		else if("voice".equals(msgType))
 		lst.add(new SimpleBean("voice", "音频"));
-		if("video".equals(msgType))
+		else if("video".equals(msgType))
 		lst.add(new SimpleBean("video", "视频"));
+		else 
+			lst.add(new SimpleBean("text", "文本"));
 		return lst;
 	}
 	
@@ -198,6 +200,15 @@ public final class PageConstants {
 		List<SimpleBean> lst = new ArrayList<SimpleBean>(1);
 		lst.add(new SimpleBean("message", "回复消息"));
 		lst.add(new SimpleBean("url", "超链接"));
+		return lst;
+	}
+	
+	/**
+	 * 用户发送类型类型
+	 */
+	public static List<SimpleBean> buildMessageTypesList() {
+		List<SimpleBean> lst = PageConstants.buildContentTypesList();
+		lst.add(0, new SimpleBean("text", "文本"));
 		return lst;
 	}
 	
