@@ -126,6 +126,8 @@ public class IntegrationWeiChatImpl implements IntegrationWeiChat,
 								cmdMessageId = String.valueOf(cmd
 										.getMessageId().longValue());
 							}
+						} else {
+							cmdMessageId = "1";// 随意指定一条返回
 						}
 					}
 					Object respObj = CacheContant.sourceCache.get(cmdMessageId);
