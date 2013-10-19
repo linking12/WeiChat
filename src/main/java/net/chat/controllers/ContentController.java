@@ -12,6 +12,7 @@ import net.chat.constants.PageConstants;
 import net.chat.domain.WxContent;
 import net.chat.formbean.SimpleBean;
 import net.chat.service.ContentService;
+import net.chat.utils.AppContext;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -116,6 +117,7 @@ public class ContentController {
 				content.setHqmusicUrl("http://www.yidia.cn" + req.getContextPath() + "/" + StringUtils.replace(hqvideoUrl, contentRealPath, ""));
 			}
 		}
+		content.setUserId(AppContext.getUserId());
 		contentService.save(content);
 		return "redirect:/content/init";
 	}

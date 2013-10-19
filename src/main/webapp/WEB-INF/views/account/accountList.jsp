@@ -3,8 +3,23 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
 	<title>微信公共平台</title>
+	<script type="text/javascript">
+		function doedit(id){
+			$('#form1').attr('action', '${ctx }/account/edit/'+id);
+			$('#form1').submit();
+		}
+		function dodelete(id){
+			$('#form1').attr('action', '${ctx }/account/delete/'+id);
+			$('#form1').submit();
+		}
+		function doconfig(id){
+			$('#form1').attr('action', '${ctx }/replymsg/init?accountId='+id);
+			$('#form1').submit();
+		}
+		</script>
 </head>
 <body>
+<form id="form1"></form>
 <div class="b_con">
 	<div class="by_box">
 		<%@include file="../menu.jsp"%>
@@ -49,36 +64,49 @@
 												<td height="10"></td>
 											</tr>
 											<tr>
-												<td height="30" bgcolor="#d3d3d3">
+												<td height="30" >
 													<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
-														<tr>
-															<td width="18%" class="biao">公众帐号</td>
-															<td width="43%" class="biao">URL</td>
-															<td width="28%" class="biao">Token</td>
-															<td width="11%" class="biao">操作</td>
+														<tr height="30" bgcolor="#d3d3d3">
+															<td width="25%" class="biao">公众帐号</td>
+															<td width="30%" class="biao">URL</td>
+															<td width="25%" class="biao">Token</td>
+															<td width="20%" class="biao">操作</td>
 														</tr>
+														<c:forEach items="${accounts.content}" var="account">
+														<tr height="30" >
+																<td >${account.name }</td>
+																<td >
+																<a title="${account.url}"
+																						style="text-decoration: none; color: blue"> <c:choose>
+																							<c:when test="${account.url.length()>20}">${account.url.substring(0,20)}...</c:when>
+																							<c:otherwise>${account.url}</c:otherwise>
+																						</c:choose>
+																					</a>
+																
+																</td>
+																<td >
+																<a title="${account.seq }"
+																						style="text-decoration: none; color: blue"> <c:choose>
+																							<c:when test="${account.seq.length()>20}">${account.seq.substring(0,20)}...</c:when>
+																							<c:otherwise>${account.seq}</c:otherwise>
+																						</c:choose>
+																					</a>
+																</td>
+																<td ><input type="button" value="配置" class="btn-primary" onclick="doconfig(${account.id })">
+																&nbsp;<input type="button" value="修改" class="btn-primary" onclick="doedit(${account.id })">
+																&nbsp;<input type="button" value="删除" class="btn-primary" onclick="dodelete(${account.id })">
+																
+															
+															</tr>
+															
+														</c:forEach>
+														<tr>
+														<td align="center" colspan="4"><tags:pagination
+																page="${accounts}" paginationSize="5" /></td>
+													</tr>
 													</table>
 												</td>
-											</tr>
-											<c:forEach items="${accounts}" var="account">
-												<tr>
-													<td height="58">
-														<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
-															<tr>
-																<td width="21%">${account.name }</td>
-																<td width="40%">http://www.yidia.cn${ctx }${account.url}</td>
-																<td width="23%" class="zeng">${account.seq }</td>
-																<td width="7%" align="center" class="zeng"><a href="${ctx }/replymsg/init?accountId=${account.id }">配置</a></td>
-																<td width="4%" align="center" class="zeng"><a href="${ctx }/account/edit/${account.id }">修改</a></td>
-																<td width="5%" align="center" class="zeng"><a href="${ctx }/account/delete/${account.id }">删除</a></td>
-															</tr>
-														</table>
-													</td>
-												</tr>
-												<tr>
-													<td><div align="center"><img src="${images}/xian.jpg" width="800" height="1" /></div></td>
-												</tr>
-											</c:forEach>
+											</tr>											
 										</table>
 									</td>
 								</tr>

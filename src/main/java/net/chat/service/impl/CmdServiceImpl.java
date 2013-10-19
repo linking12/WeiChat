@@ -30,7 +30,7 @@ public class CmdServiceImpl implements CmdService {
 		wxCmdDao.delete(cmdId);
 	}
 
-	public Page<WxCmd> findCmdByAccountId(Long accountId, String condition,
+	public Page<WxCmd> findCmdByAccountId(Long accountId, String cmd,
 			int pageNo) {
 		int pageSize = 5;
 		if (pageNo == 0)
@@ -39,7 +39,7 @@ public class CmdServiceImpl implements CmdService {
 				new Order("id")));
 
 		return wxCmdDao.findCmdByAccountId(accountId,
-				StringUtils.isBlank(condition) ? "" : condition, pageable);
+				StringUtils.isBlank(cmd) ? "" : cmd, pageable);
 	}
 
 	public List<WxCmd> findCmdByAccountId(Long accountId, String condition) {
