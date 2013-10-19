@@ -7,6 +7,10 @@ import net.chat.domain.WxMsgType;
 
 public class MessageTypeConstants {
 
+	public final static String MSGTYPE_TEXT = "text";
+	public final static String MSGTYPE_LOCATION = "location";
+	public final static String MSGTYPE_IMAGE = "image";
+
 	public static List<WxMsgType> getMessageTypeList() {
 		List<WxMsgType> messageTypeList = new ArrayList<WxMsgType>(5);
 		messageTypeList.add(new WxMsgType(null, "text", null, null, "文本"));

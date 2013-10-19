@@ -24,8 +24,11 @@ public interface WxContentDao extends JpaRepository<WxContent, Long>,
 
 	@Query("from WxContent  where  messageId = null and baseContentId is null and msgType = :msgType")
 	List<WxContent> listAllMultimediaContent(@Param("msgType") String msgType);
-	
+
 	@Query("from WxContent  where  messageId is null and baseContentId is null")
 	List<WxContent> listAllMultimediaContent();
+
+	@Query("from WxContent  where messageId = :messageId")
+	List<WxContent> findContentByMessageId(@Param("messageId") Long messageId);
 
 }

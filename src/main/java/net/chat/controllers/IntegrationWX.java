@@ -6,7 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.chat.service.IntegrationService;
+import net.chat.service.IntegrationWeiChat;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -22,9 +22,9 @@ public class IntegrationWX {
 	protected final Log logger = LogFactory.getLog(getClass());
 
 	@Autowired
-	private IntegrationService integrationService;
+	private IntegrationWeiChat integrationService;
 
-	@RequestMapping("/api/{seq}")
+	@RequestMapping("/API/{seq}")
 	@ResponseBody
 	public void saveContent(@PathVariable("seq") String id,
 			HttpServletRequest request, HttpServletResponse response) {
@@ -49,46 +49,6 @@ public class IntegrationWX {
 			}
 		}
 
-	}
-
-	@RequestMapping("/API/{seq}")
-	@ResponseBody
-	public void saveContent1(@PathVariable("seq") String id,
-			HttpServletRequest request, HttpServletResponse response) {
-		if (request.getMethod().equals("GET")) {
-			try {
-				integrationService.doGet(request, response);
-			} catch (ServletException e) {
-				logger.info("WeiXin post message into our platform failed", e);
-
-			} catch (IOException e) {
-				logger.info("WeiXin post message into our platform failed", e);
-			}
-
-		} else {
-			try {
-				integrationService.doPost(request, response);
-			} catch (ServletException e) {
-				logger.info("WeiXin post message into our platform failed", e);
-
-			} catch (IOException e) {
-				logger.info("WeiXin post message into our platform failed", e);
-			}
-		}
-
-	}
-
-	@RequestMapping("/program/autoreply")
-	public void autoReply(HttpServletRequest request,
-			HttpServletResponse response) {
-		try {
-			integrationService.doProgram(request, response);
-		} catch (ServletException e) {
-			logger.info("WeiXin post message into our platform failed", e);
-
-		} catch (IOException e) {
-			logger.info("WeiXin post message into our platform failed", e);
-		}
 	}
 
 }

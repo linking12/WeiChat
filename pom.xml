@@ -26,6 +26,18 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-impl</artifactId>
+			<version>2.2.8-b01</version>
+		</dependency>
+		<!-- cache begin -->
+		<dependency>
+			<groupId>org.ow2.util.bundles</groupId>
+			<artifactId>commons-collections-3.2.1</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<!-- cache end -->
+		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
 			<version>4.3.1</version>
@@ -178,11 +190,6 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
 			<version>4.1.0.Final</version>
-		</dependency>
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<version>1.8.1</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet.jsp.jstl</groupId>
