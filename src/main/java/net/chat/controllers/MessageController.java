@@ -6,13 +6,11 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import net.chat.constants.MessageTypeConstants;
 import net.chat.constants.PageConstants;
 import net.chat.domain.WxAccount;
 import net.chat.domain.WxContent;
 import net.chat.domain.WxMessage;
 import net.chat.formbean.MultimediaMessageForm;
-import net.chat.formbean.SimpleBean;
 import net.chat.service.AccountService;
 import net.chat.service.ContentService;
 import net.chat.service.MessageService;
@@ -71,7 +69,7 @@ public class MessageController {
 		Long userId = AppContext.getUserId();
 		List<WxAccount> accounts = accountService.findAccountByUserId(userId);
 		model.addAttribute("accounts", accounts);
-		model.addAttribute("messageTypes", MessageTypeConstants.getMessageTypeList());
+		model.addAttribute("messageTypes",PageConstants.buildMessageTypesList());
 		return PageConstants.PAGE_MESSAGE_TEXT;
 	}
 
@@ -85,12 +83,13 @@ public class MessageController {
 		Long userId = AppContext.getUserId();
 		List<WxAccount> accounts = accountService.findAccountByUserId(userId);
 		model.addAttribute("accounts", accounts);
-		model.addAttribute("messageTypes", MessageTypeConstants.getMessageTypeList());
+		
 		List<WxContent> wxContents = contentService.findAllMultimedia(msgType);
 		model.addAttribute("wxContents", wxContents);
+		model.addAttribute("msgType", msgType);
+		model.addAttribute("messageTypes",  PageConstants.buildMessageTypesList());
 		
-		List<SimpleBean> contentTypes = PageConstants.buildContentTypesList();
-		model.addAttribute("contentTypes", contentTypes);
+		model.addAttribute("contentTypes",  PageConstants.buildContentTypesList());
 		return PageConstants.PAGE_MESSAGE_MULTIMEDIA;
 
 	}
@@ -102,7 +101,9 @@ public class MessageController {
 		Long userId = AppContext.getUserId();
 		List<WxAccount> accounts = accountService.findAccountByUserId(userId);
 		model.addAttribute("accounts", accounts);
-		model.addAttribute("messageTypes", MessageTypeConstants.getMessageTypeList());
+		model.addAttribute("messageTypes", PageConstants
+				.buildContentTypesListByType(msg.getMsgType()));
+		
 		return PageConstants.PAGE_MESSAGE_TEXT;
 	}
 
@@ -120,9 +121,13 @@ public class MessageController {
 		Long userId = AppContext.getUserId();
 		List<WxAccount> accounts = accountService.findAccountByUserId(userId);
 		model.addAttribute("accounts", accounts);
-		model.addAttribute("messageTypes", MessageTypeConstants.getMessageTypeList());
+		model.addAttribute("messageTypes", PageConstants
+				.buildContentTypesListByType(message.getMsgType()));
 		List<WxContent> wxContents = contentService.findAllMultimedia(message.getMsgType());
 		model.addAttribute("wxContents", wxContents);
+		model.addAttribute("msgType", message.getMsgType());
+		model.addAttribute("contentTypes", PageConstants
+				.buildContentTypesListByType(message.getMsgType()));
 		return PageConstants.PAGE_MESSAGE_MULTIMEDIA;
 
 	}
@@ -134,7 +139,7 @@ public class MessageController {
 			Long userId = AppContext.getUserId();
 			List<WxAccount> accounts = accountService.findAccountByUserId(userId);
 			model.addAttribute("accounts", accounts);
-			model.addAttribute("messageTypes", MessageTypeConstants.getMessageTypeList());
+			model.addAttribute("messageTypes", PageConstants.buildMessageTypesList());
 			model.addAttribute("wxMessage", message);
 			return PageConstants.PAGE_MESSAGE_TEXT;
 		}

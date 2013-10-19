@@ -29,6 +29,7 @@ import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 @Service("messageSerivce")
 public class MessageServiceImpl implements MessageService {
@@ -80,6 +81,8 @@ public class MessageServiceImpl implements MessageService {
 		}
 
 		Long accountId = message.getAccountId();
+		List<WxAccountGame> accountGameList=accountGameDao.findByAccountId(accountId);
+		if(CollectionUtils.isEmpty(accountGameList)){
 		// 获取聊天机器人
 		WxGame defaultGame = gameDao.findByUrlAndGameType("autoreply",
 				"program");
@@ -87,6 +90,7 @@ public class MessageServiceImpl implements MessageService {
 		accountGame.setGameId(defaultGame.getId());
 		accountGame.setAccountId(accountId);
 		accountGameDao.save(accountGame);
+		}
 		WxMsgType mmsgType = null;
 		if (message.getMsgType().equals("text")) {
 			mmsgType = new WxMsgType(accountId, "text", "program",

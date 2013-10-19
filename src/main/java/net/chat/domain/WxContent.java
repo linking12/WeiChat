@@ -56,6 +56,9 @@ public class WxContent implements Serializable {
 	@Column(name = "baseContentId")
 	private Long baseContentId;
 
+	@Column(name = "userId")
+	private Long userId;
+
 	public Long getId() {
 		return id;
 	}
@@ -134,6 +137,14 @@ public class WxContent implements Serializable {
 
 	public void setBaseContentId(Long baseContentId) {
 		this.baseContentId = baseContentId;
+	}
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
 }

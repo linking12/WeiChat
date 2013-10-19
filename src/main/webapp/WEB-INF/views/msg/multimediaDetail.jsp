@@ -8,6 +8,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#submitbtn").click(function() {
+			if(!validate()){return false;}
 			$('#messageForm').attr('action', '${ctx}/message/submitMultimedia');
 			$('#messageForm').submit();
 		});
@@ -23,6 +24,36 @@
 		tanchuceng(600, 500, '上传多媒体','${ctx }/content/addContent/'+$("#msgType").val());
 	}
 	
+	function validate(){
+		
+		var flag=true;
+		if(""==$("#accountId").val()){
+			$("#eaccount").show();
+			flag=false;
+		}else {$("#eaccount").hide();}
+		if(""==$("#msgType").val()){
+			$("#emsgtype").show();
+			flag=false;
+		}else {$("#emsgtype").hide();}
+		if(""==$("#msgName").val()){
+			$("#emsgname").show();
+			flag=false;
+		}else {$("#emsgname").hide();}
+		if(""==$("#content").val()){
+			$("#econtent").show();
+			flag=false;
+		}else {$("#econtent").hide();}
+		var cchecked=false;
+		$("[name='selectContents']").each(function(){
+			if($(this).is(':checked')){
+				cchecked =true;
+				return;
+			}
+			
+		})
+		if(!cchecked){$("#echecked").show();flag=false;}else {$("#echecked").hide();}
+		 return flag;
+	}
 </script>
 </head>
 <body>
@@ -85,25 +116,25 @@
 																		<c:forEach items="${accounts}" var="account">
 																			<form:option value="${account.id }">${account.name}</form:option>
 																		</c:forEach>
-																	</form:select></td>
+																	</form:select>&nbsp;<span id="eaccount" style="display:none">请选择公共帐号!</span></td>
 															</tr>
 															<tr>
 																<td width="20%" height="40" class="biao">自动回复信息类型</td>
 																<td><form:select path="message.msgType" onchange="javascript:changeMessageType()"
 																		id="msgType" style="width: 150px;">
 																		<c:forEach items="${messageTypes}" var="messageType">
-																			<form:option value="${messageType.msgType}">${messageType.name}</form:option>
+																			<form:option value="${messageType.key}">${messageType.value}</form:option>
 																		</c:forEach>
-																	</form:select></td>
+																	</form:select>&nbsp;<span id="emsgtype" style="display:none"  class="error">请选择自动回复信息类型!</span></td>
 															</tr>
 															<tr>
 																<td width="20%" height="40" class="biao">标题&nbsp;<font color="red">*</font></td>
-																<td><form:input path="message.msgName"
-																		style="width: 300px;" />
+																<td><form:input path="message.msgName" id="msgName"
+																		style="width: 300px;" /> &nbsp;<span id="emsgname" style="display:none"  class="error">请输入标题!</span>
 																	<form:hidden path="message.id"/> </td>
 															</tr>
 															<tr>
-																<td width="20%" class="biao" colspan="2">自动回复多媒体:</td>																
+																<td width="20%" class="biao" colspan="2">自动回复多媒体:<span id="echecked" style="display:none"  class="error">请选择多媒体!</span></td>																
 															</tr>
 															<tr>																
 																<td colspan="2">
@@ -111,31 +142,30 @@
 																		cellpadding="0" cellspacing="0"
 																		style="margin-top: 20px">
 																		<tr>
-																			<td height="30" bgcolor="#d3d3d3">
+																			<td height="30">
 																				<table width="98%" border="0" align="center"
 																					cellpadding="0" cellspacing="0">
-																					<tr>
-																						<td width="10%" class="biao">选择</td>
-																						<td width="10%" class="biao">类型</td>
-																						<td width="20%" class="biao">标题</td>																						
-																						<td width="20%" class="biao">URL</td>
-																						<td width="20%" class="biao">高清URL</td>
-																						<td width="20%" class="biao"></td>
+																					<tr  height="30" bgcolor="#d3d3d3">
+																						<td width="5%" class="biao">选择</td>
+																						<td width="5%" class="biao">类型</td>
+																						<td width="15%" class="biao">标题</td>																						
+																						<td width="25%" class="biao">URL</td>
+																						<td width="25%" class="biao">高清URL</td>
+																						<td width="25%" class="biao">原文链接</td>
 																					</tr>
-																				</table>
-																			</td>
-																		</tr>
-																		<c:forEach items="${wxContents}" var="content"
-																			varStatus="status">
-																			<tr>
-																				<td height="30">
-																					<table width="98%" border="0" align="center"
-																						cellpadding="0" cellspacing="0">
-																						<tr>
-																							<td width="10%"><form:checkbox
-																									path="selectContents" value="${content.id}" /></td>
+																					<c:forEach items="${wxContents}" var="content" varStatus="status">
+																					<tr  height="30" >
+																							<td >
+																							<c:choose>
+																							<c:when test="${msgType=='image' }">
+																								<form:checkbox path="selectContents" value="${content.id}" id="selectContents"/></c:when>																						
+																						    <c:otherwise>																					  
+																						    	<form:radiobutton path="selectContents" value="${content.id}" id="selectContents"/>	</c:otherwise>
+																							</c:choose>
 																							
-																							<td width="10%">
+																							</td>
+																							
+																							<td>
 																								<select disabled>
 																									<c:forEach items="${contentTypes }" var="contentType">
 																										 <c:if test="${contentType.key==content.msgType }">
@@ -144,27 +174,44 @@
 																									</c:forEach>
 																								</select>
 																							</td>
-																							<td width="20%">${content.title}</td>
-																							<td width="20%" >
+																							<td >${content.title}</td>
+																							<td >
 																								<c:choose>
-																									<c:when test="${content.msgType=='image' }">${content.picUrl }</c:when>
-																									<c:otherwise>${content.musicUrl }</c:otherwise>
+																									<c:when test="${content.msgType=='image' }">
+																									<a  title="${content.picUrl}" style="text-decoration: none;color:blue">
+																									<c:choose>
+																									<c:when test="${content.picUrl.length()>20}">${content.picUrl.substring(0,20)}...</c:when>
+																									<c:otherwise>${content.picUrl}</c:otherwise></c:choose>
+																									</a>
+																									</c:when>
+																									<c:otherwise>
+																									<a  title="${content.musicUrl}" style="text-decoration: none;color:blue">
+																									<c:choose>
+																									<c:when test="${content.musicUrl.length()>20}">${content.musicUrl.substring(0,20)}...</c:when>
+																									<c:otherwise>${content.musicUrl}</c:otherwise></c:choose>
+																									</a></c:otherwise>
 																								</c:choose>
 																							</td>
-																							<td width="20%" >${content.hqmusicUrl}</td>
-																							<td width="20%" align="center"><a href="#" title="${content.url}" style="text-decoration: none;color:blue">原文链接</a></td>
+																							<td  ><a  title="${content.hqmusicUrl}" style="text-decoration: none;color:blue">
+																									<c:choose>
+																									<c:when test="${content.hqmusicUrl.length()>20}">${content.hqmusicUrl.substring(0,20)}...</c:when>
+																									<c:otherwise>${content.hqmusicUrl}</c:otherwise></c:choose>
+																									</a></td>
+																							<td >
+																							<a  title="${content.url}" style="text-decoration: none;color:blue">
+																									<c:choose>
+																									<c:when test="${content.url.length()>20}">${content.url.substring(0,20)}...</c:when>
+																									<c:otherwise>${content.url}</c:otherwise></c:choose>
+																									</a>
+																							</td>
 
 																						</tr>
-																					</table>
-																				</td>
-																			</tr>
-																			<tr>
-																				<td><div align="center">
-																						<img src="${images}/xian.jpg" width="800"
-																							height="1" />
-																					</div></td>
-																			</tr>
-																		</c:forEach>
+																						<tr><td colspan="6"><div align="center"><img src="${images}/xian.jpg" width="800" height="1" /></div></td></tr>
+																					</c:forEach>
+																				</table>
+																			</td>
+																		</tr>
+																		
 																		<tr>
 																			<td height="50" align="right"><input
 																				type="button" value="新增" class="btn-primary"
@@ -197,7 +244,8 @@
 																					bordercolor="#999999" bgcolor="#FFFFFF">
 																					<tr>
 																						<td height="200" valign="top"><form:textarea
-																								path="message.content" cols="90" rows="14" /></td>
+																								path="message.content" cols="90" rows="14" id="content"/>
+																								&nbsp;<span id="econtent" style="display:none"  class="error">请输入备注信息!</span></td>
 																					</tr>
 																				</table></td>
 																		</tr>
@@ -207,13 +255,9 @@
 													</td>
 												</tr>
 												<tr>
-													<td height="50">
+													<td height="50">													 
 													<form:button id="submitbtn" class="btn-primary" >提交</form:button></td>											
-													<td height="50"><form:errors path="message.msgType"
-															cssClass="error" /> <form:errors path="message.msgName"
-															cssClass="error" /> <form:errors path="message.accountId"
-															cssClass="error" /> <form:errors path="message.content"
-															cssClass="error" /></td>
+													<td height="50"></td>
 												</tr>
 											</form:form>
 										</table>

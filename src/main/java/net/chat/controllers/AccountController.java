@@ -1,10 +1,13 @@
 package net.chat.controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import net.chat.constants.PageConstants;
 import net.chat.domain.WxAccount;
 import net.chat.service.AccountService;
+import net.chat.utils.AppContext;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/account")
@@ -23,9 +27,11 @@ public class AccountController {
 	private AccountService accountService;
 
 	@RequestMapping("/list")
-	public String list(Model model) {
-		Page<WxAccount> accounts = accountService.listAllAcount(0, 0);
-		model.addAttribute("accounts", accounts.getContent());
+	public String list(@RequestParam(value = "page", defaultValue = "1") int pageNo,Model model) {
+//		Page<WxAccount> accounts = accountService.listAllAcount(0, 0);
+		Long userId = AppContext.getUserId();
+		Page<WxAccount> accounts = accountService.findAccountByUserId(pageNo,userId);
+		model.addAttribute("accounts", accounts);
 		return PageConstants.PAGE_ACCOUNT_LIST;
 	}
 
