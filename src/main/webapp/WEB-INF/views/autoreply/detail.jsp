@@ -9,12 +9,14 @@
 			$('#msgform').attr('action', '${ctx}/replymsg/submit');
 			$('#msgform').submit();
 		});
+		doAjax();
 	});
 	
 	function changeAction(){
 		var actionType=$("#actionType").val();
 		if ("program" == actionType) {
 			$("#sourceId").empty();
+			$("#tc").hide();
 			$("#programsel option").each(function() {
 				$("#sourceId").append($(this).clone());
 			});
@@ -24,14 +26,23 @@
 				$("#sourceId").append($(this).clone());
 
 			});
+			doAjax();
+			$("#tc").show();
 		}
+	}
 	
+	function doAjax(){
+		if("direct" ==$("#actionType").val()){
+			$("#messageId").val($("#sourceId").val());
+			ajaxMessage();
+		}
 	}
 	</script>
 </head>
 <body >
 	<form:form id="msgform" method="post" modelAttribute="wxMsgType">
 		<form:hidden path="id" />
+		<input type="hidden" id="messageId"/>
 		<div class="b_con">
 	<div class="by_box">
 		<%@include file="../menu.jsp"%>
@@ -96,15 +107,9 @@
 																	<form:select path="accountId" items="${accounts}" itemValue="id" itemLabel="name" style="width: 150px;"/>
 																</td>
 															</tr>
-														</table>
-													</td>
-												</tr>
-												<tr>
-													<td><div align="center"><img src="${images}/xian.jpg" width="800" height="1" /></div></td>
-												</tr>
-												<tr>
-													<td height="30">
-														<table width="98%" border="0" align="center"cellpadding="0" cellspacing="0">
+															<tr>
+																<td colspan="2"><div align="center" ><img src="${images}/xian.jpg" width="800" height="1" /></div></td>
+															</tr>
 															<tr>
 																<td width="30%" height="40" class="biao">用户发送类型</td>
 																<td>
@@ -113,45 +118,28 @@
 																	<span id="cmderror" class="error" style="display: none">用户发送信息必须输入!</span>
 																</td>
 															</tr>
-														</table>
-													</td>
-												</tr>
-												<tr>
-													<td><div align="center"><img src="${images}/xian.jpg" width="800" height="1" /></div></td>
-												</tr>
-												<tr>
-													<td height="30">
-														<table width="98%" border="0" align="center"cellpadding="0" cellspacing="0">
+															<tr>
+																<td colspan="2"><div align="center" ><img src="${images}/xian.jpg" width="800" height="1" /></div></td>
+															</tr>
 															<tr>
 																<td width="30%" height="40" class="biao">自动回复类型</td>
 																<td>
 																	<form:select path="action" id="actionType" items="${actionTypes}" itemValue="key" itemLabel="value" onchange="changeAction()" style="width: 150px;"/>
 																</td>
 															</tr>
-														</table>
-													</td>
-												</tr>
-												<tr>
-													<td><div align="center"><img src="${images}/xian.jpg" width="800" height="1" /></div></td>
-												</tr>
-												<tr>
-													<td height="30">
-														<table width="98%" border="0" align="center"cellpadding="0" cellspacing="0">
+															<tr>
+																<td colspan="2"><div align="center" ><img src="${images}/xian.jpg" width="800" height="1" /></div></td>
+															</tr>
 															<tr>
 																<td width="30%" height="40" class="biao">信息内容或处理程序</td>
 																<td>
-																	<form:select path="sourceId" id="sourceId" items="${games}" itemValue="id" itemLabel="name" style="width: 150px;"/>
+																	<form:select path="sourceId" id="sourceId" items="${games}" itemValue="id" itemLabel="name" style="width: 150px;" onchange="doAjax()"/>
 																</td>
 															</tr>
-														</table>
-													</td>
-												</tr>
-												<tr>
-													<td><div align="center"><img src="${images}/xian.jpg" width="800" height="1" /></div></td>
-												</tr>
-												<tr>
-													<td height="30">
-														<table width="98%" border="0" align="center"cellpadding="0" cellspacing="0">
+															<tr>
+																<td colspan="2"><div align="center" ><img src="${images}/xian.jpg" width="800" height="1" /></div></td>
+															</tr>
+															<tr><td colspan="2"><table id="tc" width="100%" border="0" align="center" style="margin-top: 20px"></table></td></tr>
 															<tr>
 																<td height="50" align="">
 																	<form:button id="submitbtn" class="btn-primary" >提交</form:button>
@@ -159,7 +147,9 @@
 															</tr>
 														</table>
 													</td>
-												</tr>													
+												</tr>
+												
+																				
 											</table>
 										</td>
 									</tr>
@@ -178,4 +168,5 @@
 </div>
 	</form:form>
 </body>
+<%@ include file="../content/content.jsp"%>
 </html>

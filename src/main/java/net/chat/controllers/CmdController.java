@@ -9,10 +9,12 @@ import javax.validation.Valid;
 import net.chat.constants.PageConstants;
 import net.chat.domain.WxAccount;
 import net.chat.domain.WxCmd;
+import net.chat.domain.WxContent;
 import net.chat.domain.WxMessage;
 import net.chat.formbean.SimpleBean;
 import net.chat.service.AccountService;
 import net.chat.service.CmdService;
+import net.chat.service.ContentService;
 import net.chat.service.MessageService;
 import net.chat.utils.AppContext;
 
@@ -36,6 +38,9 @@ public class CmdController {
 	@Autowired
 	MessageService messageService;
 
+	@Autowired
+	private ContentService contentService;
+	
 	@RequestMapping("/init")
 	public String init(@RequestParam(value = "accountId", required = false) Long accountId, @RequestParam(value = "condition", required = false) String condition,
 			@RequestParam(value = "page", defaultValue = "1") int pageNo, Model model) throws UnsupportedEncodingException {
@@ -106,10 +111,22 @@ public class CmdController {
 			List<SimpleBean> ctypeList = PageConstants.buildCtypeList();
 			model.addAttribute("ctypeList", ctypeList);
 
+			List<WxContent> imageContents = contentService.findAllMultimedia("image");
+
+			List<WxContent> voiceContents = contentService.findAllMultimedia("voice");
+
+			List<WxContent> videoContents = contentService.findAllMultimedia("video");
+			
+			model.addAttribute("imageContents", imageContents);
+			model.addAttribute("voiceContents", voiceContents);
+			model.addAttribute("videoContents", videoContents);
+			
 			return PageConstants.PAGE_KEYWORD_DETAIL;
 		}
+		
 	}
-
+	
+	
 	@RequestMapping("/delete/{id}")
 	public String delete(@PathVariable("id") Long id) {
 		cmdService.delete(id);

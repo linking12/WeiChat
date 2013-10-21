@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../common.jsp"%>
 <head>
-
 	<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
 	<title>微信公共平台</title>
 	<script type="text/javascript">
@@ -10,7 +9,9 @@
 				$('#cmdform').attr('action', '${ctx}/cmd/submit');
 				$('#cmdform').submit();
 			});
+			ajaxMessage();
 		});
+
 	</script>
 </head>
 <body>
@@ -65,16 +66,9 @@
 																	<form:select style="width: 150px;" path="accountId" items="${accounts}" itemValue="id" itemLabel="name" />
 																</td>
 															</tr>
-															
-														</table>
-													</td>
-												</tr>
-												<tr>
-													<td><div align="center"><img src="${images}/xian.jpg" width="800" height="1" /></div></td>
-												</tr>
-												<tr>
-													<td height="30">
-														<table width="98%" border="0" align="center"cellpadding="0" cellspacing="0">
+															<tr>
+																<td colspan="2"><div align="center"><img src="${images}/xian.jpg" width="800" height="1" /></div></td>
+															</tr>
 															<tr>
 																<td width="30%" height="40" class="biao">用户发送&nbsp;<font color="red">*</font></td>
 																<td>
@@ -82,56 +76,39 @@
 																	<form:errors path="cmd" cssClass="error" />
 																	<span id="cmderror" class="error" style="display: none">用户发送信息必须输入!</span>
 																</td>
-															</tr>															
-														</table>
-													</td>
-												</tr>
-												<tr>
-													<td><div align="center"><img src="${images}/xian.jpg" width="800" height="1" /></div></td>
-												</tr>
-												<tr>
-													<td height="30">
-														<table width="98%" border="0" align="center"cellpadding="0" cellspacing="0">
+															</tr>
+															<tr>
+																<td colspan="2"><div align="center"><img src="${images}/xian.jpg" width="800" height="1" /></div></td>
+															</tr>
 															<tr>
 																<td width="30%" height="40" class="biao">匹配类型&nbsp;<font color="red">*</font></td>
 																<td>
 																	<form:select style="width: 150px;" path="ctype" items="${ctypeList}" itemValue="key" itemLabel="value" />
 																</td>
 															</tr>
-															
-														</table>
-													</td>
-												</tr>
-												<tr>
-													<td><div align="center"><img src="${images}/xian.jpg" width="800" height="1" /></div></td>
-												</tr>
-												<tr>
-													<td height="30">
-														<table width="98%" border="0" align="center"cellpadding="0" cellspacing="0">
+															<tr>
+																<td colspan="2"><div align="center"><img src="${images}/xian.jpg" width="800" height="1" /></div></td>
+															</tr>
 															<tr>
 																<td width="30%" height="40" class="biao">自动回复信息&nbsp;<font color="red">*</font></td>
 																<td>
-																	<form:select style="width: 150px;" path="messageId" items="${messages}" itemValue="id" itemLabel="msgName" />
+																	<form:select style="width: 150px;" path="messageId" items="${messages}" itemValue="id" itemLabel="msgName" onchange="ajaxMessage()"/>
 																</td>
 															</tr>
-															
-														</table>
-													</td>
-												</tr>
-												<tr>
-													<td><div align="center"><img src="${images}/xian.jpg" width="800" height="1" /></div></td>
-												</tr>
-												<tr>
-													<td height="30">
-														<table width="98%" border="0" align="center"cellpadding="0" cellspacing="0">
 															<tr>
-																<td height="50" align="">
+																<td colspan="2"><div align="center"><img src="${images}/xian.jpg" width="800" height="1" /></div></td>
+															</tr>
+															<tr><td colspan="2"><table id="tc" width="100%" border="0" align="center" style="margin-top: 20px"></table></td></tr>
+															
+															<tr>
+																<td height="50"  colspan="2">
 																	<form:button id="submitbtn" class="btn-primary" >提交</form:button>
 																</td>
 															</tr>
 														</table>
 													</td>
 												</tr>
+																							
 											</table>
 										</td>
 									</tr>
@@ -150,4 +127,5 @@
 </div>
 	</form:form>
 </body>
+<%@ include file="../content/content.jsp"%>
 </html>

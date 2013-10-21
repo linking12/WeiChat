@@ -33,10 +33,19 @@
 		$(function(){
 			$("#accountId").val("${accountId}");
 		})
+		
+		function doview(cmdid,msgid){
+			$("#tc").remove();
+			
+			$("#messageId").val(msgid);
+			$("#t"+cmdid).append("<table id='tc' width='100%' border='0' align='center' style='margin-top: 20px'></table>");
+			ajaxMessage();
+		}
 	</script>
 </head>
 <body >
 	<form id="form1" method="POST">
+	<input type="hidden" id="messageId">
 	<div class="b_con">
 	<div class="by_box">
 		<%@include file="../menu.jsp"%>
@@ -104,24 +113,18 @@
 													</td>
 												</tr>
 												<tr>
-													<td height="30" bgcolor="#d3d3d3">
+													<td >
 														<table width="98%" border="0" align="center"cellpadding="0" cellspacing="0">
-															<tr>
+										 					<tr height="30" bgcolor="#d3d3d3">
 																<td width="20%" class="biao">用户发送</td>
-																<td width="20%" class="biao">匹配类型</td>
+																<td width="25%" class="biao">匹配类型</td>
 																<td width="40%" class="biao">回复内容</td>
-																<td width="20%" class="biao">操作</td>
+																<td width="15%" class="biao">操作</td>
 															</tr>
-														</table>
-													</td>
-												</tr>
-												<c:forEach items="${cmds}" var="cmd" varStatus="status">
-													<tr>
-														<td height="58">
-															<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
-																<tr>
-																	<td width="20%">${cmd.cmd }</td>
-																	<td width="20%">
+															<c:forEach items="${cmds}" var="cmd" varStatus="status">
+															<tr>
+																	<td >${cmd.cmd }</td>
+																	<td>
 																		<select disabled style="width: 100px">
 																			<c:forEach items="${ctypeList }" var="ctype">
 																				<c:if test="${ctype.key== cmd.ctype}">
@@ -130,7 +133,7 @@
 																			</c:forEach>
 																		</select>
 																	</td>
-																	<td width="40%">
+																	<td >
 																		<select style="width: 100px" disabled>
 																			<c:forEach items="${messages }" var="message">
 																				<c:if test="${cmd.messageId== message.id}">
@@ -139,20 +142,25 @@
 																			</c:forEach>
 																		</select>
 																	</td>
-																	<td align="center" width="20%" class="zeng">
-																		<input type="button" value="修改" onclick="doedit(${cmd.id })"  class="btn-primary"/>
-																		<input type="button" value="删除"  class="btn-primary" onclick="dodelete('${cmd.id }')" />
+																	<td align="center" class="zeng">
+																		<input type="button" value="查看" onclick="doview('${cmd.id}','${cmd.messageId}')"  class="btn-primary" name="btnView" id="btnView${cmd.id }"/>
+																		&nbsp;<input type="button" value="修改" onclick="doedit(${cmd.id })"  class="btn-primary"/>
+																		&nbsp;<input type="button" value="删除"  class="btn-primary" onclick="dodelete('${cmd.id }')" />
 																	</td>
 																</tr>
-															</table>
-														</td>
-													</tr>
-													<tr>
-														<td>
-															<div align="center"><img src="${images}/xian.jpg" width="800" height="1" /></div>
-														</td>
-													</tr>
-												</c:forEach>
+																<tr><td colspan="4" id="t${cmd.id }"></td></tr>
+																<tr>
+																	<td colspan="4" >
+																		<div align="center"><img src="${images}/xian.jpg" width="800" height="1" /></div>
+																	</td>
+																</tr>
+															</c:forEach>
+														</table>
+													</td>
+												</tr>											
+													
+												
+												
 											</table>
 										</td>
 									</tr>
@@ -170,5 +178,6 @@
 	</div>
 </div>
 	</form>
+<%@ include file="../content/content.jsp"%>
 </body>
 </html>

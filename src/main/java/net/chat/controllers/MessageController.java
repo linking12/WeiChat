@@ -10,6 +10,7 @@ import net.chat.constants.PageConstants;
 import net.chat.domain.WxAccount;
 import net.chat.domain.WxContent;
 import net.chat.domain.WxMessage;
+import net.chat.formbean.MessageForm;
 import net.chat.formbean.MultimediaMessageForm;
 import net.chat.service.AccountService;
 import net.chat.service.ContentService;
@@ -25,7 +26,9 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/message")
@@ -186,5 +189,20 @@ public class MessageController {
 	public String delete(@PathVariable("id") Long id, Model model) {
 		messageService.delteMessage(id);
 		return "redirect:/message/init";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/ajaxMessage" ,method=RequestMethod.POST)
+	public MessageForm ajaxMessage(Long messageId){
+		WxMessage message=messageService.findyMessageByMessageId(messageId);
+		if(!"text".equals(message.getMsgType())){
+			List<WxContent> contents=contentService.findAllMultimedia(message.getMsgType());
+			List<WxContent> wxContentsSelected = contentService.findByMessageId(messageId);
+			List<Long> selectIdContents = new ArrayList<Long>();
+			for (WxContent wxcontentselectd : wxContentsSelected)
+				selectIdContents.add(wxcontentselectd.getBaseContentId());
+			return new MessageForm(message,selectIdContents,contents);
+		}
+		return new MessageForm(message,null,null);
 	}
 }

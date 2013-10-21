@@ -18,20 +18,22 @@
 		$('#form1').submit();
 	}
 
-	function changeMsgType(obj) {
-		var msgType = obj.value;
-		var sourceid = obj.id.replace("msgTypesaction", "msgTypessourceId");
-
+	function changeMsgType(id) {
+		var msgType = $("#msgTypesaction"+id).val();
+		
+		removetc();
 		if ("program" == msgType) {
-			$("#" + sourceid).empty();
+			$("#msgTypessourceId" + id).empty();
+			$("#btnView"+id).remove();
 			$("#programsel option").each(function() {
-				$("#" + sourceid).append($(this).clone());
+				$("#msgTypessourceId" + id).append($(this).clone());
 			});
 		} else if ("direct" == msgType) {
-			$("#" + sourceid).empty();
+			$("#msgTypessourceId" + id).empty();
+			$("#to"+id).prepend("<input type='button' value='查看' onclick='doview("+id+")'  class='btn-primary' name='btnView' id='btnView"+id+"'/>");
 			$("#directsel option").each(function() {
-				$("#" + sourceid).append($(this).clone());
-
+				$("#msgTypessourceId" + id).append($(this).clone());
+			
 			});
 		}
 	}
@@ -46,11 +48,22 @@
 		$('#form1').attr('action', '${ctx }/replymsg/add/'+$("#accountId").val());
 		$('#form1').submit();
 	}
+	
+	function doview(id){
+			$("#tc").remove();
+			$("#messageId").val($("#msgTypessourceId"+id).val());
+			$("#t"+id).append("<table id='tc' width='100%' border='0' align='center' style='margin-top: 20px'></table>");
+			ajaxMessage();
+	}
+	function removetc(){
+		$("#tc").remove();
+	}
 	</script>
 </head>
 <body >
 	<form:form id="form1" method="post" modelAttribute="replyMsgForm">
 	<div class="b_con">
+	<input type="hidden" id="messageId">
 	<div class="by_box">
 		<%@include file="../menu.jsp"%>
 		<table width="967" border="0" align="center" cellpadding="0" cellspacing="0">
@@ -145,20 +158,24 @@
 																		<form:hidden path="msgTypes[${status.index}].name"/>																		
 																	</td>
 																	<td width="20%">
-																		<form:select path="msgTypes[${status.index}].action" id="msgTypesaction${status.index}"	onchange="changeMsgType(this)" items="${actionTypes}" itemValue="key" itemLabel="value"/>
+																		<form:select path="msgTypes[${status.index}].action" id="msgTypesaction${msgType.id }"	onchange="changeMsgType(${msgType.id },this)" items="${actionTypes}" itemValue="key" itemLabel="value"/>
 																	</td>
 																	<td width="30%">
 																		<c:if test="${msgType.action=='program' }">
-																			<form:select path="msgTypes[${status.index}].sourceId" id="msgTypessourceId${status.index}" items="${games}" itemValue="id" itemLabel="name"></form:select>
+																			<form:select path="msgTypes[${status.index}].sourceId" id="msgTypessourceId${msgType.id }" items="${games}" itemValue="id" itemLabel="name" onchange="removetc()"></form:select>
 																		</c:if> 
 																		<c:if test="${msgType.action=='direct' }">
-																			<form:select path="msgTypes[${status.index}].sourceId" id="msgTypessourceId${status.index}" items="${messages}" itemValue="id" itemLabel="msgName"></form:select>
+																			<form:select path="msgTypes[${status.index}].sourceId" id="msgTypessourceId${msgType.id }" items="${messages}" itemValue="id" itemLabel="msgName" onchange="removetc()"></form:select>
 																		</c:if>
 																	</td>
-																	<td width="10%">
-																			<form:button class="btn-primary" onclick="dodelete(${msgType.id })">删除</form:button>
+																	<td width="10%" id="to${msgType.id }">
+																	    <c:if test="${msgType.action=='direct' }">
+																			<input type="button" value="查看" onclick="doview('${msgType.id }','${msgType.action}','${msgType.sourceId}')"  class="btn-primary" name="btnView" id="btnView${msgType.id }"/>
+																			</c:if>
+																			&nbsp;<form:button class="btn-primary" onclick="dodelete(${msgType.id })">删除</form:button>
 																	</td>
 																</tr>
+																<tr><td colspan="5" id="t${msgType.id }"></td></tr>
 															</table>
 														</td>
 													</tr>
@@ -191,5 +208,6 @@
 	</div>
 </div>
 	</form:form>
+	<%@ include file="../content/content.jsp"%>
 </body>
 </html>
