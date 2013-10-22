@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ include file="../common.jsp"%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf8" />
@@ -180,27 +181,27 @@
 																									<c:when test="${content.msgType=='image' }">
 																									<a  title="${content.picUrl}" style="text-decoration: none;color:blue">
 																									<c:choose>
-																									<c:when test="${content.picUrl.length()>20}">${content.picUrl.substring(0,20)}...</c:when>
+																									<c:when test="${fn:length(content.picUrl) gt 20}">${fn:substring(content.picUrl, 0, 20)}...</c:when>
 																									<c:otherwise>${content.picUrl}</c:otherwise></c:choose>
 																									</a>
 																									</c:when>
 																									<c:otherwise>
 																									<a  title="${content.musicUrl}" style="text-decoration: none;color:blue">
 																									<c:choose>
-																									<c:when test="${content.musicUrl.length()>20}">${content.musicUrl.substring(0,20)}...</c:when>
+																									<c:when test="${fn:length(content.musicUrl) gt 20}">${fn:substring(content.musicUrl, 0, 20)}...</c:when>
 																									<c:otherwise>${content.musicUrl}</c:otherwise></c:choose>
 																									</a></c:otherwise>
 																								</c:choose>
 																							</td>
 																							<td  ><a  title="${content.hqmusicUrl}" style="text-decoration: none;color:blue">
 																									<c:choose>
-																									<c:when test="${content.hqmusicUrl.length()>20}">${content.hqmusicUrl.substring(0,20)}...</c:when>
+																									<c:when test="${fn:length(content.hqmusicUrl) gt 20}">${fn:substring(content.hqmusicUrl, 0, 20)}...</c:when>
 																									<c:otherwise>${content.hqmusicUrl}</c:otherwise></c:choose>
 																									</a></td>
 																							<td >
 																							<a  title="${content.url}" style="text-decoration: none;color:blue">
 																									<c:choose>
-																									<c:when test="${content.url.length()>20}">${content.url.substring(0,20)}...</c:when>
+																									<c:when test="${fn:length(content.url) gt 20}">${fn:substring(content.url, 0, 20)}...</c:when>
 																									<c:otherwise>${content.url}</c:otherwise></c:choose>
 																									</a>
 																							</td>

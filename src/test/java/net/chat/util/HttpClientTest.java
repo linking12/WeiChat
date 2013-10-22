@@ -56,33 +56,33 @@ public class HttpClientTest {
 		// InputStreamReader reader = new InputStreamReader(
 		// resEntity.getContent(), "UTF-8");
 
-//		String content = "<xml>";
-//		content = content + " <ToUserName><![CDATA[toUser]]></ToUserName>";
-//		content = content
-//				+ " <FromUserName><![CDATA[fromUser]]></FromUserName>";
-//		content = content + "<CreateTime>1348831860</CreateTime>";
-//		content = content + "<MsgType><![CDATA[text]]></MsgType>";
-//		content = content + "<Content><![CDATA[你好]]></Content>";
-//		content = content + "<MsgId>1234567890123456</MsgId>";
-//		content = content + "</xml>";
-//
-//		@SuppressWarnings("deprecation")
-//		HttpClient httpclient = new DefaultHttpClient();
-//		HttpPost httppost = new HttpPost(
-//				"http://localhost:8080/WeiChat/API/gzkUwLDfXADySiiCUvZZ");
-//		StringEntity myEntity = new StringEntity(content, "UTF-8");
-//		httppost.addHeader("Content-Type", "text/xml");
-//		httppost.setEntity(myEntity);
-//		HttpResponse response = httpclient.execute(httppost);
-//		HttpEntity resEntity = response.getEntity();
-//		InputStreamReader reader = new InputStreamReader(
-//				resEntity.getContent(), "ISO-8859-1");
-//		char[] buff = new char[1024];
-//		int length = 0;
-//		while ((length = reader.read(buff)) != -1) {
-//			System.out.println(new String(buff, 0, length));
-//		}
-//		httpclient.getConnectionManager().shutdown();
+		String content = "<xml>";
+		content = content + " <ToUserName><![CDATA[toUser]]></ToUserName>";
+		content = content
+				+ " <FromUserName><![CDATA[fromUser]]></FromUserName>";
+		content = content + "<CreateTime>1348831860</CreateTime>";
+		content = content + "<MsgType><![CDATA[text]]></MsgType>";
+		content = content + "<Content><![CDATA[你好]]></Content>";
+		content = content + "<MsgId>1234567890123456</MsgId>";
+		content = content + "</xml>";
+
+		@SuppressWarnings("deprecation")
+		HttpClient httpclient = new DefaultHttpClient();
+		HttpPost httppost = new HttpPost(
+				"http://localhost:8080/WeiChat/API/OJweiRNLSFvdBUkboJzR");
+		StringEntity myEntity = new StringEntity(content, "UTF-8");
+		httppost.addHeader("Content-Type", "text/xml");
+		httppost.setEntity(myEntity);
+		HttpResponse response = httpclient.execute(httppost);
+		HttpEntity resEntity = response.getEntity();
+		InputStreamReader reader = new InputStreamReader(
+				resEntity.getContent(), "ISO-8859-1");
+		char[] buff = new char[1024];
+		int length = 0;
+		while ((length = reader.read(buff)) != -1) {
+			System.out.println(new String(buff, 0, length));
+		}
+		httpclient.getConnectionManager().shutdown();
 
 	}
 }

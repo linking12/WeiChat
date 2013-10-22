@@ -69,10 +69,6 @@ public class InitThreadService extends Thread {
 			CacheContant.urlseqsCache.cleanup();
 			CacheContant.autoReplayAndCmdCache.cleanup();
 			initConfig();
-			File file = new File("/Users/apple/Documents/Repositories");
-			Object obj = CacheContant.sourceCache.get("4");
-			WeiChatRespMusicAndVideoBean a = (WeiChatRespMusicAndVideoBean) obj;
-			a.JAXBmarshal(file);
 			log.info("====缓存微信回复信息配置结束====");
 			try {
 				sleep(5 * 60 * 1000);
@@ -100,6 +96,7 @@ public class InitThreadService extends Thread {
 				}
 			}
 			CacheContant.urlseqsCache.put(account.getUrl(), account.getSeq());
+
 		}
 		// cmd
 		for (WxAccount account : accounts) {
