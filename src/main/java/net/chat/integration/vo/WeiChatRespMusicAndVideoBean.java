@@ -105,7 +105,7 @@ public class WeiChatRespMusicAndVideoBean {
 		@XmlElement(name = "MusicUrl")
 		@XmlJavaTypeAdapter(value = CDATAdapter.class)
 		public void setMusicUrl(String musicUrl) {
-			this.musicUrl = musicUrl;
+			this.musicUrl = "http://www.yidia.cn/WeiChat" + musicUrl;
 		}
 
 		public String gethQMusicUrl() {
@@ -115,7 +115,7 @@ public class WeiChatRespMusicAndVideoBean {
 		@XmlElement(name = "HQMusicUrl")
 		@XmlJavaTypeAdapter(value = CDATAdapter.class)
 		public void sethQMusicUrl(String hQMusicUrl) {
-			this.hQMusicUrl = hQMusicUrl;
+			this.hQMusicUrl = "http://www.yidia.cn/WeiChat" + hQMusicUrl;
 		}
 
 	}

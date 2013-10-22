@@ -62,7 +62,7 @@ public class HttpClientTest {
 				+ " <FromUserName><![CDATA[fromUser]]></FromUserName>";
 		content = content + "<CreateTime>1348831860</CreateTime>";
 		content = content + "<MsgType><![CDATA[text]]></MsgType>";
-		content = content + "<Content><![CDATA[你好]]></Content>";
+		content = content + "<Content><![CDATA[你不好]]></Content>";
 		content = content + "<MsgId>1234567890123456</MsgId>";
 		content = content + "</xml>";
 
@@ -75,8 +75,9 @@ public class HttpClientTest {
 		httppost.setEntity(myEntity);
 		HttpResponse response = httpclient.execute(httppost);
 		HttpEntity resEntity = response.getEntity();
+		
 		InputStreamReader reader = new InputStreamReader(
-				resEntity.getContent(), "ISO-8859-1");
+				resEntity.getContent(), "UTF-8");
 		char[] buff = new char[1024];
 		int length = 0;
 		while ((length = reader.read(buff)) != -1) {
