@@ -1,7 +1,5 @@
 package net.chat.controllers;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import net.chat.constants.PageConstants;
