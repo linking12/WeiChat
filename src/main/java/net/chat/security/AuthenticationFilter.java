@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.chat.domain.User;
 import net.chat.service.SecurityService;
-import net.chat.utils.AppContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationServiceException;

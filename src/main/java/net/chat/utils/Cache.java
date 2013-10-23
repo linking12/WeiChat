@@ -19,8 +19,6 @@ package net.chat.utils;
 
 import java.util.ArrayList;
 
-import java.util.ArrayList;
-
 import org.apache.commons.collections.MapIterator;
 import org.apache.commons.collections.map.LRUMap;
 
@@ -77,6 +75,7 @@ public class Cache<K, T> {
 
 	public T get(K key) {
 		synchronized (cacheMap) {
+			@SuppressWarnings("unchecked")
 			CachedObject c = (CachedObject) cacheMap.get(key);
 
 			if (c == null)

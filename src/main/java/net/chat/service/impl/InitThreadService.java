@@ -1,6 +1,5 @@
 package net.chat.service.impl;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -185,6 +184,7 @@ public class InitThreadService extends Thread {
 
 	}
 
+	@SuppressWarnings("deprecation")
 	public void destroy() {
 		openThreadFlag = false;
 		super.destroy();
