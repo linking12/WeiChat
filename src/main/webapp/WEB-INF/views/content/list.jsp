@@ -98,12 +98,12 @@
 															<table width="98%" border="0" align="center"
 																cellpadding="0" cellspacing="0">
 																<tr height="30" bgcolor="#d3d3d3">
-																	<td width="5%" class="biao">类型</td>
-																	<td width="15%" class="biao">标题</td>
+																	<td width="10%" class="biao">类型</td>
+																	<td width="20%" class="biao">标题</td>
 																	<td width="25%" class="biao">URL</td>
 																	<td width="25%" class="biao">高清URL</td>
-																	<td width="25%" class="biao">原文链接</td>
-																	<td width="5%" class="biao">操作</td>
+																
+																	<td width="10%" class="biao">操作</td>
 																</tr>
 																<c:forEach items="${contents.content}" var="content">
 																	<tr height="30">
@@ -140,12 +140,7 @@
 																					<c:otherwise>${content.hqmusicUrl}</c:otherwise>
 																				</c:choose>
 																		</a></td>
-																		<td><a title="${content.url}"
-																			style="text-decoration: none; color: blue"> <c:choose>
-																					<c:when test="${content.url.length()>20}">${content.url.substring(0,20)}...</c:when>
-																					<c:otherwise>${content.url}</c:otherwise>
-																				</c:choose>
-																		</a></td>
+																		
 																		<td><input type="button" value="修改"
 																			class="btn-primary" onclick="doedit(${content.id})"></td>
 																	</tr>

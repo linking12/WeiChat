@@ -30,14 +30,7 @@
 				flag=false;
 			}else {
 				$("#errorTitle").hide();
-			}
-			
-			if(""==$("#url").val()){
-				$("#errorUrl").show();
-				flag=false;
-			}else {
-				$("#errorUrl").hide();
-			}
+			}						
 			
 			if(""==$("#description").val()){
 				$("#errorDescription").show();
@@ -87,13 +80,7 @@
 					&nbsp;<span id="errorTitle" class="error" style="display:none;">标题不能为空!</span>
 				</td>
 			</tr>
-			<tr>
-				<td width="20%" height="40" class="biao">原文链接&nbsp;<font color="red">*</font></td>
-				<td>
-					<form:input path="url" style="width: 300px;" />
-					&nbsp;<span id="errorUrl" class="error" style="display:none">原文链接不能为空!</span>
-				</td>
-			</tr>
+			
 			<tr>
 				<td width="20%" height="40" class="biao">自动回复信息类型&nbsp;<font color="red">*</font></td>
 				<td><form:select path="msgType" id="msgType" items="${contentTypes}" itemValue="key" itemLabel="value" style="width: 300px;" onchange="changeMsgType()"/></td>

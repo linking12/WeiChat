@@ -25,13 +25,6 @@
 			$("#errorTitle").hide();
 		}
 		
-		if(""==$("#url").val()){
-			$("#errorUrl").show();
-			flag=false;
-		}else {
-			$("#errorUrl").hide();
-		}
-		
 		if(""==$("#description").val()){
 			$("#errorDescription").show();
 			flag=false;
@@ -143,19 +136,7 @@
 												<tr>
 													<td><div align="center"><img src="${images}/xian.jpg" width="800" height="1" /></div></td>
 												</tr>
-												<tr>
-													<td height="30">
-														<table width="98%" border="0" align="center"cellpadding="0" cellspacing="0">
-															<tr>
-																<td width="20%" height="40" class="biao">原文链接 <font color="red">*</font></td>
-																<td>
-																	<form:input path="url" style="width: 300px;" />
-																	&nbsp;<span id="errorUrl" class="error" style="display:none">原文链接不能为空!</span>
-																</td>
-															</tr>
-														</table>
-													</td>
-												</tr>
+												
 												<tr>
 													<td><div align="center"><img src="${images}/xian.jpg" width="800" height="1" /></div></td>
 												</tr>

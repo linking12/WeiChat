@@ -26,7 +26,7 @@ function buildtext(msg) {
 function buildMuli(data) {
 	var msgType = data.message.msgType;
 
-	var html = "<tr height='20' bgcolor='#d3d3d3' align='center'><td width='5%'>选择</td><td width='10%'>类型</td><td width='20%'>标题</td><td width='25%'>url</td><td>原文链接</td></tr>";
+	var html = "<tr height='20' bgcolor='#d3d3d3' align='center'><td width='5%'>选择</td><td width='10%'>类型</td><td width='20%'>标题</td><td width='25%'>url</td></tr>";
 	var contents = data.contents;
 	$
 			.each(
@@ -49,7 +49,6 @@ function buildMuli(data) {
 									+ "</td>";
 						}
 
-						html += "<td>" + buildTitle(content.url) + "</td>";
 						html += "</tr>";
 					});
 	return html;

@@ -147,12 +147,12 @@
 																				<table width="98%" border="0" align="center"
 																					cellpadding="0" cellspacing="0">
 																					<tr  height="30" bgcolor="#d3d3d3">
-																						<td width="5%" class="biao">选择</td>
-																						<td width="5%" class="biao">类型</td>
-																						<td width="15%" class="biao">标题</td>																						
+																						<td width="10%" class="biao">选择</td>
+																						<td width="10%" class="biao">类型</td>
+																						<td width="20%" class="biao">标题</td>																						
 																						<td width="25%" class="biao">URL</td>
 																						<td width="25%" class="biao">高清URL</td>
-																						<td width="25%" class="biao">原文链接</td>
+																						
 																					</tr>
 																					<c:forEach items="${wxContents}" var="content" varStatus="status">
 																					<tr  height="30" >
@@ -198,13 +198,7 @@
 																									<c:when test="${fn:length(content.hqmusicUrl) gt 20}">${fn:substring(content.hqmusicUrl, 0, 20)}...</c:when>
 																									<c:otherwise>${content.hqmusicUrl}</c:otherwise></c:choose>
 																									</a></td>
-																							<td >
-																							<a  title="${content.url}" style="text-decoration: none;color:blue">
-																									<c:choose>
-																									<c:when test="${fn:length(content.url) gt 20}">${fn:substring(content.url, 0, 20)}...</c:when>
-																									<c:otherwise>${content.url}</c:otherwise></c:choose>
-																									</a>
-																							</td>
+																							
 
 																						</tr>
 																						<tr><td colspan="6"><div align="center"><img src="${images}/xian.jpg" width="800" height="1" /></div></td></tr>

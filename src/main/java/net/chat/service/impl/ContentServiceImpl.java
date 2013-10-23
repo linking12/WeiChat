@@ -13,6 +13,7 @@ import javax.persistence.criteria.Root;
 import net.chat.dao.WxContentDao;
 import net.chat.domain.WxContent;
 import net.chat.service.ContentService;
+import net.chat.utils.AppContext;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -61,6 +63,7 @@ public class ContentServiceImpl implements ContentService {
 	 * @see net.chat.service.ContentService#findByMessageId(java.lang.Long)
 	 */
 	public List<WxContent> findByMessageId(final Long messageId) {
+
 		Specification<WxContent> spec = new Specification<WxContent>() {
 			public Predicate toPredicate(Root<WxContent> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 				return cb.equal(root.<Long> get("messageId"), messageId);
@@ -83,7 +86,7 @@ public class ContentServiceImpl implements ContentService {
 	}
 
 	public List<WxContent> findAllMultimedia(String msgType) {
-		return dao.listAllMultimediaContent(msgType);
+		return dao.listAllMultimediaContent(msgType,AppContext.getUserId());
 	}
 
 	public Iterable<WxContent> findByContentIds(List<Long> contentIds) {
@@ -101,22 +104,19 @@ public class ContentServiceImpl implements ContentService {
 
 	public List<WxContent> findAllBaseMultimedia(String msgType) {
 		if (StringUtils.isEmpty(msgType))
-			return dao.listAllMultimediaContent();
+			return dao.listAllMultimediaContent(AppContext.getUserId());
 		else
-			return dao.listAllMultimediaContent(msgType);
+			return dao.listAllMultimediaContent(msgType,AppContext.getUserId());
 	}
 
 	public Page<WxContent> findAllBaseMultimedia(final String msgType, int pageNo) {
-		Pageable pageable = new PageRequest(pageNo - 1, 5, new Sort(new Order("id")));
+		
+		
+		Pageable pageable = new PageRequest(pageNo - 1, 5, new Sort(new Order(Direction.DESC,"id")));
 		if (StringUtils.isEmpty(msgType)) {
-			return dao.findAll(pageable);
+			return dao.findAllBaseMultimedia(AppContext.getUserId(), pageable);
 		} else {
-			Specification<WxContent> spec = new Specification<WxContent>() {
-				public Predicate toPredicate(Root<WxContent> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-					return cb.equal(root.<Long> get("msgType"), msgType);
-				}
-			};
-			return dao.findAll(spec, pageable);
+			return dao.findAllBaseMultimedia(msgType,AppContext.getUserId(), pageable);
 		}
 	}
 }
