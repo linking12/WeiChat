@@ -120,7 +120,7 @@ public class WeiChatRespImageBean {
 		@XmlJavaTypeAdapter(value = CDATAdapter.class)
 		public void setPicUrl(String picUrl) {
 
-			this.picUrl = "http://www.yidia.cn/WeiChat" + picUrl;
+			this.picUrl = "http://www.yidia.cn/WeiChat/" + picUrl;
 		}
 
 		public String getUrl() {
@@ -130,7 +130,7 @@ public class WeiChatRespImageBean {
 		@XmlElement(name = "Url")
 		@XmlJavaTypeAdapter(value = CDATAdapter.class)
 		public void setUrl(String url) {
-			this.url = "http://www.yidia.cn/WeiChat" + url;
+			this.url = "http://www.yidia.cn/WeiChat/" + url;
 		}
 
 	}

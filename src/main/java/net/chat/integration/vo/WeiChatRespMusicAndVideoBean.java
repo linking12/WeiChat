@@ -5,7 +5,6 @@ import java.io.File;
 import javax.xml.bind.JAXB;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlRootElement(name = "xml")
@@ -105,7 +104,7 @@ public class WeiChatRespMusicAndVideoBean {
 		@XmlElement(name = "MusicUrl")
 		@XmlJavaTypeAdapter(value = CDATAdapter.class)
 		public void setMusicUrl(String musicUrl) {
-			this.musicUrl = "http://www.yidia.cn/WeiChat" + musicUrl;
+			this.musicUrl = "http://www.yidia.cn/WeiChat/" + musicUrl;
 		}
 
 		public String gethQMusicUrl() {
@@ -115,7 +114,7 @@ public class WeiChatRespMusicAndVideoBean {
 		@XmlElement(name = "HQMusicUrl")
 		@XmlJavaTypeAdapter(value = CDATAdapter.class)
 		public void sethQMusicUrl(String hQMusicUrl) {
-			this.hQMusicUrl = "http://www.yidia.cn/WeiChat" + hQMusicUrl;
+			this.hQMusicUrl = "http://www.yidia.cn/WeiChat/" + hQMusicUrl;
 		}
 
 	}

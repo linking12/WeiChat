@@ -178,6 +178,7 @@ public class MessageController {
 			newContent.setBaseContentId(selectContent.getId());
 			newContent.setId(null);
 			newContent.setMessageId(message.getId());
+			newContent.setUrl("message/viewMsg/"+message.getId());
 			newContents.add(newContent);
 		}
 		contentService.deleteByMessageId(message.getId());

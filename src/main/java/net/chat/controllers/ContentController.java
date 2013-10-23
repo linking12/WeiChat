@@ -93,7 +93,7 @@ public class ContentController {
 		if ("image".equals(msgType)) {
 			String suffix = imageFile.getOriginalFilename().substring(
 					imageFile.getOriginalFilename().lastIndexOf("."));
-			String imageUrl = realpath + "/" + UUID.randomUUID() + suffix;
+			String imageUrl = realpath + File.separator + UUID.randomUUID() + suffix;
 			FileUtils.copyInputStreamToFile(imageFile.getInputStream(),
 					new File(imageUrl));
 			content.setPicUrl(StringUtils
@@ -101,7 +101,7 @@ public class ContentController {
 		} else if ("voice".equals(msgType)) {
 			String suffix = musicFile.getOriginalFilename().substring(
 					musicFile.getOriginalFilename().lastIndexOf("."));
-			String voiceUrl = realpath + "/" + UUID.randomUUID() + suffix;
+			String voiceUrl = realpath + File.separator + UUID.randomUUID() + suffix;
 			FileUtils.copyInputStreamToFile(musicFile.getInputStream(),
 					new File(voiceUrl));
 			content.setMusicUrl(StringUtils.replace(voiceUrl, contentRealPath,
@@ -109,7 +109,7 @@ public class ContentController {
 			if (null != hqMusicFile && !hqMusicFile.isEmpty()) {
 				String suffix1 = hqMusicFile.getOriginalFilename().substring(
 						hqMusicFile.getOriginalFilename().lastIndexOf("."));
-				String hqvoiceUrl = realpath + "/" + UUID.randomUUID()
+				String hqvoiceUrl = realpath + File.separator + UUID.randomUUID()
 						+ suffix1;
 				FileUtils.copyInputStreamToFile(hqMusicFile.getInputStream(),
 						new File(hqvoiceUrl));
@@ -119,7 +119,7 @@ public class ContentController {
 		} else if ("video".equals(msgType)) {
 			String suffix = videoFile.getOriginalFilename().substring(
 					videoFile.getOriginalFilename().lastIndexOf("."));
-			String videoUrl = realpath + "/" + UUID.randomUUID() + suffix;
+			String videoUrl = realpath + File.separator + UUID.randomUUID() + suffix;
 			FileUtils.copyInputStreamToFile(videoFile.getInputStream(),
 					new File(videoUrl));
 			content.setMusicUrl(StringUtils.replace(videoUrl, contentRealPath,
@@ -127,7 +127,7 @@ public class ContentController {
 			if (null != hqVideoFile && !hqVideoFile.isEmpty()) {
 				String suffix1 = hqVideoFile.getOriginalFilename().substring(
 						hqVideoFile.getOriginalFilename().lastIndexOf("."));
-				String hqvideoUrl = realpath + "/" + UUID.randomUUID()
+				String hqvideoUrl = realpath + File.separator + UUID.randomUUID()
 						+ suffix1;
 				FileUtils.copyInputStreamToFile(hqVideoFile.getInputStream(),
 						new File(hqvideoUrl));
