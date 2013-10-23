@@ -47,6 +47,11 @@ public final class PageConstants {
 	 * 信息内容管理-列表
 	 */
 	public static final String PAGE_MESSAGE_LIST = "msg/messageList";
+	
+	/**
+	 * 信息内容管理-查看页面
+	 */
+	public static final String PAGE_MESSAGE_VIEW = "msg/view";
 
 	/**
 	 * 信息内容管理--文本

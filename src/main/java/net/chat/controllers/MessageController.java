@@ -205,4 +205,16 @@ public class MessageController {
 		}
 		return new MessageForm(message,null,null);
 	}
+	
+	@RequestMapping("/viewMsg/{id}")
+	public String viewMsg(@PathVariable("id") Long id,Model model) {
+		WxMessage message=messageService.findyMessageByMessageId(id);
+		if(!"text".equals(message.getMsgType())){	
+			List<WxContent> contents = contentService.findByMessageId(id);
+			model.addAttribute("contents", contents);
+		}
+		model.addAttribute("message", message);
+		model.addAttribute("msgType", message.getMsgType());
+		return PageConstants.PAGE_MESSAGE_VIEW;
+	}
 }

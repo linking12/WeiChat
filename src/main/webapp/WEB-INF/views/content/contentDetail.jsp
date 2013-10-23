@@ -9,6 +9,7 @@
 				url : '${ctx}/content/saveContent',
 				type : "POST",
 				success : function(data, statusText, xhr, $form) {
+					
 					parent.location.href = "${ctx}/message/addMultimedia/"+data;
 					$(window.parent.document).find(".winbj").remove();
 					$(window.parent.document).find(".tanChu").remove();

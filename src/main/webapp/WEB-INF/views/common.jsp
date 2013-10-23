@@ -25,8 +25,8 @@ $(function(){
 		})
 	})
 
-$(document).ready(function(){ 
-    var menuYloc = $(".nav_bar").offset().top; 
+$(document).ready(function(){
+     
     $(window).scroll(function (){ 
         var offsetTop =205 + $(window).scrollTop(); 
 		if(offsetTop > 405){
