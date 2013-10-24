@@ -1,173 +1,173 @@
 body{
-	font: 12px/1.5 tahoma,arial;
-	background:url(../images/bei.jpg);
+        font: 12px/1.5 tahoma,arial;
+        background:url(../images/bei.jpg);
 }
 body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td{
-	margin: 0;
-	padding: 0;
+        margin: 0;
+        padding: 0;
 }
 em,i{
-	font-style:normal;
+        font-style:normal;
 }
 .b_con{
-	min-width:1100px;
+        min-width:1100px;
 }
 .lodo_div{
-	float:right;
-	width:420px;
-	height:262px;
-	background:url(../images/logo.png) 0 0 no-repeat;
-	margin:200px 30px 0 0;
+        float:right;
+        width:420px;
+        height:262px;
+        background:url(../images/logo.png) 0 0 no-repeat;
+        margin:200px 30px 0 0;
 }
 .reg_box{
-	float:right;
-	width:610px;
-	height:500px;
-	background:url(../images/longin_bg.png) 0 0 no-repeat;
-	margin:100px 0 0 0;
+        float:right;
+        width:610px;
+        height:500px;
+        background:url(../images/longin_bg.png) 0 0 no-repeat;
+        margin:100px 0 0 0;
 }
 .reg_box h2{
-	display:block;
-	padding:32px 0 0 45px;
-	font-size:24px;
-	font-family:Microsoft yahei;
-	color:#FFF;
-	letter-spacing:3px;
+        display:block;
+        padding:32px 0 0 45px;
+        font-size:24px;
+        font-family:Microsoft yahei;
+        color:#FFF;
+        letter-spacing:3px;
 }
 .input_box{
-	padding:40px 30px 20px 50px ;
+        padding:40px 30px 20px 50px ;
 }
 .input_box dl{
-	display:block;
-	padding:0 0 10px 0;
-	overflow:hidden;
+        display:block;
+        padding:0 0 10px 0;
+        overflow:hidden;
 }
 .input_box dl dt{
-	float:left;
-	width:120px;
-	color:#67b0d1;
-	font-size:20px;
-	font-family:Microsoft yahei;
-	line-height:40px;
+        float:left;
+        width:120px;
+        color:#67b0d1;
+        font-size:20px;
+        font-family:Microsoft yahei;
+        line-height:40px;
 }
 .input_box dl dd{
-	float:left;
-	display:block;
-	
+        float:left;
+        display:block;
+        
 }
 .input_box dl dd input{
-	width:380px;
-	height:40px;
-	border:1px solid #67b0d1;
-	font-size:16px;
-	padding:0 5px;
+        width:380px;
+        height:40px;
+        border:1px solid #67b0d1;
+        font-size:16px;
+        padding:0 5px;
 }
 .longinnow{
-	margin:20px 0 0 50px;
-	line-height:40px;
-	font-size:20px;
-	font-family:Microsoft yahei;
-	color:#67b0d1;
-	overflow:hidden;
+        margin:20px 0 0 50px;
+        line-height:40px;
+        font-size:20px;
+        font-family:Microsoft yahei;
+        color:#67b0d1;
+        overflow:hidden;
 }
 .longinnow span{
-	display:block;
-	float:left;
-	padding:48px 165px 0 0;
+        display:block;
+        float:left;
+        padding:48px 165px 0 0;
 }
 .longinnow em{
-	color:#e87352;
+        color:#e87352;
 }
 .reg_bt{
-	float:left;
-	width:160px;
-	height:80px;
-	line-height:80px;
-	color:#fff;
-	border:0;
-	font-size:40px;
-	background-color:#eac85d;
-	font-family:Microsoft yahei;
-	cursor:pointer;
+        float:left;
+        width:160px;
+        height:80px;
+        line-height:80px;
+        color:#fff;
+        border:0;
+        font-size:40px;
+        background-color:#eac85d;
+        font-family:Microsoft yahei;
+        cursor:pointer;
 }
 .longin_box{
-	float:right;
-	width:610px;
-	height:500px;
-	background:url(../images/reg_bg.png) 0 0 no-repeat;
-	margin:100px 0 0 0;
+        float:right;
+        width:610px;
+        height:500px;
+        background:url(../images/reg_bg.png) 0 0 no-repeat;
+        margin:100px 0 0 0;
 }
 .longin_box h2{
-	display:block;
-	padding:32px 0 0 50px;
-	font-size:24px;
-	font-family:Microsoft yahei;
-	color:#FFF;
-	letter-spacing:3px;
+        display:block;
+        padding:32px 0 0 50px;
+        font-size:24px;
+        font-family:Microsoft yahei;
+        color:#FFF;
+        letter-spacing:3px;
 }
 .log_input_box{
-	padding:40px 25px 20px 55px ;
+        padding:40px 25px 20px 55px ;
 }
 .log_input_box dl{
-	display:block;
-	padding:0 0 20px 0;
-	overflow:hidden;
+        display:block;
+        padding:0 0 20px 0;
+        overflow:hidden;
 }
 .log_input_box dl dt{
-	float:left;
-	width:80px;
-	color:#67b0d1;
-	font-size:20px;
-	font-family:Microsoft yahei;
-	line-height:40px;
+        float:left;
+        width:80px;
+        color:#67b0d1;
+        font-size:20px;
+        font-family:Microsoft yahei;
+        line-height:40px;
 }
 .log_input_box dl dd{
-	float:left;
-	display:block;
-	
+        float:left;
+        display:block;
+        
 }
 .log_input_box dl dd em{
-	color:#fff;
-	display:block;
-	font-size:20px;
-	font-family:Microsoft yahei;
-	line-height:34px;
+        color:#fff;
+        display:block;
+        font-size:20px;
+        font-family:Microsoft yahei;
+        line-height:34px;
 }
 .log_input_box dl dt span{
-	width:23px;
-	height:23px;
-	display:block;
-	margin:5px 0 0 18px;
-	background-color:#FFF;
+        width:23px;
+        height:23px;
+        display:block;
+        margin:5px 0 0 18px;
+        background-color:#FFF;
 }
 .log_input_box dl dd input{
-	width:380px;
-	height:55px;
-	border:1px solid #67b0d1;
-	font-size:22px;
-	padding:0 5px;
-	color:#404040;
+        width:380px;
+        height:55px;
+        border:1px solid #67b0d1;
+        font-size:22px;
+        padding:0 5px;
+        color:#404040;
 }
 .cc_check{
-	background:url(../images/check.png) 0 0 no-repeat;
+        background:url(../images/check.png) 0 0 no-repeat;
 }
 .log_btbox{
-	padding:0 0 0 15px;
+        padding:0 0 0 15px;
 }
 .reg_btn,.log_bt{
-	width:220px;
-	height:80px;
-	background-color:#eac85d;
-	text-align:center;
-	color:#fff;
-	font-family:Microsoft yahei;
-	font-size:40px;
-	border:0;
-	letter-spacing:4px;
-	cursor:pointer;
+        width:220px;
+        height:80px;
+        background-color:#eac85d;
+        text-align:center;
+        color:#fff;
+        font-family:Microsoft yahei;
+        font-size:40px;
+        border:0;
+        letter-spacing:4px;
+        cursor:pointer;
 }
 .log_bt{
-	width:160px;
-	background-color:#e87352;
-	margin:0 0 0 20px;
+        width:160px;
+        background-color:#e87352;
+        margin:0 0 0 20px;
 }
