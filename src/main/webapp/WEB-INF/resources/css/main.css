@@ -109,6 +109,7 @@ em,i{
         padding:40px 25px 20px 55px ;
 }
 .log_input_box dl{
+		width:100%;
         display:block;
         padding:0 0 20px 0;
         overflow:hidden;
