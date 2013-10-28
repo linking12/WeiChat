@@ -151,3 +151,6 @@ CREATE TABLE `wx_product_sub_category` (
   `createdate` date NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='子类别表';
+
+ALTER TABLE `weixin`.`wx_product_category` 
+ADD COLUMN `style` VARCHAR(45) NULL AFTER `description`;

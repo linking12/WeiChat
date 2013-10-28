@@ -27,13 +27,13 @@ public class WxMall implements Serializable {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue
-	private Long id;
+	private long id;
 
 	/**
 	 * 账户ID，关联account表
 	 */
 	@Column(name = "accountid")
-	private Long accountId;
+	private long accountId;
 
 	/**
 	 * 商城名称
@@ -69,7 +69,7 @@ public class WxMall implements Serializable {
 	/**
 	 * @return the id
 	 */
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -77,14 +77,14 @@ public class WxMall implements Serializable {
 	 * @param id
 	 *            the id to set
 	 */
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
 	/**
 	 * @return the accountId
 	 */
-	public Long getAccountId() {
+	public long getAccountId() {
 		return accountId;
 	}
 
@@ -92,7 +92,7 @@ public class WxMall implements Serializable {
 	 * @param accountId
 	 *            the accountId to set
 	 */
-	public void setAccountId(Long accountId) {
+	public void setAccountId(long accountId) {
 		this.accountId = accountId;
 	}
 

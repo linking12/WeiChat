@@ -48,8 +48,13 @@ public class WxProductPic implements Serializable {
 	 * 商品id
 	 */
 	@Column(name = "productid")
-	private String productId;
+	private long productId;
 
+	/**
+	 * 图片标志。0-默认显示 1-其他
+	 */
+	@Column(name = "flag")
+	private String flag;
 	/**
 	 * 创建时间
 	 */
@@ -104,7 +109,7 @@ public class WxProductPic implements Serializable {
 	/**
 	 * @return the productId
 	 */
-	public String getProductId() {
+	public long getProductId() {
 		return productId;
 	}
 
@@ -112,7 +117,7 @@ public class WxProductPic implements Serializable {
 	 * @param productId
 	 *            the productId to set
 	 */
-	public void setProductId(String productId) {
+	public void setProductId(long productId) {
 		this.productId = productId;
 	}
 
@@ -131,4 +136,19 @@ public class WxProductPic implements Serializable {
 		this.createDate = createDate;
 	}
 
+	/**
+	 * @return the flag
+	 */
+	public String getFlag() {
+		return flag;
+	}
+
+	/**
+	 * @param flag the flag to set
+	 */
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
+
+	
 }

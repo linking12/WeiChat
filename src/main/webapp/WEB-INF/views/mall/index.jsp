@@ -11,12 +11,11 @@
 <div data-role="page" id="page2">
  <%@ include file="mallmenu.jsp"%>
     <div data-role="content">
-		<div class="index_banner"><img src="${img }/main/index_banner.jpg"></div>
+		<div class="index_banner"><img src="${img }/${wxMall.picUrl}"></div>
         <div class="i_link">
-        	<a href="${ctx }/mall/all">全部商品</a>
-            <a href="${ctx }/mall/huodong" style="margin:0;">活动专区</a>
-            <a href="${ctx }/mall/newup">最新上架</a>
-            <a href="${ctx }/mall/chaoliu" style="margin:0;">潮流趋势</a>
+        <c:forEach items="${categoryList }" var="category" varStatus="status">
+	     	<a href="${ctx }/mall/subcategory/${category.id }" class="ui-link" <c:if test="${status.index%2!=0 }">style="margin:0;"</c:if>>${category.categoryName }</a>
+        </c:forEach>
         </div>      
     </div>
      <%@ include file="mallbottom.jsp"%>

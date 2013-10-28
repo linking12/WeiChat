@@ -138,6 +138,25 @@ public final class PageConstants {
 	
 	
 	/**
+	 * 商城首页
+	 */
+	public static final String PAGE_MALL_INDEX = "mall/index";
+	
+	/**
+	 * 商品类别页面
+	 */
+	public static final String PAGE_MALL_CATEGORY = "mall/category";
+	
+	/**
+	 * 商品列表页面
+	 */
+	public static final String PAGE_MALL_LIST = "mall/list";
+	
+	/**
+	 * 商品详细页面
+	 */
+	public static final String PAGE_MALL_DETAIL = "mall/detail";
+	/**
 	 * 
 	 * 智能客服-匹配类型
 	 */

@@ -49,7 +49,16 @@ public class WxProductCategory implements Serializable {
 	 */
 	@Column(name = "description")
 	private String description;
-
+	
+	/**
+	 * 样式
+	 * 1：5：5
+	 * 2: 6：4
+	 * 3: 上图下字
+	 */
+	@Column(name = "style")
+	private String style;
+	
 	/**
 	 * 创建时间
 	 */
@@ -129,6 +138,20 @@ public class WxProductCategory implements Serializable {
 	 */
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+
+	/**
+	 * @return the style
+	 */
+	public String getStyle() {
+		return style;
+	}
+
+	/**
+	 * @param style the style to set
+	 */
+	public void setStyle(String style) {
+		this.style = style;
 	}
 
 }
