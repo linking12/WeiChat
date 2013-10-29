@@ -1,0 +1,412 @@
+img{
+	padding:0;
+	margin:0;
+}
+em,i{
+	font-style:normal;
+}
+.b_con{
+	padding:0;
+}
+.tn_bar{
+	height:3em;
+	background:#398f38;
+}
+.topnav_bg{
+	background:#ff0000;
+}
+.topnav_bg .ui-block-a,.topnav_bg .ui-block-b,.topnav_bg .ui-block-c,.topnav_bg .ui-block-d{
+	border-right:1px solid #9e0101;
+	text-align:center;
+}
+.topnav_bg .ui-btn-up-a{
+	background:#398f38;
+	border:0;
+}
+.topnav_bg .ui-btn-hover-a{
+	background:#398f38;
+	border:0;
+	display:block;
+}
+.topnav_bg .ui-btn-inner{
+	border:0;
+}
+.topnav_bg a.back,.topnav_bg a.home,.topnav_bg a.cart,.topnav_bg a.w_logo{
+	width:100%;
+	height:60px;
+	background:url(../mimg/main/top_ico.png) center 10px no-repeat;
+	
+}
+.topnav_bg a.home{
+	background:url(../mimg/main/top_ico.png) center -68px no-repeat;
+}
+.topnav_bg a.cart{
+	background:url(../mimg/main/top_ico.png) center -148px no-repeat;
+}
+.topnav_bg a.w_logo{
+	background:url(../mimg/main/top_ico.png) center -239px no-repeat;
+}
+.index_banner{
+	width:100%;
+	overflow:hidden;
+}
+.index_banner img{
+	width:100%;
+}
+.i_link{
+	width:100%;
+	overflow:hidden;
+}
+.i_link a{
+	display:block;
+	float:left;
+	background-color:#F00;
+	width:49%;
+	height:60px;
+	line-height:60px;
+	text-align:center;
+	margin:0 2% 15px 0;
+}
+.ui-body-c .i_link a.ui-link{
+	color:#FFF;
+	text-decoration:none;
+	text-shadow:none;
+}
+.ui-body-c .i_link a.ui-link:hover{
+	color:#FFF;
+}
+.ban_txt{
+	padding:15px;
+	font-size:24px;
+	color:#000;
+	position:relative;
+	background-color:#e7e9e8;
+	height:36px;
+}
+.ban_txt em{
+	font-size:18px;
+}
+.ban_txt .sanjiao{
+	width:36px;
+	height:14px;
+	position:absolute;
+	top:-14px;
+	left:30px;
+	background:url(../mimg/main/sanjiao.png) 0 0 no-repeat;
+}
+.ban_name{
+	line-height:36px;
+	float:left;
+	text-overflow:ellipsis;
+	overflow:hidden;
+	white-space:nowrap;
+}
+.ar_right{
+	width:36px;
+	height:36px;
+	background:url(../mimg/main/arr_right.png) 0 0 no-repeat;
+	float:right;
+}
+.sp_list{
+	width:100%;
+	overflow:hidden;
+	background-color:#FFF;
+	margin:.5em 0 0 0;
+	padding:1em 0 0 0;
+}
+.sp_list a{
+	float:left;
+	display:block;
+	width:30%;
+	padding:0 0 0 2.5%;
+	text-decoration:none;
+}
+.sp_list a img{
+	width:100%;
+}
+.sp_list a em{
+	display:block;
+	color:#2d2d2d;
+	font-weight:bold;
+	line-height:36px;
+	padding:5px 0 0 0;
+}
+.sp_list a i{
+	display:block;
+	color:#a30000;
+	font-weight:bold;
+	margin:1em 0 0 0;
+}
+.hd_line{
+	width:100%;
+	min-width:320px;
+	overflow:hidden;
+	border-bottom:4px solid #F00;
+	position:relative;
+}
+.hd_line img{
+	width:100%;
+	vertical-align:top;
+}
+.hd_line .ban_left,.hd_line .ban_right{
+	width:25%;
+	float:left;
+}
+.hd_line .ban_cen{
+	width:50%;
+	overflow:hidden;
+	float:left;
+}
+.hd_line .ban_right{
+	font-size:30px;
+	text-align:center;
+	line-height:220px;
+}
+.arrow_left,.arrow_left1,.arrow_left2{
+	width:13px;
+	height:35px;
+	background:url(../mimg/main/arrow_left.png) 0 0 no-repeat;
+	position:absolute;
+	top:48%;
+	right:25%;
+	z-index:10000;
+}
+.arrow_left1{
+	background:url(../mimg/main/arrow_left1.png) 0 0 no-repeat;
+}
+.arrow_left2{
+	background:url(../mimg/main/arrow_left2.png) 0 0 no-repeat;
+}
+.hd_line .ban1{
+	width:25%;
+	float:left;
+}
+.all_line{
+	width:100%;
+	overflow:hidden;
+}
+.all_line img{
+	float:left;
+	width:50%;
+}
+.jeishao{
+	float:left;
+	width:50%;
+	overflow:hidden;
+}
+.jeishao span{
+	display:block;
+	background-color:#adc2d5;
+	padding:10px;
+	line-height:30px;
+	font-size:28px;
+	color:#fff;
+}
+.jeishao span.l1{
+	text-align:left;
+}
+.jeishao span.l2{
+	text-align:right;
+	background-color:#9d5c53;
+}
+.jeishao span.l3{
+	text-align:left;
+	background-color:#fff;
+	color:#000;
+}
+.jeishao p{
+	padding:15px;
+	font-size:16px;
+	font-weight:bold;
+}
+.jeishao p.big{
+	font-size:40px;
+	color:#FFF;
+}
+.jeishao p.t_tight{
+	text-align:right;
+}
+.jeishao em{
+	margin:0 15px;
+	padding:0 5px;
+	color:#FFF;
+	background-color:#F00;
+}
+.jeishao em.t_tight,.jeishao i.t_tight{
+	float:right;
+}
+.jeishao i{
+	font-size:30px;
+	color:#F00;
+	margin:0 15px;
+	font-weight:bold;
+}
+.jeishao i.white{
+	color:#fff;
+}
+.all_bg{
+	background:#c5c5c5;
+}
+.all_bg1{
+	background:#ff6666;
+}
+.newup_img{
+	float:left;
+	width:75%;
+}
+.newup_line{
+	width:100%;
+	min-width:320px;
+	overflow:hidden;
+	border-bottom:4px solid #e7e9e8;
+	position:relative;
+}
+.new_color{
+	background-color:#8e8e8e;
+}
+.new_color1{
+	background-color:#ff6666;
+}
+.newup_line img{
+	width:100%;
+}
+.newup_line .ban_right{
+	width:25%;
+	float:left;
+	font-size:30px;
+	text-align:center;
+	line-height:220px;
+}
+.txt_color{
+	color:#fff;
+}
+
+#fot{
+	border:0;
+}
+.bot{
+	width:80%;
+	padding:1em 10%;
+	overflow:hidden;
+	border-top:1px solid #cacaca;
+}
+.bot a{
+	display:block;
+	float:left;
+	width:33%;
+	text-align:center;
+	border-right:1px solid #4c4c4c;
+	text-decoration:none;
+}
+.ui-body-c .bot a.ui-link{
+	color:#4c4c4c;
+}
+
+<!--订单详情-->
+.dt_banner{
+	width:100%;
+	padding:1em 0 0 0;
+	background-color:#FFF;
+}
+.dt_banner img{
+	display:block;
+	width:90%;
+	margin:0 auto;
+}
+.dt_txt{
+	padding:1em;
+	line-height:1.8em;
+	overflow:hidden;
+	font-size:1.2em;
+	color:#4c4c4c;
+	border-bottom:1px solid #fff;
+}
+.dt_txt em{
+	color:#a30000;
+	font-size:1.2em;
+	padding:0 1em 0 0;
+}
+.dt_txt i{
+	color:#777;
+}
+.add{
+	padding:1em;
+	border-top:1px solid #cacaca;
+	overflow:hidden;
+	border-bottom:1px solid #fff;
+}
+.add .sl_div{
+	float:left;
+	line-height:3em;
+	line-height:60px;
+	font-size:1.4em;
+	padding:0 .2em 0 0;
+}
+.add .sl_minus,.add .sl_add{
+	float:left;
+	width:50px;
+	height:48px;
+}
+.add .txt_box{
+	float:left;
+	margin:0 5px;
+	width:80px;
+	height:48px;
+	background:#fff;
+}
+.add .txt_box input{
+	width:80px;
+	height:46px;
+	line-height:46px;
+	border:0;
+	font-size:1.8em;
+	text-align:center;
+}
+.add .sl_add{
+	float:left;
+	background:url(../mimg/main/sl_add.png) 0 0 no-repeat;
+}
+.add .sl_minus img,.add .sl_add img{
+	width:50px;
+	height:48px;
+}
+.bt_box{
+	margin:0 auto;
+	padding:1em;
+	border-top:1px solid #cacaca;
+	overflow:hidden;
+	border-bottom:1px solid #fff;
+}
+.add_bt{
+	width:45%;
+	float:left;
+	background:#fdbe02;
+	color:#fff;
+}
+.buy_bt{
+	width:45%;
+	margin:.5em 0;
+	float:right;
+	background:#cd0000;
+	color:#fff;
+}
+.c_white{
+	background:#fff;
+	color:#777;
+}
+.sm_tx{
+	padding:2em;
+	line-height:1.6em;
+	color:#777;
+	background-color:#FFF;
+	border-top:1px solid #cacaca;
+}
+.sm_tx em{
+	color:#4c4c4c;
+	font-weight:bold;
+}
+.arrow{
+	width:80px;
+	height:46px;
+	margin:0 auto;
+}
