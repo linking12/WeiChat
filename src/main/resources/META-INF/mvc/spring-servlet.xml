@@ -18,7 +18,7 @@
 		<property name="order" value="0" />
 		<property name="cache" value="true" />
 		<property name="suffix" value=".ftl" />
-		<property name="viewClass" value="com.myview.MyFreeMarkerView" />
+		<property name="viewClass" value="net.chat.view.WeiChatFreeMarkerView" />
 		<property name="contentType" value="text/html;charset=UTF-8"></property>
 		<property name="requestContextAttribute" value="request" />
 		<property name="exposeSpringMacroHelpers" value="true" />
