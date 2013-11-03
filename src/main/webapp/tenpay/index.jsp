@@ -1,8 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=GBK"
-    pageEncoding="GBK"%>
-
+<%@ page language="java" contentType="text/html; charset=GBK" pageEncoding="GBK"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ page import="org.springframework.security.web.WebAttributes"%>
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
+<c:set var="js" value="${ctx}/js" />
+<c:set var="css" value="${ctx}/css" />
+<c:set var="images" value="${ctx}/images" />
 <%@ page import="net.chat.tenpay.util.TenpayUtil" %>
-<%@ include file = "config.jsp" %>    
+<%@ include file = "config.jsp" %>
 
 <%
 //当前时间 yyyyMMddHHmmss
@@ -60,7 +66,7 @@ a:hover {
 <div align="center">
   <table width="760" border="0" align="center" cellpadding="0" cellspacing="0">
     <tr>
-      <td width="381" align="left" valign="middle"><a href="https://www.tenpay.com/" target="_blank"><img src="image/logo.jpg" width="537" height="145" border="0"></a></td>
+      <td width="381" align="left" valign="middle"><a href="https://www.tenpay.com/" target="_blank"><img src="${images}/logo.jpg" width="537" height="145" border="0"></a></td>
       <td width="379" align="right" valign="middle"><font style="color:#000000;font-size:12px;">您好，请 <A 
       href="https://www.tenpay.com/" target="_blank">注册</A> 或 <A 
       href="https://www.tenpay.com/" target="_blank">登录</A> | <A 
@@ -81,7 +87,7 @@ a:hover {
         </tr>
       </table>
           <table width="760" height="42" border="0" align="center" cellpadding="0" cellspacing="0">
-               <tr> <td height="30" ><span class="STYLE2"><img src="image/arrow_02_01.gif"> 填写订单信息</span></td>
+               <tr> <td height="30" ><span class="STYLE2"><img src="${images}/arrow_02_01.gif"> 填写订单信息</span></td>
             </tr>
         </table>
         <table width="760" border="0" cellspacing="0" cellpadding="0" align="center" height="1">
@@ -141,7 +147,7 @@ a:hover {
                           <td valign="top"> 　 </td>
                           <td width="269" rowspan="8" valign="top"><table width="100%" border="0" align="left" cellpadding="0" cellspacing="5">
                             <tr>
-                              <td height="10" align="center" valign="middle"><img src="image/cft.gif" width="180" height="81"></td>
+                              <td height="10" align="center" valign="middle"><img src="${images}/cft.gif" width="180" height="81"></td>
                               </tr>
                             <tr>
                               <td height="24"><font style="color:#000000;font-size:12px;"><B>说明1：</B></font></td>
@@ -195,7 +201,7 @@ a:hover {
                       <tr>
                         <td align="right" valign="top">&nbsp;</td>
                         <td valign="top"><b>
-                          <input name="submit" type="image" src="image/next.gif" alt="使用财付通安全支付" width="103" height="27">
+                          <input name="submit" type="image" src="${images}/next.gif" alt="使用财付通安全支付" width="103" height="27">
                         </b></td>
                         <td valign="top">&nbsp;</td>
                       </tr>
@@ -218,25 +224,25 @@ a:hover {
       class=note-help>支持<FONT class=note-help>银行 </FONT></FONT></TD>
     <TD width="14" rowSpan=2></TD>
     <TD width="120"><IMG alt=中国工商银行 
-      src="image/icon_zggsyh_s.gif" border=0> </TD>
-    <TD width="142"><IMG alt=中国建设银行 src="image/icon_ccb_s.gif" border=0> </TD>
-    <TD width="108"><IMG alt=上海浦东发展银行 src="image/icon_spdb_s.gif" 
+      src="${images}/icon_zggsyh_s.gif" border=0> </TD>
+    <TD width="142"><IMG alt=中国建设银行 src="${images}/icon_ccb_s.gif" border=0> </TD>
+    <TD width="108"><IMG alt=上海浦东发展银行 src="${images}/icon_spdb_s.gif" 
       border=0> </TD>
-    <TD width="142"><IMG alt=招商银行 src="image/icon_zsyh_s.gif" border=0>    </TD>
-    <TD width="141"><IMG alt=中国民生银行 src="image/icon_cmbc_s.gif" 
+    <TD width="142"><IMG alt=招商银行 src="${images}/icon_zsyh_s.gif" border=0>    </TD>
+    <TD width="141"><IMG alt=中国民生银行 src="${images}/icon_cmbc_s.gif" 
       border=0></TD>
   </TR>
   <TR>
     <TD>
       <DIV align=left><IMG alt=中国农业银行 
-      src="image/icon_abc_s.gif" border=0> </DIV></TD>
-    <TD><IMG alt=广东发展银行 src="image/icon_gdb_s.gif" border=0> </TD>
-    <TD><IMG alt=兴业银行 src="image/index_38.gif" 
+      src="${images}/icon_abc_s.gif" border=0> </DIV></TD>
+    <TD><IMG alt=广东发展银行 src="${images}/icon_gdb_s.gif" border=0> </TD>
+    <TD><IMG alt=兴业银行 src="${images}/index_38.gif" 
       border=0> </TD>
     <TD>
       <DIV align=left><IMG alt=深圳发展银行 
-      src="image/icon_sdb_s.gif" border=0> </DIV></TD>
-  <TD><IMG alt=VISA src="image/icon_visa_s.gif" border=0> </TD>
+      src="${images}/icon_sdb_s.gif" border=0> </DIV></TD>
+  <TD><IMG alt=VISA src="${images}/icon_visa_s.gif" border=0> </TD>
   </TR></TBODY></TABLE></div><HR width=760 SIZE=1>
 
 <TABLE width=760 border=0 align="center" cellSpacing=1 class="px12hui">
@@ -253,7 +259,7 @@ a:hover {
       target=_blank>腾讯旗下公司</A> | 财付通 版权所有 2008 </div></TD></TR>
   <TR align="center">
     <TD class="txt12 lh15"><div align="center"><IMG alt="财付通通过“国际权威安全认证” " 
-      src="image/logo_vbvv.gif" border=0><BR>
+      src="${images}/logo_vbvv.gif" border=0><BR>
       财付通通过“国际权威安全 
       认证”</div></TD></TR></TBODY></TABLE></body>
 </html>
