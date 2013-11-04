@@ -5,9 +5,10 @@
 <c:set var="js" value="${ctx}/js"/>
 <c:set var="css" value="${ctx}/css"/>
 <c:set var="img" value="${ctx}/mimg"/>
-<link href="${css }/mallmain.css" rel="stylesheet" type="text/css" />
 <link href="${css }/jquery.mobile-1.3.2.min.css" rel="stylesheet" type="text/css" />
+<link href="${css }/mallmain.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="${js}/jquery/jquery-1.9.1.js"></script>
 <script type="text/javascript" src="${js}/jquery/jquery.mobile-1.3.2.min.js"></script>
+<script type="text/javascript" src="${js}/mall.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />

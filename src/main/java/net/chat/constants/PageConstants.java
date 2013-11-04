@@ -156,6 +156,11 @@ public final class PageConstants {
 	 * 商品详细页面
 	 */
 	public static final String PAGE_MALL_DETAIL = "mall/detail";
+	
+	/**
+	 * 购物车
+	 */
+	public static final String PAGE_MALL_CART = "mall/cart";
 	/**
 	 * 
 	 * 智能客服-匹配类型

@@ -16,7 +16,7 @@ import javax.persistence.Table;
  * 
  */
 @Entity
-@Table(name = "wx_product_price")
+@Table(name = "wx_mall_cart")
 public class WxMallCart implements Serializable {
 
 	/**
@@ -30,30 +30,30 @@ public class WxMallCart implements Serializable {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue
-	private Long id;
+	private long id;
 
 	/**
 	 * 商品id
 	 */
 	@Column(name = "productid")
-	private Long productId;
+	private long productId;
 
 	/**
 	 * 件数
 	 */
 	@Column(name = "count")
-	private Long count;
+	private long count;
 	/**
 	 * 商场用户id
 	 */
 	@Column(name = "malluserid")
-	private Long mallUserId;
+	private long mallUserId;
 
 	/**
 	 * mall id
 	 */
 	@Column(name = "mallid")
-	private Long mallId;
+	private long mallId;
 
 	/**
 	 * 创建时间
@@ -64,7 +64,7 @@ public class WxMallCart implements Serializable {
 	/**
 	 * @return the id
 	 */
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -72,14 +72,14 @@ public class WxMallCart implements Serializable {
 	 * @param id
 	 *            the id to set
 	 */
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
 	/**
 	 * @return the productId
 	 */
-	public Long getProductId() {
+	public long getProductId() {
 		return productId;
 	}
 
@@ -87,14 +87,14 @@ public class WxMallCart implements Serializable {
 	 * @param productId
 	 *            the productId to set
 	 */
-	public void setProductId(Long productId) {
+	public void setProductId(long productId) {
 		this.productId = productId;
 	}
 
 	/**
 	 * @return the count
 	 */
-	public Long getCount() {
+	public long getCount() {
 		return count;
 	}
 
@@ -102,14 +102,14 @@ public class WxMallCart implements Serializable {
 	 * @param count
 	 *            the count to set
 	 */
-	public void setCount(Long count) {
+	public void setCount(long count) {
 		this.count = count;
 	}
 
 	/**
 	 * @return the mallUserId
 	 */
-	public Long getMallUserId() {
+	public long getMallUserId() {
 		return mallUserId;
 	}
 
@@ -117,14 +117,14 @@ public class WxMallCart implements Serializable {
 	 * @param mallUserId
 	 *            the mallUserId to set
 	 */
-	public void setMallUserId(Long mallUserId) {
+	public void setMallUserId(long mallUserId) {
 		this.mallUserId = mallUserId;
 	}
 
 	/**
 	 * @return the mallId
 	 */
-	public Long getMallId() {
+	public long getMallId() {
 		return mallId;
 	}
 
@@ -132,7 +132,7 @@ public class WxMallCart implements Serializable {
 	 * @param mallId
 	 *            the mallId to set
 	 */
-	public void setMallId(Long mallId) {
+	public void setMallId(long mallId) {
 		this.mallId = mallId;
 	}
 
