@@ -7,6 +7,7 @@
 <%@ include file="mall.jsp"%>
 <script type="text/javascript">
 	function login() {
+		alert($('#mallUserForm'));
 		$('#mallUserForm').attr('action', '${ctx}/mall/mall_security_check');
 		$('#mallUserForm').submit();
 	}
@@ -25,7 +26,7 @@
 						<dt>用户名：</dt>
 						<dd>
 							<form:input path="userName" data-role="none" />
-							<input name="${fromUrl}" type="hidden" data-role="none">
+							<input name="fromUrl" type="hidden" data-role="none" value="${fromUrl}">
 						</dd>
 					</dl>
 					<dl class="top_bor">
@@ -36,13 +37,11 @@
 					</dl>
 				</div>
 				<div class="lg_bt">
-					<a href="javascript:login()" data-role="button"
-						data-corners="false">登&nbsp;&nbsp;录</a>
+					<a href="javascript:login()" data-role="button">登&nbsp;&nbsp;录</a>
 				</div>
 				<div class="pw_back">找回密码</div>
 				<div class="reg_bt">
-					<a href="javascript:login()" data-role="button"
-						data-corners="false">登&nbsp;&nbsp;录</a>
+					<a href="javascript:login()" data-role="button">登&nbsp;&nbsp;录</a>
 				</div>
 			</form:form>
 		</div>

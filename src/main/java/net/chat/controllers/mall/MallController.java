@@ -130,6 +130,7 @@ public class MallController {
 			Model model) {
 		WxMallUser mallUser = new WxMallUser();
 		model.addAttribute("mallUser", mallUser);
+		//fromUrl = "/mall/cart";
 		model.addAttribute("fromUrl", fromUrl);
 		return PageConstants.PAGE_MALL_LOGIN;
 	}
@@ -140,17 +141,18 @@ public class MallController {
 			@Valid WxMallUser mallUser, Model model) throws ServletException,
 			IOException {
 		boolean logined = mallService.dologin(mallUser);
+		//boolean logined = true;
 		AppContext.put("mallUser", mallUser);
 		if (logined) {
 			if (fromUrl != null)
 				return "redirect:" + fromUrl;
 			else {
-				String accountId = AppContext.get("accountId");
-				return "redirect:/index/" + accountId;
+				Long accountId = AppContext.get("accountId");
+				return "redirect:/mall/index/" + accountId;
 			}
 		} else {
-			String accountId = AppContext.get("accountId");
-			return "redirect:/index/" + accountId;
+			Long accountId = AppContext.get("accountId");
+			return "redirect:/mall/index/" + accountId;
 		}
 
 	}
