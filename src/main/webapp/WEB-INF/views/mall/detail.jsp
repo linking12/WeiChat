@@ -54,7 +54,7 @@ function minus(){
         </div>
         <div class="bt_box">
         	<a href="javascript:addToCart()" data-role="button" data-corners="false" class="add_bt" rel="external">加入购物车</a>
-            <a href="confirm.html" data-role="button" data-corners="false" class="buy_bt" rel="external">立即购买</a>
+            <!-- <a href="confirm.html" data-role="button" data-corners="false" class="buy_bt" rel="external">立即购买</a> -->
             
         </div>
         <div ><font color="red" id="msg" style="display:none">&nbsp;&nbsp;</font></div>

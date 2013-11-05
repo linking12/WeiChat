@@ -33,4 +33,6 @@ public interface MallService {
 	void addToCart(WxMallCart wxMallCart);
 	
 	List<WxCartForm> findCartList(long userId);
+	
+	void deleteCartByProductId(long productId);
 }

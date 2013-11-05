@@ -8,9 +8,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import net.chat.dao.mall.WxMallCartDao;
 import net.chat.dao.mall.WxMallDao;
 import net.chat.dao.mall.WxPrdtCategoryDao;
@@ -30,6 +27,10 @@ import net.chat.domain.mall.WxProductPrice;
 import net.chat.formbean.mall.WxCartForm;
 import net.chat.formbean.mall.WxProductForm;
 import net.chat.service.mall.MallService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author bo.chen
@@ -159,6 +160,12 @@ public class MallServiceImpl implements MallService {
 
 		}
 		return cartList;
+	}
+
+	@Transactional
+	public void deleteCartByProductId(long productId) {
+		long mallUserId = 1;
+		cartDao.deleteCartByProductId(mallUserId, productId);
 	}
 
 }

@@ -36,14 +36,13 @@ public class MallController {
 		WxMall wxMall = mallService.findMallByAccountId(accountId);
 		session.setAttribute("accountId", accountId);
 		session.setAttribute("mallId", wxMall.getId());
-		if (null != wxMall) {
-			model.addAttribute("wxMall", wxMall);
-			long mallId = wxMall.getId();
-			List<WxProductCategory> categoryList = mallService.findProductCategoryByMallId(mallId);
-			model.addAttribute("categoryList", categoryList);
-			return PageConstants.PAGE_MALL_INDEX;
-		} else
-			return PageConstants.PAGE_LOGIN;
+
+		model.addAttribute("wxMall", wxMall);
+		long mallId = wxMall.getId();
+		List<WxProductCategory> categoryList = mallService.findProductCategoryByMallId(mallId);
+		model.addAttribute("categoryList", categoryList);
+		return PageConstants.PAGE_MALL_INDEX;
+
 	}
 
 	@RequestMapping("/subcategory/{categoryId}")
@@ -87,12 +86,23 @@ public class MallController {
 		}
 
 	}
-	
+
 	@RequestMapping("/cart")
-	public String cart( Model model) {
-		long mallUserId=1;
-		List<WxCartForm> cartList=mallService.findCartList(mallUserId);
+	public String cart(Model model) {
+		long mallUserId = 1;
+		List<WxCartForm> cartList = mallService.findCartList(mallUserId);
 		model.addAttribute("cartList", cartList);
 		return PageConstants.PAGE_MALL_CART;
+	}
+
+	@RequestMapping("/deletecart/{productId}")
+	public String deletecart(@PathVariable("productId") long productId, Model model) {
+		mallService.deleteCartByProductId(productId);
+		return "redirect:/mall/cart";
+	}
+
+	@RequestMapping("/createorder")
+	public String createorder(String[] productIds, String[] counts, Model model) {
+		return PageConstants.PAGE_MALL_ORDER;
 	}
 }
