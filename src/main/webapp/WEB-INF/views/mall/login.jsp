@@ -7,7 +7,6 @@
 <%@ include file="mall.jsp"%>
 <script type="text/javascript">
 	function login() {
-		alert($('#mallUserForm'));
 		$('#mallUserForm').attr('action', '${ctx}/mall/mall_security_check');
 		$('#mallUserForm').submit();
 	}
