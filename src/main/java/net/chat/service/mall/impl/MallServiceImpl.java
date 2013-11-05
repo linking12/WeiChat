@@ -5,11 +5,10 @@ package net.chat.service.mall.impl;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
+import net.chat.dao.mall.WxMallCartDao;
 import net.chat.dao.mall.WxMallDao;
 import net.chat.dao.mall.WxPrdtCategoryDao;
 import net.chat.dao.mall.WxPrdtSubCategoryDao;
@@ -18,14 +17,20 @@ import net.chat.dao.mall.WxProductDao;
 import net.chat.dao.mall.WxProductPicDao;
 import net.chat.dao.mall.WxProductPriceDao;
 import net.chat.domain.mall.WxMall;
+import net.chat.domain.mall.WxMallCart;
 import net.chat.domain.mall.WxPrdtCategory;
 import net.chat.domain.mall.WxPrdtSubCategory;
 import net.chat.domain.mall.WxProduct;
 import net.chat.domain.mall.WxProductCategory;
 import net.chat.domain.mall.WxProductPic;
 import net.chat.domain.mall.WxProductPrice;
+import net.chat.formbean.mall.WxCartForm;
 import net.chat.formbean.mall.WxProductForm;
 import net.chat.service.mall.MallService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author bo.chen
@@ -54,6 +59,9 @@ public class MallServiceImpl implements MallService {
 
 	@Autowired
 	WxProductPicDao picDao;
+
+	@Autowired
+	WxMallCartDao cartDao;
 
 	public WxMall findMallByAccountId(long accountId) {
 
@@ -125,6 +133,39 @@ public class MallServiceImpl implements MallService {
 		}
 		return null;
 
+	}
+
+	public void addToCart(WxMallCart wxMallCart) {
+		long mallUserId = 1;
+		WxMallCart oldCart = cartDao.findCartByUserIdAndProductId(mallUserId, wxMallCart.getProductId());
+		if (null != oldCart) {
+			oldCart.setCount(oldCart.getCount() + wxMallCart.getCount());
+			cartDao.save(oldCart);
+		} else {
+			wxMallCart.setMallUserId(mallUserId);
+			wxMallCart.setCreateDate(new Date());
+			cartDao.save(wxMallCart);
+		}
+	}
+
+	public List<WxCartForm> findCartList(long userId) {
+		List<WxCartForm> cartList = null;
+		List<WxMallCart> wxcartList = cartDao.findCartByUserId(userId);
+		for (WxMallCart cart : wxcartList) {
+			if (null == cartList)
+				cartList = new ArrayList<WxCartForm>();
+			long productId = cart.getProductId();
+			WxProductForm productForm = this.findProductById(productId);
+			cartList.add(new WxCartForm(cart, productForm));
+
+		}
+		return cartList;
+	}
+
+	@Transactional
+	public void deleteCartByProductId(long productId) {
+		long mallUserId = 1;
+		cartDao.deleteCartByProductId(mallUserId, productId);
 	}
 
 }
