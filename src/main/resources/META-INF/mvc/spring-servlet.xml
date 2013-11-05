@@ -62,6 +62,7 @@
 	<mvc:resources mapping="/images/**" location="/WEB-INF/resources/images/" />
 	<mvc:resources mapping="/js/**" location="/WEB-INF/resources/js/" />
 	<mvc:resources mapping="/upload/**" location="/upload/" />
+	<mvc:resources mapping="/mimg/**" location="/mallimg/images/" />
 	<mvc:resources mapping="/html/**" location="/WEB-INF/resources/html/" />
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
