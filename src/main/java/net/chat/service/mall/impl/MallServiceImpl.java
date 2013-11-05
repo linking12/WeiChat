@@ -10,6 +10,7 @@ import java.util.List;
 
 import net.chat.dao.mall.WxMallCartDao;
 import net.chat.dao.mall.WxMallDao;
+import net.chat.dao.mall.WxMallUserDao;
 import net.chat.dao.mall.WxPrdtCategoryDao;
 import net.chat.dao.mall.WxPrdtSubCategoryDao;
 import net.chat.dao.mall.WxProductCategoryDao;
@@ -18,6 +19,7 @@ import net.chat.dao.mall.WxProductPicDao;
 import net.chat.dao.mall.WxProductPriceDao;
 import net.chat.domain.mall.WxMall;
 import net.chat.domain.mall.WxMallCart;
+import net.chat.domain.mall.WxMallUser;
 import net.chat.domain.mall.WxPrdtCategory;
 import net.chat.domain.mall.WxPrdtSubCategory;
 import net.chat.domain.mall.WxProduct;
@@ -27,7 +29,9 @@ import net.chat.domain.mall.WxProductPrice;
 import net.chat.formbean.mall.WxCartForm;
 import net.chat.formbean.mall.WxProductForm;
 import net.chat.service.mall.MallService;
+import net.chat.tenpay.util.MD5Util;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -63,6 +67,9 @@ public class MallServiceImpl implements MallService {
 	@Autowired
 	WxMallCartDao cartDao;
 
+	@Autowired
+	WxMallUserDao mallUserDao;
+
 	public WxMall findMallByAccountId(long accountId) {
 
 		return mallDao.findMallByAccountId(accountId);
@@ -85,7 +92,8 @@ public class MallServiceImpl implements MallService {
 
 	@Override
 	public List<WxProductForm> findPrdtListBySubCategoryId(long subCategoryId) {
-		List<WxPrdtCategory> prdtList = prdtCategoryDao.findPrdtBySubCategoryId(subCategoryId);
+		List<WxPrdtCategory> prdtList = prdtCategoryDao
+				.findPrdtBySubCategoryId(subCategoryId);
 		List<WxProductForm> formList = null;
 		for (WxPrdtCategory prdt : prdtList) {
 
@@ -137,7 +145,8 @@ public class MallServiceImpl implements MallService {
 
 	public void addToCart(WxMallCart wxMallCart) {
 		long mallUserId = 1;
-		WxMallCart oldCart = cartDao.findCartByUserIdAndProductId(mallUserId, wxMallCart.getProductId());
+		WxMallCart oldCart = cartDao.findCartByUserIdAndProductId(mallUserId,
+				wxMallCart.getProductId());
 		if (null != oldCart) {
 			oldCart.setCount(oldCart.getCount() + wxMallCart.getCount());
 			cartDao.save(oldCart);
@@ -168,4 +177,32 @@ public class MallServiceImpl implements MallService {
 		cartDao.deleteCartByProductId(mallUserId, productId);
 	}
 
+	public boolean dologin(WxMallUser mallUser) {
+		WxMallUser _mallUser = mallUserDao.findByName(mallUser.getUserName());
+		if (_mallUser.getPassword().equalsIgnoreCase(
+				MD5Util.MD5Encode(mallUser.getPassword(), null)))
+			return true;
+		else
+			return false;
+	}
+
+	public void addMallUser(WxMallUser mallUser) {
+		WxMallUser _mallUser = mallUserDao.findByName(mallUser.getUserName());
+		if (_mallUser != null) {
+			throw new IllegalArgumentException("User name:"
+					+ _mallUser.getUserName() + " has exists.");
+		}
+		mallUser.setPassword(MD5Util.MD5Encode(mallUser.getPassword(), null));
+		mallUserDao.save(mallUser);
+	}
+
+	public void editMallUser(WxMallUser mallUser) {
+		WxMallUser _mallUser = mallUserDao.findOne(mallUser.getId());
+		if (_mallUser != null) {
+			_mallUser.setAddress(mallUser.getAddress());
+			_mallUser.setPassword(MD5Util.MD5Encode(mallUser.getPassword(),
+					null));
+			_mallUser.setPhoneNo(mallUser.getPhoneNo());
+		}
+	}
 }

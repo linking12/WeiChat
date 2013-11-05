@@ -1,23 +1,28 @@
 package net.chat.controllers.mall;
 
+import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.ServletException;
+import javax.validation.Valid;
 
 import net.chat.constants.PageConstants;
 import net.chat.domain.mall.WxMall;
 import net.chat.domain.mall.WxMallCart;
+import net.chat.domain.mall.WxMallUser;
 import net.chat.domain.mall.WxPrdtSubCategory;
 import net.chat.domain.mall.WxProductCategory;
 import net.chat.formbean.mall.WxCartForm;
 import net.chat.formbean.mall.WxProductForm;
 import net.chat.service.mall.MallService;
+import net.chat.utils.AppContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -28,14 +33,19 @@ public class MallController {
 	@Autowired
 	private MallService mallService;
 
-	@Autowired
-	HttpSession session;
+	// @Autowired
+	// HttpSession session;
 
 	@RequestMapping("/index/{accountId}")
 	public String init(@PathVariable("accountId") long accountId, Model model) {
 		WxMall wxMall = mallService.findMallByAccountId(accountId);
-		session.setAttribute("accountId", accountId);
-		session.setAttribute("mallId", wxMall.getId());
+		/**
+		 * 手机中是没有session的，这种变量放到APPContext中，里面有一个threadLocal
+		 */
+		// session.setAttribute("accountId", accountId);
+		// session.setAttribute("mallId", wxMall.getId());
+		AppContext.put("accountId", accountId);
+		AppContext.put("mallId", wxMall.getId());
 
 		model.addAttribute("wxMall", wxMall);
 		long mallId = wxMall.getId();
@@ -83,7 +93,7 @@ public class MallController {
 		WxMallCart wxMallCart = new WxMallCart();
 		wxMallCart.setCount(count);
 		wxMallCart.setProductId(productId);
-		wxMallCart.setMallId((Long) session.getAttribute("mallId"));
+		wxMallCart.setMallId((Long) AppContext.get("mallId"));
 		wxMallCart.setMallUserId(1l);
 		try {
 			mallService.addToCart(wxMallCart);
@@ -115,7 +125,33 @@ public class MallController {
 	}
 
 	@RequestMapping("/login")
-	public String login() {
+	public String login(
+			@RequestParam(value = "fromUrl", required = false) String fromUrl,
+			Model model) {
+		WxMallUser mallUser = new WxMallUser();
+		model.addAttribute("mallUser", mallUser);
+		model.addAttribute("fromUrl", fromUrl);
 		return PageConstants.PAGE_MALL_LOGIN;
+	}
+
+	@RequestMapping("/mall_security_check")
+	public String doLogin(
+			@RequestParam(value = "fromUrl", required = false) String fromUrl,
+			@Valid WxMallUser mallUser, Model model) throws ServletException,
+			IOException {
+		boolean logined = mallService.dologin(mallUser);
+		AppContext.put("mallUser", mallUser);
+		if (logined) {
+			if (fromUrl != null)
+				return "redirect:" + fromUrl;
+			else {
+				String accountId = AppContext.get("accountId");
+				return "redirect:/index/" + accountId;
+			}
+		} else {
+			String accountId = AppContext.get("accountId");
+			return "redirect:/index/" + accountId;
+		}
+
 	}
 }

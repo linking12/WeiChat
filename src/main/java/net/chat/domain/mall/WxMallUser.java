@@ -8,13 +8,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import javax.persistence.Entity;
+
 /**
  * 商场用户表
  * 
  * @author bo.chen
  * 
  */
-//@Entity
+@Entity
 @Table(name = "wx_mall_user")
 public class WxMallUser implements Serializable {
 
