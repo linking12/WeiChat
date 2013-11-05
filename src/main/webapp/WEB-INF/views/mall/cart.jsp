@@ -28,7 +28,7 @@ function createOrder(){
 			ischecked=true;
 			var clild="<input type='hidden' name='productIds' value='"+this.value+"'/>";
 			clild+="<input type='hidden' name='counts' value='"+$("#count"+this.id).val()+"'/>";
-			alert(clild);
+			
 			$("#form1").append(clild);
 		}
 	});
