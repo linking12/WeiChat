@@ -166,6 +166,11 @@ public final class PageConstants {
 	 */
 	public static final String PAGE_MALL_LOGIN = "mall/login";
 
+	/**
+	 * 注册
+	 */
+	public static final String PAGE_MALL_REGIST = "mall/regist";
+	
 	public static String PAGE_MALL_ORDER = "mall/order";;
 
 	/**

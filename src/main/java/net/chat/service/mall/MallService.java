@@ -12,7 +12,6 @@ import net.chat.domain.mall.WxPrdtSubCategory;
 import net.chat.domain.mall.WxProductCategory;
 import net.chat.formbean.mall.WxCartForm;
 import net.chat.formbean.mall.WxProductForm;
-import net.chat.tenpay.util.MD5Util;
 
 /**
  * @author bo.chen
@@ -36,11 +35,11 @@ public interface MallService {
 
 	List<WxCartForm> findCartList(long userId);
 
-	void deleteCartByProductId(long productId);
+	void deleteCartByProductId(long productId,long mallUserId);
 
-	public boolean dologin(WxMallUser mallUser);
+	WxMallUser dologin(WxMallUser mallUser);
 
-	public void addMallUser(WxMallUser mallUser);
+	WxMallUser addMallUser(WxMallUser mallUser);
 
-	public void editMallUser(WxMallUser mallUser);
+	WxMallUser editMallUser(WxMallUser mallUser);
 }

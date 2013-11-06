@@ -26,7 +26,6 @@ public class AccountController {
 
 	@RequestMapping("/list")
 	public String list(@RequestParam(value = "page", defaultValue = "1") int pageNo,Model model) {
-//		Page<WxAccount> accounts = accountService.listAllAcount(0, 0);
 		Long userId = AppContext.getUserId();
 		Page<WxAccount> accounts = accountService.findAccountByUserId(pageNo,userId);
 		model.addAttribute("accounts", accounts);

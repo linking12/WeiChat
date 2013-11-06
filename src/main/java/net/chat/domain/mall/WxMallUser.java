@@ -7,8 +7,11 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
 import javax.persistence.Entity;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * 商场用户表
@@ -36,18 +39,23 @@ public class WxMallUser implements Serializable {
 	/**
 	 * 用户名
 	 */
+	@NotEmpty(message = "姓名不能为空")
+	@Pattern(regexp = "^[A-Za-z0-9]+$", message = "登录名必须是英文或者数字")
 	@Column(name = "username")
 	private String userName;
 
 	/**
 	 * 密码
 	 */
+	@NotEmpty(message = "用户密码不能为空！")
 	@Column(name = "password")
 	private String password;
 
 	/**
 	 * phoneno
 	 */
+	@NotEmpty(message = "手机号码不能为空！")
+	@Pattern(regexp = "^1[358]\\d{9}$", message = "11位数字，前2位是13开头 或15 开头 或18 开头")
 	@Column(name = "phoneno")
 	private String phoneNo;
 

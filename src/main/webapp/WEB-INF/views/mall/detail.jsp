@@ -6,16 +6,20 @@
 <%@ include file="mall.jsp"%>
 <script type="text/javascript">
 function addToCart(){
-	$.post("${ctx}/mall/addcart/"+$("#productId").val()+"/"+$("#counts").val(), 
-			function(data){
-		 		if(data==1){
-		 			$("#msg").text("添加成功!");
-		 			$("#msg").show();
-		 		}else {
-		 			$("#msg").text("加入购物车失败!请重试!");
-		 			$("#msg").show();
-		 		}
-	});
+	if('${needlogin}'==1){
+		$("#form1").attr("action","${ctx}/mall/login?fromUrl="+'${url}');
+		$("#form1").submit();
+	}else{
+		$.post("${ctx}/mall/addcart/"+$("#productId").val()+"/"+$("#counts").val(), 
+				function(data){
+			 		if(data==1){
+			 			$("#msg").text("添加成功!");
+			 			$("#msg").show();
+			 		}else {
+			 			$("#msg").text("加入购物车失败!请重试!");
+			 			$("#msg").show();
+			 		}
+		});}
 }
 
 function add(){
@@ -36,6 +40,7 @@ function minus(){
 
 <body>
 <!-- Home -->
+<form id="form1" method="post"></form>
 <div data-role="page" id="page2">
 	<%@ include file="mallmenu.jsp"%>
     <div data-role="content" class="b_con">
@@ -64,8 +69,6 @@ function minus(){
  ${form.descrpiton }
         </div>
         <div class="arrow"><img src="${img }/main/arrow.png"></div>
-        
-        
     </div>
     <%@ include file="mallbottom.jsp"%>
 </div>

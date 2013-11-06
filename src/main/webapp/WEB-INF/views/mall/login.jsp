@@ -7,9 +7,11 @@
 <%@ include file="mall.jsp"%>
 <script type="text/javascript">
 	function login() {
+		
 		$('#mallUserForm').attr('action', '${ctx}/mall/mall_security_check');
 		$('#mallUserForm').submit();
 	}
+	
 </script>
 </head>
 
@@ -31,17 +33,18 @@
 					<dl class="top_bor">
 						<dt>密&nbsp;&nbsp;&nbsp;&nbsp;码：</dt>
 						<dd>
-							<form:input path="password" data-role="none" />
+							<form:password path="password" data-role="none" />
 						</dd>
 					</dl>
 				</div>
 				<div class="lg_bt">
 					<a href="javascript:login()" data-role="button">登&nbsp;&nbsp;录</a>
 				</div>
-				<div class="pw_back">找回密码</div>
+				<!-- <div class="pw_back">找回密码</div> -->
 				<div class="reg_bt">
-					<a href="javascript:login()" data-role="button">登&nbsp;&nbsp;录</a>
+					<a href="${ctx}/mall/regist?fromUrl=${fromUrl }" data-role="button">立即注册</a>
 				</div>
+				
 			</form:form>
 		</div>
 		<%@ include file="mallbottom.jsp"%>

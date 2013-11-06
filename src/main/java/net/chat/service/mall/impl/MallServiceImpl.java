@@ -31,7 +31,6 @@ import net.chat.formbean.mall.WxProductForm;
 import net.chat.service.mall.MallService;
 import net.chat.tenpay.util.MD5Util;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -92,8 +91,7 @@ public class MallServiceImpl implements MallService {
 
 	@Override
 	public List<WxProductForm> findPrdtListBySubCategoryId(long subCategoryId) {
-		List<WxPrdtCategory> prdtList = prdtCategoryDao
-				.findPrdtBySubCategoryId(subCategoryId);
+		List<WxPrdtCategory> prdtList = prdtCategoryDao.findPrdtBySubCategoryId(subCategoryId);
 		List<WxProductForm> formList = null;
 		for (WxPrdtCategory prdt : prdtList) {
 
@@ -144,14 +142,11 @@ public class MallServiceImpl implements MallService {
 	}
 
 	public void addToCart(WxMallCart wxMallCart) {
-		long mallUserId = 1;
-		WxMallCart oldCart = cartDao.findCartByUserIdAndProductId(mallUserId,
-				wxMallCart.getProductId());
+		WxMallCart oldCart = cartDao.findCartByUserIdAndProductId(wxMallCart.getId(), wxMallCart.getProductId());
 		if (null != oldCart) {
 			oldCart.setCount(oldCart.getCount() + wxMallCart.getCount());
 			cartDao.save(oldCart);
 		} else {
-			wxMallCart.setMallUserId(mallUserId);
 			wxMallCart.setCreateDate(new Date());
 			cartDao.save(wxMallCart);
 		}
@@ -172,37 +167,37 @@ public class MallServiceImpl implements MallService {
 	}
 
 	@Transactional
-	public void deleteCartByProductId(long productId) {
-		long mallUserId = 1;
+	public void deleteCartByProductId(long productId,long mallUserId) {
+		
 		cartDao.deleteCartByProductId(mallUserId, productId);
 	}
 
-	public boolean dologin(WxMallUser mallUser) {
+	public WxMallUser dologin(WxMallUser mallUser) {
 		WxMallUser _mallUser = mallUserDao.findByName(mallUser.getUserName());
-		if (_mallUser.getPassword().equalsIgnoreCase(
-				MD5Util.MD5Encode(mallUser.getPassword(), null)))
-			return true;
+		if (_mallUser.getPassword().equalsIgnoreCase(MD5Util.MD5Encode(mallUser.getPassword(), null)))
+			return _mallUser;
 		else
-			return false;
+			return null;
 	}
 
-	public void addMallUser(WxMallUser mallUser) {
+	@Transactional
+	public WxMallUser addMallUser(WxMallUser mallUser) {
 		WxMallUser _mallUser = mallUserDao.findByName(mallUser.getUserName());
 		if (_mallUser != null) {
-			throw new IllegalArgumentException("User name:"
-					+ _mallUser.getUserName() + " has exists.");
+			throw new IllegalArgumentException("User name:" + _mallUser.getUserName() + " has exists.");
 		}
 		mallUser.setPassword(MD5Util.MD5Encode(mallUser.getPassword(), null));
-		mallUserDao.save(mallUser);
+		return mallUserDao.save(mallUser);
 	}
 
-	public void editMallUser(WxMallUser mallUser) {
+	@Transactional
+	public WxMallUser editMallUser(WxMallUser mallUser) {
 		WxMallUser _mallUser = mallUserDao.findOne(mallUser.getId());
 		if (_mallUser != null) {
 			_mallUser.setAddress(mallUser.getAddress());
-			_mallUser.setPassword(MD5Util.MD5Encode(mallUser.getPassword(),
-					null));
+			_mallUser.setPassword(MD5Util.MD5Encode(mallUser.getPassword(), null));
 			_mallUser.setPhoneNo(mallUser.getPhoneNo());
 		}
+		return mallUserDao.save(_mallUser);
 	}
 }

@@ -90,7 +90,8 @@ function calcthis(index){
 	                </em>
 	                 <div class="shuliang">数量：<input type="text" onkeyup="value=this.value.replace(/\D+/g,'')" data-role="none" id="count${status.index}" value="${cartForm.mallCart.count}" class="in_sl" onblur="calcthis(${status.index})">
 	                 &nbsp;总计：¥ <i id="total${status.index}"> ${cartForm.productForm.salePrice * cartForm.mallCart.count}</i>
-	                 <input type="hidden" id="salePrice${status.index}" value="${cartForm.productForm.salePrice}"/><a href="javascript:deleteCart('${cartForm.productForm.productId}')" >删除</a>          
+	                 <input type="hidden" id="salePrice${status.index}" value="${cartForm.productForm.salePrice}"/><a href="javascript:void(0)" onclick="deleteCart('${cartForm.productForm.productId}')">删除</a>          
+	                 
 	                 </div>
                </div>  
            </c:forEach>
@@ -109,7 +110,7 @@ function calcthis(index){
        		</div>
             <div class="zongjia">总价：¥ <i id="totalprice">0.00</i> </div>
             <div class="zj_bt">
-            	<a href="javascript:createOrder()" data-role="button" data-corners="false" class="buy_bt zj_w">去结算</a>
+            	<a href="javascript:void(0);" onclick="createOrder()" data-role="button" data-corners="false" class="buy_bt zj_w">去结算</a>          
             </div>
         </div>
 
