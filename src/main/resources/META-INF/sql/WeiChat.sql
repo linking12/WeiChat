@@ -35,6 +35,8 @@ INSERT INTO `T_ROLE_RESOURCES` VALUES ('2', '1'),  ('2', '3'),  ('2', '5');
 INSERT INTO `T_USER` VALUES ('1', 'admin', '1', '899899');
 INSERT INTO `T_USER_ROLE` VALUES ('1', '1');
 delete from `wx_game`;
+delete from `wx_account`;
+INSERT INTO `wx_account`(id,customerid,dtime,istatus,name,note,programid,seq,url) VALUES ('1', '1', null, '0', '星星的家园', 'test', null, 'MLxiugKKSIZiFPEeWJvp', '/API/lLfMiuDuqWiqKLvHXEvF');
 INSERT INTO `wx_game`(id,name,url,note,gtype) VALUES (1,'聊天机器人','autoreply','一上一下','program');
 INSERT INTO `wx_game`(id,name,url,note,gtype) VALUES (2,'刮刮乐','game_ggl','刮刮乐','html5游戏');
 
