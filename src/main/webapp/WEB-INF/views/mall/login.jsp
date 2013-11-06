@@ -6,6 +6,9 @@
 <title>电商</title>
 <%@ include file="mall.jsp"%>
 <script type="text/javascript">
+  $(function(){
+	  $.mobile.ajaxEnabled = false;
+  })
 	function login() {
 		
 		$('#mallUserForm').attr('action', '${ctx}/mall/mall_security_check');

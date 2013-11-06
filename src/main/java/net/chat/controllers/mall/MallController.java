@@ -54,7 +54,7 @@ public class MallController {
 		List<WxProductCategory> categoryList = mallService.findProductCategoryByMallId(mallId);
 		model.addAttribute("categoryList", categoryList);
 		return PageConstants.PAGE_MALL_INDEX;
-
+		
 	}
 
 	@RequestMapping("/subcategory/{categoryId}")
@@ -106,11 +106,12 @@ public class MallController {
 
 	}
 
-	@RequestMapping(value="/viewcart")
-	public String viewcart(Model model) {
+	@RequestMapping(value="/cart")
+	public String cart(Model model) {
+		
 		WxMallUser mallUser = (WxMallUser) session.getAttribute("mallUser");
 		if (null == mallUser) {
-			return "redirect:/mall/login?fromUrl=/mall/viewcart";
+			return "redirect:/mall/login?fromUrl=/mall/cart";
 		} else {
 			List<WxCartForm> cartList = mallService.findCartList(mallUser.getId());
 			model.addAttribute("cartList", cartList);
@@ -118,14 +119,14 @@ public class MallController {
 		}
 	}
 
-	@RequestMapping("/deletecart/{productId}")
+	@RequestMapping(value="/deletecart/{productId}")
 	public String deletecart(@PathVariable("productId") long productId, Model model) {
 		WxMallUser mallUser = (WxMallUser) session.getAttribute("mallUser");
 		if (null == mallUser) {
-			return "redirect:/mall/login?fromUrl=/mall/viewcart";
+			return "redirect:/mall/login?fromUrl=/mall/cart";
 		} else {
-			mallService.deleteCartByProductId(productId, mallUser.getId());
-			return "redirect:/mall/viewcart?test";
+			mallService.deleteCartByProductId(productId, mallUser.getId());			
+			return "redirect:/mall/cart";
 		}
 	}
 
@@ -169,23 +170,23 @@ public class MallController {
 
 	}
 
-	@RequestMapping("/mall_security_check")
+	@RequestMapping("/mall_security_check" )
 	public String doLogin(@RequestParam(value = "fromUrl", required = false) String fromUrl, WxMallUser mallUser, Model model) throws ServletException, IOException {
 		mallUser = mallService.dologin(mallUser);
+	
 		if (null != mallUser) {
 			AppContext.put("mallUser", mallUser);
 			session.setAttribute("mallUser", mallUser);
 			if (StringUtils.isNotBlank(fromUrl))
-				return "redirect:" + fromUrl;
+				return "redirect:"+fromUrl;
+				
 			else {
-				return "redirect:/mall/index/" + session.getAttribute("accountId");
+				return "redirect:/mall/index/"+session.getAttribute("accountId");
 			}
 		} else {
-			return "redirect:/mall/index/" + session.getAttribute("accountId");
+			return "redirect:/mall/index/"+session.getAttribute("accountId");
 		}
-
 	}
-
 	@RequestMapping("/myaccount")
 	public String myaccount() {
 		WxMallUser mallUser = (WxMallUser) session.getAttribute("mallUser");

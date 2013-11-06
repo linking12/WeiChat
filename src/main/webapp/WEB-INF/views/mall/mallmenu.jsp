@@ -5,7 +5,7 @@
                 <li><a href="${ctx }/mall/index/<%=session.getAttribute("accountId") %>" class="back" rel="external">&nbsp;</a></li>
                 <li><a href="#" class="w_logo" rel="external">&nbsp;</a></li>
                 <li><a href="${ctx }/mall/myaccount" class="home" rel="external">&nbsp;</a></li>
-                <li><a href="${ctx }/mall/viewcart" class="cart" rel="external">&nbsp;</a></li>   
+                <li><a href="${ctx }/mall/cart" class="cart" rel="external">&nbsp;</a></li>   
             </ul>
         </div>
 </div>

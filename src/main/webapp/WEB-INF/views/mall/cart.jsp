@@ -5,6 +5,9 @@
 <title>购物车</title>
 <%@ include file="mall.jsp"%>
 <script type="text/javascript">
+$(function(){
+	  $.mobile.ajaxEnabled = false;
+})
 
 function checkAll(){
 	var isChecked=$("#checkAllBtn").is(":checked");
@@ -70,7 +73,7 @@ function calcthis(index){
 
 <body>
 <!-- Home -->
-<form id="form1" method="post" ></form>
+<form id="form1" method="post" action=""></form>
 <div data-role="page" id="page2">
 	<%@ include file="mallmenu.jsp"%>
     <div data-role="content" >
@@ -90,7 +93,7 @@ function calcthis(index){
 	                </em>
 	                 <div class="shuliang">数量：<input type="text" onkeyup="value=this.value.replace(/\D+/g,'')" data-role="none" id="count${status.index}" value="${cartForm.mallCart.count}" class="in_sl" onblur="calcthis(${status.index})">
 	                 &nbsp;总计：¥ <i id="total${status.index}"> ${cartForm.productForm.salePrice * cartForm.mallCart.count}</i>
-	                 <input type="hidden" id="salePrice${status.index}" value="${cartForm.productForm.salePrice}"/><a href="javascript:void(0)" onclick="deleteCart('${cartForm.productForm.productId}')">删除</a>          
+	                 <input type="hidden" id="salePrice${status.index}" value="${cartForm.productForm.salePrice}"/><a href="javascript:deleteCart('${cartForm.productForm.productId}')" >删除</a>          
 	                 
 	                 </div>
                </div>  

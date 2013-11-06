@@ -33,7 +33,7 @@
 </script>
 </head>
 <body>
-<form  id="form1" action="j_spring_security_check" autocomplete="on" method="POST">
+<form  id="form1" action="j_spring_security_check" autocomplete="on" method="GET">
 <div class="b_con">
 	<div class="longin_box">
     	<h2>登录</h2>
