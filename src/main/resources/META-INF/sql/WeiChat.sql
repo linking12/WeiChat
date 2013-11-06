@@ -40,7 +40,8 @@ INSERT INTO `wx_account`(id,customerid,dtime,istatus,name,note,programid,seq,url
 INSERT INTO `wx_game`(id,name,url,note,gtype) VALUES (1,'聊天机器人','autoreply','一上一下','program');
 INSERT INTO `wx_game`(id,name,url,note,gtype) VALUES (2,'刮刮乐','game_ggl','刮刮乐','html5游戏');
 
-
+delete from `wx_mall`;
+INSERT INTO `wx_mall`(id,accountid,createdate,description,effectivedate,expirydate,mallname,picurl) VALUES ('1', '1', '2013-11-07 00:17:47', 'Test', '2013-11-07 00:17:55', '2013-11-08 00:18:00', '商城', '/1/index_banner.jpg');
 delete from `wx_product_sub_category`;
 INSERT INTO `wx_product_sub_category` (`id`, `categoryid`, `subcategoryname`, `description`, `picurl`, `createdate`) VALUES (1,1,'限时优惠',' <p>男女装指定摇粒绒茄克</p>&nbsp;<em>截至10/17</em><br><br>&nbsp;<i>￥149</i><br>&nbsp;<i><</i>','/1/all_img.jpg','2013-01-01'),(2,1,'新品上市','<p class=\"t_tight\">男女装指定摇粒绒茄克</p>&nbsp;<em class=\"t_tight\">截至10/17</em><br>&nbsp;<i class=\"t_tight\">￥149</i><br><br>&nbsp;<i class=\"t_tight\">></i>','/1/all_img1.jpg','2013-01-01'),(3,1,'限时优惠',' <p class=\"big\">Woman</p>&nbsp;<i class=\"white\"><</i>','/1/all_img2.jpg','2013-01-01'),(4,2,'五折专场',NULL,'/1/20131028150354.jpg','2013-01-01'),(5,2,'秋季换装',NULL,'/1/20131028150452.jpg','2013-01-01'),(6,2,'特别推荐',NULL,'/1/20131028150539.jpg','2013-01-01'),(7,3,'摇粒绒夹克',NULL,'/1/sj_img1.jpg','2013-01-01'),(8,3,'法兰绒衬衫',NULL,'/1/sj_img2.jpg','2013-01-01'),(9,3,'精纺系列',NULL,'/1/sj_img3.jpg','2013-01-01'),(10,4,'潮流打底裤','美腿有诀窍','/1/cl_banner.jpg','2013-01-01'),(11,4,'巴黎之旅 ','休闲裤专场','/1/cl_banner1.jpg','2013-01-01');
 delete from `wx_product`;

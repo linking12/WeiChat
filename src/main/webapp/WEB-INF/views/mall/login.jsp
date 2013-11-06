@@ -5,17 +5,6 @@
 <head>
 <title>电商</title>
 <%@ include file="mall.jsp"%>
-<script type="text/javascript">
-  $(function(){
-	  $.mobile.ajaxEnabled = false;
-  })
-	function login() {
-		
-		$('#mallUserForm').attr('action', '${ctx}/mall/mall_security_check');
-		$('#mallUserForm').submit();
-	}
-	
-</script>
 </head>
 
 <body>
@@ -30,7 +19,8 @@
 						<dt>用户名：</dt>
 						<dd>
 							<form:input path="userName" data-role="none" />
-							<input name="fromUrl" type="hidden" data-role="none" value="${fromUrl}">
+							<input name="fromUrl" type="hidden" data-role="none"
+								value="${fromUrl}">
 						</dd>
 					</dl>
 					<dl class="top_bor">
@@ -41,16 +31,25 @@
 					</dl>
 				</div>
 				<div class="lg_bt">
-					<a href="javascript:login()" data-role="button">登&nbsp;&nbsp;录</a>
+					<a href="javascript:doLogin();" data-role="button">登&nbsp;&nbsp;录</a>
 				</div>
 				<!-- <div class="pw_back">找回密码</div> -->
 				<div class="reg_bt">
 					<a href="${ctx}/mall/regist?fromUrl=${fromUrl }" data-role="button">立即注册</a>
 				</div>
-				
+
 			</form:form>
 		</div>
 		<%@ include file="mallbottom.jsp"%>
 	</div>
 </body>
+<script type="text/javascript">
+	$(function() {
+		$.mobile.ajaxEnabled = false;
+	})
+	function doLogin() {
+		$('#mallUserForm').attr('action', '${ctx}/mall/mall_security_check');
+		$('#mallUserForm').submit();
+	}
+</script>
 </html>

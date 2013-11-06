@@ -1,5 +1,6 @@
 <!DOCTYPE html> 
 <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <html> 
 <head> 
 <title>电商</title>
@@ -20,7 +21,7 @@
                 <i>¥${form.salePrice}</i>
             </a>
             <c:if test="${(status.index+1)%3==0 }"></div></c:if>
-            <c:if test="${formList.size()%3!=0 &&status.count==formList.size() }"></div></c:if>
+            <c:if test="${fn:length(formList)%3!=0 &&status.count==fn:length(formList) }"></div></c:if>
 		</c:forEach>           
     </div>
     <%@ include file="mallbottom.jsp"%>
