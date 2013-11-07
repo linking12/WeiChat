@@ -5,6 +5,9 @@
 <title>商品详情</title>
 <%@ include file="mall.jsp"%>
 <script type="text/javascript">
+$(function(){
+	  $.mobile.ajaxEnabled = false;
+})
 function addToCart(){
 	if('${needlogin}'==1){
 		$("#form1").attr("action","${ctx}/mall/login?fromUrl="+'${url}');
