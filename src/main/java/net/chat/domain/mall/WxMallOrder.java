@@ -31,7 +31,7 @@ public class WxMallOrder implements Serializable {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue
-	private Long id;
+	private long id;
 
 	/**
 	 * 订单号
@@ -40,15 +40,10 @@ public class WxMallOrder implements Serializable {
 	private String orderNo;
 
 	/**
-	 * 件数
-	 */
-	@Column(name = "count")
-	private Long count;
-	/**
-	 * 订单状态
+	 * 订单状态 (0:待支付,1:支付完成,2:发货,3:已签收,99:已取消)
 	 */
 	@Column(name = "status")
-	private int status;
+	private int status=0;
 
 	/**
 	 * 收件人
@@ -78,7 +73,7 @@ public class WxMallOrder implements Serializable {
 	 * mallid
 	 */
 	@Column(name = "mallId")
-	private String mallId;
+	private long mallId;
 
 	/**
 	 * 创建时间
@@ -93,23 +88,27 @@ public class WxMallOrder implements Serializable {
 	private BigDecimal salePrice;
 
 	/**
-	 * 其他费用-运费
+	 * 其他费用-运费类型
 	 */
-	@Column(name = "expenses")
-	private BigDecimal expenses;
-
+	@Column(name = "expressType")
+	private int expressType;
+	
+	/**
+	 * 支付类型
+	 */
+	@Column(name = "payType")
+	private int payType;
 	/**
 	 * @return the id
 	 */
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
 	/**
-	 * @param id
-	 *            the id to set
+	 * @param id the id to set
 	 */
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -121,26 +120,10 @@ public class WxMallOrder implements Serializable {
 	}
 
 	/**
-	 * @param orderNo
-	 *            the orderNo to set
+	 * @param orderNo the orderNo to set
 	 */
 	public void setOrderNo(String orderNo) {
 		this.orderNo = orderNo;
-	}
-
-	/**
-	 * @return the count
-	 */
-	public Long getCount() {
-		return count;
-	}
-
-	/**
-	 * @param count
-	 *            the count to set
-	 */
-	public void setCount(Long count) {
-		this.count = count;
 	}
 
 	/**
@@ -151,8 +134,7 @@ public class WxMallOrder implements Serializable {
 	}
 
 	/**
-	 * @param status
-	 *            the status to set
+	 * @param status the status to set
 	 */
 	public void setStatus(int status) {
 		this.status = status;
@@ -166,8 +148,7 @@ public class WxMallOrder implements Serializable {
 	}
 
 	/**
-	 * @param receiver
-	 *            the receiver to set
+	 * @param receiver the receiver to set
 	 */
 	public void setReceiver(String receiver) {
 		this.receiver = receiver;
@@ -181,8 +162,7 @@ public class WxMallOrder implements Serializable {
 	}
 
 	/**
-	 * @param phone
-	 *            the phone to set
+	 * @param phone the phone to set
 	 */
 	public void setPhone(String phone) {
 		this.phone = phone;
@@ -196,8 +176,7 @@ public class WxMallOrder implements Serializable {
 	}
 
 	/**
-	 * @param address
-	 *            the address to set
+	 * @param address the address to set
 	 */
 	public void setAddress(String address) {
 		this.address = address;
@@ -211,8 +190,7 @@ public class WxMallOrder implements Serializable {
 	}
 
 	/**
-	 * @param userId
-	 *            the userId to set
+	 * @param userId the userId to set
 	 */
 	public void setUserId(long userId) {
 		this.userId = userId;
@@ -221,15 +199,14 @@ public class WxMallOrder implements Serializable {
 	/**
 	 * @return the mallId
 	 */
-	public String getMallId() {
+	public long getMallId() {
 		return mallId;
 	}
 
 	/**
-	 * @param mallId
-	 *            the mallId to set
+	 * @param mallId the mallId to set
 	 */
-	public void setMallId(String mallId) {
+	public void setMallId(long mallId) {
 		this.mallId = mallId;
 	}
 
@@ -241,8 +218,7 @@ public class WxMallOrder implements Serializable {
 	}
 
 	/**
-	 * @param createDate
-	 *            the createDate to set
+	 * @param createDate the createDate to set
 	 */
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
@@ -256,26 +232,38 @@ public class WxMallOrder implements Serializable {
 	}
 
 	/**
-	 * @param salePrice
-	 *            the salePrice to set
+	 * @param salePrice the salePrice to set
 	 */
 	public void setSalePrice(BigDecimal salePrice) {
 		this.salePrice = salePrice;
 	}
 
 	/**
-	 * @return the expenses
+	 * @return the expressType
 	 */
-	public BigDecimal getExpenses() {
-		return expenses;
+	public int getExpressType() {
+		return expressType;
 	}
 
 	/**
-	 * @param expenses
-	 *            the expenses to set
+	 * @param expressType the expressType to set
 	 */
-	public void setExpenses(BigDecimal expenses) {
-		this.expenses = expenses;
+	public void setExpressType(int expressType) {
+		this.expressType = expressType;
+	}
+
+	/**
+	 * @return the payType
+	 */
+	public int getPayType() {
+		return payType;
+	}
+
+	/**
+	 * @param payType the payType to set
+	 */
+	public void setPayType(int payType) {
+		this.payType = payType;
 	}
 
 }

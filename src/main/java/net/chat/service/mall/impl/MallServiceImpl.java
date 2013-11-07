@@ -4,13 +4,17 @@
 package net.chat.service.mall.impl;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import net.chat.dao.mall.WxMallCartDao;
 import net.chat.dao.mall.WxMallDao;
+import net.chat.dao.mall.WxMallExpressTypeDao;
+import net.chat.dao.mall.WxMallOrderDao;
 import net.chat.dao.mall.WxMallUserDao;
+import net.chat.dao.mall.WxOrderProductDao;
 import net.chat.dao.mall.WxPrdtCategoryDao;
 import net.chat.dao.mall.WxPrdtSubCategoryDao;
 import net.chat.dao.mall.WxProductCategoryDao;
@@ -19,7 +23,10 @@ import net.chat.dao.mall.WxProductPicDao;
 import net.chat.dao.mall.WxProductPriceDao;
 import net.chat.domain.mall.WxMall;
 import net.chat.domain.mall.WxMallCart;
+import net.chat.domain.mall.WxMallExpressType;
+import net.chat.domain.mall.WxMallOrder;
 import net.chat.domain.mall.WxMallUser;
+import net.chat.domain.mall.WxOrderProduct;
 import net.chat.domain.mall.WxPrdtCategory;
 import net.chat.domain.mall.WxPrdtSubCategory;
 import net.chat.domain.mall.WxProduct;
@@ -27,10 +34,13 @@ import net.chat.domain.mall.WxProductCategory;
 import net.chat.domain.mall.WxProductPic;
 import net.chat.domain.mall.WxProductPrice;
 import net.chat.formbean.mall.WxCartForm;
+import net.chat.formbean.mall.WxOrderForm;
 import net.chat.formbean.mall.WxProductForm;
 import net.chat.service.mall.MallService;
 import net.chat.tenpay.util.MD5Util;
 
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -69,6 +79,15 @@ public class MallServiceImpl implements MallService {
 	@Autowired
 	WxMallUserDao mallUserDao;
 
+	@Autowired
+	WxMallExpressTypeDao expressTypeDao;
+	
+	@Autowired
+	WxMallOrderDao orderDao;
+	
+	@Autowired
+	WxOrderProductDao orderProductDao;
+	
 	public WxMall findMallByAccountId(long accountId) {
 
 		return mallDao.findMallByAccountId(accountId);
@@ -199,5 +218,54 @@ public class MallServiceImpl implements MallService {
 			_mallUser.setPhoneNo(mallUser.getPhoneNo());
 		}
 		return mallUserDao.save(_mallUser);
+	}
+
+	
+	public List<WxMallExpressType> findExpressTypeListByMall(long mallId) {
+		
+		return expressTypeDao.findExpressTypeListByMall(mallId);
+	}
+
+	
+	public BigDecimal getExpressPriceById(long id) {
+		WxMallExpressType express=expressTypeDao.findOne(id);
+		if(null!=express)
+			return express.getPrice();
+		else return BigDecimal.ZERO;
+	}
+
+	@Transactional
+	public WxMallOrder addOrder(WxOrderForm orderForm) {
+		WxMallOrder order=new WxMallOrder();
+		BeanUtils.copyProperties(orderForm, order);
+		order.setOrderNo(this.buildOrderNo(orderForm.getMallId(), orderForm.getUserId()));
+		order=orderDao.save(order);
+		BigDecimal salePrice=BigDecimal.ZERO;
+	
+		for(WxProductForm productForm: orderForm.getProductList()){
+			long productId=productForm.getProductId();
+			long count=productForm.getStock();
+			BigDecimal price=this.findProductById(productId).getSalePrice();
+			salePrice=salePrice.add(price.multiply(new BigDecimal(count)));
+			WxOrderProduct product=new WxOrderProduct();
+			product.setOrderId(order.getId());
+			product.setProductId(productId);
+			product.setPrice(price);
+			product.setCount(count);
+			orderProductDao.save(product);
+			cartDao.deleteCartByProductId(orderForm.getUserId(), productId);
+		}
+		order.setSalePrice(salePrice);
+		order=orderDao.save(order);
+		return order;
+	}
+	
+	private String buildOrderNo(long mallId,long userId){
+		String orderNo=StringUtils.EMPTY;
+		orderNo+=mallId;
+		orderNo+=userId;
+		SimpleDateFormat sf=new SimpleDateFormat("yyyyMMddHHmmss");
+		orderNo+=sf.format(new Date());
+		return orderNo;
 	}
 }

@@ -17,7 +17,7 @@ import javax.persistence.Table;
  * 
  */
 @Entity
-@Table(name = "wx_product_price")
+@Table(name = "Wx_order_product")
 public class WxOrderProduct implements Serializable {
 
 	/**

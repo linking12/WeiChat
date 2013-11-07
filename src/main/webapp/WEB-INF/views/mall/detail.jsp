@@ -13,7 +13,7 @@ function addToCart(){
 		$("#form1").attr("action","${ctx}/mall/login?fromUrl="+'${url}');
 		$("#form1").submit();
 	}else{
-		$.post("${ctx}/mall/addcart/"+$("#productId").val()+"/"+$("#counts").val(), 
+		$.post("${ctx}/cart/add/"+$("#productId").val()+"/"+$("#counts").val(), 
 				function(data){
 			 		if(data==1){
 			 			$("#msg").text("添加成功!");

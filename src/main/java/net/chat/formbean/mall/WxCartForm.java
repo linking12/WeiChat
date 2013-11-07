@@ -3,13 +3,20 @@
  */
 package net.chat.formbean.mall;
 
+import java.io.Serializable;
+
 import net.chat.domain.mall.WxMallCart;
 
 /**
  * @author bo.chen
  * 
  */
-public class WxCartForm {
+public class WxCartForm implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7331731415244516868L;
 
 	public WxCartForm(WxMallCart mallCart, WxProductForm productForm) {
 		this.mallCart = mallCart;

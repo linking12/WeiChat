@@ -614,3 +614,67 @@ dl,dt,dd{
 	color:#fff;
 	border:0;
 }
+.receive{
+	padding:1em;
+	background-color:#FFF;
+	margin:0 0 .6em 0;
+	position:relative;
+}
+.receive p{
+	width:83%;
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	margin:0;
+}
+.receive em{
+	display:block;
+	position:absolute;
+	right:2px;
+	top:15px;
+}
+.input_div{
+	background-color:#fff;
+	overflow:hidden;
+	margin:0 0 .6em 0;
+	padding:.8em;
+}
+.in_txt{
+	border:0;
+	width:55%;
+	margin:0 0 0 10px;
+	height:2em;
+	color:#777;
+}
+.input_div .ui-shadow{
+	box-shadow:none;
+}
+.input_div .ui-btn-up-c{
+	border:0;
+	background:none;
+	padding:1px;
+}
+.w_div{
+	width:50%;
+}
+.input_div.ui-field-contain .ui-select{
+	width:100%;
+}
+.adr_bt_div{
+	width:80%;
+	margin:3em auto;
+}
+.adrs_bt{
+	background:#fdbe02;
+	color:#fff;
+}
+.xqing{
+	overflow:hidden;
+	background-color:#FFF;
+}
+.xqing span{
+	display:block;
+	font-weight:bold;
+	padding:15px;
+	border-bottom:1px solid #e7e9e8;
+}

@@ -2,22 +2,17 @@ package net.chat.controllers.mall;
 
 import java.io.IOException;
 import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-
 import net.chat.constants.PageConstants;
 import net.chat.domain.mall.WxMall;
-import net.chat.domain.mall.WxMallCart;
 import net.chat.domain.mall.WxMallUser;
 import net.chat.domain.mall.WxPrdtSubCategory;
 import net.chat.domain.mall.WxProductCategory;
-import net.chat.formbean.mall.WxCartForm;
 import net.chat.formbean.mall.WxProductForm;
 import net.chat.service.mall.MallService;
 import net.chat.utils.AppContext;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,7 +21,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/mall")
@@ -86,55 +80,7 @@ public class MallController {
 		}
 		return PageConstants.PAGE_MALL_DETAIL;
 	}
-
-	@RequestMapping("/addcart/{productId}/{count}")
-	@ResponseBody
-	public int addcart(@PathVariable("productId") long productId, @PathVariable("count") long count, Model model) {
-		WxMallUser mallUser = (WxMallUser) session.getAttribute("mallUser");
-
-		WxMallCart wxMallCart = new WxMallCart();
-		wxMallCart.setCount(count);
-		wxMallCart.setProductId(productId);
-		wxMallCart.setMallId((Long) session.getAttribute("mallId"));
-		wxMallCart.setMallUserId(mallUser.getId());
-		try {
-			mallService.addToCart(wxMallCart);
-			return 1;
-		} catch (Exception e) {
-			return 0;
-		}
-
-	}
-
-	@RequestMapping(value="/cart")
-	public String cart(Model model) {
-		
-		WxMallUser mallUser = (WxMallUser) session.getAttribute("mallUser");
-		if (null == mallUser) {
-			return "redirect:/mall/login?fromUrl=/mall/cart";
-		} else {
-			List<WxCartForm> cartList = mallService.findCartList(mallUser.getId());
-			model.addAttribute("cartList", cartList);
-			return PageConstants.PAGE_MALL_CART;
-		}
-	}
-
-	@RequestMapping(value="/deletecart/{productId}")
-	public String deletecart(@PathVariable("productId") long productId, Model model) {
-		WxMallUser mallUser = (WxMallUser) session.getAttribute("mallUser");
-		if (null == mallUser) {
-			return "redirect:/mall/login?fromUrl=/mall/cart";
-		} else {
-			mallService.deleteCartByProductId(productId, mallUser.getId());			
-			return "redirect:/mall/cart";
-		}
-	}
-
-	@RequestMapping("/createorder")
-	public String createorder(String[] productIds, String[] counts, Model model) {
-		return PageConstants.PAGE_MALL_ORDER;
-	}
-
+	
 	@RequestMapping("/login")
 	public String login(@RequestParam(value = "fromUrl", required = false) String fromUrl, Model model) {
 		WxMallUser mallUser = new WxMallUser();

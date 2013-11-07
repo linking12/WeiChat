@@ -253,5 +253,16 @@ public final class PageConstants {
 		lst.add(0, new SimpleBean("text", "文本"));
 		return lst;
 	}
-
+	
+	/**
+	 * 用户发送类型类型
+	 */
+	public static List<SimpleBean> buildPayTypesList() {
+		List<SimpleBean> lst = new ArrayList<SimpleBean>(4);
+		lst.add(0, new SimpleBean("1", "财付通"));
+//		lst.add(1, new SimpleBean("2", "网银"));
+//		lst.add(2, new SimpleBean("3", "支付宝"));
+//		lst.add(3, new SimpleBean("4", "转账"));
+		return lst;
+	}
 }

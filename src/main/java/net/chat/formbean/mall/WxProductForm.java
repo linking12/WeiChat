@@ -3,6 +3,7 @@
  */
 package net.chat.formbean.mall;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -10,7 +11,12 @@ import java.util.List;
  * @author bo.chen
  *
  */
-public class WxProductForm {
+public class WxProductForm implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3872214138785968333L;
 
 	private long productId;
 	

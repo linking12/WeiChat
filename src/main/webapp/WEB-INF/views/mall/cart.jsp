@@ -23,7 +23,7 @@ function checkthis(index){
 	calcTotal();
 }
 
-function createOrder(){
+function preOrder(){
 	$("#form1").empty();
 	var ischecked=false;
 	$("input[name='productIds']").each(function(){
@@ -36,7 +36,7 @@ function createOrder(){
 		}
 	});
 	if(ischecked){
-		$('#form1').attr('action','${ctx}/mall/createorder');
+		$('#form1').attr('action','${ctx}/order/preadd');
 		$('#form1').submit();
 	}else {
 		alert("请选择至少一个商品!");
@@ -45,7 +45,7 @@ function createOrder(){
 }
 
 function deleteCart(productId){
-	$('#form1').attr('action','${ctx}/mall/deletecart/'+productId);
+	$('#form1').attr('action','${ctx}/cart/delete/'+productId);
 	$('#form1').submit();
 }
 function calcTotal(){
@@ -73,7 +73,7 @@ function calcthis(index){
 
 <body>
 <!-- Home -->
-<form id="form1" method="post" action=""></form>
+<form id="form1" method="post" action="" modelAttribute="wxMallUser"></form>
 <div data-role="page" id="page2">
 	<%@ include file="mallmenu.jsp"%>
     <div data-role="content" >
@@ -113,7 +113,7 @@ function calcthis(index){
        		</div>
             <div class="zongjia">总价：¥ <i id="totalprice">0.00</i> </div>
             <div class="zj_bt">
-            	<a href="javascript:void(0);" onclick="createOrder()" data-role="button" data-corners="false" class="buy_bt zj_w">去结算</a>          
+            	<a href="javascript:void(0);" onclick="preOrder()" data-role="button" data-corners="false" class="buy_bt zj_w">去结算</a>          
             </div>
         </div>
 
