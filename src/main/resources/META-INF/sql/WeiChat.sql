@@ -53,7 +53,7 @@ INSERT INTO `wx_product_pic` (`id`, `picname`, `picurl`, `productid`, `flag`, `c
 delete from `wx_product_category`;
 INSERT INTO `wx_product_category` (`id`, `mallid`, `categoryname`, `description`, `style`, `createdate`) VALUES (1,1,'全部商品','全部商品','1','2013-01-01'),(2,1,'活动专区','活动专区','2','2013-01-01'),(3,1,'最新上架','最新上架','2','2013-01-01'),(4,1,'潮流趋势','潮流趋势','3','2013-01-01');
 delete from `wx_product_price`;
-INSERT INTO `wx_product_price` (`id`, `productid`, `effectivedate`, `expirydate`, `saleprice`, `expenses`, `createdate`, `count`, `orderid`, `price`) VALUES (1,1,'2013-01-01','2099-01-01',31,5,'2013-01-01',NULL,NULL,NULL),(2,2,'2013-01-01','2099-01-01',32,6,'2013-01-01',NULL,NULL,NULL),(3,3,'2013-01-01','2099-01-01',33,5,'2013-01-01',NULL,NULL,NULL),(4,4,'2013-01-01','2099-01-01',34,5,'2013-01-01',NULL,NULL,NULL),(5,5,'2013-01-01','2099-01-01',36,5,'2013-01-01',NULL,NULL,NULL),(6,6,'2013-01-01','2099-01-01',37,6,'2013-01-01',NULL,NULL,NULL);
+INSERT INTO `wx_product_price` (`id`, `productid`, `effectivedate`, `expirydate`, `saleprice`, `expenses`, `createdate`) VALUES (1,1,'2013-01-01','2099-01-01',31,5,'2013-01-01'),(2,2,'2013-01-01','2099-01-01',32,6,'2013-01-01'),(3,3,'2013-01-01','2099-01-01',33,5,'2013-01-01'),(4,4,'2013-01-01','2099-01-01',34,5,'2013-01-01'),(5,5,'2013-01-01','2099-01-01',36,5,'2013-01-01'),(6,6,'2013-01-01','2099-01-01',37,6,'2013-01-01');
 delete from `wx_mall_express_type`;
 INSERT INTO `wx_mall_express_type`(id,expressName,price,mallId) VALUES (1,'快递',10.00,1),(2,'顺丰',20.00,1),(3,'圆通',10.00,1),(4,'韵达',10.00,1);
 COMMIT;
