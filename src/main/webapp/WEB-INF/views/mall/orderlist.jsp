@@ -21,7 +21,7 @@
 		  	          <tr>
 		  	          	<td><a href="${ctx }/order/view/${order.id}">${order.orderNo}</a></td>
 	  	          		<td><c:forEach items="${statusList }" var="status"><c:if test="${status.key== order.status}">${status.value }</c:if></c:forEach></td>
-	  	          		<td>${order.salePrice}</td>
+	  	          		<td><i style="color: #a30000;font-weight: bold;">¥${order.salePrice}</i></td>
 	  	          		
   	          		</tr>	
 			           </c:forEach>
