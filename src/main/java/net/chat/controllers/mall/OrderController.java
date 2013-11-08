@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import net.chat.constants.PageConstants;
 import net.chat.domain.mall.WxMallExpressType;
+import net.chat.domain.mall.WxMallOrder;
 import net.chat.domain.mall.WxMallUser;
 import net.chat.formbean.SimpleBean;
 import net.chat.formbean.mall.WxOrderForm;
@@ -67,7 +68,7 @@ public class OrderController {
 		order.setProductList(productList);
 		order.setSalePrice(orderPrice);
 		model.addAttribute("order", order);
-		return PageConstants.PAGE_MALL_ORDER;
+		return PageConstants.PAGE_MALL_PREORDER;
 	}
 
 	@RequestMapping("/getexpressprice/{expressId}")
@@ -86,6 +87,43 @@ public class OrderController {
 		order.setMallId(mallUser.getMallId());
 		order.setUserId(mallUser.getId());
 		mallService.addOrder(order);
-		return "redirect:/cart/show";
+		return "redirect:/order/myorder";
+	}
+	
+	@RequestMapping("/myorder")
+	public String myorder(Model model) {
+		WxMallUser mallUser = (WxMallUser) session.getAttribute("mallUser");
+		if (null == mallUser) {
+			return "redirect:/mall/login?fromUrl=/order/myorder";
+		}
+		List<WxMallOrder> orderList=mallService.findOrderList(mallUser.getMallId(), mallUser.getId());
+		model.addAttribute("orderList", orderList);
+		
+//		List<WxMallExpressType> expressList = mallService.findExpressTypeListByMall((Long) session.getAttribute("mallId"));
+//		model.addAttribute("expressList", expressList);
+//
+//		List<SimpleBean> payTypeList = PageConstants.buildPayTypesList();
+//		model.addAttribute("payTypeList", payTypeList);
+		List<SimpleBean> statusList = PageConstants.buildOrderStatusList();
+		model.addAttribute("statusList", statusList);
+		
+		return PageConstants.PAGE_MALL_MYORDER;
+	}
+	
+	@RequestMapping("/view/{orderId}")
+	public String view(@PathVariable("orderId")long orderId,Model model) {
+		WxMallUser mallUser = (WxMallUser) session.getAttribute("mallUser");
+		if (null == mallUser) {
+			return "redirect:/mall/login?fromUrl=/order/myorder";
+		}
+		WxOrderForm order =mallService.findOrderByOrderId(mallUser.getMallId(), mallUser.getId(), orderId);
+		model.addAttribute("order", order);
+		model.addAttribute("isView", true);
+		List<WxMallExpressType> expressList = mallService.findExpressTypeListByMall((Long) session.getAttribute("mallId"));
+		model.addAttribute("expressList", expressList);
+
+		List<SimpleBean> payTypeList = PageConstants.buildPayTypesList();
+		model.addAttribute("payTypeList", payTypeList);
+		return PageConstants.PAGE_MALL_ORDER;
 	}
 }

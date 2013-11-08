@@ -38,7 +38,7 @@
             <!-- <em><a href="#" data-role="button" data-inline="true" data-corners="false" data-mini="true">修改</a></em> -->
         </div>
         <div data-role="fieldcontain" class="input_div">
-        <form:select path="expensesType" id="expressType" onchange="calcTotalPrice()">
+        <form:select path="expressType" id="expressType" onchange="calcTotalPrice()">
                <c:forEach items="${expressList }" var="express"  >
                <option value="${express.id }">${express.expressName}: ¥${express.price}</option>
                </c:forEach>

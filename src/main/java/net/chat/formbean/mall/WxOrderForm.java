@@ -37,7 +37,7 @@ public class WxOrderForm implements Serializable {
 
 	private BigDecimal salePrice;
 
-	private int expensesType;
+	private int expressType;
 
 	private int payType;
 
@@ -183,18 +183,17 @@ public class WxOrderForm implements Serializable {
 	}
 
 	/**
-	 * @return the expensesType
+	 * @return the expressType
 	 */
-	public int getExpensesType() {
-		return expensesType;
+	public int getExpressType() {
+		return expressType;
 	}
 
 	/**
-	 * @param expensesType
-	 *            the expensesType to set
+	 * @param expressType the expressType to set
 	 */
-	public void setExpensesType(int expensesType) {
-		this.expensesType = expensesType;
+	public void setExpressType(int expressType) {
+		this.expressType = expressType;
 	}
 
 	/**

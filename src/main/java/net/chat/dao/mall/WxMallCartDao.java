@@ -12,7 +12,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface WxMallCartDao extends JpaRepository<WxMallCart, Long>, JpaSpecificationExecutor<WxMallCart> {
 
-	@Query("from WxMallCart  where mallUserId= :mallUserId")
+	@Query("from WxMallCart  where mallUserId= :mallUserId order by id desc")
 	List<WxMallCart> findCartByUserId(@Param("mallUserId")long mallUserId);
 	
 	

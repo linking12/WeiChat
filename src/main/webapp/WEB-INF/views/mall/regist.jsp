@@ -65,7 +65,7 @@ function validate(){
 	            </dl>
 	            <dl class="top_bor">
 	            	<dt><font color="red">*</font>密&nbsp;&nbsp;&nbsp;&nbsp;码：</dt>
-	                <dd><form:input id="password" path="password" data-role="none" required="required" placeholder="密码在4~8位之间" /></dd> 
+	                <dd><form:password id="password" path="password" data-role="none" required="required" placeholder="密码在4~8位之间" /></dd> 
 	            </dl>
 	            <dl class="top_bor">
 	            	<dt><font color="red">*</font>确认密码：</dt>

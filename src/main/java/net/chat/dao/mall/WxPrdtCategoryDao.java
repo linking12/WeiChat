@@ -11,6 +11,6 @@ import org.springframework.data.repository.query.Param;
 
 public interface WxPrdtCategoryDao extends JpaRepository<WxPrdtCategory, Long>, JpaSpecificationExecutor<WxPrdtCategory> {
 
-	@Query("from WxPrdtCategory  where subCategoryId= :subCategoryId")
+	@Query("from WxPrdtCategory  where subCategoryId= :subCategoryId order by createDate desc")
 	List<WxPrdtCategory> findPrdtBySubCategoryId(@Param("subCategoryId")long subCategoryId);
 }

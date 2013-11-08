@@ -44,6 +44,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 /**
  * @author bo.chen
@@ -81,13 +82,13 @@ public class MallServiceImpl implements MallService {
 
 	@Autowired
 	WxMallExpressTypeDao expressTypeDao;
-	
+
 	@Autowired
 	WxMallOrderDao orderDao;
-	
+
 	@Autowired
 	WxOrderProductDao orderProductDao;
-	
+
 	public WxMall findMallByAccountId(long accountId) {
 
 		return mallDao.findMallByAccountId(accountId);
@@ -186,8 +187,8 @@ public class MallServiceImpl implements MallService {
 	}
 
 	@Transactional
-	public void deleteCartByProductId(long productId,long mallUserId) {
-		
+	public void deleteCartByProductId(long productId, long mallUserId) {
+
 		cartDao.deleteCartByProductId(mallUserId, productId);
 	}
 
@@ -220,34 +221,33 @@ public class MallServiceImpl implements MallService {
 		return mallUserDao.save(_mallUser);
 	}
 
-	
 	public List<WxMallExpressType> findExpressTypeListByMall(long mallId) {
-		
+
 		return expressTypeDao.findExpressTypeListByMall(mallId);
 	}
 
-	
 	public BigDecimal getExpressPriceById(long id) {
-		WxMallExpressType express=expressTypeDao.findOne(id);
-		if(null!=express)
+		WxMallExpressType express = expressTypeDao.findOne(id);
+		if (null != express)
 			return express.getPrice();
-		else return BigDecimal.ZERO;
+		else
+			return BigDecimal.ZERO;
 	}
 
 	@Transactional
 	public WxMallOrder addOrder(WxOrderForm orderForm) {
-		WxMallOrder order=new WxMallOrder();
+		WxMallOrder order = new WxMallOrder();
 		BeanUtils.copyProperties(orderForm, order);
 		order.setOrderNo(this.buildOrderNo(orderForm.getMallId(), orderForm.getUserId()));
-		order=orderDao.save(order);
-		BigDecimal salePrice=BigDecimal.ZERO;
-	
-		for(WxProductForm productForm: orderForm.getProductList()){
-			long productId=productForm.getProductId();
-			long count=productForm.getStock();
-			BigDecimal price=this.findProductById(productId).getSalePrice();
-			salePrice=salePrice.add(price.multiply(new BigDecimal(count)));
-			WxOrderProduct product=new WxOrderProduct();
+		order = orderDao.save(order);
+		BigDecimal salePrice = BigDecimal.ZERO;
+
+		for (WxProductForm productForm : orderForm.getProductList()) {
+			long productId = productForm.getProductId();
+			long count = productForm.getStock();
+			BigDecimal price = this.findProductById(productId).getSalePrice();
+			salePrice = salePrice.add(price.multiply(new BigDecimal(count)));
+			WxOrderProduct product = new WxOrderProduct();
 			product.setOrderId(order.getId());
 			product.setProductId(productId);
 			product.setPrice(price);
@@ -256,16 +256,41 @@ public class MallServiceImpl implements MallService {
 			cartDao.deleteCartByProductId(orderForm.getUserId(), productId);
 		}
 		order.setSalePrice(salePrice);
-		order=orderDao.save(order);
+		order = orderDao.save(order);
 		return order;
 	}
-	
-	private String buildOrderNo(long mallId,long userId){
-		String orderNo=StringUtils.EMPTY;
-		orderNo+=mallId;
-		orderNo+=userId;
-		SimpleDateFormat sf=new SimpleDateFormat("yyyyMMddHHmmss");
-		orderNo+=sf.format(new Date());
+
+	private String buildOrderNo(long mallId, long userId) {
+		String orderNo = StringUtils.EMPTY;
+		orderNo += mallId;
+		orderNo += userId;
+		SimpleDateFormat sf = new SimpleDateFormat("yyyyMMddHHmmss");
+		orderNo += sf.format(new Date());
 		return orderNo;
+	}
+
+	public List<WxMallOrder> findOrderList(long mallId, long userId) {
+		List<WxMallOrder> orderList= orderDao.findOrderList(mallId, userId);
+			for(WxMallOrder order:orderList){
+				order.setSalePrice(order.getSalePrice().add(this.getExpressPriceById(order.getExpressType())));
+			}
+		return orderList;
+	}
+
+	public WxOrderForm findOrderByOrderId(long mallId, long userId, long orderId) {
+		WxOrderForm form = new WxOrderForm();
+		WxMallOrder order = orderDao.findOrder(mallId, userId, orderId);
+		BeanUtils.copyProperties(order, form);
+		List<WxOrderProduct> productList = orderProductDao.findOrderProductList(order.getId());
+		if (!CollectionUtils.isEmpty(productList)) {
+			List<WxProductForm> productformList = new ArrayList<WxProductForm>();
+			for (WxOrderProduct o : productList) {
+				WxProductForm productForm = this.findProductById(o.getProductId());
+				productForm.setStock(o.getCount());
+				productformList.add(productForm);
+			}
+			form.setProductList(productformList);
+		}
+		return form;
 	}
 }

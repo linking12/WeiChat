@@ -52,4 +52,8 @@ public interface MallService {
 	BigDecimal getExpressPriceById(long id);
 	
 	WxMallOrder addOrder(WxOrderForm orderForm);
+	
+	List<WxMallOrder> findOrderList(long mallId,long userId);
+	
+	WxOrderForm findOrderByOrderId(long mallId,long userId,long orderId);
 }

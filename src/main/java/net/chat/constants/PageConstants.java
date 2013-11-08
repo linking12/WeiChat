@@ -171,8 +171,11 @@ public final class PageConstants {
 	 */
 	public static final String PAGE_MALL_REGIST = "mall/regist";
 	
-	public static String PAGE_MALL_ORDER = "mall/order";;
+	public static String PAGE_MALL_PREORDER = "mall/preorder";
 
+	public static String PAGE_MALL_MYORDER = "mall/orderlist";
+	
+	public static String PAGE_MALL_ORDER = "mall/vieworder";
 	/**
 	 * 
 	 * 智能客服-匹配类型
@@ -263,6 +266,19 @@ public final class PageConstants {
 //		lst.add(1, new SimpleBean("2", "网银"));
 //		lst.add(2, new SimpleBean("3", "支付宝"));
 //		lst.add(3, new SimpleBean("4", "转账"));
+		return lst;
+	}
+	
+	/**
+	 * 订单状态 (0:待支付,1:支付完成,2:发货,3:已签收,99:已取消)
+	 */
+	public static List<SimpleBean> buildOrderStatusList() {
+		List<SimpleBean> lst = new ArrayList<SimpleBean>(4);
+		lst.add(0, new SimpleBean("0", "待支付"));
+		lst.add(1, new SimpleBean("1", "支付完成"));
+		lst.add(2, new SimpleBean("2", "发货"));
+		lst.add(3, new SimpleBean("3", "已签收"));
+		lst.add(3, new SimpleBean("99", "已取消"));
 		return lst;
 	}
 }

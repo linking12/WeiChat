@@ -12,3 +12,15 @@
 <script type="text/javascript" src="${js}/mall.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<script type="text/javascript">
+$(function(){
+	try  
+	{ 
+	document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+		WeixinJSBridge.call('hideToolbar');
+		});
+	}  
+	catch (e)  
+	{  }
+})
+</script>
