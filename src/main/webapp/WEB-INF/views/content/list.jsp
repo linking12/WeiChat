@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ include file="../common.jsp"%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf8" />
@@ -102,7 +103,7 @@
 																	<td width="20%" class="biao">标题</td>
 																	<td width="25%" class="biao">URL</td>
 																	<td width="25%" class="biao">高清URL</td>
-																
+
 																	<td width="10%" class="biao">操作</td>
 																</tr>
 																<c:forEach items="${contents.content}" var="content">
@@ -120,7 +121,7 @@
 																				<c:when test="${content.msgType=='image' }">
 																					<a title="${content.picUrl}"
 																						style="text-decoration: none; color: blue"> <c:choose>
-																							<c:when test="${content.picUrl.length()>20}">${content.picUrl.substring(0,20)}...</c:when>
+																							<c:when test="${fn:length(content.picUrl) gt 20}">${fn:substring(content.picUrl, 0, 20)}...</c:when>
 																							<c:otherwise>${content.picUrl}</c:otherwise>
 																						</c:choose>
 																					</a>
@@ -128,7 +129,8 @@
 																				<c:otherwise>
 																					<a title="${content.musicUrl}"
 																						style="text-decoration: none; color: blue"> <c:choose>
-																							<c:when test="${content.musicUrl.length()>20}">${content.musicUrl.substring(0,20)}...</c:when>
+																							<c:when
+																								test="${fn:length(content.musicUrl) gt 20}">${fn:substring(content.musicUrl, 0, 20)}...</c:when>
 																							<c:otherwise>${content.musicUrl}</c:otherwise>
 																						</c:choose>
 																					</a>
@@ -136,11 +138,12 @@
 																			</c:choose></td>
 																		<td><a title="${content.hqmusicUrl}"
 																			style="text-decoration: none; color: blue"> <c:choose>
-																					<c:when test="${content.hqmusicUrl.length()>20}">${content.hqmusicUrl.substring(0,20)}...</c:when>
+																					<c:when
+																						test="${fn:length(content.hqmusicUrl) gt 20}">${fn:substring(content.hqmusicUrl, 0, 20)}...</c:when>
 																					<c:otherwise>${content.hqmusicUrl}</c:otherwise>
 																				</c:choose>
 																		</a></td>
-																		
+
 																		<td><input type="button" value="修改"
 																			class="btn-primary" onclick="doedit(${content.id})"></td>
 																	</tr>
