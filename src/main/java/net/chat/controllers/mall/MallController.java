@@ -45,17 +45,21 @@ public class MallController {
 
 		model.addAttribute("wxMall", wxMall);
 		long mallId = wxMall.getId();
-		List<WxProductCategory> categoryList = mallService.findProductCategoryByMallId(mallId);
+		List<WxProductCategory> categoryList = mallService
+				.findProductCategoryByMallId(mallId);
 		model.addAttribute("categoryList", categoryList);
 		return PageConstants.PAGE_MALL_INDEX;
-		
+
 	}
 
 	@RequestMapping("/subcategory/{categoryId}")
-	public String subcategory(@PathVariable("categoryId") long categoryId, Model model) {
-		WxProductCategory category = mallService.findWxProductCategoryById(categoryId);
+	public String subcategory(@PathVariable("categoryId") long categoryId,
+			Model model) {
+		WxProductCategory category = mallService
+				.findWxProductCategoryById(categoryId);
 		if (null != category) {
-			List<WxPrdtSubCategory> subCategoryList = mallService.findSubCategoryByCategoryId(categoryId);
+			List<WxPrdtSubCategory> subCategoryList = mallService
+					.findSubCategoryByCategoryId(categoryId);
 			model.addAttribute("subCategoryList", subCategoryList);
 			model.addAttribute("categoryStyle", category.getStyle());
 		}
@@ -63,8 +67,10 @@ public class MallController {
 	}
 
 	@RequestMapping("/list/{subCategoryId}")
-	public String list(@PathVariable("subCategoryId") long subCategoryId, Model model) {
-		List<WxProductForm> formList = mallService.findPrdtListBySubCategoryId(subCategoryId);
+	public String list(@PathVariable("subCategoryId") long subCategoryId,
+			Model model) {
+		List<WxProductForm> formList = mallService
+				.findPrdtListBySubCategoryId(subCategoryId);
 		model.addAttribute("formList", formList);
 		return PageConstants.PAGE_MALL_LIST;
 	}
@@ -80,9 +86,11 @@ public class MallController {
 		}
 		return PageConstants.PAGE_MALL_DETAIL;
 	}
-	
+
 	@RequestMapping("/login")
-	public String login(@RequestParam(value = "fromUrl", required = false) String fromUrl, Model model) {
+	public String login(
+			@RequestParam(value = "fromUrl", required = false) String fromUrl,
+			Model model) {
 		WxMallUser mallUser = new WxMallUser();
 		model.addAttribute("mallUser", mallUser);
 		model.addAttribute("fromUrl", fromUrl);
@@ -90,7 +98,9 @@ public class MallController {
 	}
 
 	@RequestMapping("/regist")
-	public String regist(@RequestParam(value = "fromUrl", required = false) String fromUrl, Model model) {
+	public String regist(
+			@RequestParam(value = "fromUrl", required = false) String fromUrl,
+			Model model) {
 		WxMallUser mallUser = new WxMallUser();
 		model.addAttribute("wxMallUser", mallUser);
 		model.addAttribute("fromUrl", fromUrl);
@@ -98,7 +108,9 @@ public class MallController {
 	}
 
 	@RequestMapping("/doregist")
-	public String doRegist(@Valid WxMallUser mallUser, BindingResult result, @RequestParam(value = "fromUrl", required = false) String fromUrl, Model model) {
+	public String doRegist(@Valid WxMallUser mallUser, BindingResult result,
+			@RequestParam(value = "fromUrl", required = false) String fromUrl,
+			Model model) {
 		try {
 			mallUser.setMallId((Long) session.getAttribute("mallId"));
 			mallUser = mallService.addMallUser(mallUser);
@@ -106,7 +118,8 @@ public class MallController {
 			if (StringUtils.isNotBlank(fromUrl))
 				return "redirect:" + fromUrl;
 			else {
-				return "redirect:/mall/index/" + session.getAttribute("accountId");
+				return "redirect:/mall/index/"
+						+ session.getAttribute("accountId");
 			}
 		} catch (IllegalArgumentException e) {
 			model.addAttribute("wxMallUser", mallUser);
@@ -116,23 +129,28 @@ public class MallController {
 
 	}
 
-	@RequestMapping("/mall_security_check" )
-	public String doLogin(@RequestParam(value = "fromUrl", required = false) String fromUrl, WxMallUser mallUser, Model model) throws ServletException, IOException {
+	@RequestMapping("/mall_security_check")
+	public String doLogin(
+			@RequestParam(value = "fromUrl", required = false) String fromUrl,
+			WxMallUser mallUser, Model model) throws ServletException,
+			IOException {
 		mallUser = mallService.dologin(mallUser);
-	
+
 		if (null != mallUser) {
 			AppContext.put("mallUser", mallUser);
 			session.setAttribute("mallUser", mallUser);
 			if (StringUtils.isNotBlank(fromUrl))
-				return "redirect:"+fromUrl;
-				
+				return "redirect:" + fromUrl;
+
 			else {
-				return "redirect:/mall/index/"+session.getAttribute("accountId");
+				return "redirect:/mall/index/"
+						+ session.getAttribute("accountId");
 			}
 		} else {
-			return "redirect:/mall/index/"+session.getAttribute("accountId");
+			return "redirect:/mall/regist";
 		}
 	}
+
 	@RequestMapping("/myaccount")
 	public String myaccount() {
 		WxMallUser mallUser = (WxMallUser) session.getAttribute("mallUser");

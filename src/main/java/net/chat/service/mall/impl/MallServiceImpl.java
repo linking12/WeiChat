@@ -111,7 +111,8 @@ public class MallServiceImpl implements MallService {
 
 	@Override
 	public List<WxProductForm> findPrdtListBySubCategoryId(long subCategoryId) {
-		List<WxPrdtCategory> prdtList = prdtCategoryDao.findPrdtBySubCategoryId(subCategoryId);
+		List<WxPrdtCategory> prdtList = prdtCategoryDao
+				.findPrdtBySubCategoryId(subCategoryId);
 		List<WxProductForm> formList = null;
 		for (WxPrdtCategory prdt : prdtList) {
 
@@ -162,7 +163,8 @@ public class MallServiceImpl implements MallService {
 	}
 
 	public void addToCart(WxMallCart wxMallCart) {
-		WxMallCart oldCart = cartDao.findCartByUserIdAndProductId(wxMallCart.getId(), wxMallCart.getProductId());
+		WxMallCart oldCart = cartDao.findCartByUserIdAndProductId(
+				wxMallCart.getId(), wxMallCart.getProductId());
 		if (null != oldCart) {
 			oldCart.setCount(oldCart.getCount() + wxMallCart.getCount());
 			cartDao.save(oldCart);
@@ -194,7 +196,10 @@ public class MallServiceImpl implements MallService {
 
 	public WxMallUser dologin(WxMallUser mallUser) {
 		WxMallUser _mallUser = mallUserDao.findByName(mallUser.getUserName());
-		if (_mallUser.getPassword().equalsIgnoreCase(MD5Util.MD5Encode(mallUser.getPassword(), null)))
+		if (_mallUser == null)
+			return null;
+		if (_mallUser.getPassword().equalsIgnoreCase(
+				MD5Util.MD5Encode(mallUser.getPassword(), null)))
 			return _mallUser;
 		else
 			return null;
@@ -204,7 +209,8 @@ public class MallServiceImpl implements MallService {
 	public WxMallUser addMallUser(WxMallUser mallUser) {
 		WxMallUser _mallUser = mallUserDao.findByName(mallUser.getUserName());
 		if (_mallUser != null) {
-			throw new IllegalArgumentException("User name:" + _mallUser.getUserName() + " has exists.");
+			throw new IllegalArgumentException("User name:"
+					+ _mallUser.getUserName() + " has exists.");
 		}
 		mallUser.setPassword(MD5Util.MD5Encode(mallUser.getPassword(), null));
 		return mallUserDao.save(mallUser);
@@ -215,7 +221,8 @@ public class MallServiceImpl implements MallService {
 		WxMallUser _mallUser = mallUserDao.findOne(mallUser.getId());
 		if (_mallUser != null) {
 			_mallUser.setAddress(mallUser.getAddress());
-			_mallUser.setPassword(MD5Util.MD5Encode(mallUser.getPassword(), null));
+			_mallUser.setPassword(MD5Util.MD5Encode(mallUser.getPassword(),
+					null));
 			_mallUser.setPhoneNo(mallUser.getPhoneNo());
 		}
 		return mallUserDao.save(_mallUser);
@@ -238,7 +245,8 @@ public class MallServiceImpl implements MallService {
 	public WxMallOrder addOrder(WxOrderForm orderForm) {
 		WxMallOrder order = new WxMallOrder();
 		BeanUtils.copyProperties(orderForm, order);
-		order.setOrderNo(this.buildOrderNo(orderForm.getMallId(), orderForm.getUserId()));
+		order.setOrderNo(this.buildOrderNo(orderForm.getMallId(),
+				orderForm.getUserId()));
 		order = orderDao.save(order);
 		BigDecimal salePrice = BigDecimal.ZERO;
 
@@ -270,10 +278,11 @@ public class MallServiceImpl implements MallService {
 	}
 
 	public List<WxMallOrder> findOrderList(long mallId, long userId) {
-		List<WxMallOrder> orderList= orderDao.findOrderList(mallId, userId);
-			for(WxMallOrder order:orderList){
-				order.setSalePrice(order.getSalePrice().add(this.getExpressPriceById(order.getExpressType())));
-			}
+		List<WxMallOrder> orderList = orderDao.findOrderList(mallId, userId);
+		for (WxMallOrder order : orderList) {
+			order.setSalePrice(order.getSalePrice().add(
+					this.getExpressPriceById(order.getExpressType())));
+		}
 		return orderList;
 	}
 
@@ -281,11 +290,13 @@ public class MallServiceImpl implements MallService {
 		WxOrderForm form = new WxOrderForm();
 		WxMallOrder order = orderDao.findOrder(mallId, userId, orderId);
 		BeanUtils.copyProperties(order, form);
-		List<WxOrderProduct> productList = orderProductDao.findOrderProductList(order.getId());
+		List<WxOrderProduct> productList = orderProductDao
+				.findOrderProductList(order.getId());
 		if (!CollectionUtils.isEmpty(productList)) {
 			List<WxProductForm> productformList = new ArrayList<WxProductForm>();
 			for (WxOrderProduct o : productList) {
-				WxProductForm productForm = this.findProductById(o.getProductId());
+				WxProductForm productForm = this.findProductById(o
+						.getProductId());
 				productForm.setStock(o.getCount());
 				productformList.add(productForm);
 			}
