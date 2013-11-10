@@ -106,8 +106,9 @@ public class IntegrationWeiChatImpl implements IntegrationWeiChat,
 				reqMsgType = "link";
 
 			String key = reqUrl + reqBean.getMsgType();
-			String messageId = (String) CacheContant.accountCache.get(key);
-			if (messageId.contains("program")) {
+			Object messageId = (Object) CacheContant.accountCache.get(key);
+			if (messageId instanceof String
+					&& ((String) messageId).contains("program")) {
 				String programUrl = (String) CacheContant.gameCache.get(reqUrl);
 				// 说明是聊天机器人
 				if (programUrl.equals("autoreply")) {
@@ -137,7 +138,7 @@ public class IntegrationWeiChatImpl implements IntegrationWeiChat,
 					req.getRequestDispatcher(p).include(req, resp);
 				}
 			} else {
-				Object respObj = CacheContant.sourceCache.get(messageId);
+				Object respObj = CacheContant.sourceCache.get(((Long) messageId).toString());
 				createRespBean(reqBean, respObj, jc, out);
 			}
 

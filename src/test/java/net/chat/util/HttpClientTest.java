@@ -17,13 +17,13 @@ public class HttpClientTest {
 
 	/**
 	 * @param args
-	 * @throws ParseException 
+	 * @throws ParseException
 	 */
 	public static void main(String[] args) throws IOException, ParseException {
-//yyyy_mm_dd
-		String s="2013_09_20";
-		SimpleDateFormat sf=new SimpleDateFormat("yyyy_MM_dd");
-		Date d=sf.parse(s);
+		// yyyy_mm_dd
+		String s = "2013_09_20";
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy_MM_dd");
+		Date d = sf.parse(s);
 		System.out.println(d);
 		// String content = "<xml>";
 		// content = content + " <ToUserName><![CDATA[toUser]]></ToUserName>";
@@ -61,21 +61,23 @@ public class HttpClientTest {
 		content = content
 				+ " <FromUserName><![CDATA[fromUser]]></FromUserName>";
 		content = content + "<CreateTime>1348831860</CreateTime>";
-		content = content + "<MsgType><![CDATA[text]]></MsgType>";
-		content = content + "<Content><![CDATA[你不好]]></Content>";
+		content = content + "<MsgType><![CDATA[voice]]></MsgType>";
+		content = content + "<MediaId><![CDATA[media_id]]></MediaId>";
+		content = content + "<Format><![CDATA[Format]]></Format>";
+		content = content + "<MsgId>1234567890123456</MsgId>";
 		content = content + "<MsgId>1234567890123456</MsgId>";
 		content = content + "</xml>";
 
 		@SuppressWarnings("deprecation")
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpPost httppost = new HttpPost(
-				"http://localhost:8080/WeiChat/API/OJweiRNLSFvdBUkboJzR");
+				"http://localhost:8080/WeiChat/API/lLfMiuDuqWiqKLvHXEvF");
 		StringEntity myEntity = new StringEntity(content, "UTF-8");
 		httppost.addHeader("Content-Type", "text/xml");
 		httppost.setEntity(myEntity);
 		HttpResponse response = httpclient.execute(httppost);
 		HttpEntity resEntity = response.getEntity();
-		
+
 		InputStreamReader reader = new InputStreamReader(
 				resEntity.getContent(), "UTF-8");
 		char[] buff = new char[1024];
