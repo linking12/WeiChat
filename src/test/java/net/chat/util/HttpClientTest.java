@@ -61,9 +61,9 @@ public class HttpClientTest {
 		content = content
 				+ " <FromUserName><![CDATA[fromUser]]></FromUserName>";
 		content = content + "<CreateTime>1348831860</CreateTime>";
-		content = content + "<MsgType><![CDATA[voice]]></MsgType>";
+		content = content + "<MsgType><![CDATA[image]]></MsgType>";
 		content = content + "<MediaId><![CDATA[media_id]]></MediaId>";
-		content = content + "<Format><![CDATA[Format]]></Format>";
+		content = content + "<PicUrl><![CDATA[this is a url]]></PicUrl>";
 		content = content + "<MsgId>1234567890123456</MsgId>";
 		content = content + "<MsgId>1234567890123456</MsgId>";
 		content = content + "</xml>";
