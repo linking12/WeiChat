@@ -58,7 +58,7 @@ public class WeiChatFreeMarkerView extends FreeMarkerView {
 				.getRealPath("/");
 		String requestHTML = this.getRequestHTML(request);
 		// 静态页面绝对路径
-		String htmlPath = basePath + requestHTML;
+		String htmlPath = basePath +"/WEB-INF/resources/html"+requestHTML;
 
 		File htmlFile = new File(htmlPath);
 		if (!htmlFile.getParentFile().exists()) {
@@ -73,9 +73,11 @@ public class WeiChatFreeMarkerView extends FreeMarkerView {
 		template.process(model, out);
 		out.flush();
 		out.close();
+		
+		String htmlURL = "/html"+requestHTML;
 
 		/* 将请求转发到生成的htm文件 */
-		request.getRequestDispatcher(requestHTML).forward(request, response);
+		request.getRequestDispatcher(htmlURL).forward(request, response);
 	}
 
 	/**
