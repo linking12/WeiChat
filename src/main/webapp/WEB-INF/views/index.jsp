@@ -57,10 +57,11 @@
             	<em>优惠券</em>
                 <i></i>
             </span>
+            <a href="${ctx}/ggl/init">
             <span>
             	<em>刮刮卡</em>
                 <i class="ico2"></i>
-            </span>
+            </span></a>
             <span>
             	<em>幸运大转盘</em>
                 <i class="ico3"></i>
