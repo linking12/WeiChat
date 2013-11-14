@@ -8,8 +8,13 @@ public class Menu {
 		return button;
 	}
 
-	public void setButton(Button[] button) {
-		this.button = button;
+	public void setButton(Object[] button) {
+		Button[] _button = new Button[] {};
+		for (int i = 0; i < button.length; i++) {
+			Button subButton = (Button) button[i];
+			_button[i] = subButton;
+		}
+		this.button = _button;
 	}
 
 }
