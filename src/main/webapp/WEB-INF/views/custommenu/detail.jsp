@@ -164,6 +164,7 @@
 																<td colspan="2"><div align="center"><img src="${images}/xian.jpg" width="800" height="1" /></div></td>
 															</tr>
 															</tbody>
+															<tr><td><span class="error">${msg }</span></td></tr>
 															<tr>
 																<td height="50" >
 																	<input type="button" id="submitbtn" class="btn-primary" value="提交" onclick="dosubmit()"/>

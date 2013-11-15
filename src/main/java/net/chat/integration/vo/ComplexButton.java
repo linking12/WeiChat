@@ -9,7 +9,7 @@ public class ComplexButton extends Button {
 	}
 
 	public void setSub_button(Object[] sub_button) {
-		Button[] sub_buttons = new Button[] {};
+		Button[] sub_buttons = new Button[sub_button.length] ;
 		for (int i = 0; i < sub_button.length; i++) {
 			Button subButton = (Button) sub_button[i];
 			sub_buttons[i] = subButton;

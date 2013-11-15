@@ -243,7 +243,7 @@ public final class PageConstants {
 	 */
 	public static List<SimpleBean> buildEventTypesList() {
 		List<SimpleBean> lst = new ArrayList<SimpleBean>(1);
-		lst.add(new SimpleBean("message", "回复消息"));
+//		lst.add(new SimpleBean("message", "回复消息"));
 		lst.add(new SimpleBean("url", "超链接"));
 		return lst;
 	}

@@ -29,6 +29,16 @@
 		$(function(){
 			$("#accountId").val("${accountId}");
 		})
+		
+		function createMenu(){
+			$.post("${ctx}/custommenu/create/"+$("#accountId").val(), function(data) {
+				if(data==0){
+					alert("创建菜单成功!");
+				}else {
+					alert("创建菜单失败!");
+				}
+			});
+		}
 	</script>
 </head>
 <body>
@@ -180,7 +190,7 @@
 														</tr>
 														<tr>
 															<td height="50" align="center"><input type="button" id="submitbtn"
-																class="btn-primary" value="生成微信菜单" onclick="dosubmit()" /></td>
+																class="btn-primary" value="生成微信菜单" onclick="createMenu()" /></td>
 														</tr>
 													</table>
 												</td>

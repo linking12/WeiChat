@@ -20,8 +20,10 @@ public interface WxCustomMenuDao extends JpaRepository<WxCustomMenu, Long>,
 	List<WxCustomMenu> findChildMenuByAccountId(
 			@Param("accountId") Long accountId);
 
-	@Query("from WxCustomMenu where accountId=:accountId and  eventType is not null eventDesc is not null ")
+	@Query("from WxCustomMenu where accountId=:accountId and  eventType is not null and eventDesc is not null order by parentId")
 	List<WxCustomMenu> findCommonButtonByAccountId(
 			@Param("accountId") Long accountId);
+	
+	
 
 }
