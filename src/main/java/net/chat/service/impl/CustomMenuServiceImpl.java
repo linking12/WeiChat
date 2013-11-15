@@ -7,8 +7,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -133,7 +135,7 @@ public class CustomMenuServiceImpl implements CustomMenuService {
 	@Override
 	public Menu createMenu(Long accountId) {
 		List<WxCustomMenu> menus = dao.findCommonButtonByAccountId(accountId);
-		List<Button> menuButton = new ArrayList<Button>();
+		Set<Button> menuButton = new HashSet<Button>();
 		Map<Long, Button> hasBuildParent = new HashMap<Long, Button>();
 		for (WxCustomMenu menu : menus) {
 			CommonButton commonButton = new CommonButton();
@@ -151,13 +153,13 @@ public class CustomMenuServiceImpl implements CustomMenuService {
 				ComplexButton paraentButton;
 				if (hasBuildParent.get(paraentId) == null) {
 					paraentButton = new ComplexButton();
+					WxCustomMenu paraentMenu = dao.findOne(paraentId);
+					paraentButton.setName(paraentMenu.getName());
 					hasBuildParent.put(paraentId, paraentButton);
 				} else {
 					paraentButton = (ComplexButton) hasBuildParent
 							.get(paraentId);
 				}
-				WxCustomMenu paraentMenu = dao.findOne(paraentId);
-				paraentButton.setName(paraentMenu.getName());
 				List<Button> subButtonList;
 				if (paraentButton.getSub_button() != null
 						&& paraentButton.getSub_button().length > 0) {
@@ -177,13 +179,6 @@ public class CustomMenuServiceImpl implements CustomMenuService {
 
 		}
 
-		/**
-		 * 这是公众号xiaoqrobot目前的菜单结构，每个一级菜单都有二级菜单项<br>
-		 * 
-		 * 在某个一级菜单下没有二级菜单的情况，menu该如何定义呢？<br>
-		 * 比如，第三个一级菜单项不是“更多体验”，而直接是“幽默笑话”，那么menu应该这样定义：<br>
-		 * menu.setButton(new Button[] { mainBtn1, mainBtn2, btn33 });
-		 */
 		Menu menu = new Menu();
 		menu.setButton(menuButton.toArray());
 		return menu;
