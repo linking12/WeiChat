@@ -49,6 +49,11 @@
 			<classifier>jdk15</classifier>
 		</dependency>
 		<dependency>
+			<artifactId>asm</artifactId>
+			<groupId>asm</groupId>
+			<version>3.3.1</version>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
 			<version>4.3.1</version>

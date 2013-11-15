@@ -9,7 +9,7 @@ public class Menu {
 	}
 
 	public void setButton(Object[] button) {
-		Button[] _button = new Button[] {};
+		Button[] _button = new Button[button.length];
 		for (int i = 0; i < button.length; i++) {
 			Button subButton = (Button) button[i];
 			_button[i] = subButton;

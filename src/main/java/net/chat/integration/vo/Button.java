@@ -12,17 +12,4 @@ public class Button {
 		this.name = name;
 	}
 
-	public boolean equals(Object obj) {
-		if (obj instanceof Button) {
-			Button button = (Button) obj;
-			return (name.equals(button.name));
-		}
-		return super.equals(obj);
-	}
-
-	public int hashCode() {
-		Button button = (Button) this;
-		return button.name.hashCode();
-	}
-
 }
