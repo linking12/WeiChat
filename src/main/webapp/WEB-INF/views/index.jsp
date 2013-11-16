@@ -47,10 +47,11 @@
             	<em>内容编辑</em>
                 <i class="ico7"></i>
             </span>
+            <a href="${ctx}/lbs/init">
             <span style="margin:0;">
             	<em>LBS设置</em>
                 <i class="ico8"></i>
-            </span>
+            </span></a>
         </div>
         <div class="link_box1">
         	<span>

@@ -135,6 +135,11 @@ public final class PageConstants {
 	 * 智能客服-详细
 	 */
 	public static final String PAGE_CUSTOMMENU_DETAIL = "custommenu/detail";
+	
+	/**
+	 * lbs-设置
+	 */
+	public static final String PAGE_LBS = "lbs/detail";
 
 	/**
 	 * 商城首页
