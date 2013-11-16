@@ -147,14 +147,20 @@ public class CustomMenuController {
 	@ResponseBody
 	@RequestMapping("/create/{accountId}")
 	public int integration(@PathVariable("accountId") Long accountId) {
+		try{
+		String accessToken= WeiChatUtil.getAccessToken("iradar88@163.com", "IRADAR").getToken();
 		Menu menu = customMenuService.createMenu(accountId);
-//		WxAccount account = accountService.findAcountById(accountId);
-		int result = WeiChatUtil.createMenu(menu, WeiChatUtil.getAccessToken("iradar88@163.com", "IRADAR").getToken());
+//		int result=0;
+		int result = WeiChatUtil.createMenu(menu,accessToken);
 		// 判断菜单创建结果
 		if (0 == result)
 			log.info("菜单创建成功！");
 		else
 			log.info("菜单创建失败，错误码：" + result);
 		return result;
+		}catch(Exception e){
+			log.info("菜单创建失败!" ,e);
+			return 1;
+		}
 	}
 }

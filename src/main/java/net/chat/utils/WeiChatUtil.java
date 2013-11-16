@@ -131,6 +131,9 @@ public class WeiChatUtil {
 
 	// 菜单创建（POST） 限100（次/天）
 	public static String menu_create_url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
+	
+	// 删除创建（POST） 限100（次/天）
+	public static String menu_delete_url = "https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=ACCESS_TOKEN";
 
 	/**
 	 * 创建菜单
@@ -148,6 +151,7 @@ public class WeiChatUtil {
 		String url = menu_create_url.replace("ACCESS_TOKEN", accessToken);
 		// 将菜单对象转换成json字符串
 		String jsonMenu = JSONObject.fromObject(menu).toString();
+		log.info("创建菜单json字符串:"+jsonMenu);
 		// 调用接口创建菜单
 		JSONObject jsonObject = httpRequest(url, "POST", jsonMenu);
 
@@ -162,4 +166,5 @@ public class WeiChatUtil {
 
 		return result;
 	}
+	
 }
