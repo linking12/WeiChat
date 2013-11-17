@@ -104,9 +104,14 @@ public class IntegrationWeiChatImpl implements IntegrationWeiChat,
 				reqMsgType = "image";
 			else if (reqMsgType.equals("link"))
 				reqMsgType = "link";
+			else if (reqMsgType.equals("event"))
+				reqMsgType = "event";
 
 			String key = reqUrl + reqBean.getMsgType();
 			Object messageId = (Object) CacheContant.accountCache.get(key);
+			if (reqMsgType.equals("event")) {
+				messageId = Long.valueOf(reqBean.getEventKey());
+			}
 			if (messageId instanceof String
 					&& ((String) messageId).contains("program")) {
 				String programUrl = (String) CacheContant.gameCache.get(reqUrl);
@@ -138,7 +143,8 @@ public class IntegrationWeiChatImpl implements IntegrationWeiChat,
 					req.getRequestDispatcher(p).include(req, resp);
 				}
 			} else {
-				Object respObj = CacheContant.sourceCache.get(((Long) messageId).toString());
+				Object respObj = CacheContant.sourceCache
+						.get(((Long) messageId).toString());
 				createRespBean(reqBean, respObj, jc, out);
 			}
 

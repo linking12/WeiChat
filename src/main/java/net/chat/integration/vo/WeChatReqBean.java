@@ -12,18 +12,22 @@ public class WeChatReqBean {
 	private Long createTime;
 	private String msgType;
 	private String content;
-	
+
+	private String event;
+	private String eventKey;
+	private String ticket;
+
 	private Double location_X;
 	private Double location_Y;
 	private Integer scale;
 	private String label;
-	
+
 	private Long msgId;
 
 	public String getToUserName() {
 		return toUserName;
 	}
-	
+
 	@XmlCDATA
 	@XmlElement(name = "ToUserName")
 	public void setToUserName(String toUserName) {
@@ -33,7 +37,7 @@ public class WeChatReqBean {
 	public String getFromUserName() {
 		return fromUserName;
 	}
-	
+
 	@XmlCDATA
 	@XmlElement(name = "FromUserName")
 	public void setFromUserName(String fromUserName) {
@@ -72,7 +76,7 @@ public class WeChatReqBean {
 	public Double getLocation_X() {
 		return location_X;
 	}
-	
+
 	@XmlElement(name = "Location_X")
 	public void setLocation_X(Double location_X) {
 		this.location_X = location_X;
@@ -114,5 +118,32 @@ public class WeChatReqBean {
 	public void setMsgId(Long msgId) {
 		this.msgId = msgId;
 	}
-	
+
+	public String getEvent() {
+		return event;
+	}
+
+	@XmlElement(name = "Event")
+	public void setEvent(String event) {
+		this.event = event;
+	}
+
+	public String getEventKey() {
+		return eventKey;
+	}
+
+	@XmlElement(name = "EventKey")
+	public void setEventKey(String eventKey) {
+		this.eventKey = eventKey;
+	}
+
+	public String getTicket() {
+		return ticket;
+	}
+
+	@XmlElement(name = "Ticket")
+	public void setTicket(String ticket) {
+		this.ticket = ticket;
+	}
+
 }
