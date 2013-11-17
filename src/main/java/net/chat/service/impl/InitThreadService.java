@@ -9,12 +9,14 @@ import net.chat.dao.WxAccountDao;
 import net.chat.dao.WxCmdDao;
 import net.chat.dao.WxContentDao;
 import net.chat.dao.WxGameDao;
+import net.chat.dao.WxLbsDao;
 import net.chat.dao.WxMessageDao;
 import net.chat.dao.WxMsgTypeDao;
 import net.chat.domain.WxAccount;
 import net.chat.domain.WxCmd;
 import net.chat.domain.WxContent;
 import net.chat.domain.WxGame;
+import net.chat.domain.WxLbs;
 import net.chat.domain.WxMessage;
 import net.chat.domain.WxMsgType;
 import net.chat.integration.vo.CacheContant;
@@ -45,15 +47,18 @@ public class InitThreadService extends Thread {
 
 	private WxContentDao contentDao;
 
+	private WxLbsDao lbsDao;
+
 	public InitThreadService(WxAccountDao accountDao,
 			WxMsgTypeDao messageTypeDao, WxCmdDao wxCmdDao, WxGameDao gameDao,
-			WxMessageDao messageDao, WxContentDao contentDao) {
+			WxMessageDao messageDao, WxContentDao contentDao, WxLbsDao lbsDao) {
 		this.accountDao = accountDao;
 		this.messageTypeDao = messageTypeDao;
 		this.wxCmdDao = wxCmdDao;
 		this.gameDao = gameDao;
 		this.messageDao = messageDao;
 		this.contentDao = contentDao;
+		this.lbsDao = lbsDao;
 
 	}
 
@@ -62,6 +67,7 @@ public class InitThreadService extends Thread {
 
 		while (openThreadFlag) {
 			log.info("====缓存微信回复信息配置开始====");
+			CacheContant.publicAccountCache.cleanup();
 			CacheContant.sourceCache.cleanup();
 			CacheContant.accountCache.cleanup();
 			CacheContant.gameCache.cleanup();
@@ -82,6 +88,9 @@ public class InitThreadService extends Thread {
 		// account
 		for (WxAccount account : accounts) {
 			Long accountId = account.getId();
+			WxLbs lbs = lbsDao.findByAccountId(accountId);
+			CacheContant.publicAccountCache.put(account.getUrl(),
+					lbs.getxPoint() + "," + lbs.getyPoint());
 			List<WxMsgType> messageTypes = messageTypeDao
 					.findMsgTypeByAccountId(accountId);
 			for (WxMsgType msgType : messageTypes) {

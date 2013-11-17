@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.Writer;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
@@ -21,6 +22,7 @@ import net.chat.dao.WxAccountDao;
 import net.chat.dao.WxCmdDao;
 import net.chat.dao.WxContentDao;
 import net.chat.dao.WxGameDao;
+import net.chat.dao.WxLbsDao;
 import net.chat.dao.WxMessageDao;
 import net.chat.dao.WxMsgTypeDao;
 import net.chat.domain.WxCmd;
@@ -30,6 +32,7 @@ import net.chat.integration.vo.WeChatRespTextBean;
 import net.chat.integration.vo.WeiChatRespImageBean;
 import net.chat.integration.vo.WeiChatRespMusicAndVideoBean;
 import net.chat.service.IntegrationWeiChat;
+import net.chat.utils.BaiduAPI;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
@@ -59,6 +62,9 @@ public class IntegrationWeiChatImpl implements IntegrationWeiChat,
 
 	@Autowired
 	private WxContentDao contentDao;
+
+	@Autowired
+	private WxLbsDao lbsDao;
 
 	private static Logger log = Logger.getLogger(IntegrationWeiChatImpl.class
 			.getName());
@@ -106,46 +112,66 @@ public class IntegrationWeiChatImpl implements IntegrationWeiChat,
 				reqMsgType = "link";
 			else if (reqMsgType.equals("event"))
 				reqMsgType = "event";
+			else if (reqMsgType.equals("location")) {
+				reqMsgType = "location";
+			}
 
 			String key = reqUrl + reqBean.getMsgType();
 			Object messageId = (Object) CacheContant.accountCache.get(key);
-			if (reqMsgType.equals("event")) {
-				messageId = Long.valueOf(reqBean.getEventKey());
-			}
-			if (messageId instanceof String
-					&& ((String) messageId).contains("program")) {
-				String programUrl = (String) CacheContant.gameCache.get(reqUrl);
-				// 说明是聊天机器人
-				if (programUrl.equals("autoreply")) {
-					@SuppressWarnings("unchecked")
-					List<WxCmd> cmds = (List<WxCmd>) CacheContant.autoReplayAndCmdCache
-							.get(reqUrl);
-					String cmdMessageId = null;
-					for (WxCmd cmd : cmds) {
-						if (cmd.getCtype().equals("whole")) {
-							if (reqBean.getContent().equals(cmd.getCmd())) {
-								cmdMessageId = String.valueOf(cmd
-										.getMessageId().longValue());
-							}
-						} else if (cmd.getCtype().equals("startwith")) {
-							if (reqBean.getContent().startsWith(cmd.getCmd())) {
-								cmdMessageId = String.valueOf(cmd
-										.getMessageId().longValue());
-							}
-						} else {
-							cmdMessageId = "1";// 随意指定一条返回
-						}
-					}
-					Object respObj = CacheContant.sourceCache.get(cmdMessageId);
-					createRespBean(reqBean, respObj, jc, out);
-				} else {
-					String p = "/program/" + programUrl;
-					req.getRequestDispatcher(p).include(req, resp);
-				}
+			if (reqMsgType.equals("location")) {
+				String destination = (String) CacheContant.publicAccountCache
+						.get(reqUrl);
+				WeChatRespTextBean respBean = new WeChatRespTextBean();
+				respBean.setMsgType("text");
+				respBean.setCreateTime(new Date().getTime());
+				String origin = reqBean.getLocation_X().toString() + ","
+						+ reqBean.getLocation_Y().toString();
+				// 目前只支持上海
+				respBean.setContent(BaiduAPI.navagation(origin, destination,
+						"上海"));
+				createRespBean(reqBean, respBean, jc, out);
 			} else {
-				Object respObj = CacheContant.sourceCache
-						.get(((Long) messageId).toString());
-				createRespBean(reqBean, respObj, jc, out);
+				if (reqMsgType.equals("event")) {
+					messageId = Long.valueOf(reqBean.getEventKey());
+				}
+				if (messageId instanceof String
+						&& ((String) messageId).contains("program")) {
+					String programUrl = (String) CacheContant.gameCache
+							.get(reqUrl);
+					// 说明是聊天机器人
+					if (programUrl.equals("autoreply")) {
+						@SuppressWarnings("unchecked")
+						List<WxCmd> cmds = (List<WxCmd>) CacheContant.autoReplayAndCmdCache
+								.get(reqUrl);
+						String cmdMessageId = null;
+						for (WxCmd cmd : cmds) {
+							if (cmd.getCtype().equals("whole")) {
+								if (reqBean.getContent().equals(cmd.getCmd())) {
+									cmdMessageId = String.valueOf(cmd
+											.getMessageId().longValue());
+								}
+							} else if (cmd.getCtype().equals("startwith")) {
+								if (reqBean.getContent().startsWith(
+										cmd.getCmd())) {
+									cmdMessageId = String.valueOf(cmd
+											.getMessageId().longValue());
+								}
+							} else {
+								cmdMessageId = "1";// 随意指定一条返回
+							}
+						}
+						Object respObj = CacheContant.sourceCache
+								.get(cmdMessageId);
+						createRespBean(reqBean, respObj, jc, out);
+					} else {
+						String p = "/program/" + programUrl;
+						req.getRequestDispatcher(p).include(req, resp);
+					}
+				} else {
+					Object respObj = CacheContant.sourceCache
+							.get(((Long) messageId).toString());
+					createRespBean(reqBean, respObj, jc, out);
+				}
 			}
 
 			out.flush();
@@ -254,7 +280,7 @@ public class IntegrationWeiChatImpl implements IntegrationWeiChat,
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		Thread intiThread = new InitThreadService(accountDao, messageTypeDao,
-				wxCmdDao, gameDao, messageDao, contentDao);
+				wxCmdDao, gameDao, messageDao, contentDao, lbsDao);
 		intiThread.start();
 
 	}
