@@ -18,10 +18,10 @@ import org.apache.commons.lang.StringUtils;
 public class BaiduAPI {
 	private static String ak = "5ef2641d89438a6e708db122820cf1d2";
 
-	public static Map<String, String> testPost(String x, String y)
+	public static Map<String, String> getLocation(String location)
 			throws IOException {
 		URL url = new URL("http://api.map.baidu.com/geocoder/v2/?ak=" + ak
-				+ "&callback=renderReverse&location=" + x + "," + y
+				+ "&callback=renderReverse&location=" + location
 				+ "&output=json&pois=0");
 		URLConnection connection = url.openConnection();
 		connection.setDoOutput(true);
@@ -56,6 +56,15 @@ public class BaiduAPI {
 
 	public static String navagation(String origin, String destination,
 			String city) throws IOException {
+
+		// String aLocation = getLocation(origin) != null ? getLocation(origin)
+		// .get("address") : null;
+		// String bLocation = getLocation(destination) != null ? getLocation(
+		// destination).get("address") : null;
+		// if (bLocation == null || aLocation == null || aLocation.equals("")
+		// || bLocation.equals(""))
+		// return "暂时无法导航";
+
 		URL url = new URL(
 				"http://api.map.baidu.com/direction/v1?mode=driving&origin="
 						+ origin + "&destination=" + destination
@@ -80,14 +89,18 @@ public class BaiduAPI {
 		}
 		String str = sb.toString();
 		StringBuilder st = new StringBuilder();
-		JSONObject jsonObject = JSONObject.fromObject(str);
-		JSONObject ob = jsonObject.getJSONObject("result")
-				.getJSONArray("routes").getJSONObject(0);
-		JSONArray steps = ob.getJSONArray("steps");
-		for (int i = 0; i < steps.size(); i++) {
-			String instruction = (String) steps.getJSONObject(i).get(
-					"instructions");
-			st.append(instruction);
+		try {
+			JSONObject jsonObject = JSONObject.fromObject(str);
+			JSONObject ob = jsonObject.getJSONObject("result")
+					.getJSONArray("routes").getJSONObject(0);
+			JSONArray steps = ob.getJSONArray("steps");
+			for (int i = 0; i < steps.size(); i++) {
+				String instruction = (String) steps.getJSONObject(i).get(
+						"instructions");
+				st.append(instruction);
+			}
+		} catch (Exception e) {
+			st.append("你上传位置暂时无法导航");
 		}
 		return st.toString();
 

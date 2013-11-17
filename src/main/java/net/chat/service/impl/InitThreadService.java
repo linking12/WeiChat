@@ -90,7 +90,7 @@ public class InitThreadService extends Thread {
 			Long accountId = account.getId();
 			WxLbs lbs = lbsDao.findByAccountId(accountId);
 			CacheContant.publicAccountCache.put(account.getUrl(),
-					lbs.getxPoint() + "," + lbs.getyPoint());
+					lbs.getyPoint() + "," + lbs.getxPoint());
 			List<WxMsgType> messageTypes = messageTypeDao
 					.findMsgTypeByAccountId(accountId);
 			for (WxMsgType msgType : messageTypes) {
