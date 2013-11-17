@@ -49,7 +49,13 @@ public class AccountServiceImpl implements AccountService {
 
 	@Transactional
 	public void editAccount(WxAccount account) {
-		accountDao.editAccount(account.getId(), account.getName(), account.getNote());
+		accountDao.editAccount(account.getId(), account.getName(),
+				account.getNote());
+	}
+
+	@Transactional
+	public void editAccountApp(WxAccount account) {
+		accountDao.editAccountApp(account.getId(),account.getAppId(),account.getAppSecret());
 	}
 
 	@Transactional
@@ -68,7 +74,8 @@ public class AccountServiceImpl implements AccountService {
 			pageSize = 20;
 		if (pageNo == 0)
 			pageNo = 1;
-		Pageable pageable = new PageRequest(pageNo - 1, pageSize, new Sort(new Order("id")));
+		Pageable pageable = new PageRequest(pageNo - 1, pageSize, new Sort(
+				new Order("id")));
 		return accountDao.findAll(pageable);
 
 	}
@@ -79,7 +86,8 @@ public class AccountServiceImpl implements AccountService {
 
 	public void configAccount(ConfigPropertity configPertity) {
 
-		WxMsgType messageType = messageTypeDao.findOne(configPertity.getMessageTypeId());
+		WxMsgType messageType = messageTypeDao.findOne(configPertity
+				.getMessageTypeId());
 		if (messageType.getAccountId().equals(configPertity.getAccountId())) {
 			messageType.setAction(configPertity.getAction());
 			messageType.setSourceId(configPertity.getSourceId());
@@ -87,15 +95,18 @@ public class AccountServiceImpl implements AccountService {
 
 	}
 
-	public Page<WxMsgType> queryAllMessageTypeInAccount(Long accountId, int pageNo, int pageSize) {
+	public Page<WxMsgType> queryAllMessageTypeInAccount(Long accountId,
+			int pageNo, int pageSize) {
 		if (pageSize == 0)
 			pageSize = 20;
 		if (pageNo == 0)
 			pageNo = 0;
-		Pageable pageable = new PageRequest(pageNo - 1, pageSize, new Sort(new Order("id")));
+		Pageable pageable = new PageRequest(pageNo - 1, pageSize, new Sort(
+				new Order("id")));
 		final Long _accountId = accountId;
 		Specification<WxMsgType> spec = new Specification<WxMsgType>() {
-			public Predicate toPredicate(Root<WxMsgType> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+			public Predicate toPredicate(Root<WxMsgType> root,
+					CriteriaQuery<?> query, CriteriaBuilder cb) {
 				return cb.equal(root.<Long> get("accountId"), _accountId);
 			}
 
@@ -151,15 +162,16 @@ public class AccountServiceImpl implements AccountService {
 		return accountDao.findAll();
 	}
 
-	
 	public Page<WxAccount> findAccountByUserId(int pageNo, final Long userId) {
 		int pageSize = 5;
 		if (pageNo == 0)
 			pageNo = 1;
-		Pageable pageable = new PageRequest(pageNo - 1, pageSize, new Sort(new Order("id")));
+		Pageable pageable = new PageRequest(pageNo - 1, pageSize, new Sort(
+				new Order("id")));
 
 		Specification<WxAccount> spec = new Specification<WxAccount>() {
-			public Predicate toPredicate(Root<WxAccount> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+			public Predicate toPredicate(Root<WxAccount> root,
+					CriteriaQuery<?> query, CriteriaBuilder cb) {
 				return cb.equal(root.<Long> get("customerId"), userId);
 			}
 		};

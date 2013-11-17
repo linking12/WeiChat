@@ -29,7 +29,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/custommenu")
 public class CustomMenuController {
 
-	private static Logger log = LoggerFactory.getLogger(CustomMenuController.class);
+	private static Logger log = LoggerFactory
+			.getLogger(CustomMenuController.class);
 	@Autowired
 	AccountService accountService;
 
@@ -40,7 +41,9 @@ public class CustomMenuController {
 	CustomMenuService customMenuService;
 
 	@RequestMapping("/init")
-	public String init(@RequestParam(value = "accountId", required = false) Long accountId, Model model) {
+	public String init(
+			@RequestParam(value = "accountId", required = false) Long accountId,
+			Model model) {
 		Long userId = AppContext.getUserId();
 		List<WxAccount> accounts = accountService.findAccountByUserId(userId);
 		model.addAttribute("accounts", accounts);
@@ -58,9 +61,11 @@ public class CustomMenuController {
 		List<WxMessage> msgs = messageService.findMessageByAccountId(accountId);
 		model.addAttribute("msgs", msgs);
 
-		List<WxCustomMenu> parentMenus = customMenuService.findParentMenuByAccountId(accountId);
+		List<WxCustomMenu> parentMenus = customMenuService
+				.findParentMenuByAccountId(accountId);
 		model.addAttribute("parentMenus", parentMenus);
-		List<WxCustomMenu> menus = customMenuService.findCustomMenuByAccountId(accountId);
+		List<WxCustomMenu> menus = customMenuService
+				.findCustomMenuByAccountId(accountId);
 		model.addAttribute("menus", menus);
 		return PageConstants.PAGE_CUSTOMMENU_LIST;
 	}
@@ -74,7 +79,8 @@ public class CustomMenuController {
 
 		List<WxMessage> msgs = messageService.findMessageByAccountId(accountId);
 		model.addAttribute("msgs", msgs);
-		List<WxCustomMenu> parentMenus = customMenuService.findParentMenuByAccountId(accountId);
+		List<WxCustomMenu> parentMenus = customMenuService
+				.findParentMenuByAccountId(accountId);
 		model.addAttribute("parentMenus", parentMenus);
 		WxCustomMenu wxCustomMenu = new WxCustomMenu();
 		wxCustomMenu.setAccountId(accountId);
@@ -96,8 +102,10 @@ public class CustomMenuController {
 		List<WxMessage> msgs = messageService.findMessageByAccountId(accountId);
 
 		model.addAttribute("msgs", msgs);
-		if (null != wxCustomMenu.getParentId() && 0 != wxCustomMenu.getParentId()) {
-			List<WxCustomMenu> parentMenus = customMenuService.findParentMenuByAccountId(accountId);
+		if (null != wxCustomMenu.getParentId()
+				&& 0 != wxCustomMenu.getParentId()) {
+			List<WxCustomMenu> parentMenus = customMenuService
+					.findParentMenuByAccountId(accountId);
 			model.addAttribute("parentMenus", parentMenus);
 		}
 
@@ -116,15 +124,19 @@ public class CustomMenuController {
 	public String submit(WxCustomMenu wxCustomMenu, Model model) {
 		if (null == wxCustomMenu.getParentId()) {
 			long accountId = wxCustomMenu.getAccountId();
-			int count = customMenuService.findParentMenuByAccountId(accountId).size();
+			int count = customMenuService.findParentMenuByAccountId(accountId)
+					.size();
 			if (count > 2) {
 				model.addAttribute("msg", "最多添加3个一级菜单!");
 
-				List<WxAccount> accounts = accountService.findAccountByUserId(AppContext.getUserId());
+				List<WxAccount> accounts = accountService
+						.findAccountByUserId(AppContext.getUserId());
 				model.addAttribute("accounts", accounts);
-				model.addAttribute("eventTypes", PageConstants.buildEventTypesList());
+				model.addAttribute("eventTypes",
+						PageConstants.buildEventTypesList());
 
-				List<WxCustomMenu> parentMenus = customMenuService.findParentMenuByAccountId(accountId);
+				List<WxCustomMenu> parentMenus = customMenuService
+						.findParentMenuByAccountId(accountId);
 				model.addAttribute("parentMenus", parentMenus);
 
 				model.addAttribute("wxCustomMenu", wxCustomMenu);
@@ -132,7 +144,8 @@ public class CustomMenuController {
 			}
 		}
 		customMenuService.save(wxCustomMenu);
-		return "redirect:/custommenu/init?accountId=" + wxCustomMenu.getAccountId();
+		return "redirect:/custommenu/init?accountId="
+				+ wxCustomMenu.getAccountId();
 	}
 
 	/*
@@ -141,20 +154,43 @@ public class CustomMenuController {
 	 */
 	@ResponseBody
 	@RequestMapping("/create/{accountId}")
-	public int integration(@PathVariable("accountId") Long accountId) {
-		try{
-		String accessToken= WeiChatUtil.getAccessToken("wx593827365bbc380b", "11a6f7612a77f19525b37072a65660d0").getToken();
-		Menu menu = customMenuService.createMenu(accountId);
-//		int result=0;
-		int result = WeiChatUtil.createMenu(menu,accessToken);
-		// 判断菜单创建结果
-		if (0 == result)
-			log.info("菜单创建成功！");
-		else
-			log.info("菜单创建失败，错误码：" + result);
-		return result;
-		}catch(Exception e){
-			log.info("菜单创建失败!" ,e);
+	public int integration(
+			@PathVariable("accountId") Long accountId,
+			@RequestParam(value = "AppId", required = false) String AppId,
+			@RequestParam(value = "AppSecret", required = false) String AppSecret) {
+		try {
+			// String accessToken = WeiChatUtil.getAccessToken(
+			// "wx593827365bbc380b", "11a6f7612a77f19525b37072a65660d0")
+			// .getToken();
+			if (AppId == null || AppSecret == null) {
+				WxAccount account = accountService.findAcountById(accountId);
+				if (account.getAppId() == null
+						|| account.getAppSecret() == null)
+					return 10;
+				else {
+					AppId = account.getAppId();
+					AppSecret = account.getAppSecret();
+				}
+
+			} else {
+				WxAccount account = accountService.findAcountById(accountId);
+				account.setAppId(AppId);
+				account.setAppSecret(AppSecret);
+				accountService.editAccountApp(account);
+			}
+
+			String accessToken = WeiChatUtil.getAccessToken(AppId, AppSecret)
+					.getToken();
+			Menu menu = customMenuService.createMenu(accountId);
+			int result = WeiChatUtil.createMenu(menu, accessToken);
+			// 判断菜单创建结果
+			if (0 == result)
+				log.info("菜单创建成功！");
+			else
+				log.info("菜单创建失败，错误码：" + result);
+			return result;
+		} catch (Exception e) {
+			log.info("菜单创建失败!", e);
 			return 1;
 		}
 	}

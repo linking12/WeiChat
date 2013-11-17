@@ -31,9 +31,11 @@
 		})
 		
 		function createMenu(){
-			$.post("${ctx}/custommenu/create/"+$("#accountId").val(), function(data) {
+			$.post("${ctx}/custommenu/create/"+$("#accountId").val()+"?AppId="+$("#appId").val()+"&AppSecret="+$("#appSecret").val(), function(data) {
 				if(data==0){
 					alert("创建菜单成功!");
+				}else if(data==10) {
+					alert("请输入你的AppId和AppSecre，申请服务号后，微信客服会发送到你邮箱中！")
 				}else {
 					alert("创建菜单失败!");
 				}
@@ -189,8 +191,24 @@
 															</td>
 														</tr>
 														<tr>
-															<td height="50" align="center"><input type="button" id="submitbtn"
-																class="btn-primary" value="生成微信菜单" onclick="createMenu()" /></td>
+															<td height="50" align="center">
+																<table width="98%" border="0" align="center"
+																	cellpadding="0" cellspacing="0">
+																	<tr>
+																		<td width="20%" height="40" class="biao">AppId</td>
+																		<td width="20%" height="40" class="biao"><input
+																			name="appId" id="appId" type="text" size="1"
+																			style="width: 200px;" /></td>
+																		<td width="20%" height="40" class="biao">AppSecret</td>
+																		<td width="20%" height="40" class="biao"><input
+																			name="appSecret" id="appSecret" type="text" size="1"
+																			style="width: 200px;" /></td>
+																		<td width="20%"><input type="button"
+																			id="submitbtn" class="btn-primary" value="生成微信菜单"
+																			onclick="createMenu()" /></td>
+																	</tr>
+																</table>
+															</td>
 														</tr>
 													</table>
 												</td>

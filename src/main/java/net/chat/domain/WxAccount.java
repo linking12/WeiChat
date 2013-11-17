@@ -56,6 +56,12 @@ public class WxAccount implements Serializable {
 	@Column(name = "istatus")
 	private int istatus;
 
+	@Column(name = "appId")
+	private String appId;
+
+	@Column(name = "appSecret")
+	private String appSecret;
+
 	/**
 	 * @return the id
 	 */
@@ -189,6 +195,22 @@ public class WxAccount implements Serializable {
 	 */
 	public void setIstatus(int istatus) {
 		this.istatus = istatus;
+	}
+
+	public String getAppId() {
+		return appId;
+	}
+
+	public void setAppId(String appId) {
+		this.appId = appId;
+	}
+
+	public String getAppSecret() {
+		return appSecret;
+	}
+
+	public void setAppSecret(String appSecret) {
+		this.appSecret = appSecret;
 	}
 
 }

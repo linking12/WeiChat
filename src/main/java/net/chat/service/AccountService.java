@@ -25,6 +25,8 @@ public interface AccountService {
 	public List<WxAccount> findAccountByUserId(Long userId);
 
 	Page<WxAccount> findAccountByUserId(int pageNo, Long userId);
-	
+
 	public List<WxAccount> findAll();
+
+	public void editAccountApp(WxAccount account);
 }

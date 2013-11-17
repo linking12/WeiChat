@@ -31,5 +31,11 @@ public interface WxAccountDao extends JpaRepository<WxAccount, Long>,
 			@Param("note") String note);
 
 	@Query("from WxAccount  where customerId = :userId")
-	Page<WxAccount> findAccountByUserId(@Param("userId") Long userId,Pageable pageable);
+	Page<WxAccount> findAccountByUserId(@Param("userId") Long userId,
+			Pageable pageable);
+
+	@Modifying
+	@Query("update WxAccount set appId= :appId , appSecret = :appSecret where id = :id")
+	void editAccountApp(@Param("id") Long id, @Param("appId") String appId,
+			@Param("appSecret") String appSecret);
 }
