@@ -162,7 +162,8 @@ public class CustomMenuController {
 			// String accessToken = WeiChatUtil.getAccessToken(
 			// "wx593827365bbc380b", "11a6f7612a77f19525b37072a65660d0")
 			// .getToken();
-			if (AppId == null || AppSecret == null) {
+			if (AppId == null || "".equals(AppId) || AppSecret == null
+					|| "".equals(AppSecret)) {
 				WxAccount account = accountService.findAcountById(accountId);
 				if (account.getAppId() == null
 						|| account.getAppSecret() == null)
