@@ -12,10 +12,12 @@
 	<div class="by_box">
     	<%@include file="menu.jsp"%>
         <div class="link_box">
+             <a href="${ctx}/message/init">
         	<span>
             	<em>新手任务</em>
                 <i></i>
             </span>
+            </a>
             <a href="${ctx}/message/init"><span>
             	<em>首次关注</em>
                 <i class="ico2"></i>
@@ -43,10 +45,12 @@
                 <i class="ico6"></i>
             </span>
             </a>
+            <a href="${ctx}/message/init">
             <span>
             	<em>内容编辑</em>
                 <i class="ico7"></i>
             </span>
+             </a>
             <a href="${ctx}/lbs/init">
             <span style="margin:0;">
             	<em>LBS设置</em>
