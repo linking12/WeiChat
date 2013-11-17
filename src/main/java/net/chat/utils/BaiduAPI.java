@@ -57,13 +57,9 @@ public class BaiduAPI {
 	public static String navagation(String origin, String destination,
 			String city) throws IOException {
 
-		// String aLocation = getLocation(origin) != null ? getLocation(origin)
-		// .get("address") : null;
-		// String bLocation = getLocation(destination) != null ? getLocation(
-		// destination).get("address") : null;
-		// if (bLocation == null || aLocation == null || aLocation.equals("")
-		// || bLocation.equals(""))
-		// return "暂时无法导航";
+		if (origin == null || destination == null || origin.equals("")
+				|| destination.equals(""))
+			return "暂时无法导航";
 
 		URL url = new URL(
 				"http://api.map.baidu.com/direction/v1?mode=driving&origin="

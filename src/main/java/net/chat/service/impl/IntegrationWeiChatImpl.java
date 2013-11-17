@@ -112,9 +112,8 @@ public class IntegrationWeiChatImpl implements IntegrationWeiChat,
 				reqMsgType = "link";
 			else if (reqMsgType.equals("event"))
 				reqMsgType = "event";
-			else if (reqMsgType.equals("location")) {
+			else if (reqMsgType.equals("location"))
 				reqMsgType = "location";
-			}
 
 			String key = reqUrl + reqBean.getMsgType();
 			Object messageId = (Object) CacheContant.accountCache.get(key);
@@ -127,11 +126,15 @@ public class IntegrationWeiChatImpl implements IntegrationWeiChat,
 				String origin = reqBean.getLocation_X().toString() + ","
 						+ reqBean.getLocation_Y().toString();
 				// 目前只支持上海
-				respBean.setContent(BaiduAPI.navagation(origin, destination,
-						"上海"));
+				String conteng = BaiduAPI.navagation(origin, destination, "上海");
+				if (conteng == null || conteng.equals("")) {
+					conteng = origin;
+				}
+				respBean.setContent(reqMsgType);
 				createRespBean(reqBean, respBean, jc, out);
 			} else {
-				if (reqMsgType.equals("event")) {
+				if (reqMsgType.equals("event")
+						&& reqBean.getEvent().equals("CLICK")) {
 					messageId = Long.valueOf(reqBean.getEventKey());
 				}
 				if (messageId instanceof String
