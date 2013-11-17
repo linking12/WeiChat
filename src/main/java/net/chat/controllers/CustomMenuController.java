@@ -72,9 +72,8 @@ public class CustomMenuController {
 		model.addAttribute("accounts", accounts);
 		model.addAttribute("eventTypes", PageConstants.buildEventTypesList());
 
-		// List<WxMessage> msgs =
-		// messageService.findMessageByAccountId(accountId);
-		// model.addAttribute("msgs", msgs);
+		List<WxMessage> msgs = messageService.findMessageByAccountId(accountId);
+		model.addAttribute("msgs", msgs);
 		List<WxCustomMenu> parentMenus = customMenuService.findParentMenuByAccountId(accountId);
 		model.addAttribute("parentMenus", parentMenus);
 		WxCustomMenu wxCustomMenu = new WxCustomMenu();
@@ -94,10 +93,9 @@ public class CustomMenuController {
 
 		accounts.add(account);
 		model.addAttribute("accounts", accounts);
-		// List<WxMessage> msgs =
-		// messageService.findMessageByAccountId(accountId);
-		//
-		// model.addAttribute("msgs", msgs);
+		List<WxMessage> msgs = messageService.findMessageByAccountId(accountId);
+
+		model.addAttribute("msgs", msgs);
 		if (null != wxCustomMenu.getParentId() && 0 != wxCustomMenu.getParentId()) {
 			List<WxCustomMenu> parentMenus = customMenuService.findParentMenuByAccountId(accountId);
 			model.addAttribute("parentMenus", parentMenus);
@@ -126,9 +124,6 @@ public class CustomMenuController {
 				model.addAttribute("accounts", accounts);
 				model.addAttribute("eventTypes", PageConstants.buildEventTypesList());
 
-				// List<WxMessage> msgs =
-				// messageService.findMessageByAccountId(accountId);
-				// model.addAttribute("msgs", msgs);
 				List<WxCustomMenu> parentMenus = customMenuService.findParentMenuByAccountId(accountId);
 				model.addAttribute("parentMenus", parentMenus);
 
@@ -148,7 +143,7 @@ public class CustomMenuController {
 	@RequestMapping("/create/{accountId}")
 	public int integration(@PathVariable("accountId") Long accountId) {
 		try{
-		String accessToken= WeiChatUtil.getAccessToken("iradar88@163.com", "IRADAR").getToken();
+		String accessToken= WeiChatUtil.getAccessToken("wx593827365bbc380b", "11a6f7612a77f19525b37072a65660d0").getToken();
 		Menu menu = customMenuService.createMenu(accountId);
 //		int result=0;
 		int result = WeiChatUtil.createMenu(menu,accessToken);
