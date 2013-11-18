@@ -130,7 +130,7 @@ public class IntegrationWeiChatImpl implements IntegrationWeiChat,
 				if (conteng == null || conteng.equals("")) {
 					conteng = origin;
 				}
-				respBean.setContent(reqMsgType);
+				respBean.setContent(conteng);
 				createRespBean(reqBean, respBean, jc, out);
 			} else {
 				if (reqMsgType.equals("event")
