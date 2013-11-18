@@ -95,7 +95,10 @@ public class BaiduAPI {
 			for (int i = 0; i < steps.size(); i++) {
 				String instruction = (String) steps.getJSONObject(i).get(
 						"instructions");
-				st.append(instruction);
+				if (i == 0) {
+					instruction.replace("起点", "您当前的位置");
+				}
+				st.append(instruction.replace("<b>", ""));
 			}
 		} catch (Exception e) {
 			st.append("你上传位置暂时无法导航");
