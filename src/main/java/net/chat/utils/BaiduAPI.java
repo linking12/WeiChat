@@ -63,10 +63,12 @@ public class BaiduAPI {
 
 		URL url = new URL(
 				"http://api.map.baidu.com/direction/v1?mode=driving&origin="
-						+ origin + "&destination=" + destination
+						+ java.net.URLEncoder.encode(origin, "utf-8")
+						+ "&destination="
+						+ java.net.URLEncoder.encode(destination, "utf-8")
 						+ "&origin_region=" + city + "&destination_region="
-						+ city
-						+ "&output=json&ak=5ef2641d89438a6e708db122820cf1d2");
+						+ java.net.URLEncoder.encode(city, "utf-8")
+						+ "&output=json&ak=" + ak);
 		URLConnection connection = url.openConnection();
 		connection.setDoOutput(true);
 		OutputStreamWriter out = new OutputStreamWriter(

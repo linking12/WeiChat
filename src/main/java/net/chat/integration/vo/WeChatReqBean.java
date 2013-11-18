@@ -77,6 +77,7 @@ public class WeChatReqBean {
 		return location_X;
 	}
 
+	@XmlCDATA
 	@XmlElement(name = "Location_X")
 	public void setLocation_X(Double location_X) {
 		this.location_X = location_X;
@@ -86,6 +87,7 @@ public class WeChatReqBean {
 		return location_Y;
 	}
 
+	@XmlCDATA
 	@XmlElement(name = "Location_Y")
 	public void setLocation_Y(Double location_Y) {
 		this.location_Y = location_Y;
