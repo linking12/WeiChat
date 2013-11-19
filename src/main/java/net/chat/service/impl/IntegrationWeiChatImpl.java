@@ -104,6 +104,7 @@ public class IntegrationWeiChatImpl implements IntegrationWeiChat,
 			String reqUrl = StringUtils.substringAfter(req.getRequestURI(),
 					req.getContextPath());
 			String reqMsgType = reqBean.getMsgType();
+
 			if (reqMsgType.equals("text"))
 				reqMsgType = "text";
 			else if (reqMsgType.equals("image"))
@@ -114,7 +115,7 @@ public class IntegrationWeiChatImpl implements IntegrationWeiChat,
 				reqMsgType = "event";
 			else if (reqMsgType.equals("location"))
 				reqMsgType = "location";
-
+			log.info(reqMsgType.toString());
 			String key = reqUrl + reqBean.getMsgType();
 			Object messageId = (Object) CacheContant.accountCache.get(key);
 			if (reqMsgType.equals("location")) {

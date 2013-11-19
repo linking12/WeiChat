@@ -19,12 +19,12 @@ public class GglController {
 
 	@RequestMapping("/init")
 	public RedirectView init(ModelMap model) {
-		String userName = AppContext.getUsername();
-		User user = userSerivce.findUserByName(userName);
+		// String userName = AppContext.getUsername();
+		// User user = userSerivce.findUserByName(userName);
 
-		RedirectView view = new RedirectView("http://yidia.cn/bali/ggl/login_check.jsp?author=" + user.getAccount() + "&pass=" + user.getPassWord());
+		RedirectView view = new RedirectView(
+				"http://yidia.cn/bali/ggl/login_check.jsp?author=vargobox&pass=123456vargobox");
 		view.setExposeModelAttributes(false);// post
 		return view;
 	}
-
 }

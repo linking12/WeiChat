@@ -1,12 +1,14 @@
 package net.chat.integration.vo;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.sun.xml.txw2.annotation.XmlCDATA;
 
 @XmlRootElement(name = "xml")
-public class WeChatReqBean {
+public class WeChatReqBean implements Serializable {
 	private String toUserName;
 	private String fromUserName;
 	private Long createTime;
@@ -125,6 +127,7 @@ public class WeChatReqBean {
 		return event;
 	}
 
+	@XmlCDATA
 	@XmlElement(name = "Event")
 	public void setEvent(String event) {
 		this.event = event;
@@ -134,6 +137,7 @@ public class WeChatReqBean {
 		return eventKey;
 	}
 
+	@XmlCDATA
 	@XmlElement(name = "EventKey")
 	public void setEventKey(String eventKey) {
 		this.eventKey = eventKey;
@@ -146,6 +150,15 @@ public class WeChatReqBean {
 	@XmlElement(name = "Ticket")
 	public void setTicket(String ticket) {
 		this.ticket = ticket;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder st = new StringBuilder();
+		st.append("msgType=" + msgType);
+		st.append("event=" + event);
+		st.append("eventKey=" + eventKey);
+		return st.toString();
 	}
 
 }
