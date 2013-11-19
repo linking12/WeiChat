@@ -68,22 +68,32 @@ public class HttpClientTest {
 		// content = content + "<MsgId>1234567890123456</MsgId>";
 		// content = content + "</xml>";
 
+		// String content = "<xml>";
+		// content = content + " <ToUserName><![CDATA[toUser]]></ToUserName>";
+		// content = content
+		// + " <FromUserName><![CDATA[fromUser]]></FromUserName>";
+		// content = content + " <CreateTime>1351776360</CreateTime>";
+		// content = content + " <MsgType><![CDATA[location]]></MsgType>";
+		// content = content + " <Location_X>31.311157</Location_X>";
+		// content = content + " <Location_Y>121.518311</Location_Y>";
+		// content = content + " <Scale>20</Scale>";
+		// content = content + " <Label><![CDATA[位置信息]]></Label>";
+		// content = content + " <MsgId>1234567890123456</MsgId>";
+		// content = content + " </xml> ";
+
 		String content = "<xml>";
-		content = content + " <ToUserName><![CDATA[toUser]]></ToUserName>";
-		content = content
-				+ " <FromUserName><![CDATA[fromUser]]></FromUserName>";
-		content = content + " <CreateTime>1351776360</CreateTime>";
-		content = content + " <MsgType><![CDATA[location]]></MsgType>";
-		content = content + " <Location_X>31.311157</Location_X>";
-		content = content + " <Location_Y>121.518311</Location_Y>";
-		content = content + " <Scale>20</Scale>";
-		content = content + " <Label><![CDATA[位置信息]]></Label>";
-		content = content + " <MsgId>1234567890123456</MsgId>";
-		content = content + " </xml> ";
+		content = content + "<ToUserName><![CDATA[toUser]]></ToUserName>";
+		content = content + "<FromUserName><![CDATA[FromUser]]></FromUserName>";
+		content = content + "<CreateTime>123456789</CreateTime>";
+		content = content + "<MsgType><![CDATA[event]]></MsgType>";
+		content = content + "<Event><![CDATA[CLICK]]></Event>";
+		content = content + "<EventKey><![CDATA[4]]></EventKey>";
+		content = content + "</xml>";
+
 		@SuppressWarnings("deprecation")
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpPost httppost = new HttpPost(
-				"http://localhost:8080/WeiChat/API/lLfMiuDuqWiqKLvHXEvF");
+				"http://localhost:8080/WeiChat/API/NPbsYCrbtGtZeYwfsJMs");
 		StringEntity myEntity = new StringEntity(content, "UTF-8");
 		httppost.addHeader("Content-Type", "text/xml");
 		httppost.setEntity(myEntity);
