@@ -97,8 +97,8 @@ public class BaiduAPI {
 						"instructions");
 				instruction = StringUtils.replaceEach(instruction,
 						new String[] { "<b>", "</b>",
-								"<font color=\"0x000000\"", "起点" },
-						new String[] { "", "", "", "您当前的位置" });
+								"<font color=\"0x000000\"", "</font>", "起点" },
+						new String[] { "", "", "", "", "您当前的位置" });
 				st.append(instruction);
 			}
 		} catch (Exception e) {
