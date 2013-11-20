@@ -194,15 +194,7 @@
 															<td height="50" align="center">
 																<table width="98%" border="0" align="center"
 																	cellpadding="0" cellspacing="0">
-																	<tr>
-																		<td width="20%" height="40" class="biao">AppId</td>
-																		<td width="20%" height="40" class="biao"><input
-																			name="appId" id="appId" type="text" size="1"
-																			style="width: 200px;" /></td>
-																		<td width="20%" height="40" class="biao">AppSecret</td>
-																		<td width="20%" height="40" class="biao"><input
-																			name="appSecret" id="appSecret" type="text" size="1"
-																			style="width: 200px;" /></td>
+																	<tr align="center">
 																		<td width="20%"><input type="button"
 																			id="submitbtn" class="btn-primary" value="生成微信菜单"
 																			onclick="createMenu()" /></td>

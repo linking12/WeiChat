@@ -78,6 +78,15 @@
 																<td width="10%" height="40" class="biao">Token</td>
 																<td width="52%"><form:input path="seq" style="width: 300px;" readOnly="true" /></td>
 															</tr>
+															<tr>
+																<td width="10%" height="40" class="biao">微信appid</td>
+																<td width="52%"><form:input path="appId" style="width: 300px;"  /></td>
+															</tr>
+															<tr>
+																<td width="10%" height="40" class="biao">微信AppSecret</td>
+																<td width="52%"><form:input path="appSecret" style="width: 300px;" /></td>
+															</tr>
+															
 														</table>
 													</td>
 												</tr>

@@ -155,32 +155,30 @@ public class CustomMenuController {
 	@ResponseBody
 	@RequestMapping("/create/{accountId}")
 	public int integration(
-			@PathVariable("accountId") Long accountId,
-			@RequestParam(value = "AppId", required = false) String AppId,
-			@RequestParam(value = "AppSecret", required = false) String AppSecret) {
+			@PathVariable("accountId") Long accountId) {
 		try {
 			// String accessToken = WeiChatUtil.getAccessToken(
 			// "wx593827365bbc380b", "11a6f7612a77f19525b37072a65660d0")
 			// .getToken();
-			if (AppId == null || "".equals(AppId) || AppSecret == null
-					|| "".equals(AppSecret)) {
-				WxAccount account = accountService.findAcountById(accountId);
-				if (account.getAppId() == null
-						|| account.getAppSecret() == null)
-					return 10;
-				else {
-					AppId = account.getAppId();
-					AppSecret = account.getAppSecret();
-				}
-
-			} else {
-				WxAccount account = accountService.findAcountById(accountId);
-				account.setAppId(AppId);
-				account.setAppSecret(AppSecret);
-				accountService.editAccountApp(account);
-			}
-
-			String accessToken = WeiChatUtil.getAccessToken(AppId, AppSecret)
+//			if (AppId == null || "".equals(AppId) || AppSecret == null
+//					|| "".equals(AppSecret)) {
+//				
+//				else {
+//					AppId = account.getAppId();
+//					AppSecret = account.getAppSecret();
+//				}
+//
+//			} else {
+//				WxAccount account = accountService.findAcountById(accountId);
+//				account.setAppId(AppId);
+//				account.setAppSecret(AppSecret);
+//				accountService.editAccountApp(account);
+//			}
+			WxAccount account = accountService.findAcountById(accountId);
+			if (null==account.getAppId() 
+					|| null==account.getAppSecret())
+				return 10;
+			String accessToken = WeiChatUtil.getAccessToken(account.getAppId(), account.getAppSecret())
 					.getToken();
 			Menu menu = customMenuService.createMenu(accountId);
 			int result = WeiChatUtil.createMenu(menu, accessToken);

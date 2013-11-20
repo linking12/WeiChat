@@ -178,7 +178,7 @@ public class CustomMenuServiceImpl implements CustomMenuService {
 			KeyCommonButton keyButton = new KeyCommonButton();
 			keyButton.setName(menu.getName());
 			keyButton.setType("click");
-			keyButton.setKey(menu.getEventType());
+			keyButton.setKey(menu.getEventDesc());
 			return keyButton;
 		}
 	}
