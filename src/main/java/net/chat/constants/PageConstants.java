@@ -181,6 +181,11 @@ public final class PageConstants {
 	public static String PAGE_MALL_MYORDER = "mall/orderlist";
 	
 	public static String PAGE_MALL_ORDER = "mall/vieworder";
+	
+	/**
+	 * 门店设置-初始页面
+	 */
+	public static String PAGE_MALL_SET = "mallset/init";
 	/**
 	 * 
 	 * 智能客服-匹配类型

@@ -304,4 +304,10 @@ public class MallServiceImpl implements MallService {
 		}
 		return form;
 	}
+
+
+	public WxMall saveMall(WxMall wxMall) {
+		
+		return mallDao.save(wxMall);
+	}
 }

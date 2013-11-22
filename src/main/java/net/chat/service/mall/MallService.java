@@ -24,6 +24,8 @@ import net.chat.formbean.mall.WxProductForm;
 public interface MallService {
 
 	WxMall findMallByAccountId(long accountId);
+	
+	WxMall saveMall(WxMall wxMall);
 
 	List<WxProductCategory> findProductCategoryByMallId(long mallId);
 
