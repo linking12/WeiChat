@@ -7,9 +7,12 @@
 <c:set var="css" value="${ctx}/css"/>
 <c:set var="images" value="${ctx}/images"/>
 <link href="${css }/index.css" rel="stylesheet" type="text/css" />
+<link href="${css }/cmxform.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="${js}/jquery/jquery-1.9.1.js"></script>
 <script type="text/javascript" src="${js}/jquery/jquery.form.js"></script>
 <script type="text/javascript" src="${js}/jquery/weichat.js"></script>
+<script type="text/javascript" src="${js}/jquery/jquery.validate.min.js"></script>
+<script type="text/javascript" src="${js}/jquery/messages_zh.js"></script>
 <style type="text/css">
 	body {
 		background-image: url(${images}/bei.jpg);

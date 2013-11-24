@@ -105,7 +105,7 @@
             	<em>微投票</em>
                 <i class="ico5"></i>
             </span>
-             <a href="${ctx}/mallset/init">
+             <a href="${ctx}/mallset/mall">
             <span>
             	<em>门店设置</em>
                 <i class="ico6"></i>

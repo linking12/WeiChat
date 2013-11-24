@@ -1,5 +1,7 @@
 package net.chat.dao.mall;
 
+import java.util.List;
+
 import net.chat.domain.mall.WxMall;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,4 +13,7 @@ public interface WxMallDao extends JpaRepository<WxMall, Long>, JpaSpecification
 
 	@Query("from WxMall  where accountId= :accountId")
 	WxMall findMallByAccountId(@Param("accountId")long accountId);
+	
+	@Query("from WxMall  where accountId in (select id from WxAccount where customerId = :userId)")
+	List<WxMall> findMallByUserId(@Param("userId")long userId);
 }

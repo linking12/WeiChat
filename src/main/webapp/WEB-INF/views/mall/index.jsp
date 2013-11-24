@@ -4,6 +4,9 @@
 <head> 
 <title>电商</title>
 <%@ include file="mall.jsp"%>
+<script type="text/javascript">
+	window.localStorage.setItem("wxmallaccoutId",'${wxMall.accountId}');
+</script>
 </head>
 
 <body>

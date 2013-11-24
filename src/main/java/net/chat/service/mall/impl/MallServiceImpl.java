@@ -310,4 +310,16 @@ public class MallServiceImpl implements MallService {
 		
 		return mallDao.save(wxMall);
 	}
+
+
+	public List<WxMall> findMallByUserId(long userId) {
+		
+		return mallDao.findMallByUserId(userId);
+	}
+
+	
+	public WxProductCategory save(WxProductCategory wxProductCategory) {
+		wxProductCategory.setCreateDate(new Date());
+		return productCategoryDao.save(wxProductCategory);
+	}
 }

@@ -22,5 +22,8 @@ $(function(){
 	}  
 	catch (e)  
 	{  }
-})
+});
+function gotoindex(){
+	
+}
 </script>

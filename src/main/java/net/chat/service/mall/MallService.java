@@ -26,11 +26,15 @@ public interface MallService {
 	WxMall findMallByAccountId(long accountId);
 	
 	WxMall saveMall(WxMall wxMall);
+	
+	List<WxMall> findMallByUserId(long userId);
 
 	List<WxProductCategory> findProductCategoryByMallId(long mallId);
 
 	WxProductCategory findWxProductCategoryById(long categoryId);
 
+	WxProductCategory save(WxProductCategory wxProductCategory);
+	
 	List<WxPrdtSubCategory> findSubCategoryByCategoryId(long categoryId);
 
 	List<WxProductForm> findPrdtListBySubCategoryId(long subCategoryId);

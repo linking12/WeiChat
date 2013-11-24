@@ -1,18 +1,15 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../common.jsp"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <link href="${css }/jquery-ui-1.10.3.custom.min.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="${js}/jquery/jquery-ui-1.10.3.custom.min.js"></script>
-<script type="text/javascript" src="${js}/jquery/jquery.ui.datepicker-zh-TW.js"></script>
+
 <c:set var="mimg" value="${ctx}/mimg"/>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
 	<title>微信公共平台</title>
 	
 	<script type="text/javascript">   
-	$(function(){
-		$( "#effectiveDate" ).datepicker();
-		$( "#expiryDate" ).datepicker();
-	});
+	$(function(){});
 
 	function changeAccountId(){
 		$("#form1").attr("action","${ctx}/mallset/mall?accountId="+$("#accountId").val());
@@ -25,11 +22,21 @@
 			$("#form1").submit();
 		}
 	}
+	function doAdd(){
+		if('${categorys.size()}'<4)
+			tanchuceng(600, 500, '类别详细','${ctx }/mallset/categorydetail/'+$("#mallId").val());
+		else alert("最多增加4个类别！");
+		
+	}
+	function doedit(id){
+			tanchuceng(600, 500, '类别详细','${ctx }/mallset/categorydetail/'+$("#mallId").val()+'?cateId='+id);
+	}
+
 	</script>
 </head>
 <body>
-	<form:form id="form1" method="post" modelAttribute="wxmall" enctype="multipart/form-data">
-	<form:hidden path="id"/>
+	<form:form id="form1" method="post" >
+	
 		<div class="b_con">
 	<div class="by_box">
 		<%@include file="../menu.jsp"%>
@@ -63,7 +70,7 @@
 												<tr>
 													<td height="40">
 														<div align="center" >
-															<a href="${ctx }/mallset/category" class="biao1">商品类别设置</a>
+															<a href="javascript:doadd()" class="biao1">商品类别设置</a>
 														</div>
 													</td>
 												</tr>
@@ -76,60 +83,61 @@
 													<td height="30">
 														<table width="98%" border="0" align="center"cellpadding="0" cellspacing="0">
 															<tr height="40">
-																<td width="30%" class="biao">公众帐号名&nbsp;<font color="red">*</font></td>
-																<td>																	
-																	<form:select style="width: 150px;" class="required" path="accountId" items="${accounts}" itemValue="id" itemLabel="name"  onchange="changeAccountId();"/>
-																</td>
-															</tr>
-															<tr>
-																<td colspan="2"><div align="center"><img src="${images}/xian.jpg" width="800" height="1" /></div></td>
-															</tr>
-															<tr height="40">
-																<td >商城名称&nbsp;<font color="red">*</font></td>
-																<td><form:input path="mallName" class="required"/>
+																<td width="30%" class="biao">商城名称&nbsp;<font color="red">*</font></td>
+																<td>
+																<select style="width: 150px;" id="mallId">
+																<c:forEach items="${ malls}" var="m">
+																 <option value="${m.id }">${m.mallName }</option>
+																</c:forEach>											
+																</select>																	
+																	
+																<input
+																			type="button" value="新增" class="btn-primary"
+																			onclick="doAdd()">
 																</td>
 															</tr>
 															<tr>
 																<td colspan="2"><div align="center"><img src="${images}/xian.jpg" width="800" height="1" /></div></td>
 															</tr>
 															
-															<tr height="40">
-																<td >商城有效期&nbsp;<font color="red">*</font></td>
-																<td><form:input path="effectiveDate" style="width: 75px;" class="required"/>&nbsp;到&nbsp;<form:input path="expiryDate" style="width: 75px;" class="required"/>
+														<tr>
+														<td height="30" colspan="2">
+															<table width="98%" border="0" align="center"
+																cellpadding="0" cellspacing="0">
+																<tr height="30" bgcolor="#d3d3d3">
+																	<td width="25%" class="biao">类别名称</td>
+																	<td width="30%" class="biao">样式</td>
+																	<td width="25%" class="biao">描述</td>
+																	<td width="20%" class="biao">操作</td>
+																</tr>
+																<c:forEach items="${categorys}" var="category">
+																	<tr height="30">
+																		<td>${category.categoryName }</td>
+																		<td>
+																			<c:forEach items="${styles}" var="s">
+																				<c:if test="${s.key==category.style }">${s.value }</c:if>
+																			</c:forEach></td>
+																		<td><a title="${category.description }"
+																			style="text-decoration: none; color: blue"> <c:choose>
+																					<c:when test="${fn:length(category.description) gt 20}">
+																					  ${fn:substring(category.description, 0, 20)}...
+																					</c:when>
+																					<c:otherwise>${category.description}</c:otherwise>
+																				</c:choose>
+																		</a></td>
+																		<td><input
+																			type="button" value="修改" class="btn-primary"
+																			onclick="doedit(${category.id })"> &nbsp;<input
+																			type="button" value="删除" class="btn-primary"
+																			onclick="dodelete(${category.id })">
+																	</tr>
+
+																</c:forEach>
 																
-																</td>
-															</tr>
-															<tr>
-																<td colspan="2"><div align="center"><img src="${images}/xian.jpg" width="800" height="1" /></div></td>
-															</tr>
-															<tr height="40">
-																<td >描述&nbsp;<font color="red">*</font></td>
-																<td><form:textarea path="description" rows="5" cols="70" class="required"/>
-																</td>
-															</tr>
-															<tr>
-																<td colspan="2"><div align="center"><img src="${images}/xian.jpg" width="800" height="1" /></div></td>
-															</tr>
-															<tr height="40">
-																<td >商城首页图片&nbsp;<font color="red">*</font></td>
-																<td><input name="imageFile" id="imageFile" type="file" size="1" accept="image/*" class="required"/>
-																</td>
-															</tr>
-															<tr height="40">
-																<td ></td>
-																<td><img src="${mimg }/${wxmall.picUrl}"  height="400" width="300">
-																<form:hidden path="picUrl"/>
-																</td>
-															</tr>
-															<tr>
-																<td colspan="2"><div align="center"><img src="${images}/xian.jpg" width="800" height="1" /></div></td>
-															</tr>
-															<tr>
-																<td height="50"  colspan="2">
-																    <input type="button" class="btn-primary" onclick="save()" value="保存" />															
-																															
-																</td>
-															</tr>
+															</table>
+														</td>
+													</tr>
+															
 														</table>
 													</td>
 												</tr>
@@ -147,6 +155,7 @@
 					</table>
 				</td>
 			</tr>
+
 		</table><%@include file="../bottom.jsp"%>
 	</div>
 </div>

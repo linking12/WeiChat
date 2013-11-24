@@ -186,6 +186,17 @@ public final class PageConstants {
 	 * 门店设置-初始页面
 	 */
 	public static String PAGE_MALL_SET = "mallset/init";
+	
+	/**
+	 * 门店设置-商品类别
+	 */
+	public static String PAGE_MALL_CATE = "mallset/category";
+	
+	
+	/**
+	 * 门店设置-商品类别详情
+	 */
+	public static String PAGE_MALL_CATEDETAIL = "mallset/categoryDetail";
 	/**
 	 * 
 	 * 智能客服-匹配类型
@@ -289,6 +300,17 @@ public final class PageConstants {
 		lst.add(2, new SimpleBean("2", "发货"));
 		lst.add(3, new SimpleBean("3", "已签收"));
 		lst.add(3, new SimpleBean("99", "已取消"));
+		return lst;
+	}
+	
+	/**
+	 * 
+	 */
+	public static List<SimpleBean> buildCategoryStyleList() {
+		List<SimpleBean> lst = new ArrayList<SimpleBean>(4);
+		lst.add(0, new SimpleBean("1", "图片:文字=5:5"));
+		lst.add(1, new SimpleBean("2", "图片:文字=6:4"));
+		lst.add(2, new SimpleBean("3", "图片在上文字在下"));
 		return lst;
 	}
 }
