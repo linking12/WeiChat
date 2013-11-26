@@ -69,7 +69,11 @@ dl,dt,dd{
 	height:60px;
 	line-height:60px;
 	text-align:center;
+	text-decoration:none;
 	margin:0 2% 15px 0;
+}
+.i_link a:hover{
+	background-color:#ff6600;
 }
 .ui-body-c .i_link a.ui-link{
 	color:#FFF;
@@ -78,6 +82,7 @@ dl,dt,dd{
 }
 .ui-body-c .i_link a.ui-link:hover{
 	color:#FFF;
+    background-color:#ff6600;
 }
 .ban_txt{
 	padding:15px;
@@ -132,7 +137,8 @@ dl,dt,dd{
 	display:block;
 	color:#2d2d2d;
 	font-weight:bold;
-	line-height:36px;
+	font-size:12px;
+	line-height:16px;
 	padding:5px 0 0 0;
 }
 .sp_list a i{
@@ -162,9 +168,9 @@ dl,dt,dd{
 	float:left;
 }
 .hd_line .ban_right{
-	font-size:30px;
+	font-size:16px;
 	text-align:center;
-	line-height:220px;
+	line-height:80px;
 }
 .arrow_left,.arrow_left1,.arrow_left2{
 	width:13px;
@@ -201,9 +207,9 @@ dl,dt,dd{
 .jeishao span{
 	display:block;
 	background-color:#adc2d5;
-	padding:10px;
-	line-height:30px;
-	font-size:28px;
+	padding:5px 10px;
+	line-height:20px;
+	font-size:16px;
 	color:#fff;
 }
 .jeishao span.l1{
@@ -219,12 +225,13 @@ dl,dt,dd{
 	color:#000;
 }
 .jeishao p{
-	padding:15px;
-	font-size:16px;
+	padding:5px 15px;
+	margin:0;
+	font-size:14px;
 	font-weight:bold;
 }
 .jeishao p.big{
-	font-size:40px;
+	font-size:30px;
 	color:#FFF;
 }
 .jeishao p.t_tight{
@@ -239,8 +246,13 @@ dl,dt,dd{
 .jeishao em.t_tight,.jeishao i.t_tight{
 	float:right;
 }
+.jeishao i.t_tight1{
+	width:100%;
+	text-align:right;
+	float:right;
+}
 .jeishao i{
-	font-size:30px;
+	font-size:18px;
 	color:#F00;
 	margin:0 15px;
 	font-weight:bold;
@@ -257,6 +269,10 @@ dl,dt,dd{
 .newup_img{
 	float:left;
 	width:75%;
+}
+.newup_img img{
+	vertical-align:top;
+	
 }
 .newup_line{
 	width:100%;
@@ -277,9 +293,9 @@ dl,dt,dd{
 .newup_line .ban_right{
 	width:25%;
 	float:left;
-	font-size:30px;
+	font-size:16px;
 	text-align:center;
-	line-height:220px;
+	line-height:100px;
 }
 .txt_color{
 	color:#fff;
@@ -306,7 +322,7 @@ dl,dt,dd{
 	color:#4c4c4c;
 }
 
-<!--订单详情-->
+<!--璁㈠��璇����-->
 .dt_banner{
 	width:100%;
 	padding:1em 0 0 0;
@@ -479,7 +495,7 @@ dl,dt,dd{
 	background:#b2b2b2;
 	color:#000;
 }
-/*-----购物车-----*/
+/*-----璐���╄溅-----*/
 .neirong{
 	padding:10px 5px;
 	overflow:hidden;
