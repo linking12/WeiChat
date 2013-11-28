@@ -23,7 +23,7 @@
 		}
 	}
 	function doAdd(){
-		if('${categorys.size()}'<4)
+		if('${fn:length(categorys)}'<4)
 			tanchuceng(600, 500, '类别详细','${ctx }/mallset/categorydetail/'+$("#mallId").val());
 		else alert("最多增加4个类别！");
 		
@@ -64,7 +64,7 @@
 											<table width="100%" border="0" cellspacing="0" cellpadding="0">												
 												<tr>
 													<td height="40" bgcolor="#e87352">
-														<div align="center" class="biao">门店设置</div>
+														<div align="center"><a href="${ctx }/mallset/mall" class="biao1">门店设置</a></div>														
 													</td>
 												</tr>
 												<tr>

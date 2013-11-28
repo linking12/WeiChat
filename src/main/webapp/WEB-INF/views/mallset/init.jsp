@@ -57,7 +57,7 @@
 											<table width="100%" border="0" cellspacing="0" cellpadding="0">												
 												<tr>
 													<td height="40" bgcolor="#e87352">
-														<div align="center" class="biao">门店设置</div>
+														<div align="center"><a href="${ctx }/mallset/mall" class="biao1">门店设置</a></div>
 													</td>
 												</tr>
 												<tr>
