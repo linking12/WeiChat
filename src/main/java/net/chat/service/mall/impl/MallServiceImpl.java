@@ -9,6 +9,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
 import net.chat.dao.mall.WxMallCartDao;
 import net.chat.dao.mall.WxMallDao;
 import net.chat.dao.mall.WxMallExpressTypeDao;
@@ -42,6 +47,13 @@ import net.chat.tenpay.util.MD5Util;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -305,21 +317,39 @@ public class MallServiceImpl implements MallService {
 		return form;
 	}
 
-
 	public WxMall saveMall(WxMall wxMall) {
-		
+
 		return mallDao.save(wxMall);
 	}
 
-
 	public List<WxMall> findMallByUserId(long userId) {
-		
+
 		return mallDao.findMallByUserId(userId);
 	}
 
-	
 	public WxProductCategory save(WxProductCategory wxProductCategory) {
 		wxProductCategory.setCreateDate(new Date());
 		return productCategoryDao.save(wxProductCategory);
+	}
+
+	@Override
+	public Page<WxPrdtSubCategory> findAllSubCategory(
+			List<WxProductCategory> categorys, int pageNo) {
+
+		final List<Long> categoryids = new ArrayList<Long>(10);
+		for (WxProductCategory category : categorys) {
+			categoryids.add(category.getId());
+		}
+		Pageable pageable = new PageRequest(pageNo - 1, 5, new Sort(new Order(
+				Direction.DESC, "id")));
+
+		Specification<WxPrdtSubCategory> spec = new Specification<WxPrdtSubCategory>() {
+			public Predicate toPredicate(Root<WxPrdtSubCategory> root,
+					CriteriaQuery<?> query, CriteriaBuilder cb) {
+				return root.get("categoryId").in(categoryids);
+			}
+
+		};
+		return prdtSubCategoryDao.findAll(spec, pageable);
 	}
 }

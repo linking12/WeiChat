@@ -17,6 +17,8 @@ import net.chat.formbean.mall.WxCartForm;
 import net.chat.formbean.mall.WxOrderForm;
 import net.chat.formbean.mall.WxProductForm;
 
+import org.springframework.data.domain.Page;
+
 /**
  * @author bo.chen
  * 
@@ -24,9 +26,9 @@ import net.chat.formbean.mall.WxProductForm;
 public interface MallService {
 
 	WxMall findMallByAccountId(long accountId);
-	
+
 	WxMall saveMall(WxMall wxMall);
-	
+
 	List<WxMall> findMallByUserId(long userId);
 
 	List<WxProductCategory> findProductCategoryByMallId(long mallId);
@@ -34,7 +36,7 @@ public interface MallService {
 	WxProductCategory findWxProductCategoryById(long categoryId);
 
 	WxProductCategory save(WxProductCategory wxProductCategory);
-	
+
 	List<WxPrdtSubCategory> findSubCategoryByCategoryId(long categoryId);
 
 	List<WxProductForm> findPrdtListBySubCategoryId(long subCategoryId);
@@ -45,21 +47,23 @@ public interface MallService {
 
 	List<WxCartForm> findCartList(long userId);
 
-	void deleteCartByProductId(long productId,long mallUserId);
+	void deleteCartByProductId(long productId, long mallUserId);
 
 	WxMallUser dologin(WxMallUser mallUser);
 
 	WxMallUser addMallUser(WxMallUser mallUser);
 
 	WxMallUser editMallUser(WxMallUser mallUser);
-	
+
 	List<WxMallExpressType> findExpressTypeListByMall(long mallId);
-	
+
 	BigDecimal getExpressPriceById(long id);
-	
+
 	WxMallOrder addOrder(WxOrderForm orderForm);
-	
-	List<WxMallOrder> findOrderList(long mallId,long userId);
-	
-	WxOrderForm findOrderByOrderId(long mallId,long userId,long orderId);
+
+	List<WxMallOrder> findOrderList(long mallId, long userId);
+
+	WxOrderForm findOrderByOrderId(long mallId, long userId, long orderId);
+
+	public Page<WxPrdtSubCategory> findAllSubCategory(List<WxProductCategory> categorys,int pageNo);
 }
