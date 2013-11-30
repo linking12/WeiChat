@@ -157,6 +157,7 @@ public class MallSetController {
 	public String subcategory(
 			@RequestParam(value = "page", defaultValue = "1") int pageNo,
 			@RequestParam(value = "mallId", required = false) Long mallId,
+			@RequestParam(value = "categoryId", required = false) Long categoryId,
 			Model model) {
 
 		Long userId = AppContext.getUserId();
@@ -171,11 +172,83 @@ public class MallSetController {
 		List<WxProductCategory> categorys = mallService
 				.findProductCategoryByMallId(mallId);
 		model.addAttribute("categorys", categorys);
-		Page<WxPrdtSubCategory> subcategorys = mallService.findAllSubCategory(
-				categorys, pageNo);
+		model.addAttribute("mallId", mallId);
+		Page<WxPrdtSubCategory> subcategorys;
+		if (categoryId == null || categoryId == 1) {
+			subcategorys = mallService.findAllSubCategory(categorys, pageNo);
+		} else {
+			subcategorys = mallService.findSubCategoryByCategoryId(categoryId,
+					pageNo);
+			model.addAttribute("categoryId", categoryId);
+		}
+
 		model.addAttribute("subcategorys", subcategorys);
 		return PageConstants.PAGE_MALL_SUB_CATE;
 
+	}
+
+	@RequestMapping("/subcategorydetail/{categoryId}")
+	public String subcategorydetail(
+			@PathVariable("categoryId") Long categoryId,
+			@RequestParam(value = "subcateId", required = false) Long subcateId,
+			Model model) {
+		WxPrdtSubCategory subcategory = new WxPrdtSubCategory();
+		subcategory.setCategoryId(categoryId);
+		if (null != subcateId) {
+			subcategory = mallService
+					.findPrdtSubCategoryBySubCategoryId(subcateId);
+		}
+		model.addAttribute("subcategory", subcategory);
+		return PageConstants.PAGE_MALL_SUB_CATEDETAIL;
+	}
+
+	@ResponseBody
+	@RequestMapping("/saveSubCategory")
+	public long saveSubCategory(WxPrdtSubCategory subCategory,
+			@RequestParam(required = false) MultipartFile imageFile,
+			Model model, HttpServletRequest req) throws IOException {
+		if (null != imageFile && !imageFile.isEmpty()) {
+			WxProductCategory category = mallService
+					.findWxProductCategoryById(subCategory.getCategoryId());
+			String realpath = req.getSession().getServletContext()
+					.getRealPath("/mallimg/images/" + category.getMallId());
+			String suffix = imageFile.getOriginalFilename().substring(
+					imageFile.getOriginalFilename().lastIndexOf("."));
+			DateFormat format = new SimpleDateFormat("yyyyMMdd hh:mm:ss");
+			String imageUrl = format.format(new Date()) + File.separator
+					+ UUID.randomUUID() + suffix;
+			FileUtils.copyInputStreamToFile(imageFile.getInputStream(),
+					new File(realpath + File.separator + imageUrl));
+			subCategory.setPicUrl(imageUrl);
+			mallService.save(subCategory);
+		}
+		return subCategory.getId();
+	}
+
+	@ResponseBody
+	@RequestMapping("/editSubCategory")
+	public long editSubCategory(WxPrdtSubCategory subCategory,
+			@RequestParam(required = false) MultipartFile imageFile,
+			Model model, HttpServletRequest req) throws IOException {
+		if (null != imageFile && !imageFile.isEmpty()) {
+			WxProductCategory category = mallService
+					.findWxProductCategoryById(subCategory.getCategoryId());
+			String realpath = req.getSession().getServletContext()
+					.getRealPath("/mallimg/images/" + category.getMallId());
+			String suffix = imageFile.getOriginalFilename().substring(
+					imageFile.getOriginalFilename().lastIndexOf("."));
+			DateFormat format = new SimpleDateFormat("yyyyMMdd hh:mm:ss");
+			String imageUrl = format.format(new Date()) + File.separator
+					+ UUID.randomUUID() + suffix;
+			FileUtils.copyInputStreamToFile(imageFile.getInputStream(),
+					new File(realpath + File.separator + imageUrl));
+			File oldSubCategoryFile = new File(realpath
+					+ subCategory.getPicUrl());
+			oldSubCategoryFile.deleteOnExit();
+			subCategory.setPicUrl(imageUrl);
+			mallService.editSubCategory(subCategory);
+		}
+		return subCategory.getId();
 	}
 
 }

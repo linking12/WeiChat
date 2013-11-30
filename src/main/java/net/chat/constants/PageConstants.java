@@ -200,9 +200,15 @@ public final class PageConstants {
 	
 	
 	/**
-	 * 门店设置-商品类别
+	 * 门店设置-商品子类别
 	 */
 	public static String PAGE_MALL_SUB_CATE = "mallset/subcategory";
+	
+	
+	/**
+	 * 门店设置-商品类别详情
+	 */
+	public static String PAGE_MALL_SUB_CATEDETAIL = "mallset/subcategoryDetail";
 	/**
 	 * 
 	 * 智能客服-匹配类型

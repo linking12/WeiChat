@@ -37,7 +37,8 @@ public interface MallService {
 
 	WxProductCategory save(WxProductCategory wxProductCategory);
 
-	List<WxPrdtSubCategory> findSubCategoryByCategoryId(long categoryId);
+	public Page<WxPrdtSubCategory> findSubCategoryByCategoryId(long categoryId,
+			int pageNo);
 
 	List<WxProductForm> findPrdtListBySubCategoryId(long subCategoryId);
 
@@ -65,5 +66,14 @@ public interface MallService {
 
 	WxOrderForm findOrderByOrderId(long mallId, long userId, long orderId);
 
-	public Page<WxPrdtSubCategory> findAllSubCategory(List<WxProductCategory> categorys,int pageNo);
+	public Page<WxPrdtSubCategory> findAllSubCategory(
+			List<WxProductCategory> categorys, int pageNo);
+
+	public WxPrdtSubCategory findPrdtSubCategoryBySubCategoryId(
+			Long subCategoryId);
+
+	public WxPrdtSubCategory save(WxPrdtSubCategory wxSubProductCategory);
+
+	public WxPrdtSubCategory editSubCategory(
+			WxPrdtSubCategory wxSubProductCategory);
 }

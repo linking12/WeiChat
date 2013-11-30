@@ -21,36 +21,29 @@
 	    		return false;
 	    	});
 	    });
+	    $("#mallId").change(function(){
+	    	$("#form1").attr("action","${ctx}/mallset/subcategory?mallId="+$("#mallId").val());
+			$("#form1").submit();
+	    });
+	    $("#categoryId").change(function(){
+	    	$("#form1").attr("action","${ctx}/mallset/subcategory?categoryId="+$("#categoryId").val()+"&mallId="+$("#mallId").val());
+			$("#form1").submit();
+	    });
+	    $("#mallId").val(${mallId});
+	    $("#categoryId").val(${categoryId});
     });
 
-	$(function(){});
-
-	function changeAccountId(){
-		$("#form1").attr("action","${ctx}/mallset/mall?accountId="+$("#accountId").val());
-		$("#form1").submit();
-	}
-	
-	function save(){
-		if( $("#form1").valid()){
-			$("#form1").attr("action","${ctx}/mallset/savemall");
-			$("#form1").submit();
-		}
-	}
 	function doAdd(){
-		if('${fn:length(categorys)}'<4)
-			tanchuceng(600, 500, '类别详细','${ctx }/mallset/categorydetail/'+$("#mallId").val());
-		else alert("最多增加4个类别！");
-		
+			tanchuceng(600, 500, '类别详细','${ctx }/mallset/subcategorydetail/'+$("#categoryId").val());		
 	}
 	function doedit(id){
-			tanchuceng(600, 500, '类别详细','${ctx }/mallset/categorydetail/'+$("#mallId").val()+'?cateId='+id);
+			tanchuceng(600, 500, '类别详细','${ctx }/mallset/subcategorydetail/'+$("#categoryId").val()+'?subcateId='+id);
 	}
 
 	</script>
 </head>
 <body>
 	<form:form id="form1" method="post">
-
 		<div class="b_con">
 			<div class="by_box">
 				<%@include file="../menu.jsp"%>
@@ -113,16 +106,33 @@
 																<table width="98%" border="0" align="center"
 																	cellpadding="0" cellspacing="0">
 																	<tr height="40">
-																		<td width="90%" class="biao" style="padding-left:10px">商城名称&nbsp;<font
-																			color="red">*</font> <select style="width: 150px;"
-																			id="mallId">
-																				<c:forEach items="${ malls}" var="m">
-																					<option value="${m.id }">${m.mallName }</option>
-																				</c:forEach>
-																		</select></td>
-																		<td width="25%" class="biao" align="left"><input
-																			type="button" value="新增商品子类别" class="btn-primary"
-																			onclick="doAdd()"></td>
+																		<td colspan="2">
+																			<table width="98%" border="0" align="center"
+																				cellpadding="0" cellspacing="0">
+																				<tr>
+																					<td width="30%" class="biao"
+																						style="padding-left: 10px">商城名称&nbsp;<font
+																						color="red">*</font> <select style="width: 150px;"
+																						id="mallId">
+																							<c:forEach items="${ malls}" var="m">
+																								<option value="${m.id }">${m.mallName }</option>
+																							</c:forEach>
+																					</select></td>
+																					<td width="40%" class="biao"
+																						style="padding-left: 10px">父产品类别名称&nbsp;<font
+																						color="red">*</font> <select style="width: 150px;"
+																						id="categoryId">
+																							<c:forEach items="${categorys}" var="category">
+																								<option value="${category.id }">${category.categoryName}</option>
+																							</c:forEach>
+																					</select></td>
+																					<td width="25%" class="biao" align="left"><input
+																						type="button" value="新增商品子类别" class="btn-primary"
+																						onclick="doAdd()"></td>
+																				</tr>
+																			</table>
+																		</td>
+
 																	</tr>
 																	<tr>
 																		<td colspan="2"><div align="center">
@@ -154,7 +164,7 @@
 																								</c:forEach>
 																						</select></td>
 																						<td><div class="thumb">
-																								<img src="${mimg }/${subcategory.picUrl}"
+																								<img src="${mimg }${subcategory.picUrl}"
 																									height="64" width="64">
 																							</div></td>
 																						<td>${subcategory.description}</td>

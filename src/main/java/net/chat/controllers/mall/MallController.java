@@ -59,7 +59,7 @@ public class MallController {
 				.findWxProductCategoryById(categoryId);
 		if (null != category) {
 			List<WxPrdtSubCategory> subCategoryList = mallService
-					.findSubCategoryByCategoryId(categoryId);
+					.findSubCategoryByCategoryId(categoryId, 1).getContent();
 			model.addAttribute("subCategoryList", subCategoryList);
 			model.addAttribute("categoryStyle", category.getStyle());
 		}

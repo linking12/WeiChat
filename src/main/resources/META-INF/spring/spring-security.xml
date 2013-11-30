@@ -31,6 +31,7 @@
 		<intercept-url pattern="/user" access="hasRole('ROLE_user')" />
 		<intercept-url pattern="/replymsg" access="hasRole('ROLE_replymsg')" />
 		<intercept-url pattern="/index" access="isAuthenticated()" />
+		<intercept-url pattern="/mallset/*" access="isAuthenticated()" />
 		<session-management invalid-session-url="/login.jsp">
 			<concurrency-control max-sessions="10"
 				error-if-maximum-exceeded="true" />

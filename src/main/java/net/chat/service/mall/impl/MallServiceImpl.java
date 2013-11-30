@@ -111,9 +111,12 @@ public class MallServiceImpl implements MallService {
 		return productCategoryDao.findProductCategoryByMallId(mallId);
 	}
 
-	public List<WxPrdtSubCategory> findSubCategoryByCategoryId(long categoryId) {
-
-		return prdtSubCategoryDao.findSubCategoryByCategoryId(categoryId);
+	public Page<WxPrdtSubCategory> findSubCategoryByCategoryId(long categoryId,
+			int pageNo) {
+		Pageable pageable = new PageRequest(pageNo - 1, 5, new Sort(new Order(
+				Direction.DESC, "id")));
+		return prdtSubCategoryDao.findSubCategoryByCategoryId(categoryId,
+				pageable);
 	}
 
 	public WxProductCategory findWxProductCategoryById(long categoryId) {
@@ -352,4 +355,28 @@ public class MallServiceImpl implements MallService {
 		};
 		return prdtSubCategoryDao.findAll(spec, pageable);
 	}
+
+	@Override
+	public WxPrdtSubCategory findPrdtSubCategoryBySubCategoryId(
+			Long subCategoryId) {
+		return prdtSubCategoryDao.findOne(subCategoryId);
+	}
+
+	@Override
+	public WxPrdtSubCategory save(WxPrdtSubCategory wxSubProductCategory) {
+		return prdtSubCategoryDao.save(wxSubProductCategory);
+	}
+
+	@Override
+	public WxPrdtSubCategory editSubCategory(
+			WxPrdtSubCategory wxSubProductCategory) {
+		if (wxSubProductCategory.getId() != null) {
+			WxPrdtSubCategory entity = prdtSubCategoryDao
+					.findOne(wxSubProductCategory.getId());
+			BeanUtils.copyProperties(wxSubProductCategory, entity);
+		}
+		return wxSubProductCategory;
+	}
+
+
 }

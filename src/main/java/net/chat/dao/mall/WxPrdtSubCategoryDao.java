@@ -15,11 +15,11 @@ public interface WxPrdtSubCategoryDao extends
 		JpaRepository<WxPrdtSubCategory, Long>,
 		JpaSpecificationExecutor<WxPrdtSubCategory> {
 
-	@Query("from WxPrdtSubCategory  where categoryId= :categoryId")
-	List<WxPrdtSubCategory> findSubCategoryByCategoryId(
-			@Param("categoryId") long categoryId);
+	@Query("select s from WxPrdtSubCategory s where categoryId= :categoryId")
+	Page<WxPrdtSubCategory> findSubCategoryByCategoryId(
+			@Param("categoryId") long categoryId, Pageable pageable);
 
-	@Query("from WxPrdtSubCategory  where categoryId in :categoryIds")
+	@Query("select s from WxPrdtSubCategory s where categoryId in :categoryIds")
 	Page<WxPrdtSubCategory> findSubCategoryByCategoryIds(
 			@Param("categoryIds") List<Long> categoryIds, Pageable pageable);
 
