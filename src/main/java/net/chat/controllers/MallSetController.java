@@ -192,6 +192,11 @@ public class MallSetController {
 			@PathVariable("categoryId") Long categoryId,
 			@RequestParam(value = "subcateId", required = false) Long subcateId,
 			Model model) {
+		WxProductCategory category = mallService
+				.findWxProductCategoryById(categoryId);
+		List<WxProductCategory> categorys = mallService
+				.findProductCategoryByMallId(category.getMallId());
+		model.addAttribute("categorys", categorys);
 		WxPrdtSubCategory subcategory = new WxPrdtSubCategory();
 		subcategory.setCategoryId(categoryId);
 		if (null != subcateId) {

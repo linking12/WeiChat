@@ -78,7 +78,7 @@
 		proxy-target-class="true" />
 
 	<jdbc:initialize-database data-source="dataSource">
-		<jdbc:script location="classpath:META-INF/sql/internalWeiChat.sql" encoding="UTF-8" />
+		<jdbc:script location="classpath:META-INF/sql/WeiChat.sql" encoding="UTF-8" />
 	</jdbc:initialize-database>
 
 

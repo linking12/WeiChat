@@ -34,10 +34,12 @@
     });
 
 	function doAdd(){
-			tanchuceng(600, 500, '类别详细','${ctx }/mallset/subcategorydetail/'+$("#categoryId").val());		
+		$("#form1").attr("action",'${ctx}/mallset/subcategorydetail/'+$("#categoryId").val());
+		$("#form1").submit();	
 	}
 	function doedit(id){
-			tanchuceng(600, 500, '类别详细','${ctx }/mallset/subcategorydetail/'+$("#categoryId").val()+'?subcateId='+id);
+		$("#form1").attr("action",'${ctx}/mallset/subcategorydetail/'+$("#categoryId").val()+'?subcateId='+id);
+		$("#form1").submit();	
 	}
 
 	</script>
