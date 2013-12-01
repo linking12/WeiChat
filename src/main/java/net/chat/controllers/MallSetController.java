@@ -207,53 +207,57 @@ public class MallSetController {
 		return PageConstants.PAGE_MALL_SUB_CATEDETAIL;
 	}
 
-	@ResponseBody
-	@RequestMapping("/saveSubCategory")
-	public long saveSubCategory(WxPrdtSubCategory subCategory,
-			@RequestParam(required = false) MultipartFile imageFile,
-			Model model, HttpServletRequest req) throws IOException {
-		if (null != imageFile && !imageFile.isEmpty()) {
-			WxProductCategory category = mallService
-					.findWxProductCategoryById(subCategory.getCategoryId());
-			String realpath = req.getSession().getServletContext()
-					.getRealPath("/mallimg/images/" + category.getMallId());
-			String suffix = imageFile.getOriginalFilename().substring(
-					imageFile.getOriginalFilename().lastIndexOf("."));
-			DateFormat format = new SimpleDateFormat("yyyyMMdd hh:mm:ss");
-			String imageUrl = format.format(new Date()) + File.separator
-					+ UUID.randomUUID() + suffix;
-			FileUtils.copyInputStreamToFile(imageFile.getInputStream(),
-					new File(realpath + File.separator + imageUrl));
-			subCategory.setPicUrl(imageUrl);
-			mallService.save(subCategory);
-		}
-		return subCategory.getId();
+	@RequestMapping("/deletesubcategory/{subcateId}")
+	public String deletesubcategory(@PathVariable("subcateId") Long subcateId,
+			Model model, HttpServletRequest req) {
+		WxPrdtSubCategory subcategory = mallService
+				.findPrdtSubCategoryBySubCategoryId(subcateId);
+		WxProductCategory category = mallService
+				.findWxProductCategoryById(subcategory.getCategoryId());
+		String oldPath = req.getSession().getServletContext()
+				.getRealPath("/mallimg/images" + subcategory.getPicUrl());
+		File oldSubCategoryFile = new File(oldPath);
+		oldSubCategoryFile.delete();
+		mallService.deleteSubCategory(subcateId);
+		return "redirect:/mallset/subcategory?mallId=" + category.getMallId()
+				+ "&categoryId=" + category.getId();
 	}
 
-	@ResponseBody
-	@RequestMapping("/editSubCategory")
-	public long editSubCategory(WxPrdtSubCategory subCategory,
+	@RequestMapping("/submitSubCategory")
+	public String saveSubCategory(WxPrdtSubCategory subCategory,
 			@RequestParam(required = false) MultipartFile imageFile,
 			Model model, HttpServletRequest req) throws IOException {
+		WxProductCategory category = mallService
+				.findWxProductCategoryById(subCategory.getCategoryId());
 		if (null != imageFile && !imageFile.isEmpty()) {
-			WxProductCategory category = mallService
-					.findWxProductCategoryById(subCategory.getCategoryId());
 			String realpath = req.getSession().getServletContext()
 					.getRealPath("/mallimg/images/" + category.getMallId());
 			String suffix = imageFile.getOriginalFilename().substring(
 					imageFile.getOriginalFilename().lastIndexOf("."));
 			DateFormat format = new SimpleDateFormat("yyyyMMdd hh:mm:ss");
-			String imageUrl = format.format(new Date()) + File.separator
-					+ UUID.randomUUID() + suffix;
+			String imageUrl = format.format(new Date()) + UUID.randomUUID()
+					+ suffix;
 			FileUtils.copyInputStreamToFile(imageFile.getInputStream(),
 					new File(realpath + File.separator + imageUrl));
-			File oldSubCategoryFile = new File(realpath
-					+ subCategory.getPicUrl());
-			oldSubCategoryFile.deleteOnExit();
-			subCategory.setPicUrl(imageUrl);
-			mallService.editSubCategory(subCategory);
+			if (subCategory.getId() == null) {
+				subCategory.setPicUrl(File.separator + category.getMallId()
+						+ File.separator + imageUrl);
+				mallService.save(subCategory);
+			} else {
+				String oldPath = req
+						.getSession()
+						.getServletContext()
+						.getRealPath(
+								"/mallimg/images" + subCategory.getPicUrl());
+				File oldSubCategoryFile = new File(oldPath);
+				oldSubCategoryFile.delete();
+				subCategory.setPicUrl(File.separator + category.getMallId()
+						+ File.separator + imageUrl);
+				mallService.editSubCategory(subCategory);
+			}
 		}
-		return subCategory.getId();
+		return "redirect:/mallset/subcategory?mallId=" + category.getMallId()
+				+ "&categoryId=" + subCategory.getCategoryId();
 	}
 
 }

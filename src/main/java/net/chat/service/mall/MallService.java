@@ -76,4 +76,7 @@ public interface MallService {
 
 	public WxPrdtSubCategory editSubCategory(
 			WxPrdtSubCategory wxSubProductCategory);
+
+	public void deleteSubCategory(Long subcategoryId);
+
 }

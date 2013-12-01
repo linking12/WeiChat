@@ -41,6 +41,11 @@
 		$("#form1").attr("action",'${ctx}/mallset/subcategorydetail/'+$("#categoryId").val()+'?subcateId='+id);
 		$("#form1").submit();	
 	}
+	function doDelete(id){
+		$("#form1").attr("action",'${ctx}/mallset/deletesubcategory/'+id);
+		$("#form1").submit();	
+		
+	}
 
 	</script>
 </head>
@@ -172,9 +177,10 @@
 																						<td>${subcategory.description}</td>
 																						<td><input type="button" value="修改"
 																							class="btn-primary"
-																							onclick="doedit(${category.id })"> &nbsp;<input
-																							type="button" value="删除" class="btn-primary"
-																							onclick="dodelete(${category.id })"></td>
+																							onclick="doedit(${subcategory.id })">
+																							&nbsp;<input type="button" value="删除"
+																							class="btn-primary"
+																							onclick="doDelete(${subcategory.id })"></td>
 																					</tr>
 
 																				</c:forEach>

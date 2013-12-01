@@ -63,6 +63,7 @@ import org.springframework.util.CollectionUtils;
  * 
  */
 @Service("mallService")
+@Transactional
 public class MallServiceImpl implements MallService {
 
 	@Autowired
@@ -373,10 +374,17 @@ public class MallServiceImpl implements MallService {
 		if (wxSubProductCategory.getId() != null) {
 			WxPrdtSubCategory entity = prdtSubCategoryDao
 					.findOne(wxSubProductCategory.getId());
-			BeanUtils.copyProperties(wxSubProductCategory, entity);
+			entity.setPicUrl(wxSubProductCategory.getPicUrl());
+			entity.setDescription(wxSubProductCategory.getDescription());
+			entity.setSubCategoryName(wxSubProductCategory.getSubCategoryName());
 		}
 		return wxSubProductCategory;
 	}
 
+	@Override
+	public void deleteSubCategory(Long subcategoryId) {
+		prdtSubCategoryDao.delete(subcategoryId);
+
+	}
 
 }
