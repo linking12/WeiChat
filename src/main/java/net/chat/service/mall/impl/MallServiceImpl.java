@@ -387,4 +387,10 @@ public class MallServiceImpl implements MallService {
 
 	}
 
+	@Override
+	public WxProduct findProductByProductId(Long productId) {
+		WxProduct product = productDao.findProductById(productId);
+		return product;
+	}
+
 }

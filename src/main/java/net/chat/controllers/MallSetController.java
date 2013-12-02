@@ -17,6 +17,7 @@ import net.chat.constants.PageConstants;
 import net.chat.domain.WxAccount;
 import net.chat.domain.mall.WxMall;
 import net.chat.domain.mall.WxPrdtSubCategory;
+import net.chat.domain.mall.WxProduct;
 import net.chat.domain.mall.WxProductCategory;
 import net.chat.formbean.MallProductForm;
 import net.chat.formbean.SimpleBean;
@@ -300,5 +301,46 @@ public class MallSetController {
 				.findAllProductBySubcategory(subcategoryId, pageNo);
 		model.addAttribute("productForms", productForm);
 		return PageConstants.PAGE_MALL_PRODUCT;
+	}
+
+	@RequestMapping("/productdetail")
+	public String productdetail(
+			@RequestParam(value = "mallId", required = false) Long mallId,
+			@RequestParam(value = "categoryId", required = false) Long categoryId,
+			@RequestParam(value = "subcategoryId", required = false) Long subcategoryId,
+			@RequestParam(value = "productId", required = false) Long productId,
+			Model model) {
+		Long userId = AppContext.getUserId();
+		List<WxMall> malls = mallService.findMallByUserId(userId);
+		model.addAttribute("malls", malls);
+		if (CollectionUtils.isEmpty(malls))
+			return "redirect:/mallset/mall";
+
+		if (null == mallId)
+			mallId = malls.get(0).getId();
+
+		List<WxProductCategory> categorys = mallService
+				.findProductCategoryByMallId(mallId);
+		model.addAttribute("categorys", categorys);
+		model.addAttribute("mallId", mallId);
+		if (null == categoryId) {
+			categoryId = categorys.get(0).getId();
+		}
+		List<WxPrdtSubCategory> subcategorys = mallService
+				.findSubCategoryByCategoryId(categoryId, 1).getContent();
+		model.addAttribute("subcategorys", subcategorys);
+		model.addAttribute("categoryId", categoryId);
+		if (null == subcategoryId) {
+			subcategoryId = subcategorys.get(0).getId();
+		}
+		model.addAttribute("subcategoryId", subcategoryId);
+		WxProduct product = new WxProduct();
+		product.setMallId(mallId);
+		if (null != productId) {
+			product = mallService.findProductByProductId(productId);
+
+		}
+		model.addAttribute("product", product);
+		return PageConstants.PAGE_MALL_PRODUCT_DETAIL;
 	}
 }

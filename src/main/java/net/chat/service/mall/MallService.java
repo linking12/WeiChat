@@ -12,6 +12,7 @@ import net.chat.domain.mall.WxMallExpressType;
 import net.chat.domain.mall.WxMallOrder;
 import net.chat.domain.mall.WxMallUser;
 import net.chat.domain.mall.WxPrdtSubCategory;
+import net.chat.domain.mall.WxProduct;
 import net.chat.domain.mall.WxProductCategory;
 import net.chat.formbean.mall.WxCartForm;
 import net.chat.formbean.mall.WxOrderForm;
@@ -78,5 +79,7 @@ public interface MallService {
 			WxPrdtSubCategory wxSubProductCategory);
 
 	public void deleteSubCategory(Long subcategoryId);
+
+	public WxProduct findProductByProductId(Long productId);
 
 }
