@@ -86,6 +86,13 @@
 																</div>
 															</td>
 														</tr>
+														<tr>
+															<td height="40">
+																<div align="center">
+																	<a href="${ctx }/mallset/product" class="biao1">商品设置</a>
+																</div>
+															</td>
+														</tr>
 													</table>
 												</td>
 												<td width="1" bgcolor="#999999"><img

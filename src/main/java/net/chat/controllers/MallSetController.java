@@ -18,8 +18,10 @@ import net.chat.domain.WxAccount;
 import net.chat.domain.mall.WxMall;
 import net.chat.domain.mall.WxPrdtSubCategory;
 import net.chat.domain.mall.WxProductCategory;
+import net.chat.formbean.MallProductForm;
 import net.chat.formbean.SimpleBean;
 import net.chat.service.AccountService;
+import net.chat.service.mall.MallProductService;
 import net.chat.service.mall.MallService;
 import net.chat.utils.AppContext;
 
@@ -51,6 +53,9 @@ public class MallSetController {
 
 	@Autowired
 	AccountService accountService;
+
+	@Autowired
+	MallProductService productService;
 
 	@RequestMapping("/mall")
 	public String mall(
@@ -260,4 +265,40 @@ public class MallSetController {
 				+ "&categoryId=" + subCategory.getCategoryId();
 	}
 
+	@RequestMapping("/product")
+	public String product(
+			@RequestParam(value = "page", defaultValue = "1") int pageNo,
+			@RequestParam(value = "mallId", required = false) Long mallId,
+			@RequestParam(value = "categoryId", required = false) Long categoryId,
+			@RequestParam(value = "subcategoryId", required = false) Long subcategoryId,
+			Model model) {
+		Long userId = AppContext.getUserId();
+		List<WxMall> malls = mallService.findMallByUserId(userId);
+		model.addAttribute("malls", malls);
+		if (CollectionUtils.isEmpty(malls))
+			return "redirect:/mallset/mall";
+
+		if (null == mallId)
+			mallId = malls.get(0).getId();
+
+		List<WxProductCategory> categorys = mallService
+				.findProductCategoryByMallId(mallId);
+		model.addAttribute("categorys", categorys);
+		model.addAttribute("mallId", mallId);
+		if (null == categoryId) {
+			categoryId = categorys.get(0).getId();
+		}
+		List<WxPrdtSubCategory> subcategorys = mallService
+				.findSubCategoryByCategoryId(categoryId, 1).getContent();
+		model.addAttribute("subcategorys", subcategorys);
+		model.addAttribute("categoryId", categoryId);
+		if (null == subcategoryId) {
+			subcategoryId = subcategorys.get(0).getId();
+		}
+		model.addAttribute("subcategoryId", subcategoryId);
+		Page<MallProductForm> productForm = productService
+				.findAllProductBySubcategory(subcategoryId, pageNo);
+		model.addAttribute("productForms", productForm);
+		return PageConstants.PAGE_MALL_PRODUCT;
+	}
 }

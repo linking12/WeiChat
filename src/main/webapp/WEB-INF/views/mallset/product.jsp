@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../common.jsp"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <link href="${css }/jquery-ui-1.10.3.custom.min.css" rel="stylesheet"
 	type="text/css" />
 
@@ -22,15 +23,20 @@
 	    	});
 	    });
 	    $("#mallId").change(function(){
-	    	$("#form1").attr("action","${ctx}/mallset/subcategory?mallId="+$("#mallId").val());
+	    	$("#form1").attr("action","${ctx}/mallset/product?mallId="+$("#mallId").val());
 			$("#form1").submit();
 	    });
 	    $("#categoryId").change(function(){
-	    	$("#form1").attr("action","${ctx}/mallset/subcategory?categoryId="+$("#categoryId").val()+"&mallId="+$("#mallId").val());
+	    	$("#form1").attr("action","${ctx}/mallset/product?categoryId="+$("#categoryId").val()+"&mallId="+$("#mallId").val());
+			$("#form1").submit();
+	    });
+	    $("#subcategoryId").change(function(){
+	    	$("#form1").attr("action","${ctx}/mallset/product?subcategoryId="+$("#subcategoryId").val()+"&categoryId="+$("#categoryId").val()+"&mallId="+$("#mallId").val());
 			$("#form1").submit();
 	    });
 	    $("#mallId").val(${mallId});
 	    $("#categoryId").val(${categoryId});
+	    $("#subcategoryId").val(${subcategoryId});
     });
 
 	function doAdd(){
@@ -95,14 +101,14 @@
 															</td>
 														</tr>
 														<tr>
-															<td height="40" bgcolor="#e87352">
+															<td height="40">
 																<div align="center">
 																	<a href="${ctx }/mallset/subcategory" class="biao1">商品子类别设置</a>
 																</div>
 															</td>
 														</tr>
 														<tr>
-															<td height="40">
+															<td height="40" bgcolor="#e87352">
 																<div align="center">
 																	<a href="${ctx }/mallset/product" class="biao1">商品设置</a>
 																</div>
@@ -126,22 +132,31 @@
 																				<tr>
 																					<td width="30%" class="biao"
 																						style="padding-left: 10px">商城名称&nbsp;<font
-																						color="red">*</font> <select style="width: 150px;"
+																						color="red">*</font> <select style="width: 100px;"
 																						id="mallId">
 																							<c:forEach items="${ malls}" var="m">
 																								<option value="${m.id }">${m.mallName }</option>
 																							</c:forEach>
 																					</select></td>
-																					<td width="40%" class="biao"
-																						style="padding-left: 10px">父产品类别名称&nbsp;<font
-																						color="red">*</font> <select style="width: 150px;"
+																					<td width="30%" class="biao"
+																						style="padding-left: 10px">商品类别&nbsp;<font
+																						color="red">*</font> <select style="width: 100px;"
 																						id="categoryId">
 																							<c:forEach items="${categorys}" var="category">
 																								<option value="${category.id }">${category.categoryName}</option>
 																							</c:forEach>
 																					</select></td>
+																					<td width="30%" class="biao"
+																						style="padding-left: 10px">商品货架&nbsp;<font
+																						color="red">*</font> <select style="width: 100px;"
+																						id="subcategoryId">
+																							<c:forEach items="${subcategorys}"
+																								var="subcategory">
+																								<option value="${subcategory.id }">${subcategory.subCategoryName}</option>
+																							</c:forEach>
+																					</select></td>
 																					<td width="25%" class="biao" align="left"><input
-																						type="button" value="新增商品子类别" class="btn-primary"
+																						type="button" value="新增商品" class="btn-primary"
 																						onclick="doAdd()"></td>
 																				</tr>
 																			</table>
@@ -159,41 +174,68 @@
 																			<table width="98%" border="0" align="center"
 																				cellpadding="0" cellspacing="0">
 																				<tr height="30" bgcolor="#d3d3d3">
-																					<td width="20%" class="biao">产品类别名称</td>
-																					<td width="20%" class="biao">所属父类别</td>
-																					<td width="30%" class="biao">类别图</td>
-																					<td width="20%" class="biao">类别描述</td>
+																					<td width="22%" class="biao">产品名称</td>
+																					<td width="10%" class="biao">所属货架</td>
+																					<td width="15%" class="biao">默认产品图片</td>
+																					<td width="25%" class="biao">产品有效期</td>
+																					<td width="10%" class="biao">价格</td>
+																					<td width="5%" class="biao">数量</td>
 																					<td width="40%" class="biao"></td>
 																				</tr>
-																				<c:forEach items="${subcategorys.content}"
-																					var="subcategory">
+																				<c:forEach items="${productForms.content}"
+																					var="productForm">
+
 																					<tr height="70">
-																						<td>${subcategory.subCategoryName}</td>
-																						<td><select style="width: 100px" disabled>
-																								<c:forEach items="${categorys}" var="category">
+																						<td><a
+																							title="${productForm.mallProduct.productName}"
+																							style="text-decoration: none; color: blue"> <c:choose>
+																									<c:when
+																										test="${fn:length(productForm.mallProduct.productName) gt 10}">
+																					                     ${fn:substring(productForm.mallProduct.productName, 0, 10)}...
+																					                </c:when>
+																									<c:otherwise>${productForm.mallProduct.productName}</c:otherwise>
+																								</c:choose>
+																						</a></td>
+																						<td><select disabled>
+																								<c:forEach items="${subcategorys}"
+																									var="subcategory">
 																									<c:if
-																										test="${subcategory.categoryId== category.id}">
-																										<option value="${subcategory.categoryId}">${category.categoryName}</option>
+																										test="${subcategory.id==productForm.mallProductCategory.subCategoryId}">
+																										<option
+																											value="${productForm.mallProductCategory.subCategoryId}">${subcategory.subCategoryName}</option>
 																									</c:if>
 																								</c:forEach>
 																						</select></td>
-																						<td><div class="thumb">
-																								<img src="${mimg }${subcategory.picUrl}"
+																						<td>
+																							<div class="thumb">
+																								<img
+																									src="${mimg }${productForm.defaultMallProductPic.picUrl}"
 																									height="64" width="64">
-																							</div></td>
-																						<td>${subcategory.description}</td>
+																							</div>
+																						</td>
+																						<td>
+																							${fn:substring(productForm.mallProduct.effectiveDate,
+																							0, 10)}~
+																							${fn:substring(productForm.mallProduct.expiryDate,
+																							0, 10)}</td>
+																						<td><c:if
+																								test="${productForm.mallProductPrice!=null}">
+																								${productForm.mallProductPrice.salePrice}																							
+																						  </c:if> <c:if
+																								test="${productForm.mallProductPrice==null}">
+																								${productForm.mallProduct.productPrice}																							
+																						  </c:if></td>
+																						<td>${productForm.mallProduct.stock}</td>
 																						<td><input type="button" value="修改"
-																							class="btn-primary"
-																							onclick="doedit(${subcategory.id })">
+																							class="btn-primary" onclick="doedit()">
 																							&nbsp;<input type="button" value="删除"
-																							class="btn-primary"
-																							onclick="doDelete(${subcategory.id })"></td>
+																							class="btn-primary" onclick="doDelete()"></td>
 																					</tr>
 
 																				</c:forEach>
 																				<tr>
 																					<td align="center" colspan="5"><tags:pagination
-																							page="${subcategorys}" paginationSize="5" /></td>
+																							page="${productForms}" paginationSize="5" /></td>
 																				</tr>
 																			</table>
 																		</td>

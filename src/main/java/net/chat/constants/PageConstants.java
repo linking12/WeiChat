@@ -135,7 +135,7 @@ public final class PageConstants {
 	 * 智能客服-详细
 	 */
 	public static final String PAGE_CUSTOMMENU_DETAIL = "custommenu/detail";
-	
+
 	/**
 	 * lbs-设置
 	 */
@@ -175,40 +175,58 @@ public final class PageConstants {
 	 * 注册
 	 */
 	public static final String PAGE_MALL_REGIST = "mall/regist";
-	
+
 	public static String PAGE_MALL_PREORDER = "mall/preorder";
 
 	public static String PAGE_MALL_MYORDER = "mall/orderlist";
-	
+
 	public static String PAGE_MALL_ORDER = "mall/vieworder";
-	
+
 	/**
 	 * 门店设置-初始页面
 	 */
 	public static String PAGE_MALL_SET = "mallset/init";
-	
+
 	/**
 	 * 门店设置-商品类别
 	 */
 	public static String PAGE_MALL_CATE = "mallset/category";
-	
-	
+
 	/**
 	 * 门店设置-商品类别详情
 	 */
 	public static String PAGE_MALL_CATEDETAIL = "mallset/categoryDetail";
-	
-	
+
 	/**
 	 * 门店设置-商品子类别
 	 */
 	public static String PAGE_MALL_SUB_CATE = "mallset/subcategory";
-	
-	
+
 	/**
 	 * 门店设置-商品类别详情
 	 */
 	public static String PAGE_MALL_SUB_CATEDETAIL = "mallset/subcategoryDetail";
+
+	/**
+	 * 门店设置-商品子类别
+	 */
+	public static String PAGE_MALL_PRODUCT = "mallset/product";
+
+	/**
+	 * 门店设置-商品详情
+	 */
+	public static String PAGE_MALL_PRODUCT_DETAIL = "mallset/productDetail";
+
+	/**
+	 * 门店设置-商品价格详情
+	 */
+	public static String PAGE_MALL_PRODUCT_PRICE_DETAIL = "mallset/productPriceDetail";
+
+	/**
+	 * 门店设置-商品价格详情
+	 */
+	public static String PAGE_MALL_PRODUCT_PIC_DETAIL = "mallset/productPicDetail";
+
 	/**
 	 * 
 	 * 智能客服-匹配类型
@@ -289,19 +307,19 @@ public final class PageConstants {
 		lst.add(0, new SimpleBean("text", "文本"));
 		return lst;
 	}
-	
+
 	/**
 	 * 用户发送类型类型
 	 */
 	public static List<SimpleBean> buildPayTypesList() {
 		List<SimpleBean> lst = new ArrayList<SimpleBean>(4);
 		lst.add(0, new SimpleBean("1", "财付通"));
-//		lst.add(1, new SimpleBean("2", "网银"));
-//		lst.add(2, new SimpleBean("3", "支付宝"));
-//		lst.add(3, new SimpleBean("4", "转账"));
+		// lst.add(1, new SimpleBean("2", "网银"));
+		// lst.add(2, new SimpleBean("3", "支付宝"));
+		// lst.add(3, new SimpleBean("4", "转账"));
 		return lst;
 	}
-	
+
 	/**
 	 * 订单状态 (0:待支付,1:支付完成,2:发货,3:已签收,99:已取消)
 	 */
@@ -314,7 +332,7 @@ public final class PageConstants {
 		lst.add(3, new SimpleBean("99", "已取消"));
 		return lst;
 	}
-	
+
 	/**
 	 * 
 	 */
