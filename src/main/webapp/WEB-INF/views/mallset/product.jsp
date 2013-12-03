@@ -40,11 +40,11 @@
     });
 
 	function doAdd(){
-		$("#form1").attr("action",'${ctx}/mallset/subcategorydetail/'+$("#categoryId").val());
+		$("#form1").attr("action",'${ctx}/mallset/productdetail?mallId='+$("#mallId").val());
 		$("#form1").submit();	
 	}
 	function doedit(id){
-		$("#form1").attr("action",'${ctx}/mallset/subcategorydetail/'+$("#categoryId").val()+'?subcateId='+id);
+		$("#form1").attr("action",'${ctx}/mallset/productdetail?mallId='+$("#mallId").val()+'&productId='+id);
 		$("#form1").submit();	
 	}
 	function doDelete(id){
@@ -184,7 +184,6 @@
 																				</tr>
 																				<c:forEach items="${productForms.content}"
 																					var="productForm">
-
 																					<tr height="70">
 																						<td><a
 																							title="${productForm.mallProduct.productName}"
@@ -227,9 +226,9 @@
 																						  </c:if></td>
 																						<td>${productForm.mallProduct.stock}</td>
 																						<td><input type="button" value="修改"
-																							class="btn-primary" onclick="doedit()">
+																							class="btn-primary" onclick="doedit('${productForm.mallProduct.id}')">
 																							&nbsp;<input type="button" value="删除"
-																							class="btn-primary" onclick="doDelete()"></td>
+																							class="btn-primary" onclick="doDelete('${productForm.mallProduct.id}')"></td>
 																					</tr>
 
 																				</c:forEach>

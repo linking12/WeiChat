@@ -115,9 +115,16 @@ body {
 															</td>
 														</tr>
 														<tr>
-															<td height="40" bgcolor="#e87352">
+															<td height="40">
 																<div align="center">
 																	<a href="${ctx }/mallset/subcategory" class="biao1">商品子类别设置</a>
+																</div>
+															</td>
+														</tr>
+														<tr>
+															<td height="40" bgcolor="#e87352">
+																<div align="center">
+																	<a href="${ctx }/mallset/product" class="biao1">商品设置</a>
 																</div>
 															</td>
 														</tr>

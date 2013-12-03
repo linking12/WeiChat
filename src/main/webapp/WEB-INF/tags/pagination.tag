@@ -25,8 +25,12 @@
 				formaction = formaction + "&" + url;
 			} else {
 				var actionindex = formaction.indexOf("page");
-				formaction = formaction.substring(0, actionindex - 1) + "&"
-						+ url;
+				formaction = formaction.substring(0, actionindex - 1) ;
+				if (formaction.indexOf("?") == -1) {
+					formaction = formaction + "?" + url;
+				}else{
+					formaction = formaction + "&" + url;
+				}
 			}
 
 		}
