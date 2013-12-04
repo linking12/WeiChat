@@ -393,4 +393,9 @@ public class MallServiceImpl implements MallService {
 		return product;
 	}
 
+	@Override
+	public List<WxPrdtSubCategory> findAllSubCategory() {
+		return prdtSubCategoryDao.findAll();
+	}
+
 }

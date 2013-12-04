@@ -6,8 +6,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -44,6 +48,7 @@ import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service("mallProductService")
 @Transactional
@@ -118,15 +123,34 @@ public class MallProductServiceImpl implements MallProductService {
 
 	@Override
 	@Transactional
-	public void saveProduct(WxProduct product, long subcategoryId) {
+	public Long saveProduct(WxProduct product, List<Long> subcategoryIds,
+			MultipartFile productDefaultPic) throws IOException {
 		if (product.getId() == null) {
-			WxProduct productEntity = productDao.save(product);
-			WxPrdtCategory productCategory = new WxPrdtCategory();
-			productCategory.setProductId(productEntity.getId());
-			productCategory.setSubCategoryId(subcategoryId);
-			prdtCategoryDao.save(productCategory);
+			product = productDao.save(product);
+			for (Long subcategoryId : subcategoryIds) {
+				WxPrdtCategory productCategory = new WxPrdtCategory();
+				productCategory.setProductId(product.getId());
+				productCategory.setSubCategoryId(subcategoryId);
+				prdtCategoryDao.save(productCategory);
+			}
+			File slideTmpFolder = new File(rootFolder, "/mallimg/images/"
+					+ product.getMallId());
+			String suffix = productDefaultPic.getOriginalFilename().substring(
+					productDefaultPic.getOriginalFilename().lastIndexOf("."));
+			DateFormat format = new SimpleDateFormat("yyyyMMdd hh:mm:ss");
+			String imageUrl = format.format(new Date()) + UUID.randomUUID()
+					+ suffix;
+			FileUtils.copyInputStreamToFile(productDefaultPic.getInputStream(),
+					new File(slideTmpFolder, imageUrl));
+			WxProductPic pic = new WxProductPic();
+			pic.setFlag("0");
+			pic.setPicName(productDefaultPic.getName());
+			pic.setPicUrl(File.separator + product.getMallId() + File.separator
+					+ imageUrl);
+			pic.setProductId(product.getId());
+			picDao.save(pic);
 		}
-
+		return product.getId();
 	}
 
 	@Override
@@ -190,4 +214,40 @@ public class MallProductServiceImpl implements MallProductService {
 
 	}
 
+	@Override
+	@Transactional
+	public Long editProduct(WxProduct product, List<Long> subcategoryIds,
+			MultipartFile productDefaultPic) throws IOException {
+		WxProduct productEntity = productDao.findOne(product.getId());
+		productEntity.setDescrpiton(product.getDescrpiton());
+		productEntity.setEffectiveDate(product.getEffectiveDate());
+		productEntity.setExpiryDate(product.getExpiryDate());
+		productEntity.setProductName(product.getProductName());
+		productEntity.setStock(product.getStock());
+		productEntity.setProductPrice(product.getProductPrice());
+		prdtCategoryDao.deleteByProductId(product.getId());
+		for (Long subcategoryId : subcategoryIds) {
+			WxPrdtCategory productCategory = new WxPrdtCategory();
+			productCategory.setProductId(product.getId());
+			productCategory.setSubCategoryId(subcategoryId);
+			prdtCategoryDao.save(productCategory);
+		}
+		WxProductPic productDefaultPicEntity = picDao
+				.findDefaultPicByProductId(product.getId());
+		new File(rootFolder, "/mallimg/images"
+				+ productDefaultPicEntity.getPicUrl()).delete();
+		File slideTmpFolder = new File(rootFolder, "/mallimg/images/"
+				+ product.getMallId());
+		String suffix = productDefaultPic.getOriginalFilename().substring(
+				productDefaultPic.getOriginalFilename().lastIndexOf("."));
+		DateFormat format = new SimpleDateFormat("yyyyMMdd hh:mm:ss");
+		String imageUrl = format.format(new Date()) + UUID.randomUUID()
+				+ suffix;
+		FileUtils.copyInputStreamToFile(productDefaultPic.getInputStream(),
+				new File(slideTmpFolder, imageUrl));
+		productDefaultPicEntity.setPicUrl(File.separator + product.getMallId()
+				+ File.separator + imageUrl);
+
+		return product.getId();
+	}
 }

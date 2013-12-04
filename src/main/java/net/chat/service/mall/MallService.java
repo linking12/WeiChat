@@ -41,6 +41,8 @@ public interface MallService {
 	public Page<WxPrdtSubCategory> findSubCategoryByCategoryId(long categoryId,
 			int pageNo);
 
+	public List<WxPrdtSubCategory> findAllSubCategory();
+
 	List<WxProductForm> findPrdtListBySubCategoryId(long subCategoryId);
 
 	WxProductForm findProductById(long productId);

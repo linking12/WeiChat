@@ -316,6 +316,8 @@ public class MallSetController {
 		if (null == mallId)
 			mallId = malls.get(0).getId();
 		model.addAttribute("mallId", mallId);
+		List<WxPrdtSubCategory> subcategorys = mallService.findAllSubCategory();
+		model.addAttribute("subcategorys", subcategorys);
 		WxProduct product = new WxProduct();
 		product.setMallId(mallId);
 		if (null != productId) {
@@ -324,5 +326,31 @@ public class MallSetController {
 		}
 		model.addAttribute("product", product);
 		return PageConstants.PAGE_MALL_PRODUCT_DETAIL;
+	}
+
+	@RequestMapping("/saveProduct")
+	public String saveProduct(
+			@RequestParam(value = "listSubcategory", required = false) List<Long> listSubcategory,
+			WxProduct product,
+			@RequestParam(required = false) MultipartFile imageFile,
+			Model model, HttpServletRequest req) throws IOException {
+		Long productId = null;
+		if (product.getId() != null) {
+			productId = productService.editProduct(product, listSubcategory,
+					imageFile);
+		} else {
+			productId = productService.saveProduct(product, listSubcategory,
+					imageFile);
+		}
+
+		return "redirect:/mallset/product";
+	}
+
+	@RequestMapping("/productPrice/{productId}")
+	public String saveProductPrice(@PathVariable("productId") Long productId,
+			Model model) {
+
+		return null;
+
 	}
 }
