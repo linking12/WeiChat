@@ -27,4 +27,8 @@ public interface WxProductPicDao extends JpaRepository<WxProductPic, Long>,
 	List<WxProductPic> findExtentionPicByProductId(
 			@Param("productId") long productId);
 
+	@Modifying
+	@Query("delete from  WxProductPic where productId = :productId")
+	void deletePic(@Param("productId") long productId);
+
 }

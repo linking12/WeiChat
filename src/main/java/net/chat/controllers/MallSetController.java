@@ -375,7 +375,7 @@ public class MallSetController {
 			WxProductPrice price, Model model) throws IOException {
 		if (price != null && price.getSalePrice() != null)
 			productService.saveProductPrice(price);
-		if (imageFile != null)
+		if (imageFile != null && imageFile.getSize() != 0)
 			productService.saveProductPic(imageFile, price.getProductId());
 		if (defaultPic != null)
 			productService.setProductPicDefault(defaultPic);

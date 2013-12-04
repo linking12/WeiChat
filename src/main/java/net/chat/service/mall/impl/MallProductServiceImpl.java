@@ -1,5 +1,6 @@
 package net.chat.service.mall.impl;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -34,7 +35,6 @@ import net.chat.formbean.MallProductForm;
 import net.chat.service.mall.MallProductService;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -167,49 +167,78 @@ public class MallProductServiceImpl implements MallProductService {
 	@Override
 	public void saveProductPic(MultipartFile zipPicFile, long productId)
 			throws IOException {
+		final int buffer = 2048;
 		WxProduct product = productDao.findOne(productId);
 		InputStream is = zipPicFile.getInputStream();
-		ZipInputStream zipIn = new ZipInputStream(is);
+		ZipInputStream zis = new ZipInputStream(is);
 		ZipEntry entry = null;
 		File slideTmpFolder = new File(rootFolder, "/mallimg/images/"
 				+ product.getMallId());
 		List<WxProductPic> productPics = new ArrayList<WxProductPic>();
-		while ((entry = zipIn.getNextEntry()) != null) {
-			if (!entry.isDirectory()) {
-				File f = new File(slideTmpFolder, entry.getName());
-				copyInputStreamToFile(zipIn, f);
-				WxProductPic pic = new WxProductPic();
-				pic.setFlag("1");
-				pic.setPicName(f.getName());
-				pic.setPicUrl(File.separator + product.getMallId()
-						+ File.separator + f.getName());
-				pic.setProductId(productId);
-				productPics.add(pic);
-
+		int count = -1;
+		int index = -1;
+		BufferedOutputStream bos = null;
+		boolean flag = false;
+		while ((entry = zis.getNextEntry()) != null) {
+			byte data[] = new byte[buffer];
+			String temp = entry.getName();
+			flag = isPics(temp);
+			if (!flag || temp.indexOf("/") != -1)
+				continue;
+			index = temp.lastIndexOf("/");
+			if (index > -1)
+				temp = temp.substring(index + 1);
+			String suffix = temp.substring(temp.lastIndexOf("."));
+			DateFormat format = new SimpleDateFormat("yyyyMMdd hh:mm:ss");
+			String imageUrl = format.format(new Date()) + UUID.randomUUID()
+					+ suffix;
+			File f = new File(slideTmpFolder, imageUrl);
+			f.createNewFile();
+			FileOutputStream fos = new FileOutputStream(f);
+			bos = new BufferedOutputStream(fos, buffer);
+			while ((count = zis.read(data, 0, buffer)) != -1) {
+				bos.write(data, 0, count);
 			}
+			bos.flush();
+			bos.close();
+			WxProductPic pic = new WxProductPic();
+			pic.setFlag("1");
+			pic.setPicName(f.getName());
+			pic.setPicUrl(File.separator + product.getMallId() + File.separator
+					+ f.getName());
+			pic.setProductId(productId);
+			productPics.add(pic);
 		}
-		IOUtils.closeQuietly(zipIn);
+		deletePic(productId);
+		zis.close();
 		picDao.save(productPics);
 	}
 
-	public static void copyInputStreamToFile(InputStream source,
-			File destination) throws IOException {
-		try {
-			FileOutputStream output = FileUtils.openOutputStream(destination);
-			try {
-				IOUtils.copy(source, output);
-				output.close(); // don't swallow close Exception if copy
-								// completes normally
-			} finally {
-				IOUtils.closeQuietly(output);
-			}
-		} finally {
-		}
+	public static boolean isPics(String filename) {
+		boolean flag = false;
+		if (filename.toUpperCase().endsWith(".JPG")
+				|| filename.toUpperCase().endsWith(".GIF")
+				|| filename.toUpperCase().endsWith(".BMP")
+				|| filename.toUpperCase().endsWith(".PNG"))
+			flag = true;
+		return flag;
 	}
 
 	@Override
+	@Transactional
 	public void setProductPicDefault(long productPicId) {
 		picDao.setDaulftPic(productPicId);
+
+	}
+
+	@Transactional
+	private void deletePic(long productId) {
+		List<WxProductPic> pics = picDao.findPicByProductId(productId);
+		File slideTmpFolder = new File(rootFolder + "/mallimg/images");
+		for (WxProductPic pic : pics) {
+			new File(slideTmpFolder, pic.getPicUrl()).delete();
+		}
+		picDao.deletePic(productId);
 
 	}
 
