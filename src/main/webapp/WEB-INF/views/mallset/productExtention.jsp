@@ -133,6 +133,12 @@
 																				</td>
 																			</c:forEach>
 																		</tr>
+																		<tr>
+																			<c:forEach items="${pics}" var="pic">
+																				<td align="center"><input type="radio"
+																					name="defaultPic" value="${pic.id}" /></td>
+																			</c:forEach>
+																		</tr>
 																	</table>
 																</td>
 															</tr>

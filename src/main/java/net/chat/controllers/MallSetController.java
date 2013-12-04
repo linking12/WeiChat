@@ -371,11 +371,14 @@ public class MallSetController {
 	@RequestMapping("/submitproductExtention")
 	public String submitproductExtention(
 			@RequestParam(required = false) MultipartFile imageFile,
+			@RequestParam(value = "defaultPic", required = false) Long defaultPic,
 			WxProductPrice price, Model model) throws IOException {
 		if (price != null && price.getSalePrice() != null)
 			productService.saveProductPrice(price);
 		if (imageFile != null)
 			productService.saveProductPic(imageFile, price.getProductId());
+		if (defaultPic != null)
+			productService.setProductPicDefault(defaultPic);
 		return "redirect:/mallset/product";
 	}
 }

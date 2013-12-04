@@ -47,6 +47,10 @@
 		$("#form1").attr("action",'${ctx}/mallset/productdetail?mallId='+$("#mallId").val()+'&productId='+id);
 		$("#form1").submit();	
 	}
+	function dosign(id){
+		$("#form1").attr("action",'${ctx}/mallset/productExtention/'+id);
+		$("#form1").submit();	
+	}
 	function doDelete(id){
 		$("#form1").attr("action",'${ctx}/mallset/deletesubcategory/'+id);
 		$("#form1").submit();	
@@ -176,11 +180,11 @@
 																				<tr height="30" bgcolor="#d3d3d3">
 																					<td width="22%" class="biao">产品名称</td>
 																					<td width="10%" class="biao">所属货架</td>
-																					<td width="15%" class="biao">默认产品图片</td>
+																					<td width="18%" class="biao">默认产品图片</td>
 																					<td width="25%" class="biao">产品有效期</td>
 																					<td width="10%" class="biao">价格</td>
 																					<td width="5%" class="biao">数量</td>
-																					<td width="40%" class="biao"></td>
+																					<td width="20%" class="biao"></td>
 																				</tr>
 																				<c:forEach items="${productForms.content}"
 																					var="productForm">
@@ -225,10 +229,15 @@
 																								${productForm.mallProduct.productPrice}																							
 																						  </c:if></td>
 																						<td>${productForm.mallProduct.stock}</td>
-																						<td><input type="button" value="修改"
-																							class="btn-primary" onclick="doedit('${productForm.mallProduct.id}')">
+																						<td><input type="button" value="价格或图片"
+																							class="btn-primary"
+																							onclick="dosign('${productForm.mallProduct.id}')">
+																							<input type="button" value="修改"
+																							class="btn-primary"
+																							onclick="doedit('${productForm.mallProduct.id}')">
 																							&nbsp;<input type="button" value="删除"
-																							class="btn-primary" onclick="doDelete('${productForm.mallProduct.id}')"></td>
+																							class="btn-primary"
+																							onclick="doDelete('${productForm.mallProduct.id}')"></td>
 																					</tr>
 
 																				</c:forEach>
