@@ -218,14 +218,9 @@ public final class PageConstants {
 	public static String PAGE_MALL_PRODUCT_DETAIL = "mallset/productDetail";
 
 	/**
-	 * 门店设置-商品价格详情
+	 * 门店设置-商品额外信息，包括价格和图片
 	 */
-	public static String PAGE_MALL_PRODUCT_PRICE_DETAIL = "mallset/productPriceDetail";
-
-	/**
-	 * 门店设置-商品价格详情
-	 */
-	public static String PAGE_MALL_PRODUCT_PIC_DETAIL = "mallset/productPicDetail";
+	public static String PAGE_MALL_PRODUCT_EXTENTION = "mallset/productExtention";
 
 	/**
 	 * 

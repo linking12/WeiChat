@@ -1,7 +1,6 @@
 package net.chat.service.mall.impl;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -154,7 +153,9 @@ public class MallProductServiceImpl implements MallProductService {
 	}
 
 	@Override
+	@Transactional
 	public void saveProductPrice(WxProductPrice productPrice) {
+		priceDao.deletePrice(productPrice.getProductId());
 		priceDao.save(productPrice);
 	}
 
@@ -164,10 +165,10 @@ public class MallProductServiceImpl implements MallProductService {
 	}
 
 	@Override
-	public void saveProductPic(File zipPicFile, long productId)
+	public void saveProductPic(MultipartFile zipPicFile, long productId)
 			throws IOException {
 		WxProduct product = productDao.findOne(productId);
-		InputStream is = new FileInputStream(zipPicFile);
+		InputStream is = zipPicFile.getInputStream();
 		ZipInputStream zipIn = new ZipInputStream(is);
 		ZipEntry entry = null;
 		File slideTmpFolder = new File(rootFolder, "/mallimg/images/"
@@ -176,14 +177,12 @@ public class MallProductServiceImpl implements MallProductService {
 		while ((entry = zipIn.getNextEntry()) != null) {
 			if (!entry.isDirectory()) {
 				File f = new File(slideTmpFolder, entry.getName());
-				if (!f.getParentFile().exists()) {
-					f.getParentFile().mkdirs();
-				}
 				copyInputStreamToFile(zipIn, f);
 				WxProductPic pic = new WxProductPic();
 				pic.setFlag("1");
 				pic.setPicName(f.getName());
-				pic.setPicUrl(File.separator + f.getName());
+				pic.setPicUrl(File.separator + product.getMallId()
+						+ File.separator + f.getName());
 				pic.setProductId(productId);
 				productPics.add(pic);
 
@@ -249,5 +248,14 @@ public class MallProductServiceImpl implements MallProductService {
 				+ File.separator + imageUrl);
 
 		return product.getId();
+	}
+
+	public List<WxProductPrice> findProductPrice(Long productId) {
+		return priceDao.findAllPriceByProductId(productId);
+	}
+
+	@Override
+	public List<WxProductPic> findExtentionPic(Long productId) {
+		return picDao.findExtentionPicByProductId(productId);
 	}
 }

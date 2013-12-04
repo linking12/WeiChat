@@ -28,7 +28,7 @@
 			if (!validate()) {
 				return false;
 			}
-			$('#productform').attr('action', '${ctx}/mallset/saveProduct');
+			$('#productform').attr('action', '${ctx}/mallset/submitProduct');
 			$('#productform').submit();
 		});
 	});
@@ -211,7 +211,7 @@
 																id="eimageFile" class="error" style="display: none;">商品图片为空!</span></td>
 														</tr>
 														<tr>
-															<td width="20%" height="40" class="biao">商品有效期&nbsp;<font
+															<td width="20%" height="40" class="biao">商品描述&nbsp;<font
 																color="red">*</font></td>
 															<td><form:textarea path="descrpiton" cols="65"
 																	rows="10" /> &nbsp;<span id="edescrpiton"

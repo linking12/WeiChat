@@ -1,6 +1,7 @@
 package net.chat.dao.mall;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import net.chat.domain.mall.WxProductPrice;
 
@@ -20,5 +21,13 @@ public interface WxProductPriceDao extends JpaRepository<WxProductPrice, Long>,
 	@Query("update WxProductPrice  set salePrice=:salePrice where id = :id")
 	void updatePrice(@Param("id") Long id,
 			@Param("salePrice") BigDecimal salePrice);
+
+	@Query("from WxProductPrice  where productId= :productId")
+	List<WxProductPrice> findAllPriceByProductId(
+			@Param("productId") long productId);
+
+	@Modifying
+	@Query("delete from  WxProductPrice where productId = :productId")
+	void deletePrice(@Param("productId") long productId);
 
 }

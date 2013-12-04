@@ -1,11 +1,11 @@
 package net.chat.service.mall;
 
-import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 
 import net.chat.domain.mall.WxProduct;
+import net.chat.domain.mall.WxProductPic;
 import net.chat.domain.mall.WxProductPrice;
 import net.chat.formbean.MallProductForm;
 
@@ -17,6 +17,8 @@ public interface MallProductService {
 	public Page<MallProductForm> findAllProductBySubcategory(
 			final Long subcategoryId, int pageNo);
 
+	public List<WxProductPrice> findProductPrice(Long productId);
+
 	public void updateProductPrice(long productId, BigDecimal price);
 
 	public Long saveProduct(WxProduct product, List<Long> subcategoryIds,
@@ -27,9 +29,11 @@ public interface MallProductService {
 
 	public void saveProductPrice(WxProductPrice productPrice);
 
-	public void saveProductPic(File zipPicFile, long productId)
+	public void saveProductPic(MultipartFile zipPicFile, long productId)
 			throws IOException;
 
 	public void setProductPicDefault(long productPicId);
+
+	public List<WxProductPic> findExtentionPic(Long productId);
 
 }

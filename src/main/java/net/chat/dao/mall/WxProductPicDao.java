@@ -23,4 +23,8 @@ public interface WxProductPicDao extends JpaRepository<WxProductPic, Long>,
 	@Query("update WxProductPic  set flag=0 where id = :id")
 	void setDaulftPic(@Param("id") Long id);
 
+	@Query("from WxProductPic  where productId = :productId and flag=1")
+	List<WxProductPic> findExtentionPicByProductId(
+			@Param("productId") long productId);
+
 }

@@ -19,6 +19,8 @@ import net.chat.domain.mall.WxMall;
 import net.chat.domain.mall.WxPrdtSubCategory;
 import net.chat.domain.mall.WxProduct;
 import net.chat.domain.mall.WxProductCategory;
+import net.chat.domain.mall.WxProductPic;
+import net.chat.domain.mall.WxProductPrice;
 import net.chat.formbean.MallProductForm;
 import net.chat.formbean.SimpleBean;
 import net.chat.service.AccountService;
@@ -328,8 +330,8 @@ public class MallSetController {
 		return PageConstants.PAGE_MALL_PRODUCT_DETAIL;
 	}
 
-	@RequestMapping("/saveProduct")
-	public String saveProduct(
+	@RequestMapping("/submitProduct")
+	public String submitProduct(
 			@RequestParam(value = "listSubcategory", required = false) List<Long> listSubcategory,
 			WxProduct product,
 			@RequestParam(required = false) MultipartFile imageFile,
@@ -343,14 +345,37 @@ public class MallSetController {
 					imageFile);
 		}
 
-		return "redirect:/mallset/product";
+		return "redirect:/mallset/productExtention/" + productId;
 	}
 
-	@RequestMapping("/productPrice/{productId}")
-	public String saveProductPrice(@PathVariable("productId") Long productId,
+	@RequestMapping("/productExtention/{productId}")
+	public String productExtention(@PathVariable("productId") Long productId,
 			Model model) {
+		Long mallId = mallService.findProductByProductId(productId).getMallId();
+		List<WxProductPrice> priceList = productService
+				.findProductPrice(productId);
+		List<WxProductPic> pics = productService.findExtentionPic(productId);
+		WxProductPrice price = null;
+		if (!priceList.isEmpty()) {
+			price = priceList.get(0);
+		} else {
+			price = new WxProductPrice();
+			price.setProductId(productId);
+		}
+		model.addAttribute("mallId", mallId);
+		model.addAttribute("pics", pics);
+		model.addAttribute("price", price);
+		return PageConstants.PAGE_MALL_PRODUCT_EXTENTION;
+	}
 
-		return null;
-
+	@RequestMapping("/submitproductExtention")
+	public String submitproductExtention(
+			@RequestParam(required = false) MultipartFile imageFile,
+			WxProductPrice price, Model model) throws IOException {
+		if (price != null && price.getSalePrice() != null)
+			productService.saveProductPrice(price);
+		if (imageFile != null)
+			productService.saveProductPic(imageFile, price.getProductId());
+		return "redirect:/mallset/product";
 	}
 }
