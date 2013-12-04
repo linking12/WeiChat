@@ -227,13 +227,16 @@ public class MallProductServiceImpl implements MallProductService {
 	@Override
 	@Transactional
 	public void setProductPicDefault(long productPicId) {
+		WxProductPic pic = picDao.findOne(productPicId);
+		picDao.resetPic(pic.getProductId());
 		picDao.setDaulftPic(productPicId);
 
 	}
 
 	@Transactional
 	private void deletePic(long productId) {
-		List<WxProductPic> pics = picDao.findPicByProductId(productId);
+		List<WxProductPic> pics = picDao
+				.findPicByProductIdWherenotDefault(productId);
 		File slideTmpFolder = new File(rootFolder + "/mallimg/images");
 		for (WxProductPic pic : pics) {
 			new File(slideTmpFolder, pic.getPicUrl()).delete();
