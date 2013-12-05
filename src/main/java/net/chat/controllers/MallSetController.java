@@ -150,6 +150,7 @@ public class MallSetController {
 		if (null != cateId) {
 			category = mallService.findWxProductCategoryById(cateId);
 		}
+		category.setMallId(mallId);
 		model.addAttribute("category", category);
 		return PageConstants.PAGE_MALL_CATEDETAIL;
 	}

@@ -331,9 +331,22 @@ public class MallServiceImpl implements MallService {
 		return mallDao.findMallByUserId(userId);
 	}
 
+	@Transactional
 	public WxProductCategory save(WxProductCategory wxProductCategory) {
-		wxProductCategory.setCreateDate(new Date());
-		return productCategoryDao.save(wxProductCategory);
+		if (wxProductCategory.getId() != null) {
+			wxProductCategory.setCreateDate(new Date());
+			wxProductCategory = productCategoryDao.save(wxProductCategory);
+		} else {
+			WxProductCategory category = productCategoryDao
+					.findOne(wxProductCategory.getId());
+			category.setCategoryName(wxProductCategory.getCategoryName());
+			category.setDescription(wxProductCategory.getDescription());
+			category.setStyle(wxProductCategory.getStyle());
+			category.setMallId(wxProductCategory.getMallId());
+			wxProductCategory = category;
+		}
+
+		return wxProductCategory;
 	}
 
 	@Override

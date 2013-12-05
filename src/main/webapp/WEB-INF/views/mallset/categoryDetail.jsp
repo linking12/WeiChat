@@ -39,11 +39,11 @@ body {
 <body>
 	<form:form id="form2" method="post" modelAttribute="category">
 		<form:hidden path="id" />
-		<form:hidden path="categoryId" />
+		<form:hidden path="mallId" />
 		<table width="96%" border="0" align="center" cellpadding="0"
 			cellspacing="0">
 			<tr>
-				<td width="20%" height="40" class="biao">子类别名称&nbsp;<font
+				<td width="20%" height="40" class="biao">类别名称&nbsp;<font
 					color="red">*</font></td>
 				<td><form:input path="categoryName" style="width: 300px;"
 						class="required" /></td>
