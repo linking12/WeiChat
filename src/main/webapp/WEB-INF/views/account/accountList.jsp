@@ -77,30 +77,16 @@
 															<table width="98%" border="0" align="center"
 																cellpadding="0" cellspacing="0">
 																<tr height="30" bgcolor="#d3d3d3">
-																	<td width="25%" class="biao">公众帐号</td>
-																	<td width="30%" class="biao">URL</td>
+																	<td width="15%" class="biao">公众帐号</td>
+																	<td width="45%" class="biao">URL</td>
 																	<td width="25%" class="biao">Token</td>
 																	<td width="20%" class="biao">操作</td>
 																</tr>
 																<c:forEach items="${accounts.content}" var="account">
 																	<tr height="30">
 																		<td>${account.name }</td>
-																		<td><a title="${account.url}"
-																			style="text-decoration: none; color: blue"> <c:choose>
-																					<c:when test="${fn:length(account.url) gt 20}">
-																					  ${fn:substring(account.url, 0, 20)}...
-																					</c:when>
-																					<c:otherwise>${account.url}</c:otherwise>
-																				</c:choose>
-																		</a></td>
-																		<td><a title="${account.seq }"
-																			style="text-decoration: none; color: blue"> <c:choose>
-																					<c:when test="${fn:length(account.seq) gt 20}">
-																					  ${fn:substring(account.seq, 0, 20)}...
-																					</c:when>
-																					<c:otherwise>${account.seq}</c:otherwise>
-																				</c:choose>
-																		</a></td>
+																		<td>${ctx }${account.url}</td>
+																		<td>${account.seq}</td>
 																		<td><input type="button" value="配置"
 																			class="btn-primary"
 																			onclick="doconfig(${account.id })"> &nbsp;<input
