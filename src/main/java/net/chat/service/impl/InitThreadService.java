@@ -74,6 +74,12 @@ public class InitThreadService extends Thread {
 			CacheContant.urlseqsCache.cleanup();
 			CacheContant.autoReplayAndCmdCache.cleanup();
 			initConfig();
+			CacheContant.publicAccountCache.showAllCache();
+			CacheContant.sourceCache.showAllCache();
+			CacheContant.accountCache.showAllCache();
+			CacheContant.gameCache.showAllCache();
+			CacheContant.urlseqsCache.showAllCache();
+			CacheContant.autoReplayAndCmdCache.showAllCache();
 			log.info("====缓存微信回复信息配置结束====");
 			try {
 				sleep(5 * 60 * 1000);
@@ -89,8 +95,9 @@ public class InitThreadService extends Thread {
 		for (WxAccount account : accounts) {
 			Long accountId = account.getId();
 			WxLbs lbs = lbsDao.findByAccountId(accountId);
-			CacheContant.publicAccountCache.put(account.getUrl(),
-					lbs.getyPoint() + "," + lbs.getxPoint());
+			if (lbs != null)
+				CacheContant.publicAccountCache.put(account.getUrl(),
+						lbs.getyPoint() + "," + lbs.getxPoint());
 			List<WxMsgType> messageTypes = messageTypeDao
 					.findMsgTypeByAccountId(accountId);
 			for (WxMsgType msgType : messageTypes) {

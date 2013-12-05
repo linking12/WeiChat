@@ -18,11 +18,14 @@
 package net.chat.utils;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import org.apache.commons.collections.MapIterator;
 import org.apache.commons.collections.map.LRUMap;
 
 public class Cache<K, T> {
+
+	private static Logger log = Logger.getLogger(Cache.class.getName());
 
 	private long timeToLiveInMillis;
 
@@ -34,6 +37,10 @@ public class Cache<K, T> {
 
 		protected CachedObject(T value) {
 			this.value = value;
+		}
+
+		public T getValue() {
+			return value;
 		}
 	}
 
@@ -128,6 +135,21 @@ public class Cache<K, T> {
 			}
 
 			Thread.yield();
+		}
+	}
+
+	public void showAllCache() {
+
+		synchronized (cacheMap) {
+			MapIterator itr = cacheMap.mapIterator();
+			K key = null;
+			CachedObject c = null;
+			log.info("所有缓存是:");
+			while (itr.hasNext()) {
+				key = (K) itr.next();
+				c = (CachedObject) itr.getValue();
+				log.info("key:" + key + ";value:" + c.getValue());
+			}
 		}
 	}
 }
