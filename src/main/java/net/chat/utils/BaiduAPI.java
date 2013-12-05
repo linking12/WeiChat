@@ -97,9 +97,10 @@ public class BaiduAPI {
 						"instructions");
 				instruction = StringUtils.replaceEach(instruction,
 						new String[] { "<b>", "</b>",
-								"<font color=\"0x000000\"", "</font>", "起点" },
-						new String[] { "", "", "", "", "您当前的位置" });
-				st.append(instruction);
+								"<font color=\"0x000000\"", "</font>", ">",
+								"起点" }, new String[] { "", "", "", "", "",
+								"您当前的位置" });
+				st.append(instruction + "\n");
 			}
 		} catch (Exception e) {
 			st.append("你上传位置暂时无法导航");
