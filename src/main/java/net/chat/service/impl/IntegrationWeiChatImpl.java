@@ -115,6 +115,7 @@ public class IntegrationWeiChatImpl implements IntegrationWeiChat,
 				reqMsgType = "event";
 			else if (reqMsgType.equals("location"))
 				reqMsgType = "location";
+
 			log.info(reqMsgType.toString());
 			String key = reqUrl + reqBean.getMsgType();
 			Object messageId = (Object) CacheContant.accountCache.get(key);
@@ -137,7 +138,11 @@ public class IntegrationWeiChatImpl implements IntegrationWeiChat,
 				if (reqMsgType.equals("event")
 						&& reqBean.getEvent().equals("CLICK")) {
 					messageId = Long.valueOf(reqBean.getEventKey());
+				} else if (reqMsgType.equals("event")
+						&& reqBean.getEvent().equals("subscribe")) {
+					messageId = 1L;
 				}
+
 				if (messageId instanceof String
 						&& ((String) messageId).contains("program")) {
 					String programUrl = (String) CacheContant.gameCache
