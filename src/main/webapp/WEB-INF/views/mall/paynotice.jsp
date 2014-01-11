@@ -21,7 +21,7 @@ resHandler.setKey(form.getKey());
 
 System.out.println("后台回调返回参数:"+resHandler.getAllParameters());
 
-//判断签名
+//判断签名resHandler.isTenpaySign()
 if(resHandler.isTenpaySign()) {
 	
 	//通知id
@@ -71,7 +71,7 @@ if(resHandler.isTenpaySign()) {
 		//交易模式，1即时到账，2中介担保
 		String trade_mode = resHandler.getParameter("trade_mode");
 			
-		//判断签名及结果
+		//判断签名及结果queryRes.isTenpaySign()&& "0".equals(retcode)
 		if(queryRes.isTenpaySign()&& "0".equals(retcode)){ 
 			System.out.println("id验证成功");
 			

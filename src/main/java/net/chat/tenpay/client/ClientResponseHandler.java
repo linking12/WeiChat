@@ -141,7 +141,7 @@ public class ClientResponseHandler {
 		//debug��Ϣ
 		this.setDebugInfo(sb.toString() + " => sign:" + sign +
 				" tenpaySign:" + tenpaySign);
-		
+//		return true;
 		return tenpaySign.equals(sign);
 	}
 	

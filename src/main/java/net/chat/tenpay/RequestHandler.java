@@ -23,16 +23,16 @@ import net.chat.tenpay.util.TenpayUtil;
  */
 public class RequestHandler {
 	
-	/** ���url��ַ */
+
 	private String gateUrl;
 	
-	/** ��Կ */
+
 	private String key;
 	
-	/** ����Ĳ��� */
+
 	private SortedMap parameters;
 	
-	/** debug��Ϣ */
+
 	private String debugInfo;
 	
 	private HttpServletRequest request;
@@ -40,7 +40,7 @@ public class RequestHandler {
 	private HttpServletResponse response;
 	
 	/**
-	 * ���캯��
+	 *
 	 * @param request
 	 * @param response
 	 */
@@ -62,55 +62,37 @@ public class RequestHandler {
 		this.debugInfo = "";
 	}
 	/**
-	*��ʼ������
+	*
 	*/
 	public void init() {
 		//nothing to do
 	}
 
-	/**
-	*��ȡ��ڵ�ַ,�������ֵ
-	*/
 	public String getGateUrl() {
 		return gateUrl;
 	}
 
-	/**
-	*������ڵ�ַ,�������ֵ
-	*/
+
 	public void setGateUrl(String gateUrl) {
 		this.gateUrl = gateUrl;
 	}
 
-	/**
-	*��ȡ��Կ
-	*/
+
 	public String getKey() {
 		return key;
 	}
 
-	/**
-	*������Կ
-	*/
+
 	public void setKey(String key) {
 		this.key = key;
 	}
 	
-	/**
-	 * ��ȡ����ֵ
-	 * @param parameter �������
-	 * @return String 
-	 */
+
 	public String getParameter(String parameter) {
 		String s = (String)this.parameters.get(parameter); 
 		return (null == s) ? "" : s;
 	}
-	
-	/**
-	 * ���ò���ֵ
-	 * @param parameter �������
-	 * @param parameterValue ����ֵ
-	 */
+
 	public void setParameter(String parameter, String parameterValue) {
 		String v = "";
 		if(null != parameterValue) {
@@ -118,11 +100,7 @@ public class RequestHandler {
 		}
 		this.parameters.put(parameter, v);
 	}
-	
-	/**
-	 * �������еĲ���
-	 * @return SortedMap
-	 */
+
 	public SortedMap getAllParameters() {		
 		return this.parameters;
 	}
@@ -166,7 +144,7 @@ public class RequestHandler {
 	}
 	
 	/**
-	 * ����md5ժҪ,������:���������a-z����,������ֵ�Ĳ���μ�ǩ��
+	 * 
 	 */
 	protected void createSign() {
 		StringBuffer sb = new StringBuffer();
@@ -187,8 +165,6 @@ public class RequestHandler {
 		String sign = MD5Util.MD5Encode(sb.toString(), enc).toLowerCase();
 		
 		this.setParameter("sign", sign);
-		
-		//debug��Ϣ
 		this.setDebugInfo(sb.toString() + " => sign:" + sign);
 		
 	}
