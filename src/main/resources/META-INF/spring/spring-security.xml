@@ -15,7 +15,8 @@
 	<context:annotation-config />
 	<context:component-scan base-package="net.chat.security" />
 	<global-method-security pre-post-annotations="enabled" />
-
+	<http pattern="http://**" security="none" />
+	<http pattern="https://**" security="none" />
 	<http pattern="api/**" security="none" />
 	<http pattern="upload/**" security="none" />
 	<http pattern="/resource/**" security="none" />

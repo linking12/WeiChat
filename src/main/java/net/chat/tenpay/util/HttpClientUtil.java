@@ -26,13 +26,25 @@ import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManagerFactory;
 
+/**
+ * Http�ͻ��˹�����<br/>
+ * �����ڲ������࣬�벻Ҫ���ⲿ���á�
+ * @author miklchen
+ *
+ */
 public class HttpClientUtil {
-
+	
 	public static final String SunX509 = "SunX509";
 	public static final String JKS = "JKS";
 	public static final String PKCS12 = "PKCS12";
 	public static final String TLS = "TLS";
-
+	
+	/**
+	 * get HttpURLConnection
+	 * @param strUrl url��ַ
+	 * @return HttpURLConnection
+	 * @throws IOException
+	 */
 	public static HttpURLConnection getHttpURLConnection(String strUrl)
 			throws IOException {
 		URL url = new URL(strUrl);
@@ -40,12 +52,10 @@ public class HttpClientUtil {
 				.openConnection();
 		return httpURLConnection;
 	}
-
+	
 	/**
 	 * get HttpsURLConnection
-	 * 
-	 * @param strUrl
-	 *            url��ַ
+	 * @param strUrl url��ַ
 	 * @return HttpsURLConnection
 	 * @throws IOException
 	 */
@@ -56,102 +66,153 @@ public class HttpClientUtil {
 				.openConnection();
 		return httpsURLConnection;
 	}
-
+	
+	/**
+	 * ��ȡ�����ѯ����url
+	 * @param strUrl
+	 * @return String
+	 */
 	public static String getURL(String strUrl) {
 
-		if (null != strUrl) {
+		if(null != strUrl) {
 			int indexOf = strUrl.indexOf("?");
-			if (-1 != indexOf) {
+			if(-1 != indexOf) {
 				return strUrl.substring(0, indexOf);
-			}
-
+			} 
+			
 			return strUrl;
 		}
-
+		
 		return strUrl;
-
+		
 	}
-
+	
+	/**
+	 * ��ȡ��ѯ��
+	 * @param strUrl
+	 * @return String
+	 */
 	public static String getQueryString(String strUrl) {
-
-		if (null != strUrl) {
+		
+		if(null != strUrl) {
 			int indexOf = strUrl.indexOf("?");
-			if (-1 != indexOf) {
-				return strUrl.substring(indexOf + 1, strUrl.length());
-			}
-
+			if(-1 != indexOf) {
+				return strUrl.substring(indexOf+1, strUrl.length());
+			} 
+			
 			return "";
 		}
-
+		
 		return strUrl;
 	}
-
+	
+	/**
+	 * ��ѯ�ַ�ת����Map<br/>
+	 * name1=key1&name2=key2&...
+	 * @param queryString
+	 * @return
+	 */
 	public static Map queryString2Map(String queryString) {
-		if (null == queryString || "".equals(queryString)) {
+		if(null == queryString || "".equals(queryString)) {
 			return null;
 		}
-
+		
 		Map m = new HashMap();
 		String[] strArray = queryString.split("&");
-		for (int index = 0; index < strArray.length; index++) {
+		for(int index = 0; index < strArray.length; index++) {
 			String pair = strArray[index];
 			HttpClientUtil.putMapByPair(pair, m);
 		}
-
+		
 		return m;
-
+		
 	}
-
+	
+	/**
+	 * �Ѽ�ֵ�����Map<br/>
+	 * pair:name=value
+	 * @param pair name=value
+	 * @param m
+	 */
 	public static void putMapByPair(String pair, Map m) {
-
-		if (null == pair || "".equals(pair)) {
+		
+		if(null == pair || "".equals(pair)) {
 			return;
 		}
-
+		
 		int indexOf = pair.indexOf("=");
-		if (-1 != indexOf) {
+		if(-1 != indexOf) {
 			String k = pair.substring(0, indexOf);
-			String v = pair.substring(indexOf + 1, pair.length());
-			if (null != k && !"".equals(k)) {
+			String v = pair.substring(indexOf+1, pair.length());
+			if(null != k && !"".equals(k)) {
 				m.put(k, v);
 			}
 		} else {
 			m.put(pair, "");
 		}
 	}
-
-	public static String bufferedReader2String(BufferedReader reader)
-			throws IOException {
+	
+	/**
+	 * BufferedReaderת����String<br/>
+	 * ע��:���ر���Ҫ���д���
+	 * @param reader
+	 * @return String
+	 * @throws IOException
+	 */
+	public static String bufferedReader2String(BufferedReader reader) throws IOException {
 		StringBuffer buf = new StringBuffer();
 		String line = null;
-		while ((line = reader.readLine()) != null) {
+		while( (line = reader.readLine()) != null) {
 			buf.append(line);
 			buf.append("\r\n");
 		}
-
+				
 		return buf.toString();
 	}
-
-	public static void doOutput(OutputStream out, byte[] data, int len)
+	
+	/**
+	 * �������<br/>
+	 * ע��:���ر���Ҫ���д���
+	 * @param out
+	 * @param data
+	 * @param len
+	 * @throws IOException
+	 */
+	public static void doOutput(OutputStream out, byte[] data, int len) 
 			throws IOException {
 		int dataLen = data.length;
 		int off = 0;
-		while (off < dataLen) {
-			if (len >= dataLen) {
+		while(off < dataLen) {
+			if(len >= dataLen) {
 				out.write(data, off, dataLen);
 			} else {
 				out.write(data, off, len);
 			}
-
+			
+			//ˢ�»�����
 			out.flush();
-
+			
 			off += len;
-
+			
 			dataLen -= len;
 		}
-
+		
 	}
-
+	
+	/**
+	 * ��ȡSSLContext
+	 * @param trustFile 
+	 * @param trustPasswd
+	 * @param keyFile
+	 * @param keyPasswd
+	 * @return
+	 * @throws NoSuchAlgorithmException 
+	 * @throws KeyStoreException 
+	 * @throws IOException 
+	 * @throws CertificateException 
+	 * @throws UnrecoverableKeyException 
+	 * @throws KeyManagementException 
+	 */
 	public static SSLContext getSSLContext(
 			FileInputStream trustFileInputStream, String trustPasswd,
 			FileInputStream keyFileInputStream, String keyPasswd)
@@ -160,16 +221,14 @@ public class HttpClientUtil {
 			KeyManagementException {
 
 		// ca
-		TrustManagerFactory tmf = TrustManagerFactory
-				.getInstance(HttpClientUtil.SunX509);
+		TrustManagerFactory tmf = TrustManagerFactory.getInstance(HttpClientUtil.SunX509);
 		KeyStore trustKeyStore = KeyStore.getInstance(HttpClientUtil.JKS);
-		trustKeyStore.load(trustFileInputStream,
-				HttpClientUtil.str2CharArray(trustPasswd));
+		trustKeyStore.load(trustFileInputStream, HttpClientUtil
+				.str2CharArray(trustPasswd));
 		tmf.init(trustKeyStore);
 
 		final char[] kp = HttpClientUtil.str2CharArray(keyPasswd);
-		KeyManagerFactory kmf = KeyManagerFactory
-				.getInstance(HttpClientUtil.SunX509);
+		KeyManagerFactory kmf = KeyManagerFactory.getInstance(HttpClientUtil.SunX509);
 		KeyStore ks = KeyStore.getInstance(HttpClientUtil.PKCS12);
 		ks.load(keyFileInputStream, kp);
 		kmf.init(ks, kp);
@@ -180,7 +239,14 @@ public class HttpClientUtil {
 
 		return ctx;
 	}
-
+	
+	/**
+	 * ��ȡCA֤����Ϣ
+	 * @param cafile CA֤���ļ�
+	 * @return Certificate
+	 * @throws CertificateException
+	 * @throws IOException
+	 */
 	public static Certificate getCertificate(File cafile)
 			throws CertificateException, IOException {
 		CertificateFactory cf = CertificateFactory.getInstance("X.509");
@@ -189,14 +255,29 @@ public class HttpClientUtil {
 		in.close();
 		return cert;
 	}
-
+	
+	/**
+	 * �ַ�ת����char����
+	 * @param str
+	 * @return char[]
+	 */
 	public static char[] str2CharArray(String str) {
-		if (null == str)
-			return null;
-
+		if(null == str) return null;
+		
 		return str.toCharArray();
 	}
-
+	
+	/**
+	 * �洢ca֤���JKS��ʽ
+	 * @param cert
+	 * @param alias
+	 * @param password
+	 * @param out
+	 * @throws KeyStoreException
+	 * @throws NoSuchAlgorithmException
+	 * @throws CertificateException
+	 * @throws IOException
+	 */
 	public static void storeCACert(Certificate cert, String alias,
 			String password, OutputStream out) throws KeyStoreException,
 			NoSuchAlgorithmException, CertificateException, IOException {
@@ -210,7 +291,7 @@ public class HttpClientUtil {
 		ks.store(out, HttpClientUtil.str2CharArray(password));
 
 	}
-
+	
 	public static InputStream String2Inputstream(String str) {
 		return new ByteArrayInputStream(str.getBytes());
 	}

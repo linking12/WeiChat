@@ -16,4 +16,7 @@ public interface WxMallOrderDao extends JpaRepository<WxMallOrder, Long>, JpaSpe
 	
 	@Query("from WxMallOrder where mallId=:mallId and userId=:userId and id=:orderId")
 	WxMallOrder findOrder(@Param("mallId")long mallId,@Param("userId")long userId,@Param("orderId")long orderId);
+	
+	@Query("from WxMallOrder where userId=:userId and id=:orderId")
+	WxMallOrder findOrder(@Param("userId")long userId,@Param("orderId")long orderId);
 }

@@ -55,6 +55,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
@@ -293,6 +294,7 @@ public class MallServiceImpl implements MallService {
 		return orderNo;
 	}
 
+	@Transactional(propagation=Propagation.NOT_SUPPORTED)
 	public List<WxMallOrder> findOrderList(long mallId, long userId) {
 		List<WxMallOrder> orderList = orderDao.findOrderList(mallId, userId);
 		for (WxMallOrder order : orderList) {
@@ -409,6 +411,25 @@ public class MallServiceImpl implements MallService {
 	@Override
 	public List<WxPrdtSubCategory> findAllSubCategory() {
 		return prdtSubCategoryDao.findAll();
+	}
+
+	@Override
+	public WxMall findMallById(long id) {
+		// TODO Auto-generated method stub
+		return mallDao.findOne(id);
+	}
+
+	@Override
+	public void payOrder(long userId, long orderId) {
+		WxMallOrder order=orderDao.findOrder(userId, orderId);
+		order.setPayDate(new Date());
+		order.setStatus(1);
+		orderDao.save(order);
+	}
+
+	@Override
+	public WxMallUser findByMallUserId(long mallUserId) {
+	    return mallUserDao.findOne(mallUserId);
 	}
 
 }

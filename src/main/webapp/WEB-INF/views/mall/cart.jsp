@@ -5,10 +5,6 @@
 <title>购物车</title>
 <%@ include file="mall.jsp"%>
 <script type="text/javascript">
-$(function(){
-	  $.mobile.ajaxEnabled = false;
-})
-
 function checkAll(){
 	var isChecked=$("#checkAllBtn").is(":checked");
 	if(isChecked){

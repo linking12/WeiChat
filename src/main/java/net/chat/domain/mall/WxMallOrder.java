@@ -81,6 +81,14 @@ public class WxMallOrder implements Serializable {
 	@Column(name = "createdate")
 	private Date createDate = new Date();
 
+
+	/**
+	 * 创建时间
+	 */
+	@Column(name = "paydate")
+	private Date payDate ;
+
+	
 	/**
 	 * 售价
 	 */
@@ -264,6 +272,14 @@ public class WxMallOrder implements Serializable {
 	 */
 	public void setPayType(int payType) {
 		this.payType = payType;
+	}
+
+	public Date getPayDate() {
+		return payDate;
+	}
+
+	public void setPayDate(Date payDate) {
+		this.payDate = payDate;
 	}
 
 }

@@ -27,7 +27,9 @@ import org.springframework.data.domain.Page;
 public interface MallService {
 
 	WxMall findMallByAccountId(long accountId);
-
+	
+	WxMall findMallById(long id);
+	
 	WxMall saveMall(WxMall wxMall);
 
 	List<WxMall> findMallByUserId(long userId);
@@ -55,6 +57,8 @@ public interface MallService {
 
 	WxMallUser dologin(WxMallUser mallUser);
 
+	WxMallUser findByMallUserId(long mallUserId);
+	
 	WxMallUser addMallUser(WxMallUser mallUser);
 
 	WxMallUser editMallUser(WxMallUser mallUser);
@@ -65,6 +69,8 @@ public interface MallService {
 
 	WxMallOrder addOrder(WxOrderForm orderForm);
 
+	void payOrder(long userId, long orderId);
+	
 	List<WxMallOrder> findOrderList(long mallId, long userId);
 
 	WxOrderForm findOrderByOrderId(long mallId, long userId, long orderId);

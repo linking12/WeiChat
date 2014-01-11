@@ -19,7 +19,7 @@ public class WxOrderForm implements Serializable {
 	 */
 	private static final long serialVersionUID = -7448013312036162815L;
 
-	private long orderId;
+	private long id;
 
 	private String orderNo;
 
@@ -45,19 +45,14 @@ public class WxOrderForm implements Serializable {
 
 	private List<WxProductForm> productList;
 
-	/**
-	 * @return the orderId
-	 */
-	public long getOrderId() {
-		return orderId;
+
+
+	public long getId() {
+		return id;
 	}
 
-	/**
-	 * @param orderId
-	 *            the orderId to set
-	 */
-	public void setOrderId(long orderId) {
-		this.orderId = orderId;
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	/**

@@ -6,9 +6,7 @@
 <title>电商</title>
 <%@ include file="mall.jsp"%>
 <script type="text/javascript">
-$(function(){
-	  $.mobile.ajaxEnabled = false;
-})
+
 function doregist() {
 	if(validate()){
 		$('#form1').attr('action', '${ctx}/mall/doregist');

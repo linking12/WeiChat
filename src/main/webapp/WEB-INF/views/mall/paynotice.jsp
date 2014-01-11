@@ -4,16 +4,20 @@
 <%@ page import="net.chat.tenpay.client.ClientResponseHandler" %>    
 <%@ page import="net.chat.tenpay.client.TenpayHttpClient" %>
 <%@ page import="net.chat.tenpay.util.TenpayUtil"%>
-<%@ include file = "config.jsp" %>
+<%@ page import="net.chat.formbean.mall.TenpayForm"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
+TenpayForm form=(TenpayForm)request.getAttribute("form");
+Long userId=(Long)request.getAttribute("userId");
+Long orderId=(Long)request.getAttribute("orderId");
 //---------------------------------------------------------
 //财付通支付通知（后台通知）示例，商户按照此文档进行开发即可
 //---------------------------------------------------------
 
 //创建支付应答对象
 ResponseHandler resHandler = new ResponseHandler(request, response);
-resHandler.setKey(key);
+resHandler.setKey(form.getKey());
 
 System.out.println("后台回调返回参数:"+resHandler.getAllParameters());
 
@@ -32,9 +36,9 @@ if(resHandler.isTenpaySign()) {
 	
 	//通过通知ID查询，确保通知来至财付通
 	queryReq.init();
-	queryReq.setKey(key);
+	queryReq.setKey(form.getKey());
 	queryReq.setGateUrl("https://gw.tenpay.com/gateway/simpleverifynotifyid.xml");
-	queryReq.setParameter("partner", partner);
+	queryReq.setParameter("partner", form.getPartner());
 	queryReq.setParameter("notify_id", notify_id);
 	
 	//通信对象
@@ -48,7 +52,7 @@ if(resHandler.isTenpaySign()) {
 		//设置结果参数
 		queryRes.setContent(httpClient.getResContent());
 		System.out.println("验证ID返回字符串:" + httpClient.getResContent());
-		queryRes.setKey(key);
+		queryRes.setKey(form.getKey());
 			
 			
 		//获取id验证返回状态码，0表示此通知id是财付通发起
@@ -84,10 +88,22 @@ if(resHandler.isTenpaySign()) {
 					//------------------------------
 					//即时到账处理业务完毕
 					//------------------------------
+					%>
+					<script type="text/javascript" src="${ctx}/js/jquery/jquery-1.9.1.js"></script>
+					<script type="text/javascript">
+					$.post("${ctx}/order/successpay/<%=orderId%>/<%=userId%>", 
+							function(data){
+							 if("1"==data){
+								<%
+								System.out.println("即时到账支付成功");
+								resHandler.sendToCFT("success");%> 
+							 }
+						});
+					</script>
+					<%
 					
-					System.out.println("即时到账支付成功");
 					//给财付通系统发送成功信息，财付通系统收到此结果后不再进行后续通知
-					resHandler.sendToCFT("success");
+				//	resHandler.sendToCFT("success");
 					
 				}else{
 					System.out.println("即时到账支付失败");

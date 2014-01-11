@@ -182,6 +182,11 @@ public final class PageConstants {
 
 	public static String PAGE_MALL_ORDER = "mall/vieworder";
 
+	public static String PAGE_MALL_TENPAY = "mall/tenpay";
+	
+	public static String PAGE_MALL_PAY_RETURN = "mall/payreturn";
+	
+	public static String PAGE_MALL_PAY_NOTICE = "mall/paynotice";
 	/**
 	 * 门店设置-初始页面
 	 */

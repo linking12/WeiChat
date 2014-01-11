@@ -5,10 +5,8 @@
 <head>
 <title>电商</title>
 <%@ include file="mall.jsp"%>
-	<script type="text/javascript">
-	</script>
-</head>
 
+</head>
 <body>
 <form:form id="form1" modelAttribute="order" method="post" >
 	<div data-role="page" id="page2">
@@ -49,12 +47,12 @@
             	订单金额：¥ <i id="totalPrice"> ${order.salePrice }</i>  
             </div>
         </div>
-        <div class="tj_bt_div"><a href="${ctx }/order/myorder" data-role="button" data-corners="false" class="tj_bt">返回</a></div>
+
+        <div class="tj_bt_div"><c:if test="${order.status==0 }"> <a href="${ctx }/order/pay/${order.id}" data-role="button" class="tj_bt">支付</a></c:if><a href="${ctx }/order/myorder" data-role="button" data-corners="false" class="tj_bt">返回</a></div>
 	</div>
 		<%@ include file="mallbottom.jsp"%>
 	
 	</div>
 	</form:form>
 </body>
-
 </html>
