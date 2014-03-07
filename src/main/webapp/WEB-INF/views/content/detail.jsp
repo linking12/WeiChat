@@ -162,6 +162,8 @@
 																<tr>
 																	<td width="20%" height="40" class="biao">图片<font color="red">*</font></td>
 																	<td>
+																	<c:if test="${wxContent.picUrl!=null}"><img src="${ctx}/${wxContent.picUrl}" width="300" height="300" /></c:if>
+																													
 																		<input name="imageFile" id="imageFile" type="file" size="1" accept="image/*" />
 																		&nbsp;<span id="errorimage" class="error" style="display:none">上传图片不能为空!</span>
 																	</td>

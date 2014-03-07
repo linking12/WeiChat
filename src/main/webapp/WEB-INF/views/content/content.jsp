@@ -39,7 +39,7 @@ function buildMuli(data) {
 								+ selectIds(data.selectIds, content.id)
 								+ "></td>";
 						html += "<td align='center'>"
-								+ buildMsgType(content.msgType) + "</td>";
+								+ buildMsgType(content) + "</td>";
 						html += "<td>" + content.title + "</td>";
 						if ("image" == msgType) {
 							html += "<td>" + buildTitle(content.picUrl)
@@ -71,12 +71,12 @@ function selectIds(selectIds, id) {
 	else
 		return "unchecked";
 }
-function buildMsgType(msgType) {
-	if ("image" == msgType)
-		return "图片";
-	else if ("voice" == msgType)
+function buildMsgType(content) {
+	if ("image" == content.msgType)
+		return "图片&nbsp;"+"<img src='${ctx}/"+content.picUrl+"' width='30' height='30' />";
+	else if ("voice" == content.msgType)
 		return "音频";
-	else if ("video" == msgType)
+	else if ("video" == content.msgType)
 		return "视频";
 }
 </script>

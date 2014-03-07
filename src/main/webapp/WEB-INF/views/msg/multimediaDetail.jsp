@@ -173,7 +173,7 @@
 																										 	<option value="${contentType.key}">${contentType.value}</option>
 																										 </c:if>
 																									</c:forEach>
-																								</select>
+																								</select><c:if test="${content.msgType=='image' }"><img src="${ctx}/${content.picUrl}" width="30" height="30" /></c:if>
 																							</td>
 																							<td >${content.title}</td>
 																							<td >

@@ -39,18 +39,17 @@ public class AccountServiceImpl implements AccountService {
 
 	@Transactional
 	public void saveAccount(WxAccount account) {
-		if (account.getId() == null) {
+	
 			Long userId = AppContext.getUserId();
 			account.setCustomerId(userId);
 			accountDao.save(account);
-		}
+		
 
 	}
 
 	@Transactional
 	public void editAccount(WxAccount account) {
-		accountDao.editAccount(account.getId(), account.getName(),
-				account.getNote());
+		accountDao.save(account);
 	}
 
 	@Transactional

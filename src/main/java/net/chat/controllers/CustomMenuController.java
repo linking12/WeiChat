@@ -180,6 +180,9 @@ public class CustomMenuController {
 				return 10;
 			String accessToken = WeiChatUtil.getAccessToken(account.getAppId(), account.getAppSecret())
 					.getToken();
+//			String accessToken = WeiChatUtil.getAccessToken("wx6dcfc653220bec1e","9ad90b3d2bc8e0c4a0af8e4b52e1bfdb")
+//					.getToken();
+			log.info("accessToken:"+accessToken);
 			Menu menu = customMenuService.createMenu(accountId);
 			int result = WeiChatUtil.createMenu(menu, accessToken);
 			// 判断菜单创建结果

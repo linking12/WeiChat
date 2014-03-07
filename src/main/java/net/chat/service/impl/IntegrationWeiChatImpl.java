@@ -209,6 +209,8 @@ public class IntegrationWeiChatImpl implements IntegrationWeiChat,
 			WeChatRespTextBean textBean = (WeChatRespTextBean) obj;
 			textBean.setFromUserName(reqBean.getToUserName());
 			textBean.setToUserName(reqBean.getFromUserName());
+			log.info("reqBean.getToUserName():"+ reqBean.getToUserName());
+			log.info("reqBean.getFromUserName():"+reqBean.getFromUserName());
 			// 4、创建一个文本回复消息
 			try {
 				jc = JAXBContext.newInstance(WeChatRespTextBean.class);
@@ -224,6 +226,7 @@ public class IntegrationWeiChatImpl implements IntegrationWeiChat,
 							}
 						});
 				m.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
+				textBean.setContent(textBean.getContent().replace("fromUserName=?", "fromUserName="+reqBean.getFromUserName()));
 				textBean.JAXBmarshal(new File(System.getProperty("ssweb.root")
 						+ "/backupMessage"));
 				m.marshal(textBean, out);

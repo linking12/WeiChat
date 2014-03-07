@@ -64,6 +64,7 @@ public class WeiChatRespMusicAndVideoBean {
 
 	@XmlElement(name = "Music")
 	public void setMusics(Music musics) {
+		
 		this.musics = musics;
 	}
 

@@ -25,6 +25,8 @@ public class HttpClientTest {
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy_MM_dd");
 		Date d = sf.parse(s);
 		System.out.println(d);
+		String s1="http://www.baidu.com?fromUserName=?";
+		System.out.println(s1.replace("fromUserName=?", "fromUserName=abc"));
 		// String content = "<xml>";
 		// content = content + " <ToUserName><![CDATA[toUser]]></ToUserName>";
 		// content = content
@@ -81,33 +83,33 @@ public class HttpClientTest {
 		// content = content + " <MsgId>1234567890123456</MsgId>";
 		// content = content + " </xml> ";
 
-		String content = "<xml>";
-		content = content + "<ToUserName><![CDATA[toUser]]></ToUserName>";
-		content = content + "<FromUserName><![CDATA[FromUser]]></FromUserName>";
-		content = content + "<CreateTime>123456789</CreateTime>";
-		content = content + "<MsgType><![CDATA[event]]></MsgType>";
-		content = content + "<Event><![CDATA[CLICK]]></Event>";
-		content = content + "<EventKey><![CDATA[4]]></EventKey>";
-		content = content + "</xml>";
-
-		@SuppressWarnings("deprecation")
-		HttpClient httpclient = new DefaultHttpClient();
-		HttpPost httppost = new HttpPost(
-				"http://localhost:8080/WeiChat/API/NPbsYCrbtGtZeYwfsJMs");
-		StringEntity myEntity = new StringEntity(content, "UTF-8");
-		httppost.addHeader("Content-Type", "text/xml");
-		httppost.setEntity(myEntity);
-		HttpResponse response = httpclient.execute(httppost);
-		HttpEntity resEntity = response.getEntity();
-
-		InputStreamReader reader = new InputStreamReader(
-				resEntity.getContent(), "UTF-8");
-		char[] buff = new char[1024];
-		int length = 0;
-		while ((length = reader.read(buff)) != -1) {
-			System.out.println(new String(buff, 0, length));
-		}
-		httpclient.getConnectionManager().shutdown();
+//		String content = "<xml>";
+//		content = content + "<ToUserName><![CDATA[toUser]]></ToUserName>";
+//		content = content + "<FromUserName><![CDATA[FromUser]]></FromUserName>";
+//		content = content + "<CreateTime>123456789</CreateTime>";
+//		content = content + "<MsgType><![CDATA[event]]></MsgType>";
+//		content = content + "<Event><![CDATA[CLICK]]></Event>";
+//		content = content + "<EventKey><![CDATA[4]]></EventKey>";
+//		content = content + "</xml>";
+//
+//		@SuppressWarnings("deprecation")
+//		HttpClient httpclient = new DefaultHttpClient();
+//		HttpPost httppost = new HttpPost(
+//				"http://localhost:8080/WeiChat/API/NPbsYCrbtGtZeYwfsJMs");
+//		StringEntity myEntity = new StringEntity(content, "UTF-8");
+//		httppost.addHeader("Content-Type", "text/xml");
+//		httppost.setEntity(myEntity);
+//		HttpResponse response = httpclient.execute(httppost);
+//		HttpEntity resEntity = response.getEntity();
+//
+//		InputStreamReader reader = new InputStreamReader(
+//				resEntity.getContent(), "UTF-8");
+//		char[] buff = new char[1024];
+//		int length = 0;
+//		while ((length = reader.read(buff)) != -1) {
+//			System.out.println(new String(buff, 0, length));
+//		}
+//		httpclient.getConnectionManager().shutdown();
 
 	}
 }

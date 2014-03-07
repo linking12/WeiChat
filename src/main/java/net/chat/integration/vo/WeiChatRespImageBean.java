@@ -79,6 +79,7 @@ public class WeiChatRespImageBean {
 	@XmlElementWrapper(name = "Articles")
 	@XmlElement(name = "item")
 	public void setArticles(List<Article> articles) {
+
 		this.articles = articles;
 	}
 

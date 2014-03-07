@@ -60,12 +60,8 @@ public class AccountController {
 			model.addAttribute("wxAccount", account);
 			return PageConstants.PAGE_ACCOUNT_DETAIL;
 		}
-		if (null == account.getId() || 0 == account.getId()) {
-			accountService.saveAccount(account);
-		} else {
-			accountService.editAccount(account);
-
-		}
+		accountService.saveAccount(account);
+	
 		return "redirect:/account/list";
 	}
 }
